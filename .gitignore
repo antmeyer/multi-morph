@@ -12,4 +12,4 @@
    mcmm_results/*
    # all .DS_Store files
    .DS_Store
-   mcmm_system_omp/.DS_Store
+   **/.DS_Store
