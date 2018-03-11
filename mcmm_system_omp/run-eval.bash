@@ -19,8 +19,8 @@ PRECSPAN_FLAG=0
 INPUT_CORPUS=
 INPUT_CORPUS_FLAG=0
 #PREFIX="/Users/anthonymeyer/Documents/qual_paper_2/code/mcmm-cython/mcmm_results"
-PREFIX0="/Users/anthonymeyer/Development/mcmm"
-PREFIX="/Users/anthonymeyer/Development/mcmm/mcmm_results"
+PREFIX0="/Users/anthonymeyer/Development/multimorph"
+PREFIX="/Users/anthonymeyer/Development/multimorph/mcmm_results"
 			#rest: /mcmm_results/<$DIR>/<$name>
 #DATE=$(date +"%m-%d-%Y")
 TIME=`eval date +"%Y-%m-%d_%H-%M"`

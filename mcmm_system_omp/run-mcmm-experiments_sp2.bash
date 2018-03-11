@@ -44,9 +44,8 @@ TITLE3=
 TITLE4=
 TITLE5=
 TITLE6=
-#PREFIX="/Users/anthonymeyer/Documents/qual_paper_2/code/mcmm-cython"
-#PREFIX="/Users/anthonymeyer/Development/mcmm"
-PREFIX="/N/u/antmeyer/BigRed2/mcmm/"
+PREFIX="/Users/anthonymeyer/Development/multimorph"
+#PREFIX="/N/u/antmeyer/BigRed2/mcmm/"
 #DATE=$(date +"%m-%d-%Y")
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
 # echo "* BIGRAMS: $BIGRAMS"
@@ -173,7 +172,7 @@ TITLE1=" Bigrams? $BIGRAMS; "
 
 if [ "$TDFLAG" == 0 ]
 then
-	TEMPDIR=temp_files_2
+	TEMPDIR=temp_files
 fi
 
 # if [ "$INFLAG" == 0 ]
