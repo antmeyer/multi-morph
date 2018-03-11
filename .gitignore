@@ -7,7 +7,7 @@
    # ignore .o files
    *.o
    # ignore anything in the temporary directory temp_files
-   temp_files/
+   **/temp_files
    # ignore anything in the results directory
    mcmm_results/*
    # all .DS_Store files
