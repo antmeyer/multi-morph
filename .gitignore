@@ -6,5 +6,7 @@
    !predict_c_funcs.c
    # ignore .o files
    *.o
-   # ignore anthong in the temporary directory temp_files
+   # ignore anything in the temporary directory temp_files
    temp_files/*
+   # ignore anything in the results directory
+   mcmm_results/*
