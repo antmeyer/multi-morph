@@ -37,8 +37,6 @@ CG=0
 CG_FLAG=0
 MIXING_FUNC=
 MIXING_FUNC_FLAG=0
-ETA=0
-ETA_FLAG=0
 PREFIX1="/Users/anthonymeyer"
 #PREFIX2="/Documents/qual_paper_2/code/mcmm-cython/mcmm_system"
 PREFIX2="/Development/mcmm/mcmm_system"
@@ -115,10 +113,6 @@ do
 	M)
 		MIXING_FUNC="$OPTARG"
 		MIXING_FUNC_FLAG=1
-		;;
-	E)
-		ETA="$OPTARG"
-		ETA_FLAG=1
 		;;
 	\?)
 		echo "Usage: %s: [-K number of data points to generate] [-i input file ] [-o output file ] args\n" $(basename $0) >&10
@@ -241,14 +235,6 @@ then
 	MIXING_FUNC="nor"
 fi
 
-if [ "$ETA_FLAG" == 0 ]
-then
-	ETA="default"
-fi
-if [ "$MIXING_FUNC" == "nor" ]
-then
-	ETA="none"
-fi
 echo "mcmm bash; BIGRAMS = $BIGRAMS"
 echo "mcmm bash; BIGRAMS_FLAG = $BIGRAMS_FLAG"
 # if [ "$K_FLAG" == 1 ]
@@ -275,12 +261,12 @@ echo ""
 echo ""
 echo ""
 echo ""
-if [ "$MIXING_FUNC" == "wwb" ]; then
-	python wrapper_wrapper_wwb.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC" "$ETA"
+#if [ "$MIXING_FUNC" == "wwb" ]; then
+	#python wrapper_wrapper_wwb.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC"
 	
-else
-	python wrapper_wrapper_nor.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC" "$ETA"
-fi
+#else
+python wrapper_wrapper_nor.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC"
+#fi
 
 MILA_DIR="$PREFIX1/Development/morphAnalyzer_v_1-0/jars/"
 ANALYZER="${MILA_DIR}TextAnalyzer.jar"

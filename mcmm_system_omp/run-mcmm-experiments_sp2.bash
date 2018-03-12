@@ -23,8 +23,7 @@ PREC_RANGE_FLAG=0
 BIGRAMS=0
 BIGRAMS_FLAG=0
 # FEATURE_FLAG=0
-TEMPDIR=
-TDFLAG=0
+TEMPDIR=temp_files
 M_FILE=
 C_FILE=
 M_FILE_FLAG=0
@@ -36,8 +35,6 @@ QN=0
 CG=0
 MIXING_FUNC=
 MIXING_FUNC_FLAG=0
-ETA="default"
-ETA_FLAG=0
 TITLE1=
 TITLE2=
 TITLE3=
@@ -50,7 +47,7 @@ PREFIX="/Users/anthonymeyer/Development/multimorph"
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
 # echo "* BIGRAMS: $BIGRAMS"
 
-while getopts "i:N:K:l:a:d:bt:m:c:Qj:yzM:E:" OPTION
+while getopts "i:N:K:l:a:d:b:m:c:Qj:yzM:" OPTION
 do
 	case $OPTION in
 	i)	
@@ -81,10 +78,6 @@ do
 		BIGRAMS=1
 		BIGRAMS_FLAG=1
 		;;
-	t)
-		TEMPDIR="$OPTARG"
-		TDFLAG=1
-		;;
 	m)
 		M_FILE="$OPTARG"
 		M_FILE_FLAG=1
@@ -114,16 +107,6 @@ do
 	M)
 		MIXING_FUNC="$OPTARG"
 		MIXING_FUNC_FLAG=1
-		;;
-	E)
-		ETA="$OPTARG"
-		ETA_FLAG=1
-		if [ "$ETA" == "default" ]
-		then
-			TITLE6="ETA: Default (# of neg. features div. by total feature count); "	
-		else
-			TITLE6="ETA = $ETA/100; "
-		fi
 		;;
 	\?)	
 		echo "Usage: %s: [-i input file path] [-K number of clusters] [-l the interval between evaluated Ks] [-a affix-length range] [-d range of distances for precedence features ] \n" $(basename $0) >&7
@@ -170,11 +153,6 @@ else
 fi
 TITLE1=" Bigrams? $BIGRAMS; "
 
-if [ "$TDFLAG" == 0 ]
-then
-	TEMPDIR=temp_files
-fi
-
 # if [ "$INFLAG" == 0 ]
 # then
 # 	INDIR="."
@@ -205,15 +183,8 @@ then
 	MIXING_FUNC="nor"
 fi
 
-if [ "$ETA_FLAG" == 0 ]
+if [ "$MIXING_FUNC" == "nor" ]
 then
-	ETA="none"
-	#TITLE6="ETA: Default (# of neg. features div. by total feature count); "
-	TITLE6="No eta or lambda used"
-elif [ "$MIXING_FUNC" == "nor" ]
-then
-	ETA="none"
-	#TITLE6="ETA: Default (# of neg. features div. by total feature count); "
 	TITLE6="Mixing function = $MIXING_FUNC"
 fi
 
@@ -228,10 +199,6 @@ else
 	#INFILE="$INFILE"".txt"
 	OUTDIR="$PREFIX""/mcmm_results/mcmm-out""_""N-$N""_""K-$bigK""_""$TIME"
 
-# 	if [ "$MIXING_FUNC" == "wwb" ]; then
-# 		OUTDIR+="ETA-$ETA""_"
-# 	fi
-# OUTDIR+="$TIME"
 fi
 mkdir "$OUTDIR"
 
@@ -280,19 +247,19 @@ for KVAL in ${K_RANGE}; do
 			if [ "$AFFIXLEN" == 0 ]; then
 				#TYPE=precedence
 				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE=na_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_ETA-"$ETA"_"$TIME"
+				OUTFILE=na_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
 				echo "DIST: ""$DIST"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC" -E "$ETA"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			elif [ "$DIST" == 0 ] && [ "$AFFIXLEN" != 0 ]; then
 				#TYPE=positional
 				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE="$AFFIXLEN"_na_"$BIGRAMS"_K-"$KVAL"_N-"$N"_ETA-"$ETA"_"$TIME"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC" -E "$ETA"
+				OUTFILE="$AFFIXLEN"_na_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			else
 				#TYPE=both
 				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE="$AFFIXLEN"_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_ETA-"$ETA"_"$TIME"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC" -E "$ETA"
+				OUTFILE="$AFFIXLEN"_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			fi
 		done
 	done
