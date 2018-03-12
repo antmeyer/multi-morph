@@ -1505,7 +1505,7 @@ cdef FLOAT optimize_M_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** M_ptr,
 			if i%10==0:
 				print "*** M", str(i), "; e: {:.5f}".format(error), "; dif: {:.10f}".format(prev_err - error), 
 				print "; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
-				prrint "; cgi: " + str(cg_itrs_ptr[0]) + ";",
+				print "; cgi: " + str(cg_itrs_ptr[0]) + ";",
 				print "ni: " + str(numIters) + "; K: " + str(K)								
 		E += error
 	#E = E/<FLOAT>I
