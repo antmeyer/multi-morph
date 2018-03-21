@@ -115,7 +115,7 @@ cdef FLOAT zoom_M_nor(FLOAT alpha_lo, FLOAT phi_lo, FLOAT der_phi_lo,
 		# else:
 		# 	phi_j = predict.get_r_e_and_grad_m_one(grad, m, C, x, r, phi_j, J, normConstant)
 
-		phi_j = predict.get_r_e_and_grad_m_nsp_omp(grad, m, C, x, r, J, K, normConstant)		
+		phi_j = predict.get_r_e_and_grad_m_nsp(grad, m, C, x, r, J, K, normConstant)		
 		#print "ZM M;", 54
 		#sys.stdout.flush()
 # 		print "\t\tphi_j = {:.7f}".format(phi_j)
@@ -179,7 +179,7 @@ cdef FLOAT zoom_M_nor(FLOAT alpha_lo, FLOAT phi_lo, FLOAT der_phi_lo,
 			#print "ZM M;", 75
 			#sys.stdout.flush()
 		itr += 1
-		num_rounds += 1
+		num_rounds = num_rounds + 1
 		#delta = fabs(alpha_hi - alpha_lo)
 		if alpha_hi >= alpha_lo:
 			b = alpha_hi
@@ -766,7 +766,7 @@ cdef FLOAT armijo2_M_increase_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 # 			phi_a_higher = predict.get_r_and_e(C, m, x, r, J, K, normConstant
 # 		else:
 # 			phi_a_higher = predict.get_r_and_e_one(C, m, x, r, J, normConstant
-		phi_a_higher = predict.get_r_and_e_omp(r, m, 
+		phi_a_higher = predict.get_r_and_e(r, m, 
 					C_data, C_indices, C_indptr,
 					x, J, K, normConstant)
 		#print "\tZM M INC; a_hi =", "{:.4f}".format(a_higher), "; f_a_hi =", 
@@ -792,7 +792,7 @@ cdef FLOAT armijo2_M_increase_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 		a_lower = a_higher
 		#a_higher *= 2.0**itr
 		a_higher *= 5.0
-		itr += 1
+		itr = itr + 1
 		if itr > maxitr:
 			#print "\tToo many iterations; returning a_hi =", "{:.6f}".format(a_higher), "\n"
 			return a_higher
@@ -836,7 +836,7 @@ cdef FLOAT armijo2_M_decrease_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 # 			phi_a_lower = predict.get_r_and_e(C, m, x, r, J, K, normConstant
 # 		else:
 # 			phi_a_lower = predict.get_r_and_e_one(C, m, x, r, J, normConstant
-		phi_a_lower = predict.get_r_and_e_omp(r, m, 
+		phi_a_lower = predict.get_r_and_e(r, m, 
 					C_data, C_indices, C_indptr,
 					x, J, K, normConstant)
 		#print "\tZM M DEC; a_lo =", "{:.6f}".format(a_lower), "; f_lo =", "{:.6f}".format(phi_a_lower), "<=", phi_0 + c1 * a_lower * der_phi_0, ";",
@@ -863,7 +863,7 @@ cdef FLOAT armijo2_M_decrease_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 		phi_a_lower = phi_a_higher		
 		a_higher = a_lower
 		a_lower *= 2.0**(-itr)
-		itr += 1
+		itr = itr + 1
 		if itr > maxitr:
 			#print "\t* itr > maxitr * returning a_hi =", "{:.6f}".format(a_higher), "\n"
 			return a_lower
@@ -927,7 +927,7 @@ cdef FLOAT armijo2_M_correct_nor(FLOAT a1, FLOAT phi_a1,
 # 			phi_a3 = predict.get_r_and_e(C, m, x, r, J, K, normConstant
 # 		else:
 # 			phi_a3 = predict.get_r_and_e_one(C, m, x, r, J, normConstant
-		phi_a3 = predict.get_r_and_e_omp(r, m, 
+		phi_a3 = predict.get_r_and_e(r, m, 
 					C_data, C_indices, C_indptr,
 					x, J, K, normConstant)
 		#print "; f_a3 - f0+etc =", "{:.5f}".format(phi_a3 - (phi_0 + c1 * a3 * der_phi_0)) + "; f_a3 =", "{:.5f}".format(phi_a3), "; f_a2 =", "{:.5f}".format(phi_a2) 
@@ -942,7 +942,7 @@ cdef FLOAT armijo2_M_correct_nor(FLOAT a1, FLOAT phi_a1,
 		a2 = a3
 		phi_a1 = phi_a2
 		phi_a2 = phi_a3
-		itr += 1
+		itr = itr + 1
 
 	#print "\tFailed search; Returning a3 =", "{:.6f}".format(a3), "\n"
 	return a3
@@ -1013,7 +1013,7 @@ cdef FLOAT armijo2_M_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 # 			phi_a3 = predict.get_r_and_e(C, m, x, r, J, K, normConstant
 # 		else:
 # 			phi_a3 = predict.get_r_and_e_one(C, m, x, r, J, normConstant
-		phi_a3 = predict.get_r_and_e_nsp_omp(r, m, C, x, J, K, normConstant)
+		phi_a3 = predict.get_r_and_e_nsp(r, m, C, x, J, K, normConstant)
 		if a2 == 0.0:
 			return 0.0
 		
@@ -1051,7 +1051,7 @@ cdef FLOAT armijo2_M_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 		phi_a1 = phi_a2
 		phi_a2 = phi_a3
 
-		itr += 1
+		itr = itr + 1
 	#print "\n\t**** Search failed; returning a3 =", a3, "\n"
 	return a3
 

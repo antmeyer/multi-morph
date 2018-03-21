@@ -17,7 +17,7 @@ cimport matmath_sparse
 cimport sparsemat as sp
 ctypedef double FLOAT
 
-cdef int prelims_slmqn(FLOAT* grad,
+cdef void prelims_slmqn(FLOAT* grad,
 					FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT* x,
 					FLOAT* diagP0, int* diagP0_indices, int* diagP0_indptr,
@@ -29,7 +29,7 @@ cdef int prelims_slmqn(FLOAT* grad,
 					FLOAT eps, FLOAT zero_eps, int J, int K, int N, FLOAT l, FLOAT u)
 
 
-cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
+cdef void direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 					FLOAT* x,
 					FLOAT* grad, FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT** s_vecs, 
@@ -58,7 +58,7 @@ cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 # 				diagP5_indices, diagP5_indptr, 0,
 # 				eps, zero_eps, J, K, N, l, u)
 
-cdef int prelims_slmqn_C(FLOAT* grad,
+cdef void prelims_slmqn_C(FLOAT* grad,
 					FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT* x,
 					FLOAT* diagP0, int* diagP0_indices, int* diagP0_indptr,
@@ -71,7 +71,7 @@ cdef int prelims_slmqn_C(FLOAT* grad,
 					int* diagP5_indices, int* diagP5_indptr,
 					FLOAT eps, FLOAT zero_eps, int J, int K, int N, FLOAT l, FLOAT u)
 
-cdef int direction_slmqn_C(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
+cdef void direction_slmqn_C(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 					FLOAT* x,
 					FLOAT* grad, FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT** s_vecs, 

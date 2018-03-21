@@ -4,7 +4,7 @@
 #cython: cdivision=True
 import sys
 
-cdef int prelims_slmqn(FLOAT* grad,
+cdef void prelims_slmqn(FLOAT* grad,
 					FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT* x,
 					FLOAT* diagP0, int* diagP0_indices, int* diagP0_indptr,
@@ -71,7 +71,7 @@ cdef int prelims_slmqn(FLOAT* grad,
 	sp.vector_zeros(diagP1, diagP1_zero_indices, diagP1_zero_indptr, N)
 
 
-cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
+cdef void direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 					FLOAT* x,
 					FLOAT* grad, FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT** s_vecs, 
@@ -108,6 +108,7 @@ cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 			s_nnz = s_vecs_indptr[i][1]
 			y_nnz = y_vecs_indptr[i][1]
 
+			sigma = 0.0
 			for n in range(s_nnz):
 				sigma += s_vecs_data[i][n] * q[s_vecs_indices[i][n]]
 			alpha[i] = rho[i] * sigma
@@ -124,6 +125,7 @@ cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 			y_nnz = y_vecs_indptr[i][1]
 			s_nnz = s_vecs_indptr[i][1]
 
+			sigma = 0.0
 			for n in range(y_nnz):
 				sigma += y_vecs_data[i][n] * q[y_vecs_indices[i][n]]
 			beta = rho[i] * sigma
@@ -176,7 +178,7 @@ cdef int direction_slmqn(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 	dealloc_vector(alpha)
 	dealloc_vector(q)
 
-cdef int prelims_slmqn_C(FLOAT* grad,
+cdef void prelims_slmqn_C(FLOAT* grad,
 					FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT* x,
 					FLOAT* diagP0, int* diagP0_indices, int* diagP0_indptr,
@@ -277,7 +279,7 @@ cdef int prelims_slmqn_C(FLOAT* grad,
 # 	dealloc_vec_int(zeros)
 	
 	
-cdef int direction_slmqn_C(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
+cdef void direction_slmqn_C(FLOAT* d, FLOAT* d_data, int* d_indices, int* d_indptr,
 					FLOAT* x,
 					FLOAT* grad, FLOAT* grad_data, int* grad_indices, int* grad_indptr,
 					FLOAT** s_vecs, 

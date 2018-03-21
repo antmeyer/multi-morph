@@ -152,11 +152,11 @@ setup(
 #     cmdclass = {'build_ext': build_ext},
 #    	ext_modules = cythonize('optimize_wwb.pyx', annotate=True),
 # )
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-   	ext_modules = cythonize('optimize_nor.pyx', annotate=True),
-)
+# setup(
+#     include_dirs = [np.get_include(), '.'],
+#     cmdclass = {'build_ext': build_ext},
+#    	ext_modules = cythonize('optimize_nor.pyx', annotate=True),
+# )
 # ext_modules = [
 #     Extension(
 #         "hello",
@@ -175,6 +175,12 @@ setup(
 #     ext_modules = cythonize([ext2], annotate=True),
 #     include_dirs = [np.get_include()]
 # )
+
+setup(
+    include_dirs = [np.get_include(), '.'],
+    cmdclass = {'build_ext': build_ext},
+    ext_modules = cythonize('optimize_nor.pyx', annotate=True),
+)
 
 setup(
     include_dirs = [np.get_include(), '.'],

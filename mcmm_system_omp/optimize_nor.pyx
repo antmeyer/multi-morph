@@ -168,8 +168,6 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 	grad = &grad[0]
 
 	cdef FLOAT * vec_grad = <FLOAT *>malloc(N*sizeof(FLOAT))
-	# for n in range(N):
-	# 	vec_grad[n] = 0.0
 	cdef FLOAT * vec_grad_old = <FLOAT *>malloc(N*sizeof(FLOAT))
 
 	cdef FLOAT* vec_grad_data = <FLOAT*>malloc(N*sizeof(FLOAT))
@@ -183,16 +181,9 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 	cdef INT* vec_z_indptr = <INT*>malloc(2*sizeof(INT))
 	
 	cdef FLOAT * vec_D = <FLOAT *>calloc(N,sizeof(FLOAT))
-	# for n in range(N):
-	# 	vec_D[n] = 0.0
 	cdef FLOAT* vec_D_data = <FLOAT *>calloc(N,sizeof(FLOAT))
 	cdef INT* vec_D_indices = <INT*>calloc(N,sizeof(INT))
 	cdef INT* vec_D_indptr = <INT*>calloc(2,sizeof(INT))
-	# for n in range(N):
-	# 	vec_D_data[n] = 0.0
-	# 	vec_D_indices[n] = 0
-	# vec_D_indptr[0] = 0
-	# vec_D_indptr[1] = 0
 	
 	cdef FLOAT ** s_vecs = <FLOAT **>malloc(size_max*sizeof(FLOAT*))
 	cdef FLOAT ** s_vecs_data = <FLOAT **>malloc(size_max*sizeof(FLOAT*))
@@ -258,18 +249,18 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 			m_num_near_0 = 0
 			for i in range(I):
 				for k in range(K):
-					avg_m += M_ptr[i][k]
+					avg_m = avg_m + M_ptr[i][k]
 					if M_ptr[i][k] < zero_eps:
-						m_num_near_0 += 1
+						m_num_near_0 = m_num_near_0 + 1
 			avg_m = avg_m / <FLOAT>(I*K)
 			
 			avg_c = 0.0
 			c_num_near_0 = 0
 			for j in range(J):		
 				for k in range(K):
-					avg_c += C_ptr[j][k] + 1.0
+					avg_c = avg_c + C_ptr[j][k] + 1.0
 					if -zero_eps < C_ptr[j][k] < zero_eps:
-						c_num_near_0 += 1
+						c_num_near_0 = c_num_near_0 + 1
 			avg_c = (avg_c / <FLOAT>(J*K)) - 1.0
 			
 			mc_num_gt0 = 0
@@ -277,9 +268,9 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 			for i in range(I):
 				for j in range(J):
 					for k in range(K):
-						avg_mc += M_ptr[i][k]*C_ptr[j][k] + 1.0
+						avg_mc = avg_mc + M_ptr[i][k]*C_ptr[j][k] + 1.0
 						if M_ptr[i][k]*C_ptr[j][k] > 0.0:
-							mc_num_gt0 += 1
+							mc_num_gt0 = mc_num_gt0 + 1
 			avg_mc = (avg_mc / <FLOAT>(I*J*K)) - 1.0
 			
 			avg_x = 0.0
@@ -288,11 +279,11 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 			num_x_one = 0
 			for i in range(I):
 				for j in range(J):
-					avg_x += X_ptr[i][j]
+					avg_x = avg_x + X_ptr[i][j]
 					if X_ptr[i][j] == 1.0:
-						num_x_one += 1
-					avg_r += R_ptr[i][j]
-					avg_xr += X_ptr[i][j]*R_ptr[i][j]
+						num_x_one = num_x_one + 1
+					avg_r = avg_r + R_ptr[i][j]
+					avg_xr = avg_xr + X_ptr[i][j]*R_ptr[i][j]
 			avg_x = avg_x / <FLOAT>(I*J)
 			avg_r = avg_r / <FLOAT>(I*J)
 			avg_xr = avg_xr / <FLOAT>(I*J)
@@ -310,7 +301,7 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 						M_data, M_indices, M_indptr, C_ptr,
 						X_ptr, R_ptr, I, J, K, 
 						normConstant)	
-			counter += 1
+			counter = counter + 1
 			num_stored = 0
 			matmath_nullptr.vec(grad, vec_grad, J, K)
 			# print "\n***********************"
@@ -340,7 +331,7 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 			gamma_numer = 100.0
 			
 			for h in range(diagP0_indptr[1]):
-				grad_sq_sum += vec_grad[diagP0_indices[h]] * vec_grad[diagP0_indices[h]]
+				grad_sq_sum += grad_sq_sum + vec_grad[diagP0_indices[h]] * vec_grad[diagP0_indices[h]]
 			
 			grad_norm = sqrt(grad_sq_sum)
 			gamma_denom = grad_norm
@@ -810,61 +801,21 @@ cdef FLOAT optimize_M_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** M_ptr,
 
 	cdef FLOAT* m_old = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef FLOAT * m_test = <FLOAT *>calloc(K,sizeof(FLOAT))
-	# for k in range(K):
-	# 	m_old[k] = 0.0
-	# 	m_test[k] = 0.0
-
-# 	cdef FLOAT * m_zero_data = <FLOAT *>malloc(K*sizeof(FLOAT))
-# 	cdef FLOAT * m_zero_indices = <FLOAT *>malloc(K*sizeof(FLOAT))
-# 	cdef FLOAT * m_zero_indptr = <FLOAT *>malloc(2*sizeof(FLOAT))
-# 	for k in range(K):
-# 		M_ptr[i][k] = 0.0
-	
-# 	cdef INT * C_zero_indices = <INT*>malloc(J*K*sizeof(INT))
-# 	for k in range(J*K):
-# 		C_zero_indices[k] = 0
-# 	cdef INT * C_zero_indptr = <INT*>malloc(J*sizeof(INT))
-# 	for k in range(J*K):
-# 		C_zero_indptr[k] = 0
-	
-	#cdef FLOAT * prod = <FLOAT *>calloc(J*sizeof(FLOAT))
-	# for j in range(J):
-	# 	prod[j] = 0.0
-	
-# 	compress_dbl_mat_eq0(C_ptr, C_zero_indices, C_zero_indptr, J, K)
 			
 	cdef FLOAT * d = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef FLOAT * grad_old = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef FLOAT * grad = <FLOAT *>calloc(K,sizeof(FLOAT))
-	# for k in range(K):
-	# 	grad_old[k] = 0.0
-	# 	grad[k] = 0.0
-	# 	d[k] = 0.0
-	#print "Opt M", 120
-	#sys.stdout.flush()
+
 	cdef FLOAT * d_data = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef INT * d_indices = <INT *>calloc(K,sizeof(INT))
 	cdef INT * d_indptr = <INT *>calloc(2,sizeof(INT))
-	# for k in range(K):
-	# 	d_data[k] = 0.0
-	# for k in range(K):
-	# 	d_indices[k] = 0
-	# d_indptr[0] = 0
-	# d_indptr[1] = 0
 
 	cdef INT grad_nnz = K
 	
 	cdef FLOAT * grad_data = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef INT * grad_indices = <INT *>calloc(K,sizeof(INT))
 	cdef INT * grad_indptr = <INT *>calloc(2,sizeof(INT))
-	# for k in range(K):
-	# 	grad_data[k] = 0.0
-	# for k in range(K):
-	# 	grad_indices[k] = 0
-	# grad_indptr[0] = 0
-	# grad_indptr[1] = 0
-	##print "Opt M", 126
-	###sys.stdout.flush()
+
 	cdef FLOAT * z = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef FLOAT * z_data = <FLOAT *>calloc(K,sizeof(FLOAT))
 	cdef INT * z_indices = <INT *>calloc(K,sizeof(INT))
@@ -1128,260 +1079,87 @@ cdef FLOAT optimize_M_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** M_ptr,
 	cdef FLOAT avg_r = 0.0
 	cdef bint m_nan = 0
 	
-	#with nogil, parallel():
-	for i in range(I):
-		alpha_sum = 0.0
-		num_alphas = 0
-		avg_a_iters = 0.0
-		counter = 0
-		t_sum = 0
-		cg_itrs_sum = 0
-		sum_cg_err_diffs = 0.0
-		prev_err_global = 1000000000000.0
-		
-		precondition = 0
-		##print "Opt M;", 1999
-		if qn == 1:
-			#Quasi-Newton Part
-			while counter < 1:
-				if grad_break == 1:
-					grad_break = 0
-					#print "\t*** grad_break ***"
-					break
-				if gTd_break == 1:
-					gTd_break = 0
-					#print "\t*** gtd_break ***"
-					break
-				if m_nan == 1:
-					m_nan = 0
-					break
-				counter_old = counter
-				prev_err_global = error
-				# error = predict.r_e_and_grad_m_2(grad, M_ptr[i], C_ptr,
-				# 		C_data, C_indices, C_indptr, X_ptr[i], R_ptr[i], 
-				# 		error, J, K, normConstants[i])
-				error = predict.get_r_e_and_grad_m_omp(grad, M_ptr[i],
-						C_data, C_indices, C_indptr, X_ptr[i], R_ptr[i],
-						J, K, normConstants[i])
+	if qn == 1:
+		for i in range(I):
+			alpha_sum = 0.0
+			num_alphas = 0
+			avg_a_iters = 0.0
+			counter = 0
+			t_sum = 0
+			cg_itrs_sum = 0
+			sum_cg_err_diffs = 0.0
+			prev_err_global = 1000000000000.0
+			
+			precondition = 0
+			##print "Opt M;", 1999
+			if qn == 1:
+				#Quasi-Newton Part
+				while counter < 1:
+					if grad_break == 1:
+						grad_break = 0
+						#print "\t*** grad_break ***"
+						break
+					if gTd_break == 1:
+						gTd_break = 0
+						#print "\t*** gtd_break ***"
+						break
+					if m_nan == 1:
+						m_nan = 0
+						break
+					counter_old = counter
+					prev_err_global = error
+					# error = predict.r_e_and_grad_m_2(grad, M_ptr[i], C_ptr,
+					# 		C_data, C_indices, C_indptr, X_ptr[i], R_ptr[i], 
+					# 		error, J, K, normConstants[i])
+					error = predict.get_r_e_and_grad_m(grad, M_ptr[i],
+							C_data, C_indices, C_indptr, X_ptr[i], R_ptr[i],
+							J, K, normConstants[i])
 
-# 				if K > 1:
-# 					error = predict.r_e_and_grad_m(grad, M_ptr[i], 
-# 							C_ptr, C_data, C_indices, C_indptr,  
-# 							X_ptr[i], R_ptr[i], error, J, K, normConstants[i])
-# 				else:
-# 					error = predict.r_e_and_grad_m_one(grad, M_ptr[i], C_ptr,
-# 							X_ptr[i], R_ptr[i], error, J, normConstants[i])	
-# 				error = predict.r_e_and_grad_m(grad, C_ptr,
-# 						cj_lt0_data, cj_lt0_indices, cj_lt0_indptr,
-# 						cj_gt0_data, cj_gt0_indices, cj_gt0_indptr,
-# 						cj_eq0_data, cj_eq0_indices, cj_eq0_indptr,
-# 						M_ptr[i],
-# 						mi_eq0_data, mi_eq0_indices, mi_eq0_indptr,
-# 						mc_lt0, mc_lt0_data, mc_lt0_indices, mc_lt0_indptr,
-# 						mc_gt0, mc_gt0_data, mc_gt0_indices, mc_gt0_indptr,
-# 						col_data, col_indices, col_indptr,
-# 						prod_lt0_frwd, prod_lt0_bkwd,
-# 						prod_gt0_frwd, prod_gt0_bkwd,
-# 						X_ptr[i], R_ptr[i],
-# 						J, K, normConstant)
-				if counter == 0:
-					original_err = error
-				
-				counter += 1
-				if prev_err_global - error <= 0.00000001 and counter > 1:
-					break
-										
-				sp.compress_dbl_vec(grad, grad_data, grad_indices, grad_indptr, K)
-
-				prelims_slmqn(grad, grad_data, grad_indices, grad_indptr,
-							M_ptr[i],
-							diagP0, diagP0_indices, diagP0_indptr,
-							diagP0_zero_indices, diagP0_zero_indptr,
-							diagP1, diagP1_indices, diagP1_indptr,
-							diagP1_zero_indices, diagP1_zero_indptr,
-							diagP2_indices, diagP2_indptr,
-							diagP3_indices, diagP3_indptr,
-							eps, zero_eps, J, K, K, lower, upper)
-
-				gamma_ptr[0] = 0.0
-				numer = 0.0
-				grad_sq_sum = 0.0
-				q_val = 0.0
-				step_norm = 0.0
-				gamma_ptr[0] = 1.0
-				direction_slmqn(d, d_data, d_indices, d_indptr,
-							M_ptr[i], grad, grad_data, grad_indices, grad_indptr,
-							s_vecs, s_vecs_data, s_vecs_indices, s_vecs_indptr,
-							y_vecs, y_vecs_data, y_vecs_indices, y_vecs_indptr,
-							diagP0, diagP0_indices, diagP0_indptr,
-							diagP0_zero_indices, diagP0_zero_indptr, 
-							diagP1, diagP1_indices, diagP1_indptr,
-							diagP1_zero_indices, diagP1_zero_indptr, 
-							diagP2_indices, diagP2_indptr,
-							diagP3_indices, diagP3_indptr,
-							rho, gamma_ptr[0], Z, num_stored, 
-							eps, zero_eps, K, lower, upper, sign)
-				gTd = 0.0
-				for h in range(d_indptr[1]):
-					gTd += d_data[h] * grad[d_indices[h]]
+	# 				if K > 1:
+	# 					error = predict.r_e_and_grad_m(grad, M_ptr[i], 
+	# 							C_ptr, C_data, C_indices, C_indptr,  
+	# 							X_ptr[i], R_ptr[i], error, J, K, normConstants[i])
+	# 				else:
+	# 					error = predict.r_e_and_grad_m_one(grad, M_ptr[i], C_ptr,
+	# 							X_ptr[i], R_ptr[i], error, J, normConstants[i])	
+	# 				error = predict.r_e_and_grad_m(grad, C_ptr,
+	# 						cj_lt0_data, cj_lt0_indices, cj_lt0_indptr,
+	# 						cj_gt0_data, cj_gt0_indices, cj_gt0_indptr,
+	# 						cj_eq0_data, cj_eq0_indices, cj_eq0_indptr,
+	# 						M_ptr[i],
+	# 						mi_eq0_data, mi_eq0_indices, mi_eq0_indptr,
+	# 						mc_lt0, mc_lt0_data, mc_lt0_indices, mc_lt0_indptr,
+	# 						mc_gt0, mc_gt0_data, mc_gt0_indices, mc_gt0_indptr,
+	# 						col_data, col_indices, col_indptr,
+	# 						prod_lt0_frwd, prod_lt0_bkwd,
+	# 						prod_gt0_frwd, prod_gt0_bkwd,
+	# 						X_ptr[i], R_ptr[i],
+	# 						J, K, normConstant)
+					if counter == 0:
+						original_err = error
 					
-				#######################################################
-
-				t = 0
-				num_stored = 0
-				total_avg_step = 0.0
-				while t < t_max:
-					prev_err = error
-					for k in range(K): 
-						m_old[k] = M_ptr[i][k]
-						m_test[k] = M_ptr[i][k]
-					for k in range(K):
-						grad_old[k] = grad[k]
-					if isNaN(gTd):
-						m_nan = 1
+					counter = counter + 1
+					if prev_err_global - error <= 0.00000001 and counter > 1:
 						break
-						
-					if gTd >= 0.0:
-						gTd_break = 1
-						break
-					a_iter_ptr[0] = 0
-					alpha = linesearch.armijo2_M_nor(alpha1, alpha_max, 
-								c1, error, gTd,
-								M_ptr[i], m_test, C_ptr, C_data, C_indices, C_indptr, 
-								X_ptr[i], R_ptr[i],
-								d, d_data, d_indices, d_indptr,
-								normConstants[i], K, J, a_iter_ptr,
-								lower, upper)
-					num_alphas += 1
-					alpha_sum += alpha
-					avg_a_iters += <FLOAT>a_iter_ptr[0]
-					avg_step = 0.0
-					
-					for h in range(d_indptr[1]):
-						old_m = M_ptr[i][d_indices[h]]
-						if M_ptr[i][d_indices[h]] > upper:
-							M_ptr[i][d_indices[h]] = upper
-						elif M_ptr[i][d_indices[h]] < lower:
-							M_ptr[i][d_indices[h]] = lower
-						avg_step += fabs(old_m - M_ptr[i][d_indices[h]])
-						distance[0] += fabs(old_m - M_ptr[i][d_indices[h]])
-						num_steps[0] += 1
-					
-					avg_step = avg_step / d_indptr[1]
-					total_avg_step += avg_step
-
-					error = predict.get_r_e_and_grad_m_omp(grad, M_ptr[i], 
-							C_data, C_indices, C_indptr,
-							X_ptr[i], R_ptr[i], J, K, normConstants[i])
-
-					if (prev_err - error)/prev_err < 0.00001:
-						break
-
-					if isNaN(error):
-						#print "M error is NaN!!!!!"
-						m_nan = 1
-						break
-
+											
 					sp.compress_dbl_vec(grad, grad_data, grad_indices, grad_indptr, K)
+
 					prelims_slmqn(grad, grad_data, grad_indices, grad_indptr,
-										M_ptr[i],
-										diagP0, diagP0_indices, diagP0_indptr,
-										diagP0_zero_indices, diagP0_zero_indptr,
-										diagP1, diagP1_indices, diagP1_indptr,
-										diagP1_zero_indices, diagP1_zero_indptr,
-										diagP2_indices, diagP2_indptr,
-										diagP3_indices, diagP3_indptr,
-										eps, zero_eps, J, K, K, lower, upper)
+								M_ptr[i],
+								diagP0, diagP0_indices, diagP0_indptr,
+								diagP0_zero_indices, diagP0_zero_indptr,
+								diagP1, diagP1_indices, diagP1_indptr,
+								diagP1_zero_indices, diagP1_zero_indptr,
+								diagP2_indices, diagP2_indptr,
+								diagP3_indices, diagP3_indptr,
+								eps, zero_eps, J, K, K, lower, upper)
+
+					gamma_ptr[0] = 0.0
+					numer = 0.0
 					grad_sq_sum = 0.0
-					for h in range(diagP0_indptr[1]):
-						grad_sq_sum += grad[diagP0_indices[h]] * grad[diagP0_indices[h]]
-					grad_len = sqrt(grad_sq_sum)				
-
-					if diagP0_indptr[1] > 0:
-						if num_stored >= size_max:
-							num_stored = Z-1
-							####print "Opt M", 100001, 0
-							#discard the oldest s vectors; store newest
-							for h in range(Z-1):
-								for k in range(K):
-									s_vecs[h][k] = s_vecs[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 1	
-							#discard the oldest y vectors; store newest
-							for h in range(Z-1):
-								for k in range(K):
-									y_vecs[h][k] = y_vecs[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 2
-							#discard the oldest s_data vectors
-							for h in range(Z-1):
-								for k in range(K):
-									s_vecs_data[h][k] = s_vecs_data[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 3
-							#discard the oldest s_indices vectors
-							for h in range(Z-1):
-								for k in range(K):
-									s_vecs_indices[h][k] = s_vecs_indices[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 4
-							#discard the oldest s_indptr vectors
-							for h in range(Z-1):
-								for k in range(2):
-									s_vecs_indptr[h][2] = s_vecs_indptr[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 5
-							#discard the oldest y_data vectors
-							for h in range(Z-1):
-								for k in range(K):
-									y_vecs_data[h][k] = y_vecs_data[h+(size_max-Z+1)][k]				
-							####print "Opt M", 100001, 6
-							#discard the oldest y_indices vectors
-							for h in range(Z-1):
-								for k in range(K):
-									y_vecs_indices[h][k] = y_vecs_indices[h+(size_max-Z+1)][k]
-							####print "Opt M", 100001, 7
-							#discard the oldest y_indptr vectors
-							for h in range(Z-1):
-								for k in range(2):
-									y_vecs_indptr[h][k] = y_vecs_indptr[h+(size_max-Z+1)][k]
-
-							for h in range(Z-1):
-								rho[h] = rho[h+(size_max-Z+1)]
-
-						for h in range(diagP0_zero_indptr[1]):
-							y_vecs[num_stored][diagP0_zero_indices[h]] = 0.0
-						for h in range(diagP0_indptr[1]):
-							y_vecs[num_stored][diagP0_indices[h]] = grad[diagP0_indices[h]] - grad_old[diagP0_indices[h]]
-
-						for h in range(diagP0_zero_indptr[1]):
-							s_vecs[num_stored][diagP0_zero_indices[h]] = 0.0
-						for h in range(diagP0_indptr[1]):
-							s_vecs[num_stored][diagP0_indices[h]] = M_ptr[i][diagP0_indices[h]] - m_old[diagP0_indices[h]]
-
-						sp.compress_dbl_vec(s_vecs[num_stored], 		
-								s_vecs_data[num_stored], 
-								s_vecs_indices[num_stored], 
-								s_vecs_indptr[num_stored], K)
-						sp.compress_dbl_vec(y_vecs[num_stored], 
-								y_vecs_data[num_stored], 
-								y_vecs_indices[num_stored], 
-								y_vecs_indptr[num_stored], K)
-
-						sTy = 0.0
-						#sTs = 0.0
-						yTy = 0.0
-
-						for h in range(s_vecs_indptr[num_stored][1]):
-							sTy += y_vecs[num_stored][s_vecs_indices[num_stored][h]] * s_vecs_data[num_stored][h]
-						for h in range(y_vecs_indptr[num_stored][1]):
-							yTy += y_vecs_data[num_stored][h] * y_vecs_data[num_stored][h]
-						if yTy == 0.0 or sTy == 0.0:
-							grad_break = 1
-							break
-						else:
-							rho[num_stored] = 1.0 / sTy
-							gamma_ptr[0] = sTy / yTy
-							num_stored += 1
-					
-					#####################################################
-					# Compute search direction
-					# The function direction_slmqn computes the search direction.
+					q_val = 0.0
+					step_norm = 0.0
+					gamma_ptr[0] = 1.0
 					direction_slmqn(d, d_data, d_indices, d_indptr,
 								M_ptr[i], grad, grad_data, grad_indices, grad_indptr,
 								s_vecs, s_vecs_data, s_vecs_indices, s_vecs_indptr,
@@ -1392,77 +1170,254 @@ cdef FLOAT optimize_M_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** M_ptr,
 								diagP1_zero_indices, diagP1_zero_indptr, 
 								diagP2_indices, diagP2_indptr,
 								diagP3_indices, diagP3_indptr,
-								rho, gamma_ptr[0], Z, num_stored, eps, zero_eps,
-								K, lower, upper, sign)
-
+								rho, gamma_ptr[0], Z, num_stored, 
+								eps, zero_eps, K, lower, upper, sign)
 					gTd = 0.0
 					for h in range(d_indptr[1]):
-						gTd += d_data[h] * grad[d_indices[h]]
-					if (prev_err - error) / prev_err < err_thresh:
-						#print "**** error diff too small; BRerrorAK!!! *****"
-						###print "Opt M", 698.1
-						break
+						gTd = gTd + d_data[h] * grad[d_indices[h]]
+						
+					#######################################################
 
-					t += 1
+					t = 0
+					num_stored = 0
+					total_avg_step = 0.0
+					while t < t_max:
+						prev_err = error
+						for k in range(K): 
+							m_old[k] = M_ptr[i][k]
+							m_test[k] = M_ptr[i][k]
+						for k in range(K):
+							grad_old[k] = grad[k]
+						if isNaN(gTd):
+							m_nan = 1
+							break
+							
+						if gTd >= 0.0:
+							gTd_break = 1
+							break
+						a_iter_ptr[0] = 0
+						alpha = linesearch.armijo2_M_nor(alpha1, alpha_max, 
+									c1, error, gTd,
+									M_ptr[i], m_test, C_ptr, C_data, C_indices, C_indptr, 
+									X_ptr[i], R_ptr[i],
+									d, d_data, d_indices, d_indptr,
+									normConstants[i], K, J, a_iter_ptr,
+									lower, upper)
+						num_alphas += 1
+						alpha_sum += alpha
+						avg_a_iters += <FLOAT>a_iter_ptr[0]
+						avg_step = 0.0
+						
+						for h in range(d_indptr[1]):
+							old_m = M_ptr[i][d_indices[h]]
+							if M_ptr[i][d_indices[h]] > upper:
+								M_ptr[i][d_indices[h]] = upper
+							elif M_ptr[i][d_indices[h]] < lower:
+								M_ptr[i][d_indices[h]] = lower
+							avg_step = avg_step + fabs(old_m - M_ptr[i][d_indices[h]])
+							distance[0] = distance[0] + fabs(old_m - M_ptr[i][d_indices[h]])
+							num_steps[0] = num_steps[0] + 1
+						
+						avg_step = avg_step / d_indptr[1]
+						total_avg_step = total_avg_step + avg_step
 
-				if cg == 1 and num_stored > 0 and gTd < -0.000001:
-					precondition = 1
-					for k in range(K):
-						diagPre[k] = gamma_ptr[0]
-					err_before_cg = error
-					error = cg_M_nor(M_ptr[i], m_old, m_test,
-								 C_ptr, C_data, C_indices, C_indptr,  
-								 X_ptr[i],  R_ptr[i],
-								 grad, grad_data, grad_indices, grad_indptr,
-								 grad_old,
-								 z,  z_data,  z_indices,  z_indptr,
-								 z_old,
-								 s_vecs[num_stored],  y_vecs[num_stored],  Hy,
-								 d,  d_data,  d_indices,  d_indptr,
-								 diagPre,  gTd,
-								 gamma_ptr, error, cg_itr_max, cg_itrs_ptr, 		
-								 nr_itrs_ptr,
-								 K, J, 
-								 normConstants[i],
-								 precondition,
-								 diagP0,  diagP0_indices,  diagP0_indptr,
-								 diagP0_zero_indices,  diagP0_zero_indptr,
-								 diagP1,  diagP1_indices,  diagP1_indptr,
-								 diagP1_zero_indices,  diagP1_zero_indptr,
-								 diagP2_indices,  diagP2_indptr,
-								 diagP3_indices,  diagP3_indptr,
-								 eps,  distance,  num_steps,  lower,  upper)
-	
-					sum_cg_err_diffs += (err_before_cg - error)
-					cg_itrs_sum += cg_itrs_ptr[0]
-			
-				t_sum += t
-				counter += 1 
-				
-			if i%10==0:
-				print "M[" + str(i) + "]; e: {:.6f}".format(error) + "; dif: {:.6f}".format(original_err - error) + ";", 
-				print "g:", "{:.5f}".format(grad_len) + "; gd:", "{:.6f}".format(gTd) + "; a:" + "{:.4f}".format(alpha_sum/(<FLOAT>max(1, num_alphas))) + "; q: {:.4f}".format(q_val) + "; t:" + str(t_sum) + ";", 
-				print "pc:" + str(precondition) + ";",
-				print "cgd:{:.6f}".format(sum_cg_err_diffs) + ";",
-				print "cgi:" + "{:.1f}".format(cg_itrs_sum/(<FLOAT>max(1,counter))) +  ";", 
-				print "c:" + str(counter) + "; ni:" + str(numIters) + ";", 
-				print "P0:" + str(diagP0_indptr[1]) + ";", 
-				print "P1:" + str(diagP1_indptr[1]) + ";", 
-				print "P2:" + str(diagP2_indptr[1]) + ";", 
-				print "P3:" + str(diagP3_indptr[1]) + ";", 
-				
-				print "; K:" + str(K)
+						error = predict.get_r_e_and_grad_m(grad, M_ptr[i], 
+								C_data, C_indices, C_indptr,
+								X_ptr[i], R_ptr[i], J, K, normConstants[i])
+
+						if (prev_err - error)/prev_err < 0.00001:
+							break
+
+						if isNaN(error):
+							#print "M error is NaN!!!!!"
+							m_nan = 1
+							break
+
+						sp.compress_dbl_vec(grad, grad_data, grad_indices, grad_indptr, K)
+						prelims_slmqn(grad, grad_data, grad_indices, grad_indptr,
+											M_ptr[i],
+											diagP0, diagP0_indices, diagP0_indptr,
+											diagP0_zero_indices, diagP0_zero_indptr,
+											diagP1, diagP1_indices, diagP1_indptr,
+											diagP1_zero_indices, diagP1_zero_indptr,
+											diagP2_indices, diagP2_indptr,
+											diagP3_indices, diagP3_indptr,
+											eps, zero_eps, J, K, K, lower, upper)
+						grad_sq_sum = 0.0
+						for h in range(diagP0_indptr[1]):
+							grad_sq_sum = grad_sq_sum + grad[diagP0_indices[h]] * grad[diagP0_indices[h]]
+						grad_len = sqrt(grad_sq_sum)				
+
+						if diagP0_indptr[1] > 0:
+							if num_stored >= size_max:
+								num_stored = Z-1
+								####print "Opt M", 100001, 0
+								#discard the oldest s vectors; store newest
+								for h in range(Z-1):
+									for k in range(K):
+										s_vecs[h][k] = s_vecs[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 1	
+								#discard the oldest y vectors; store newest
+								for h in range(Z-1):
+									for k in range(K):
+										y_vecs[h][k] = y_vecs[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 2
+								#discard the oldest s_data vectors
+								for h in range(Z-1):
+									for k in range(K):
+										s_vecs_data[h][k] = s_vecs_data[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 3
+								#discard the oldest s_indices vectors
+								for h in range(Z-1):
+									for k in range(K):
+										s_vecs_indices[h][k] = s_vecs_indices[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 4
+								#discard the oldest s_indptr vectors
+								for h in range(Z-1):
+									for k in range(2):
+										s_vecs_indptr[h][2] = s_vecs_indptr[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 5
+								#discard the oldest y_data vectors
+								for h in range(Z-1):
+									for k in range(K):
+										y_vecs_data[h][k] = y_vecs_data[h+(size_max-Z+1)][k]				
+								####print "Opt M", 100001, 6
+								#discard the oldest y_indices vectors
+								for h in range(Z-1):
+									for k in range(K):
+										y_vecs_indices[h][k] = y_vecs_indices[h+(size_max-Z+1)][k]
+								####print "Opt M", 100001, 7
+								#discard the oldest y_indptr vectors
+								for h in range(Z-1):
+									for k in range(2):
+										y_vecs_indptr[h][k] = y_vecs_indptr[h+(size_max-Z+1)][k]
+
+								for h in range(Z-1):
+									rho[h] = rho[h+(size_max-Z+1)]
+
+							for h in range(diagP0_zero_indptr[1]):
+								y_vecs[num_stored][diagP0_zero_indices[h]] = 0.0
+							for h in range(diagP0_indptr[1]):
+								y_vecs[num_stored][diagP0_indices[h]] = grad[diagP0_indices[h]] - grad_old[diagP0_indices[h]]
+
+							for h in range(diagP0_zero_indptr[1]):
+								s_vecs[num_stored][diagP0_zero_indices[h]] = 0.0
+							for h in range(diagP0_indptr[1]):
+								s_vecs[num_stored][diagP0_indices[h]] = M_ptr[i][diagP0_indices[h]] - m_old[diagP0_indices[h]]
+
+							sp.compress_dbl_vec(s_vecs[num_stored], 		
+									s_vecs_data[num_stored], 
+									s_vecs_indices[num_stored], 
+									s_vecs_indptr[num_stored], K)
+							sp.compress_dbl_vec(y_vecs[num_stored], 
+									y_vecs_data[num_stored], 
+									y_vecs_indices[num_stored], 
+									y_vecs_indptr[num_stored], K)
+
+							sTy = 0.0
+							#sTs = 0.0
+							yTy = 0.0
+
+							for h in range(s_vecs_indptr[num_stored][1]):
+								sTy = sTy + y_vecs[num_stored][s_vecs_indices[num_stored][h]] * s_vecs_data[num_stored][h]
+							for h in range(y_vecs_indptr[num_stored][1]):
+								yTy = yTy + y_vecs_data[num_stored][h] * y_vecs_data[num_stored][h]
+							if yTy == 0.0 or sTy == 0.0:
+								grad_break = 1
+								break
+							else:
+								rho[num_stored] = 1.0 / sTy
+								gamma_ptr[0] = sTy / yTy
+								num_stored += 1
+						
+						#####################################################
+						# Compute search direction
+						# The function direction_slmqn computes the search direction.
+						direction_slmqn(d, d_data, d_indices, d_indptr,
+									M_ptr[i], grad, grad_data, grad_indices, grad_indptr,
+									s_vecs, s_vecs_data, s_vecs_indices, s_vecs_indptr,
+									y_vecs, y_vecs_data, y_vecs_indices, y_vecs_indptr,
+									diagP0, diagP0_indices, diagP0_indptr,
+									diagP0_zero_indices, diagP0_zero_indptr, 
+									diagP1, diagP1_indices, diagP1_indptr,
+									diagP1_zero_indices, diagP1_zero_indptr, 
+									diagP2_indices, diagP2_indptr,
+									diagP3_indices, diagP3_indptr,
+									rho, gamma_ptr[0], Z, num_stored, eps, zero_eps,
+									K, lower, upper, sign)
+
+						gTd = 0.0
+						for h in range(d_indptr[1]):
+							gTd = gTd + d_data[h] * grad[d_indices[h]]
+						if (prev_err - error) / prev_err < err_thresh:
+							#print "**** error diff too small; BRerrorAK!!! *****"
+							###print "Opt M", 698.1
+							break
+
+						t += 1
+
+					if cg == 1 and num_stored > 0 and gTd < -0.000001:
+						precondition = 1
+						for k in range(K):
+							diagPre[k] = gamma_ptr[0]
+						err_before_cg = error
+						error = cg_M_nor(M_ptr[i], m_old, m_test,
+									 C_ptr, C_data, C_indices, C_indptr,  
+									 X_ptr[i],  R_ptr[i],
+									 grad, grad_data, grad_indices, grad_indptr,
+									 grad_old,
+									 z,  z_data,  z_indices,  z_indptr,
+									 z_old,
+									 s_vecs[num_stored],  y_vecs[num_stored],  Hy,
+									 d,  d_data,  d_indices,  d_indptr,
+									 diagPre,  gTd,
+									 gamma_ptr, error, cg_itr_max, cg_itrs_ptr, 		
+									 nr_itrs_ptr,
+									 K, J, 
+									 normConstants[i],
+									 precondition,
+									 diagP0,  diagP0_indices,  diagP0_indptr,
+									 diagP0_zero_indices,  diagP0_zero_indptr,
+									 diagP1,  diagP1_indices,  diagP1_indptr,
+									 diagP1_zero_indices,  diagP1_zero_indptr,
+									 diagP2_indices,  diagP2_indptr,
+									 diagP3_indices,  diagP3_indptr,
+									 eps,  distance,  num_steps,  lower,  upper)
 		
-		if cg == 1 and qn == 0:
+						sum_cg_err_diffs = sum_cg_err_diffs + (err_before_cg - error)
+						cg_itrs_sum = cg_itrs_sum  + cg_itrs_ptr[0]
+				
+					#t_sum = t_sum + t
+					counter = counter + 1 
+					
+				# if i%10==0:
+				# 	print "M[" + str(i) + "]; e: {:.6f}".format(error) + "; dif: {:.6f}".format(original_err - error) + ";", 
+				# 	print "g:", "{:.5f}".format(grad_len) + "; gd:", "{:.6f}".format(gTd) + "; a:" + "{:.4f}".format(alpha_sum/(<FLOAT>max(1, num_alphas))) + "; q: {:.4f}".format(q_val) + "; t:" + str(t_sum) + ";", 
+				# 	print "pc:" + str(precondition) + ";",
+				# 	print "cgd:{:.6f}".format(sum_cg_err_diffs) + ";",
+				# 	print "cgi:" + "{:.1f}".format(cg_itrs_sum/(<FLOAT>max(1,counter))) +  ";", 
+				# 	print "c:" + str(counter) + "; ni:" + str(numIters) + ";", 
+				# 	print "P0:" + str(diagP0_indptr[1]) + ";", 
+				# 	print "P1:" + str(diagP1_indptr[1]) + ";", 
+				# 	print "P2:" + str(diagP2_indptr[1]) + ";", 
+				# 	print "P3:" + str(diagP3_indptr[1]) + ";", 
+					
+				# 	print "; K:" + str(K)
+			
+	elif cg == 1 and qn == 0:
+
+		#with nogil, parallel():
+			
+		for i in range(I):
 			precondition = 0
 
-			error = predict.get_r_e_and_grad_m_omp(grad, M_ptr[i], 
+			error = predict.get_r_e_and_grad_m(grad, M_ptr[i], 
 					C_data, C_indices, C_indptr, 
 					X_ptr[i], R_ptr[i], J, K, normConstants[i])
-			grad_sq_sum = 0.0
-			for k in range(K):
-				grad_sq_sum += grad[k] * grad[k]
-			grad_len = sqrt(grad_sq_sum)
+			# grad_sq_sum = 0.0
+			# for k in range(K):
+			# 	grad_sq_sum = grad_sq_sum + grad[k] * grad[k]
+			# grad_len = sqrt(grad_sq_sum)
 
 			prev_err = error
 			cg_itrs_ptr[0] = 0
@@ -1498,17 +1453,17 @@ cdef FLOAT optimize_M_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** M_ptr,
 			#print "***********************"
 			#print "OPT M; post-cg error =", error
 			#print "***********************"
-			M_i_nnz = nnz.vectorNonZeros(M_ptr[i], K)
-			for k in range(K):
-				grad_sq_sum += grad[k] * grad[k]
-			grad_len = sqrt(grad_sq_sum)
-			if i%10==0:
-				print "*** M", str(i), "; e: {:.5f}".format(error), "; dif: {:.10f}".format(prev_err - error), 
-				print "; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
-				print "; cgi: " + str(cg_itrs_ptr[0]) + ";",
-				print "ni: " + str(numIters) + "; K: " + str(K)								
-		E += error
-	#E = E/<FLOAT>I
+			#M_i_nnz = nnz.vectorNonZeros(M_ptr[i], K)
+			# for k in range(K):
+			# 	grad_sq_sum = grad_sq_sum + grad[k] * grad[k]
+			# grad_len = sqrt(grad_sq_sum)
+			# if i%10==0:
+			# 	print "*** M", str(i), "; e: {:.5f}".format(error), "; dif: {:.10f}".format(prev_err - error), 
+			# 	print "; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
+			# 	print "; cgi: " + str(cg_itrs_ptr[0]) + ";",
+			# 	print "ni: " + str(numIters) + "; K: " + str(K)								
+			E += error
+		#E = E/<FLOAT>I
 	
 	dealloc_vector(C_data)
 	dealloc_vec_int(C_indices)

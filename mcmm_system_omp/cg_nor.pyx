@@ -130,19 +130,19 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 	
 	gTd = 0.0
 	for h in range(d_indptr[1]):
-		gTd += grad[d_indices[h]] * d_data[h] #* diagP0[d_indices[h]]
+		gTd = gTd + grad[d_indices[h]] * d_data[h] #* diagP0[d_indices[h]]
 	#sp.compress_flt_vec(m, m_data, m_indices, m_indptr, K)
 
 	delta_new = 0.0
 	for h in range(grad_indptr[1]):
-		delta_new += (grad_data[h] * z[grad_indices[h]]) * diagP0[grad_indices[h]]
+		delta_new = delta_new + (grad_data[h] * z[grad_indices[h]]) * diagP0[grad_indices[h]]
 	grad_norm = sqrt(delta_new)
 	delta_0 = delta_new 
 	
 	cg_i = 0
 	while cg_i <= cg_max:
-		cg_k += 1
-		cg_i += 1
+		cg_k = cg_k + 1
+		cg_i = cg_i + 1
 		prev_err = prev_err_cg
 		prev_err_cg = error
 		delta_d = 0.0
@@ -164,13 +164,13 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 			m_old[k] = m[k]
 		for h in range(d_indptr[1]):
 			old_m = m[d_indices[h]]
-			m[d_indices[h]] += cg_alpha * d_data[h]
+			m[d_indices[h]] = m[d_indices[h]] + cg_alpha * d_data[h]
 			if m[d_indices[h]] > u:
 				m[d_indices[h]] = u
 			elif m[d_indices[h]] < l:
 				m[d_indices[h]] = l
-			distance[0] += fabs(m[d_indices[h]] - old_m)
-			num_steps[0] += 1
+			distance[0] = distance[0] + fabs(m[d_indices[h]] - old_m)
+			num_steps[0] = num_steps[0] + 1
 		for k in range(K):
 			s_vec[k] = m[k] - m_old[k]	
 		prev_err_nr = error
@@ -180,7 +180,7 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 		# error = predict_nor.r_e_and_grad_m_2(grad, m, 
 		# 		C, C_data, C_indices, C_indptr, 
 		# 		x, r, error, J, K, normConstant, eta)
-		error = predict.get_r_e_and_grad_m_omp(grad, m, 
+		error = predict.get_r_e_and_grad_m(grad, m, 
 				C_data, C_indices, C_indptr, 
 				x, r, J, K, normConstant)	
 		for k in range(K):
@@ -272,7 +272,7 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 		sp.compress_flt_vec(d, d_data, d_indices, d_indptr, K)	
 		gTd = 0.0
 		for h in range(d_indptr[1]):
-			gTd += d_data[h] * grad[d_indices[h]]		
+			gTd = gTd + d_data[h] * grad[d_indices[h]]		
 		#print "cg_M ;", "cg_criterion =", cg_criterion
 		#print "\t\t", itr_counter, ".  cg_M", "err diff =", "{:.12f}".format((prev_err_cg - error)/prev_err_cg)
 		if isNaN(gTd):
@@ -308,10 +308,11 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 			gTd = 0.0
 			for h in range(d_indptr[1]):
 				k = d_indices[h]
-				gTd += grad[k] * d[k]
+				gTd = gTd + grad[k] * d[k]
 
 	cg_itrs[0] = cg_i
 	return error
+
 	
 cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 			FLOAT** C_test, 
@@ -631,7 +632,7 @@ cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 			gTd = 0.0
 			for h in range(vec_D_indptr[1]):
 				gTd += vec_grad[vec_D_indices[h]] * vec_D_data[h] * diagP0[vec_D_indices[h]]	
-		counter += 1
+		counter = counter + 1
 	
 	cg_itrs[0] = cg_i
 	print "\tC CG :", "END; total error reduction =", (error0 - error)/error0, "\n"

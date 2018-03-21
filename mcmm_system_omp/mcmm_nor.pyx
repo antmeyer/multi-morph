@@ -112,7 +112,7 @@ cdef class MCMM:
             #cluster_list = self.find_cluster_to_split()
             k_to_split = self.find_cluster_to_split()
             # k_to_split = predict.get_cluster_to_split_nsp_omp(M_ptr_ct, C_ptr_ct, X_ptr_ct, 
-            #                     R_ptr, self.I, self.J, self.K, normConstant)
+            #                     R_ptr, self.I, self.J, self.K, self.normConstant)
             sys.stdout.write("Splitting cluster " + str(k_to_split) + "\n")
             sys.stdout.flush()
             self.duplicate_cluster(k_to_split)
@@ -354,11 +354,11 @@ cdef class MCMM:
         cdef FLOAT ** M_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr = <FLOAT **>malloc(self.J*sizeof(FLOAT*))
         #cdef FLOAT * etas_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
-        cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
+       # cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
 
         # cdef INT negc
-        for i in range(self.I):
-            normConstants_M[i] = 100.0 / db_J
+        # for i in range(self.I):
+        #     normConstants_M[i] = 100.0 / db_J
         # if self.eta_raw == 0:
         #     for i in range(self.I):
         #         negctr = 0
@@ -438,12 +438,15 @@ cdef class MCMM:
                 print "\nIteration:", self.numIters
                 print "################################################"
                 prev_E = self.E
-                self.E = optimize_nor.optimize_M_nor(X_ptr, R_ptr, M_ptr, C_ptr,
-                        self.I, self.J, self.K, normConstants_M, self.numIters, self.qn, self.cg, 
+                # self.E = optimize_nor.optimize_M_nor(X_ptr, R_ptr, M_ptr, C_ptr,
+                #         self.I, self.J, self.K, self.normConstants_M, self.numIters, self.qn, self.cg, 
+                #         &self.M_distance, &self.num_M_steps, lower, upper)
+                predict.optimize_M(X_ptr, R_ptr, M_ptr, C_ptr,
+                        self.I, self.J, self.K, self.normConstant, self.numIters, self.qn, self.cg, 
                         &self.M_distance, &self.num_M_steps, lower, upper)
-                E_after_M = self.E
-                print "\nmcmm E from M", "=", E_after_M
-                sys.stdout.flush()
+                #E_after_M = self.E
+                #print "\nmcmm E from M", "=", E_after_M
+                #sys.stdout.flush()
 
                 self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr,
                                         self.I, self.J, self.K, self.normConstant)
@@ -521,7 +524,7 @@ cdef class MCMM:
         dealloc_matrix(C_ptr, self.J)
         #print "freed C", "\n\n"
         #dealloc_vector(etas_M)
-        dealloc_vector(normConstants_M) 
+        #dealloc_vector(normConstants_M) 
         
     cpdef INT get_K(self):
         return self.K
