@@ -33,6 +33,7 @@ cdef class MCMM:
 	cdef FLOAT M_distance, C_distance
 	cdef int num_M_steps, num_C_steps
 	cdef FLOAT normConstant
+	cdef FLOAT normConstant_M
 	cdef FLOAT thresh
 	
 	cdef void split_cluster(self)

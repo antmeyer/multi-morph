@@ -95,6 +95,7 @@ cdef class MCMM:
         cdef FLOAT norm_factor = 100.0
         #self.normConstant should be universal. It should only depend on matrix size.
         self.normConstant = norm_factor / <FLOAT>(self.I*self.J)
+        self.normConstant_M = norm_factor / <FLOAT>self.J
         
     cdef void split_cluster(self):
         print "split_cluster", 0
@@ -355,7 +356,6 @@ cdef class MCMM:
         cdef FLOAT ** C_ptr = <FLOAT **>malloc(self.J*sizeof(FLOAT*))
         #cdef FLOAT * etas_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
        # cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
-
         # cdef INT negc
         # for i in range(self.I):
         #     normConstants_M[i] = 100.0 / db_J
@@ -442,7 +442,7 @@ cdef class MCMM:
                 #         self.I, self.J, self.K, self.normConstants_M, self.numIters, self.qn, self.cg, 
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
                 predict.optimize_M(X_ptr, R_ptr, M_ptr, C_ptr,
-                        self.I, self.J, self.K, self.normConstant, self.numIters, self.qn, self.cg, 
+                        self.I, self.J, self.K, self.normConstant_M, self.numIters, self.qn, self.cg, 
                         &self.M_distance, &self.num_M_steps, lower, upper)
                 #E_after_M = self.E
                 #print "\nmcmm E from M", "=", E_after_M
