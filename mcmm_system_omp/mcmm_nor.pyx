@@ -35,11 +35,13 @@ cpdef mila_preprocess(object clusterEntries, object tempDir, outputPrefix, int K
         clusterStr = eng2heb_2(eng2heb_1(clusterWords(clusterEntries[k])))
         clusterStr = clusterStr.rstrip("\n")
         sys.stderr.write("mila_pre; clusterStr = " + clusterStr + "\n")
+        sys.stderr.write("OUTPUT PREFIX = " + outputPrefix + "\n")
         sys.stdout.flush()
         items = outputPrefix.split("/")
         fileName = items[7]
+        print "FILENAME:", fileName 
         newName = tempDir + "/" + fileName + "." + str_k + "." + str_K + "." + standard + ".input"
-        print newName
+        print "NEWNAME:", newName
         sys.stdout.flush()
         fileobj = open(newName, "w")
         fileobj.write(clusterStr)

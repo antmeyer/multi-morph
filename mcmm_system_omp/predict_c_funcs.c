@@ -322,7 +322,7 @@ double R_E_and_Grad_C_nsp(double** Grad,
 	return 0.5*E*normConstant;
 }
 
-double R_E_and_Grad_C_nsp_omp(double** Grad,
+double R_E_and_Grad_C_nsp_omp(double* vec_Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant)
  {	
@@ -333,7 +333,7 @@ double R_E_and_Grad_C_nsp_omp(double** Grad,
 		#pragma omp for
 		for (int j=0; j<J; j++) {
 			for (int k=0; k<K; k++) {
-				Grad[j][k] = 0.0;
+				vec_Grad[j*K + k] = 0.0;
 			}
 		}
 		#pragma omp for
@@ -383,7 +383,7 @@ double R_E_and_Grad_C_nsp_omp(double** Grad,
 		{
 			for (int k=0; k<K; ++k) 
 			{
-				Grad[j][k] += private_Grad[j*K + k];
+				vec_Grad[j*K + k] += private_Grad[j*K + k];
 			}
 		}
 		free(private_Grad);
@@ -1571,24 +1571,38 @@ void compress_flt_vec(double* vector, double* data, int* indices, int* indptr, i
 	indptr[1] = counter;
 }
 
-double cg_M_nor(double** M_ptr, int i,
+double cg_M_nor(double** M_ptr, int i, double* m_old,
+			double* m_test, 
 			double** C, double* C_data, int* C_indices, int* C_indptr,
 			double** X_ptr, double** R_ptr,
 			double* grad, 
-			double gamma,
+			double* grad_data, int* grad_indices, int* grad_indptr,
+			double* grad_old,
+			double* z, double* z_data, int* z_indices, int* z_indptr,
+			double* z_old,
+			double* s_vec, double* y_vec, double* Hy,
+			double* d, double* d_data, int* d_indices, int* d_indptr,
+			double* diagPre, double gTd,
+			double gamma, double error, 
 			int itr_max, int* cg_itrs, int* nr_itrs, 
-			const int K, const int J, const double normConstant, 
+			int K, int J, double normConstant, 
 			int precondition,
-			double* distance, int* num_steps, const double l, const double u)
-{  
+			double* diagP0, int* diagP0_indices, int* diagP0_indptr,
+			int* diagP0_zero_indices, int* diagP0_zero_indptr,
+			double* diagP1, int* diagP1_indices, int* diagP1_indptr,
+			int* diagP1_zero_indices, int* diagP1_zero_indptr,
+			int* diagP2_indices, int* diagP2_indptr,
+			int* diagP3_indices, int* diagP3_indptr,
+			double eps, double* distance, int* num_steps, double l, double u)
+{ 
 
-	const double eps = 0.00000001;
+	
 	//const double zero_eps = 0.001;
 	//const double eps_cg_sq = 0.01*0.01;
 	//const double eps_nr_sq = 0.01*0.01;
-	const int size_max = 20;
-	int cg_i = 0;
-	double error = 0.0;
+	//const int size_max = 20;
+	//int cg_i = 0;
+	//error = 0.0;
 	//double error0 = error;
 	double prev_err = 0.0;
 	const int cg_n = 10;
@@ -1620,47 +1634,7 @@ double cg_M_nor(double** M_ptr, int i,
 	double cg_criterion;
 	double old_m;
 
-	double* m_old = (double*)calloc(K,sizeof(double));
-	double * m_test = (double*)calloc(K,sizeof(double));	
-	double * grad_old = (double*)calloc(K,sizeof(double));
-	double * d = (double*)calloc(K,sizeof(double));
-	double * d_data = (double*)calloc(K,sizeof(double));
-	int * d_indices = (int*)calloc(K,sizeof(int));
-	int * d_indptr = (int*)calloc(2,sizeof(int));
-	double * grad_data = (double*)calloc(K,sizeof(double));
-	int * grad_indices = (int*)calloc(K,sizeof(int));
-	int * grad_indptr = (int*)calloc(2,sizeof(int));
-	double * z = (double*)calloc(K,sizeof(double));
-	double * z_data = (double*)calloc(K,sizeof(double));
-	int * z_indices = (int*)calloc(K,sizeof(int));
-	int * z_indptr = (int*)calloc(2,sizeof(int));
-	double * z_old = (double*)calloc(K,sizeof(double));
-	double* Hy = (double*)calloc(K,sizeof(double));
-	double * diagH = (double*)calloc(K,sizeof(double));
-	double * diagPre = (double*)calloc(K,sizeof(double));
-	double * diagP0 = (double*)calloc(K,sizeof(double));
-	int * diagP0_indices = (int*)calloc(K,sizeof(int));
-	int * diagP0_indptr = (int*)calloc(2,sizeof(int));
-	diagP0_indptr[0] = 0;
-	int * diagP0_zero_indices = (int*)calloc(K,sizeof(int));
-	int * diagP0_zero_indptr = (int*)calloc(2,sizeof(int));
-	diagP0_zero_indptr[0] = 0; 
-	double * diagP1 = (double*)calloc(K,sizeof(double));
-	int * diagP1_indices = (int*)calloc(K,sizeof(int));
-	int * diagP1_indptr = (int*)calloc(2,sizeof(int));
-	diagP1_indptr[0] = 0;
-	int * diagP1_zero_indices = (int*)calloc(K,sizeof(int));
-	int * diagP1_zero_indptr = (int*)calloc(2,sizeof(int));
-	diagP1_zero_indptr[0] = 0;
-	int * diagP2_indices = (int*)calloc(K,sizeof(int));
-	int * diagP2_indptr = (int*)calloc(2,sizeof(int));
-	diagP2_indptr[0] = 0;
-	int * diagP3_indices = (int*)calloc(K,sizeof(int));
-	int * diagP3_indptr = (int*)calloc(2,sizeof(int));
-	diagP3_indptr[0] = 0;
-	double * rho = (double*)calloc(size_max, sizeof(double));
-	double * s_vec = (double*)calloc(size_max, sizeof(double));
-	double * y_vec = (double*)calloc(size_max, sizeof(double));
+
 	if (precondition > 0) {
 		// as long as precondition is not 1 or 2, the gradient is 
 		// multipilied by a preconditioner that is supplied to the 
@@ -1681,7 +1655,7 @@ double cg_M_nor(double** M_ptr, int i,
 	compress_flt_vec(grad, grad_data, grad_indices, grad_indptr, K);
 	compress_flt_vec(z, z_data, z_indices, z_indptr, K);
 	prelims_slmqn_M(grad, grad_data, grad_indices, grad_indptr,
-					M_ptr, i, 
+					M_ptr, i,
 					diagP0, diagP0_indices, diagP0_indptr,
 					diagP0_zero_indices, diagP0_zero_indptr,
 					diagP1, diagP1_indices, diagP1_indptr,
@@ -1693,7 +1667,7 @@ double cg_M_nor(double** M_ptr, int i,
 	for (int h=0; h<diagP0_indptr[1]; h++) {
 		d[diagP0_indices[h]] = -z[diagP0_indices[h]];
 	}
-	printf("in CG_M, %d\n", 3);
+	//printf("in CG_M, %d\n", 3);
 	//P1
 	for (int h=0; h<diagP1_indptr[1]; h++) {
 		d[diagP1_indices[h]] = 0.0;
@@ -1706,7 +1680,7 @@ double cg_M_nor(double** M_ptr, int i,
 	}
 
 	//P3
-	printf("in CG_M, %d ; cg_i = %d\n", 5, 0);
+	//printf("in CG_M, %d ; cg_i = %d\n", 5, 0);
 	for (int h=0; h<diagP3_indptr[1]; h++) {
 		int n = diagP3_indices[h];
 		if ((l < M_ptr[i][n] &&  M_ptr[i][n] <= l+eps) && (M_ptr[i][n] - z[n] <= l)) {
@@ -1721,15 +1695,15 @@ double cg_M_nor(double** M_ptr, int i,
 			d[n] = -z[n];
 		}
 	}
-	printf("in CG_M, %d ; cg_i = %d\n", 6, 0);
+	//printf("in CG_M, %d ; cg_i = %d\n", 6, 0);
 	compress_flt_vec(d, d_data, d_indices, d_indptr, K);
 	
-	double gTd = 0.0;
+	gTd = 0.0;
 	for (int h=0; h<d_indptr[1]; h++) {
 		gTd += grad[d_indices[h]] * d_data[h]; //* diagP0[d_indices[h]];
 	}
 	//compress_flt_vec(M_ptr[i], m_data, m_indices, m_indptr, K)
-	printf("in CG_M, %d\n", 7);
+	//printf("in CG_M, %d\n", 7);
 	delta_new = 0.0;
 	for (int h=0; h<grad_indptr[1]; h++) {
 		delta_new += (grad_data[h] * z[grad_indices[h]]) * diagP0[grad_indices[h]];
@@ -1740,11 +1714,12 @@ double cg_M_nor(double** M_ptr, int i,
 	//cg_i = 0
 	//while cg_i <= cg_max:
 	int cg_k = 0;
-	
+	cg_itrs[0] = 0;
 	for (int cg_i=0; cg_i<cg_max; cg_i++) {
 		cg_k++;
 		//cg_i++;
-		printf("in CG_M, %d\n", 7);
+		cg_itrs[0]++;
+		//printf("in CG_M, %d\n", 7);
 		prev_err = prev_err_cg;
 		prev_err_cg = error;
 		delta_d = 0.0;
@@ -1753,7 +1728,7 @@ double cg_M_nor(double** M_ptr, int i,
 		}
 		gTd_old = gTd;
 		alpha1 = 1.0;
-		printf("in CG_M, %d\n", 8);
+		//printf("in CG_M, %d\n", 8);
 		cg_alpha = armijo2_M_nor(alpha1, alpha_max, 
 					c1, error, gTd,
 					M_ptr, m_test, i,
@@ -1762,10 +1737,11 @@ double cg_M_nor(double** M_ptr, int i,
 					d, d_data, d_indices, d_indptr,
 					normConstant, K, J, a_iter_ptr,
 					l, u);
+		printf("In CG_M; a_iter_ptr = %d\n", a_iter_ptr[0]);
 		for (int k=0; k<K; k++) {
 			m_old[k] = M_ptr[i][k];
 		}
-		printf("in CG_M, %d\n", 10);
+		//printf("in CG_M, %d\n", 10);
 		for (int h=0; h<d_indptr[1]; h++) {
 			int k = d_indices[h];
 			old_m = M_ptr[i][k];
@@ -1773,16 +1749,17 @@ double cg_M_nor(double** M_ptr, int i,
 			if (M_ptr[i][k] > u) M_ptr[i][k] = u;
 			else if (M_ptr[i][k] < l) M_ptr[i][k] = l;
 			distance[0] += fabs(M_ptr[i][k] - old_m);
-			num_steps[0]++;
+			//num_steps[0]++;
 		}
-		printf("in CG_M, %f\n", 11.5);
-		for (int k=0; k<K; k++)
+		//printf("in CG_M, %f\n", 11.5);
+		for (int k=0; k<K; k++) {
 			s_vec[k] = M_ptr[i][k] - m_old[k];
-		printf("in CG_M, %d\n", 12);
+		}
+		//printf("in CG_M, %d\n", 12);
 		prev_err_nr = error;
 
 		for (int k=0; k<K; k++) grad_old[k] = grad[k];
-		printf("in CG_M, %d\n", 13);
+		//printf("in CG_M, %d\n", 13);
 		
 		prev_err_cg = error;
 		error = r_e_and_grad_m(grad, M_ptr[i], 
@@ -1798,16 +1775,19 @@ double cg_M_nor(double** M_ptr, int i,
 				Hy[k] = diagPre[k] * y_vec[k];
 			}
 		}
-		if (yTy <= 0.0000000001) break;
-		printf("in CG_M, %d\n", 14);
+		// if (yTy <= 0.0000000001) {
+		// 	printf("yTy <= 0.0000000001; BREAK!\n");
+		// 	break;
+		//}
+		//printf("in CG_M, %d\n", 14);
 		delta_old = delta_new;
 		delta_new = 0.0;
-		// for (int h=0; h<diagP0_indptr[1]; h++) {
-		// 	int k = diagP0_indices[h];
-		// 	delta_new += grad[k] * z[k];
-		// }
+		for (int h=0; h<diagP0_indptr[1]; h++) {
+			int k = diagP0_indices[h];
+			delta_new += grad[k] * z[k];
+		}
 
-		printf("in CG_M, %d\n", 15);
+		//printf("in CG_M, %d\n", 15);
 		grad_norm = sqrt(delta_new);
 		if (precondition == 2) {
 			//if precondition = 2, the preconditioner is updated with each iteration.
@@ -1816,37 +1796,51 @@ double cg_M_nor(double** M_ptr, int i,
 			for (int h=0; h<diagP0_indptr[1]; h++) {
 				sTy += s_vec[diagP0_indices[h]] * y_vec[diagP0_indices[h]];
 			}
-			if (sTy == 0.0) break;
-			else inv_diag_bfgs(diagPre, s_vec, y_vec, Hy, sTy, K, diagP0);
+			if (sTy == 0.0) {
+				printf("sTy == 0.0; BREAK!\n");
+				break;
+			}
+			else {
+				inv_diag_bfgs(diagPre, s_vec, y_vec, Hy, sTy, K, diagP0);
+			}
 		}
-		printf("in CG_M, %d\n", 18);
+		//printf("in CG_M, %d\n", 18);
 		if (precondition > 0) {
 			//the preconditioner is applied as long as precondition isn't 0.
-			for (int k=0; k<K; k++) z[k] = grad[k] * diagPre[k];
+			for (int k=0; k<K; k++) {
+				z[k] = grad[k] * diagPre[k];
+			}
 			gTy = 0.0;
 			for (int h=0; h<diagP0_indptr[1]; h++) {
 				gTy += z[diagP0_indices[h]] * Hy[diagP0_indices[h]];
 			}
 		}				
 		else {
-			for (int k=0; k<K; k++) z[k] = grad[k];
+			for (int k=0; k<K; k++) {
+				z[k] = grad[k];
+			}
 			gTy = 0.0;
 			for (int h=0; h<diagP0_indptr[1]; h++) {
 				gTy += z[diagP0_indices[h]] * y_vec[diagP0_indices[h]];
 			}
 		}
-		printf("in CG_M, %d\n", 19);
+		//printf("in CG_M, %d\n", 19);
 		compress_flt_vec(grad, grad_data, grad_indices, grad_indptr, K);
 		compress_flt_vec(z, z_data, z_indices, z_indptr, K);
 		
-		if (delta_old == 0.0) break;
-		else beta_PRP = gTy / delta_old;
+		if (delta_old == 0.0) {
+			printf("delta_old = 0; BREAK!\n");
+			break;
+		}
+		else {
+			beta_PRP = gTy / delta_old;
+		}
 		
 		cg_beta = fmax(0.0, beta_PRP);	
 
-		printf("in CG_M, %d\n", 20);
+		//printf("in CG_M, %d\n", 20);
 		prelims_slmqn_M(grad, grad_data, grad_indices, grad_indptr,
-					M_ptr, i, 
+					M_ptr, i,
 					diagP0, diagP0_indices, diagP0_indptr,
 					diagP0_zero_indices, diagP0_zero_indptr,
 					diagP1, diagP1_indices, diagP1_indptr,
@@ -1859,7 +1853,7 @@ double cg_M_nor(double** M_ptr, int i,
 			int k = diagP0_indices[h];
 			d[k] = -z[k] + (cg_beta * d[k]);
 		}
-		printf("in CG_M, %d\n", 24);
+		//printf("in CG_M, %d\n", 24);
 		//P1
 		for (int h=0; h<diagP1_indptr[1]; h++) {
 			int k = diagP1_indices[h];
@@ -1870,7 +1864,7 @@ double cg_M_nor(double** M_ptr, int i,
 			int k = diagP2_indices[h];
 			d[k] = -z[k];
 		}
-		printf("in CG_M, %d\n", 26);
+		//printf("in CG_M, %d\n", 26);
 		//P3
 		for (int h=0; h<diagP3_indptr[1]; h++) {
 			int k = diagP3_indices[h];
@@ -1887,9 +1881,9 @@ double cg_M_nor(double** M_ptr, int i,
 		compress_flt_vec(d, d_data, d_indices, d_indptr, K);	
 		gTd = 0.0;
 		for (int h=0; h < d_indptr[1]; h++) {
-			int k = d_indices[h];
-			//gTd += d_data[h] * grad[d_indices[h]];
-			gTd += d[k] * grad[k];		
+			//int k = d_indices[h];
+			gTd += d_data[h] * grad[d_indices[h]];
+			//gTd += d[k] * grad[k];		
 		}
 		//print "cg_M ;", "cg_criterion =", cg_criterion
 		//print "\t\t", itr_counter, ".  cg_M", "err diff =", "{:.12f}".format((prev_err_cg - error)/prev_err_cg)
@@ -1934,84 +1928,13 @@ double cg_M_nor(double** M_ptr, int i,
 			
 			gTd = 0.0;
 			for (int h=0; h<d_indptr[1]; h++) {
-				int k = d_indices[h];
-				gTd += grad[k] * d[k];
+				// int k = d_indices[h];
+				// gTd += grad[k] * d[k];
+				gTd += d_data[h] * grad[d_indices[h]];
 			}
 		}
 	}
-	cg_itrs[0] = cg_i;
-	printf("*** in CG_M, cg_i = %d\n", cg_i);
-	free(m_old);
-	printf("in CG_M, %d\n", 100);
-	free(m_test);
-	printf("in CG_M, %d\n", 101);	
-	free(grad_old);
-	printf("in CG_M, %d\n", 102);
-	//free(grad);
-	free(d);
-	printf("in CG_M, %d\n", 103);
-	free(d_data);
-	printf("in CG_M, %d\n", 104);
-	free(d_indices);
-	printf("in CG_M, %d\n", 105);
-	free(d_indptr);
-	printf("in CG_M, %d\n", 106);
-	free(grad_data);
-	printf("in CG_M, %d\n", 107);
-	free(grad_indices);
-	printf("in CG_M, %d\n", 108);
-	free(grad_indptr);
-	printf("in CG_M, %d\n", 109);
-	free(z);
-	printf("in CG_M, %d\n", 110);
-	free(z_data);
-	printf("in CG_M, %d\n", 111);
-	free(z_indices);
-	printf("in CG_M, %d\n", 112);
-	free(z_indptr);
-	printf("in CG_M, %d\n", 113);
-	free(z_old);
-	printf("in CG_M, %d\n", 114);
-	free(Hy);
-	printf("in CG_M, %d\n", 115);
-	free(diagH);
-	printf("in CG_M, %d\n", 116);
-	free(diagPre);
-	printf("in CG_M, %d\n", 117);
-	free(diagP0);
-	printf("in CG_M, %d\n", 118);
-	free(diagP0_indices);
-	printf("in CG_M, %d\n", 119);
-	free(diagP0_indptr);
-	printf("in CG_M, %d\n", 120);
-	free(diagP0_zero_indices);
-	printf("in CG_M, %d\n", 121);
-	free(diagP0_zero_indptr);
-	printf("in CG_M, %d\n", 122);
-	free(diagP1);
-	printf("in CG_M, %d\n", 123);
-	free(diagP1_indices);
-	printf("in CG_M, %d\n", 124);
-	free(diagP1_indptr);
-	printf("in CG_M, %d\n", 125);
-	free(diagP1_zero_indices);
-	printf("in CG_M, %d\n", 126);
-	free(diagP1_zero_indptr);
-	printf("in CG_M, %d\n", 127);
-	free(diagP2_indices);
-	printf("in CG_M, %d\n", 128);
-	free(diagP2_indptr);
-	printf("in CG_M, %d\n", 129);
-	free(diagP3_indices);
-	printf("in CG_M, %d\n", 130);
-	free(diagP3_indptr);
-	printf("in CG_M, %d\n", 131);
-	free(rho);
-	printf("in CG_M, %d\n", 132);
-	free(s_vec);
-	printf("in CG_M, %d\n", 133);
-	free(y_vec);
-	printf("in CG_M, %d\n", 134);
+	//cg_itrs[0] = cg_i;
 	return error;
 }
 
@@ -2028,7 +1951,8 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 	//int Z = 5;
 	//int t = 0;
 	//const int t_max = 10;
-	//const int size_max = 20;
+	const int size_max = 20;
+	const double eps = 0.00000001;
 	//int counter_old;
 
 	//const double eps = 0.0000001;
@@ -2055,7 +1979,47 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 	// 	}
 	// 	C_indptr[j+1] = C_indptr[j] + row_end;
 	// }
-
+	double* m_old = (double*)calloc(K,sizeof(double));
+	double * m_test = (double*)calloc(K,sizeof(double));	
+	double * grad_old = (double*)calloc(K,sizeof(double));
+	double * d = (double*)calloc(K,sizeof(double));
+	double * d_data = (double*)calloc(K,sizeof(double));
+	int * d_indices = (int*)calloc(K,sizeof(int));
+	int * d_indptr = (int*)calloc(2,sizeof(int));
+	double * grad_data = (double*)calloc(K,sizeof(double));
+	int * grad_indices = (int*)calloc(K,sizeof(int));
+	int * grad_indptr = (int*)calloc(2,sizeof(int));
+	double * z = (double*)calloc(K,sizeof(double));
+	double * z_data = (double*)calloc(K,sizeof(double));
+	int * z_indices = (int*)calloc(K,sizeof(int));
+	int * z_indptr = (int*)calloc(2,sizeof(int));
+	double * z_old = (double*)calloc(K,sizeof(double));
+	double* Hy = (double*)calloc(K,sizeof(double));
+	double * diagH = (double*)calloc(K,sizeof(double));
+	double * diagPre = (double*)calloc(K,sizeof(double));
+	double * diagP0 = (double*)calloc(K,sizeof(double));
+	int * diagP0_indices = (int*)calloc(K,sizeof(int));
+	int * diagP0_indptr = (int*)calloc(2,sizeof(int));
+	diagP0_indptr[0] = 0;
+	int * diagP0_zero_indices = (int*)calloc(K,sizeof(int));
+	int * diagP0_zero_indptr = (int*)calloc(2,sizeof(int));
+	diagP0_zero_indptr[0] = 0; 
+	double * diagP1 = (double*)calloc(K,sizeof(double));
+	int * diagP1_indices = (int*)calloc(K,sizeof(int));
+	int * diagP1_indptr = (int*)calloc(2,sizeof(int));
+	diagP1_indptr[0] = 0;
+	int * diagP1_zero_indices = (int*)calloc(K,sizeof(int));
+	int * diagP1_zero_indptr = (int*)calloc(2,sizeof(int));
+	diagP1_zero_indptr[0] = 0;
+	int * diagP2_indices = (int*)calloc(K,sizeof(int));
+	int * diagP2_indptr = (int*)calloc(2,sizeof(int));
+	diagP2_indptr[0] = 0;
+	int * diagP3_indices = (int*)calloc(K,sizeof(int));
+	int * diagP3_indptr = (int*)calloc(2,sizeof(int));
+	diagP3_indptr[0] = 0;
+	double * rho = (double*)calloc(size_max, sizeof(double));
+	double * s_vec = (double*)calloc(size_max, sizeof(double));
+	double * y_vec = (double*)calloc(size_max, sizeof(double));
 
 	//int num_stored = 0;
 	//double q_val = 0.0;
@@ -2069,10 +2033,11 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 	//cdef bint grad_break = 0
 	//cdef bint gTd_break = 0
 	//double sign = -1.0;
+	double gTd = 0.0;
 	int cg_itr_max = 40;
 	int precondition = 0;
 	double * grad;
-	double gamma;
+	double gamma = 1.0;
 	//int k;
 	//double * m;
 	//#pragma omp parallel private(grad) shared(gamma)
@@ -2118,7 +2083,6 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 		// double sTy = 1.0;
 		// double sTs = 1.0;
 		//double gTd = 0.0;
-		gamma = 1.0;
 		//k = 0;
 		double error = 0.0;
 		double prev_err = error;
@@ -2150,12 +2114,29 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 			// 			 X_ptr[i], R_ptr[i], grad,
 			// 			 gamma, cg_itr_max, cg_itrs_ptr, nr_itrs_ptr,
 			// 			 K, J, normConstant, precondition,
+			// // 			 distance, num_steps, lower, upper);
+			// error = cg_M_nor(M_ptr, i, C_ptr, C_data, C_indices, C_indptr,
+			// 			 X_ptr, R_ptr, grad,
+			// 			 gamma, cg_itr_max, cg_itrs_ptr, nr_itrs_ptr,
+			// 			 K, J, normConstant, precondition,
 			// 			 distance, num_steps, lower, upper);
-			error = cg_M_nor(M_ptr, i, C_ptr, C_data, C_indices, C_indptr,
-						 X_ptr, R_ptr, grad,
-						 gamma, cg_itr_max, cg_itrs_ptr, nr_itrs_ptr,
-						 K, J, normConstant, precondition,
-						 distance, num_steps, lower, upper);
+			error = cg_M_nor(M_ptr, i, m_old, m_test,
+							C_ptr, C_data, C_indices, C_indptr,
+							X_ptr, R_ptr, grad, 
+							grad_data, grad_indices, grad_indptr, grad_old,
+							z, z_data, z_indices, z_indptr, z_old,
+							s_vec, y_vec, Hy,
+							d, d_data, d_indices, d_indptr,
+							diagPre, gTd, gamma, error, 
+							cg_itr_max, cg_itrs_ptr, nr_itrs_ptr,
+							K, J, normConstant, precondition,
+							diagP0, diagP0_indices, diagP0_indptr,
+							diagP0_zero_indices, diagP0_zero_indptr,
+							diagP1, diagP1_indices, diagP1_indptr,
+							diagP1_zero_indices, diagP1_zero_indptr,
+							diagP2_indices, diagP2_indptr,
+							diagP3_indices, diagP3_indptr,
+							eps, distance, num_steps, lower, upper);
 			//printf("***********************\n");
 			//printf("OPT M; post-cg error =%f\n", error);
 			//printf("***********************\n");
@@ -2203,6 +2184,77 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 	// dealloc_matrix_2(y_vecs_data, size_max)
 	// dealloc_mat_2_int(y_vecs_indices, size_max)
 	// dealloc_mat_2_int(y_vecs_indptr, size_max)
-
+	//printf("*** in CG_M, cg_i = %d\n", cg_i);
+	free(m_old);
+	//printf("in CG_M, %d\n", 100);
+	free(m_test);
+	//printf("in CG_M, %d\n", 101);	
+	free(grad_old);
+	//printf("in CG_M, %d\n", 102);
+	//free(grad);
+	free(d);
+	//printf("in CG_M, %d\n", 103);
+	free(d_data);
+	//printf("in CG_M, %d\n", 104);
+	free(d_indices);
+	//printf("in CG_M, %d\n", 105);
+	free(d_indptr);
+	//printf("in CG_M, %d\n", 106);
+	free(grad_data);
+	//printf("in CG_M, %d\n", 107);
+	free(grad_indices);
+	//printf("in CG_M, %d\n", 108);
+	free(grad_indptr);
+	//printf("in CG_M, %d\n", 109);
+	free(z);
+	//printf("in CG_M, %d\n", 110);
+	free(z_data);
+	//printf("in CG_M, %d\n", 111);
+	free(z_indices);
+	//printf("in CG_M, %d\n", 112);
+	free(z_indptr);
+	//printf("in CG_M, %d\n", 113);
+	free(z_old);
+	//printf("in CG_M, %d\n", 114);
+	free(Hy);
+	//printf("in CG_M, %d\n", 115);
+	free(diagH);
+	//printf("in CG_M, %d\n", 116);
+	free(diagPre);
+	//printf("in CG_M, %d\n", 117);
+	free(diagP0);
+	//printf("in CG_M, %d\n", 118);
+	free(diagP0_indices);
+	//printf("in CG_M, %d\n", 119);
+	free(diagP0_indptr);
+	//printf("in CG_M, %d\n", 120);
+	free(diagP0_zero_indices);
+	//printf("in CG_M, %d\n", 121);
+	free(diagP0_zero_indptr);
+	//printf("in CG_M, %d\n", 122);
+	free(diagP1);
+	//printf("in CG_M, %d\n", 123);
+	free(diagP1_indices);
+	//printf("in CG_M, %d\n", 124);
+	free(diagP1_indptr);
+	//printf("in CG_M, %d\n", 125);
+	free(diagP1_zero_indices);
+	//printf("in CG_M, %d\n", 126);
+	free(diagP1_zero_indptr);
+	//printf("in CG_M, %d\n", 127);
+	free(diagP2_indices);
+	//printf("in CG_M, %d\n", 128);
+	free(diagP2_indptr);
+	//printf("in CG_M, %d\n", 129);
+	free(diagP3_indices);
+	//printf("in CG_M, %d\n", 130);
+	free(diagP3_indptr);
+	//printf("in CG_M, %d\n", 131);
+	free(rho);
+	//printf("in CG_M, %d\n", 132);
+	free(s_vec);
+	//printf("in CG_M, %d\n", 133);
+	free(y_vec);
+	//printf("in CG_M, %d\n", 134);
 	//return E;
 }

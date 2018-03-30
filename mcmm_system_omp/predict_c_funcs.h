@@ -25,7 +25,7 @@ double R_E_and_Grad_C_nsp(double** Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant);
 
-double R_E_and_Grad_C_nsp_omp(double** Grad,
+double R_E_and_Grad_C_nsp_omp(double* vec_Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant);			
 
@@ -230,15 +230,29 @@ void compress_flt_vec(double* vector, double* data, int* indices, int* indptr, i
 // 					int numIters, int qn, int cg, double* distance, int* num_steps,
 // 					double lower, double upper);
 
-double cg_M_nor(double** M_ptr, int i,
+double cg_M_nor(double** M_ptr, int i, double* m_old,
+			double* m_test, 
 			double** C, double* C_data, int* C_indices, int* C_indptr,
 			double** X_ptr, double** R_ptr,
 			double* grad, 
-			double gamma,
+			double* grad_data, int* grad_indices, int* grad_indptr,
+			double* grad_old,
+			double* z, double* z_data, int* z_indices, int* z_indptr,
+			double* z_old,
+			double* s_vec, double* y_vec, double* Hy,
+			double* d, double* d_data, int* d_indices, int* d_indptr,
+			double* diagPre, double gTd,
+			double gamma, double error, 
 			int itr_max, int* cg_itrs, int* nr_itrs, 
-			const int K, const int J, const double normConstant, 
+			int K, int J, double normConstant, 
 			int precondition,
-			double* distance, int* num_steps, const double l, const double u);
+			double* diagP0, int* diagP0_indices, int* diagP0_indptr,
+			int* diagP0_zero_indices, int* diagP0_zero_indptr,
+			double* diagP1, int* diagP1_indices, int* diagP1_indptr,
+			int* diagP1_zero_indices, int* diagP1_zero_indptr,
+			int* diagP2_indices, int* diagP2_indptr,
+			int* diagP3_indices, int* diagP3_indptr,
+			double eps, double* distance, int* num_steps, double l, double u);
 
 void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr, 
 					double** C_ptr,

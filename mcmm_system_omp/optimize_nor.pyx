@@ -585,6 +585,7 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 			precondition = 1
 			for n in range(N):
 				diagPre[n] = gamma_ptr[0]
+
 			error = cg_C_nor(C_ptr, vec_C, vec_C_old, C_test, 
 					 M_ptr, M_data, M_indices, M_indptr,
 					 X_ptr,  R_ptr, grad,  vec_grad,
@@ -656,25 +657,32 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 		#print "\n\n\n", "\t\t\t", "pre-error =", error, "\t\t\t", "\n\n\n"
 		for n in range(N):
 			diagPre[n] = gamma_ptr[0]
-		error = cg_C_nor(C_ptr, vec_C, vec_C_old,
-				C_test, M_ptr, M_data, M_indices, M_indptr, X_ptr, R_ptr,
-				grad, vec_grad,
-				vec_grad_data, vec_grad_indices, vec_grad_indptr,
-				vec_grad_old,
-				vec_z, vec_z_data, vec_z_indices, vec_z_indptr, vec_z_old,
-				s_vecs[0], y_vecs[0], Hy,
-				vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
-				diagPre, gTd,
-				gamma_ptr, error, 20, cg_itrs_ptr, nr_itrs_ptr,
-				I, K, J,
-				normConstant, objFunc, precondition,
-				diagP0, diagP0_indices, diagP0_indptr,
-				diagP0_zero_indices, diagP0_zero_indptr,
-				diagP1, diagP1_indices, diagP1_indptr,
-				diagP1_zero_indices, diagP1_zero_indptr,
-				diagP2_indices, diagP2_indptr,
-				diagP3_indices, diagP3_indptr,
-				eps, distance, num_steps, lower, upper)
+		error = cg_C(C_ptr, vec_C, vec_C_old, C_test, 
+							M_ptr, M_data, M_indices, M_indptr,
+							X_ptr, R_ptr,
+							grad, vec_grad, y_vec,
+							vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+							I, K, J, normConstant, cg_itrs_ptr,
+							lower, upper)
+		# error = cg_C_nor(C_ptr, vec_C, vec_C_old,
+		# 		C_test, M_ptr, M_data, M_indices, M_indptr, X_ptr, R_ptr,
+		# 		grad, vec_grad,
+		# 		vec_grad_data, vec_grad_indices, vec_grad_indptr,
+		# 		vec_grad_old,
+		# 		vec_z, vec_z_data, vec_z_indices, vec_z_indptr, vec_z_old,
+		# 		s_vecs[0], y_vecs[0], Hy,
+		# 		vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+		# 		diagPre, gTd,
+		# 		gamma_ptr, error, 20, cg_itrs_ptr, nr_itrs_ptr,
+		# 		I, K, J,
+		# 		normConstant, objFunc, precondition,
+		# 		diagP0, diagP0_indices, diagP0_indptr,
+		# 		diagP0_zero_indices, diagP0_zero_indptr,
+		# 		diagP1, diagP1_indices, diagP1_indptr,
+		# 		diagP1_zero_indices, diagP1_zero_indptr,
+		# 		diagP2_indices, diagP2_indptr,
+		# 		diagP3_indices, diagP3_indptr,
+		# 		eps, distance, num_steps, lower, upper)
 		C_nnz = nnz.matrixNonZeros(C_ptr, J, K)
 		print "$$$ E:", "{:.8f}".format(error), "; E diff:", "{:.12f}".format(prev_err_nr - error), "; nnz:", C_nnz, "/", K*J, "; gn:", "{:.9f}".format(grad_norm),
 		"; K:", K, "; itr:", numIters

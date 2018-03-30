@@ -190,8 +190,10 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 		if precondition > 0:
 			for k in range(K):
 				Hy[k] = diagPre[k] * y_vec[k]
-		if yTy <= 0.0000000001: 
-			break
+		# for k in range(K):
+		# 	yTy += y_vec[k]*y_vec[k]
+		# if yTy <= 0.0000000001: 
+		# 	break
 		delta_old = delta_new
 		delta_new = 0.0
 		for h in range(diagP0_indptr[1]):
@@ -257,7 +259,6 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 			#n = diagP2_indices[h]
 			d[diagP2_indices[h]] = -z[diagP2_indices[h]]
 		#P3
-	
 		for h in range(diagP3_indptr[1]):
 			n = diagP3_indices[h]
 			if (l < m[n] <= l+eps) and (m[n] - z[n] <= l):
@@ -313,7 +314,196 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 	cg_itrs[0] = cg_i
 	return error
 
+
+cdef double cg_C(double C, double* vec_C, double* vec_C_old,
+			double** C_test, 
+			double** M, double* M_data, int* M_indices, int* M_indptr,
+			double** X, double** R,
+			double** Grad, double* vec_Grad, double* y_vec,
+			double* vec_D, double* vec_D_data, int* vec_D_indices, int* vec_D_indptr,
+			int I, int K, int J, double normConstant, int* cg_itrs,
+			double l, double u):
+
+	# We need to partition the indices of the vectorized direction matrix.
+	# That is, we need to put each d_i into one of 3 categories according to
+	# the position of x_i (the i-th element of a given data point). 
+	# These categories are L (for "lower bound"), F (for "Free variable"), 
+	# and U (for "upper bound"). The constraint "l <= x <= u" is said to 
+	# be active at the lower and upper bounds. To be more precise,
+	#		L   =  indices i where x_i = l and the Gradient g_i(x_i) >= 0
+	#		F1  =  indices i where l < x_i < u, and ||g_i(x_i)|| ~ 0
+	#		F2  =  indices i where l < x_i < u, and ||g_i(x_i)|| > 0
+	#		U   =  indices i where x_i = u, and g_i(x_i) <= 0
+	# Note that F is divided into two subcategories, depending on the value 
+	# of the Gradient.
+	cdef int N = JxK
+	cded double eps = 0.0001
+	cdef double gTg = 0.0
+	cdef double g_oldTg_old = 0.0
+	cdef double gTd_old = 0.0
+	cdef double gTy = 0.0
+	cdef double Grad_norm = 0.0
+	cdef double Grad_old_norm = 0.0
+	cdef int n, j, k
+	cdef double* y_vec = <double *>malloc(N*sizeof(double))
+	cdef double* vec_D_old = <double *>malloc(N*sizeof(double))
+	cdef double* vec_Grad_old = <double *>malloc(N*sizeof(double))
+	cdef double* vec_D_data = <double *>malloc(N*sizeof(double))
+	cdef int* vec_D_indices = <int *>malloc(N*sizeof(int))
+	cdef int* vec_D_indptr  = <int*>malloc(2*sizeof(int))
+
+	for n in range(N):
+		vec_D_old[n] = vec_D[n]
+		vec_Grad_old[n] = vec_Grad[n]
+	for j in range(J):
+		#GradFactor = (boundSum - 2.0*x[n]) * Grad[n]
+		for k in range(K):
+			n = j*K + k
+			# in the case of descent to toward minimum, is the Grad positive or negative?
+			# --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+			# point in opposing directions. When this is no longer true, the model
+			# is moving away from its target.
+			# However, d is not always going to be negative; its sign just needs to oppose
+			# the Gradient's sign.
+			if l < C[j][k] and C[j][k] < u:
+				vec_D_indices[vec_D_indptr[1]] = n
+				vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
+				vec_D[n] = -vec_Grad[n]
+				vec_D_indptr[1] += 1
+			elif (C[j][k] == l and vec_Grad[n] >= 0.0) or (C[j][k] == u and vec_Grad[n] <= 0.0):
+				vec_D[n] = 0.0
+			else:
+				if vec_Grad[n] != 0.0:
+					vec_D[n] = -vec_Grad[n]
+					vec_D_indices[vec_D_indptr[1]] = n
+					vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
+					vec_D_indptr[1] += 1
+				else:
+					vec_D[n] = 0.0
 	
+	for n in range(N):
+		gTd += vec_Grad[n]*vec_D[n]
+	#sp.compress_flt_vec(vec_D, vec_D_data, vec_D_indices, vec_D_indptr, N)
+	alpha1 = 1.0
+	cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, 
+				c1, error, gTd,
+				C, C_test, M, M_data, M_indices, M_indptr,
+				X, R,
+				vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+				normConstant, I, K, J, a_iter_ptr,
+				l, u)
+
+	for j in range(J):
+		#for k_ptr in range(vec_D_indptr[1]):
+		for k in range(K):
+			#k = vec_D_indices[k_ptr]
+			#C[j][k] += cg_alpha * vec_D_data[k_ptr]
+			C[j][k] += cg_alpha * vec_D[j*K + k]
+			if C[j][k] > u:
+				C[j][k] = u
+			elif C[j][k] < l:
+				C[j][k] = l					
+
+	error_old = error
+	error = predict.get_R_E_and_Grad_C_nsp_omp(Grad,
+		C, X, R, I, J, K, normConstant)
+	
+	for n in range(N):
+		gTg += vec_Grad[n]*vec_Grad[n]
+		g_oldTg_old += vec_Grad_old[n]*vec_Grad_old[n]
+		y_vec[n] = vec_Grad[n] - vec_Grad_old[n]
+		gTd_old += vec_Grad[n] * vec_D_old[n]
+	
+	for n in range(N):
+		gTy += vec_Grad[n] * y_vec[n]
+		
+	beta_PRP = gTy/(g_oldTg_old)
+	eta = gTd_old/(g_oldTg_old)
+
+
+	while error_old - error >= 0.00001:
+		for n in range(N):
+			vec_D_old[n] = vec_D[n]
+			vec_Grad_old[n] = vec_Grad[n]
+		for j in range(J):
+			#GradFactor = (boundSum - 2.0*x[n]) * Grad[n]
+			for k in range(K):
+				n = j*K + k
+				# in the case of descent to toward minimum, is the Grad positive or negative?
+				# --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+				# point in opposing directions. When this is no longer true, the model
+				# is moving away from its target.
+				# However, d is not always going to be negative; its sign just needs to oppose
+				# the Gradient's sign.
+				if l < C[j][k] and C[j][k] < u:
+					vec_D_indices[vec_D_indptr[1]] = n
+					vec_D_data[vec_D_indptr[1]] = - vec_Grad[n]
+					vec_D[n] = - vec_Grad[n]
+					if vec_Grad[n]*vec_Grad[n] >= eps:
+						vec_D[n] += beta_PRP*vec_D_old[n] - eta*y_vec[n]
+						vec_D_data[vec_D_indptr[1]] += beta_PRP*vec_D_old[n] - eta*y_vec[n]
+					vec_D_indptr[1] += 1
+				elif (C[j][k] == l and vec_Grad[n] >= 0.0) or (C[j][k] == u and vec_Grad[n] <= 0.0):
+					vec_D[n] = 0.0
+				
+				else:
+					if vec_Grad[n] != 0.0:
+						vec_D[n] = -vec_Grad[n]
+						vec_D_indices[vec_D_indptr[1]] = n
+						vec_D_data[vec_D_indptr[1]] = - vec_Grad[n]
+						vec_D_indptr[1] += 1
+					else:
+						vec_D[n] = 0.0
+
+		for n in range(N):
+			gTd += vec_Grad[n]*vec_D[n]
+
+		alpha1 = 1.0
+		cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, 
+					c1, error, gTd,
+					C, C_test, M, M_data, M_indices, M_indptr,
+					X, R,
+					vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+					normConstant, I, K, J, a_iter_ptr,
+					l, u)
+				
+		for j in range(J):
+			#for k_ptr in range(vec_D_indptr[1]):
+			for k in range(K):
+				#k = vec_D_indices[k_ptr]
+				#C[j][k] += cg_alpha * vec_D_data[k_ptr]
+				C[j][k] += cg_alpha * vec_D[j*K + k]
+				if C[j][k] > u:
+					C[j][k] = u
+				elif C[j][k] < l:
+					C[j][k] = l	
+
+		error_old = error
+		error = predict.get_R_E_and_Grad_C_nsp_omp(vec_Grad, M,
+			C, X, R, I, J, K, normConstant)
+
+		for n in range(N):
+			gTg += vec_Grad[n]*vec_Grad[n]
+			g_oldTg_old += vec_Grad_old[n]*vec_Grad_old[n]
+			y_vec[n] = vec_Grad[n] - vec_Grad_old[n]
+			gTd_old += vec_Grad[n] * vec_D_old[n]
+		
+		for n in range(N):
+			gTy += vec_Grad[n] * y_vec[n]
+			
+		
+		beta_PRP = gTy/(g_oldTg_old)
+		eta = gTd_old/(g_oldTg_old)
+	
+	dealoc_vector(y_vec)
+	dealoc_vector(vec_D_old)
+	dealoc_vector(vec_Grad_old)
+	dealoc_vector(vec_D_data)
+	dealloc_vec_int(vec_D_indices)
+	dealloc_vec_int(vec_D_indptr)
+	return error
+
+
 cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 			FLOAT** C_test, 
 			FLOAT** M, FLOAT* M_data, int* M_indices, int* M_indptr,
@@ -328,7 +518,7 @@ cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 			FLOAT* diagPre, FLOAT gTd,
 			FLOAT* gamma, FLOAT error, int itr_max, int* cg_itrs, int* nr_itrs,
 			int I, int K, int J,
-			FLOAT normConstant,  int objFunc,
+			FLOAT normConstant, int objFunc,
 			int precondition,
 			FLOAT* diagP0, int* diagP0_indices, int* diagP0_indptr,
 			int* diagP0_zero_indices, int* diagP0_zero_indptr,
@@ -550,6 +740,7 @@ cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 		grad_norm = sqrt(gTg)
 
 		if gTg_old == 0.0:
+			print "gTg_old == 0.0; BREAK!\n"
 			break
 		else:
 			beta_PRP = gTy / gTg_old
@@ -595,15 +786,18 @@ cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 		print "E:", "{:.7f}".format(error) + ";", 
 		print "Edif:", "{:.8f}".format(prev_err_cg - error) + ";", 
 		print "gTd =", "{:.8f}".format(gTg) + ";", 
+		print "gn: =", "{:.8f}".format(grad_norm) + ";", 
 		print "B:", cg_beta, ";",
 		print "P0:", str(diagP0_indptr[1]) + "/" + str(K*J) + ";",
 		print "K:", K
 		
+		cg_criterion = -gTd	
+		print "cg_criterion =", -gTd	
+
 		if (prev_err_cg - error) / prev_err_cg < 0.0000000001:
 			print "\tC CG; break",3, "; change in err_cg =", (prev_err_cg - error)/prev_err_cg, "; K" + str(K)
 			break
 
-		cg_criterion = -gTd	
 		if cg_k == cg_n or cg_criterion <= 0.0: # r^T * d = 1 x K times K x 1 = 1 x 1
 			print "\t!!! Restart CG; cg_criterion =", cg_criterion
 			cg_k = 0

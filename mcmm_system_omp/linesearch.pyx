@@ -1157,7 +1157,7 @@ cdef FLOAT armijo2_M_nor(FLOAT a_new, FLOAT a_max, FLOAT c1,
 				C_data, C_indices, C_indptr,
 				x, r,
 				d, d_data, d_indices, d_indptr,
-				normConstant,  K, J,
+				normConstant, K, J,
 				lowerBound, upperBound)
 
 	if phi_a_new > phi_0 + c1 * a_new * der_phi_0: # or (phi_a_new >= phi_a_old):
@@ -1167,7 +1167,7 @@ cdef FLOAT armijo2_M_nor(FLOAT a_new, FLOAT a_max, FLOAT c1,
 				C_data, C_indices, C_indptr,
 				x, r,
 				d, d_data, d_indices, d_indptr,
-				normConstant,  K, J,
+				normConstant, K, J,
 				lowerBound, upperBound)
 
 

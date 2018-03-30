@@ -1096,7 +1096,8 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 		#print "Arm C Intr;", 4
 		print "a3 =", "{:.4f}".format(a3), "<- [{:.4f}".format(a1) + ", " + "{:.4f}".format(a2) + "] ;",	
 		#print "Arm C Intr;", 5
-		if a3 < 0.000000001:
+		#if a3 < 0.000000001:
+		if a3 < 0.000001:
 			print "\na3 = 0.0; returning 0.0"
 			return 0.0
 		num_extremes = 0
@@ -1121,7 +1122,7 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 			print "\n**** ARMIJO POINT FOUND; a3 =", "{:.6f}".format(a3), "phi_a3 =", "{:.6f}".format(phi_a3) + "****\n"
 			return a3
 		
-		elif phi_a2 == 1.0 and phi_a1 == 1.0:
+		if phi_a2 == 1.0 and phi_a1 == 1.0:
 			return a3
 		a1 = a2
 		a2 = a3
