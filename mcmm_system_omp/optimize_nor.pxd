@@ -11,7 +11,7 @@ cimport sparsemat as sp
 cimport numberNonZeros as nnz
 cimport linesearch
 from search_direction cimport prelims_slmqn, direction_slmqn
-from cg_nor cimport cg_C_nor, cg_M_nor
+from cg_nor cimport cg_C_nor, cg_C, cg_M_nor
 from dealloc cimport dealloc_matrix_2
 from dealloc cimport dealloc_mat_2_int
 from dealloc cimport dealloc_matrix

@@ -634,7 +634,8 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 		#print "######################################################\n"
 		#print "******************************"
 		print "OPT C; It's CG time!!!"
-		error = predict.get_R_E_and_Grad_C_omp(grad,
+		sys.stdout.flush()
+		error = predict.get_R_E_and_Grad_C_omp(grad, #M_ptr, C_ptr,
 					M_data, M_indices, M_indptr, C_ptr, 
 					X_ptr, R_ptr, I, J, K, 
 					normConstant)
@@ -655,13 +656,15 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 		prev_err_nr = error
 		#print "\n"
 		#print "\n\n\n", "\t\t\t", "pre-error =", error, "\t\t\t", "\n\n\n"
-		for n in range(N):
-			diagPre[n] = gamma_ptr[0]
+		print "Opt C", 400
+		sys.stdout.flush()
+		# for n in range(N):
+		# 	diagPre[n] = gamma_ptr[0]
 		error = cg_C(C_ptr, vec_C, vec_C_old, C_test, 
 							M_ptr, M_data, M_indices, M_indptr,
 							X_ptr, R_ptr,
-							grad, vec_grad, y_vec,
-							vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+							grad, vec_grad, #y_vecs[0],
+							vec_D, #vec_D_data, vec_D_indices, vec_D_indptr,
 							I, K, J, normConstant, cg_itrs_ptr,
 							lower, upper)
 		# error = cg_C_nor(C_ptr, vec_C, vec_C_old,

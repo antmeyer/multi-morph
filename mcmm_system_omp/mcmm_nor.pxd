@@ -4,7 +4,8 @@
 
 cimport cython
 cimport numpy as np
-cimport clustertest_nor, optimize_nor, predict
+cimport clustertest_nor  #, optimize_nor, 
+cimport predict, cg_nor
 cimport sparsemat as sp
 cimport decode
 from dealloc cimport dealloc_matrix_2

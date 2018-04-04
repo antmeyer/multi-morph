@@ -27,7 +27,7 @@ cdef FLOAT get_R_E_and_Grad_C(FLOAT** Grad,
 						FLOAT** C, FLOAT** X, FLOAT** R,
 						int I, int J, int K, FLOAT normConstant)
 
-cdef FLOAT get_R_E_and_Grad_C_omp(FLOAT** vec_Grad,
+cdef FLOAT get_R_E_and_Grad_C_omp(FLOAT** Grad,
 						FLOAT* M_data, int * M_indices, int * M_indptr,
 						FLOAT** C, FLOAT** X, FLOAT** R,
 						int I, int J, int K, FLOAT normConstant)
@@ -35,7 +35,7 @@ cdef FLOAT get_R_E_and_Grad_C_omp(FLOAT** vec_Grad,
 cdef FLOAT get_R_E_and_Grad_C_nsp(FLOAT** Grad, FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
 						int I, int J, int K, FLOAT normConstant)
 
-cdef FLOAT get_R_E_and_Grad_C_nsp_omp(FLOAT** Grad, FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
+cdef FLOAT get_R_E_and_Grad_C_nsp_omp(FLOAT* vec_Grad, FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
 						int I, int J, int K, FLOAT normConstant)
 
 cdef FLOAT get_r_and_e(FLOAT* r, FLOAT* m, FLOAT * C_data, int * C_indices, int * C_indptr, 

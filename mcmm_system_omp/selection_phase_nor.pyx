@@ -302,7 +302,7 @@ cdef FLOAT zoom_C_nor(FLOAT alpha_lo, FLOAT phi_lo, FLOAT der_phi_lo,
 		# else:
 		# 	phi_j = predict.get_R_E_and_grad_C_one(grad,
 		# 				M, C, X, R, phi_j, I, J, normConstant)
-		phi_j = predict.get_R_E_and_Grad_C_nsp_omp(grad,
+		phi_j = predict.get_R_E_and_Grad_C_nsp_omp(vec_grad,
 						M, C, X, R, I, J, K, normConstant)
 		print "\t\tphi_j = {:.7f}".format(phi_j)
 		print "\t\t{:.4f}".format(phi_j), ">", "{:.4f}".format(phi_0), "+", "{:.2f}".format(c1), "*", "{:.4f}".format(alpha_j), "*", "{:.5f}".format(der_phi_0), "?"
@@ -529,13 +529,15 @@ cdef FLOAT armijo2_C_increase_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 					C[j][k] = upperBound
 				elif C[j][k] < lowerBound:
 					C[j][k] = lowerBound			
-		
+		print "C_INC", "test", 1, ":", itr
+		sys.stdout.flush()	
 # 		if K > 1:
 # 			phi_a_higher = predict.get_R_and_E(M, C, X, R, I, J, K, normConstant)
 # 		else:
 # 			phi_a_higher = predict.get_R_and_E_one(M, C, X, R, I, J, normConstant)
-		phi_a_higher = predict.get_R_and_E_omp(R, M_data, M_indices, M_indptr, C, 
-				X, I, J, K, normConstant)
+		# phi_a_higher = predict.get_R_and_E_omp(R, M_data, M_indices, M_indptr, C, 
+		# 		X, I, J, K, normConstant)
+		phi_a_higher = predict.get_R_and_E_nsp_omp(R, M, C, X, I, J, K, normConstant)
 		print "\tC INC; a_hi =", "{:.5f}".format(a_higher), "; f_a_hi=", "{:.4f}".format(phi_a_higher), "must be >", "{:.4f}".format(phi_0 + c1 * a_higher * der_phi_0)
 		if phi_a_higher > phi_0 + c1 * a_higher * der_phi_0:
 			##print "\tcorrect!"
@@ -1069,6 +1071,7 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 	cdef int maxitr = 20
 	cdef int num_extremes
 	cdef int h,j,k
+	cdef double lim = 0.000001
 	cdef FLOAT a3, phi_a3, a_lo, a_hi, phi_a_lo, phi_a_hi
 	phi_a3 = 0.0
 	cdef FLOAT a0 = 0.0
@@ -1097,8 +1100,9 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 		print "a3 =", "{:.4f}".format(a3), "<- [{:.4f}".format(a1) + ", " + "{:.4f}".format(a2) + "] ;",	
 		#print "Arm C Intr;", 5
 		#if a3 < 0.000000001:
-		if a3 < 0.000001:
-			print "\na3 = 0.0; returning 0.0"
+
+		if a3 < lim:
+			print "\na3 <", lim, "; returning 0.0"
 			return 0.0
 		num_extremes = 0
 		for j in range(J):
@@ -1114,7 +1118,7 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 # 			phi_a3 = predict.get_R_and_E(M, C, X, R, I, J, K, normConstant)
 # 		else:
 # 			phi_a3 = predict.get_R_and_E_one(M, C, X, R, I, J, normConstant)
-		phi_a3 = predict.get_R_and_E_omp(R, M_data, M_indices, M_indptr, C,
+		phi_a3 = predict.get_R_and_E_nsp_omp(R, M, C, #M_data, M_indices, M_indptr, C,
 				X, I, J, K, normConstant)
 		print "f_aj=", "{:.5f}".format(a3), "; f_aj-f0&c=", "{:.5f}".format(phi_a3-(phi_0 + c1 * a3 * der_phi_0)) + "; f_a2 =", "{:.5f}".format(phi_a2) + "; a1=", "{:.4f}".format(a1) + "; a2=", "{:.4f}".format(a2) + "; #extr:", num_extremes, "/", J * K, "=" "{:.2f}".format(<FLOAT>num_extremes/(<FLOAT>J*K))
 		if phi_a3 <= phi_0 + c1 * a3 * der_phi_0:

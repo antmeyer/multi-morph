@@ -15,7 +15,7 @@ from dealloc cimport dealloc_mat_2_int
 from dealloc cimport dealloc_matrix
 from dealloc cimport dealloc_vector
 from dealloc cimport dealloc_vec_int
-from libc.stdlib cimport malloc, realloc
+from libc.stdlib cimport malloc, realloc, calloc
 from libc.math cimport sqrt, fabs
 
 ctypedef int INT
@@ -49,6 +49,15 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 			int* diagP2_indices, int* diagP2_indptr,
 			int* diagP3_indices, int* diagP3_indptr,
 			FLOAT eps, FLOAT* distance, int* num_steps, FLOAT l, FLOAT u)
+
+cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
+			#double** C_test, 
+			double** M, #double* M_data, int* M_indices, int* M_indptr,
+			double** X, double** R,
+			#double** Grad, double* vec_Grad, #double* y_vec,
+			#double* vec_D, #double* vec_D_data, int* vec_D_indices, int* vec_D_indptr,
+			int I, int K, int J, double normConstant, #int* cg_itrs,
+			double l, double u)
 
 cdef FLOAT cg_C_nor(FLOAT** C, FLOAT* vec_C, FLOAT* vec_C_old,
 			FLOAT** C_test, 

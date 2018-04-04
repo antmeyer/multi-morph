@@ -145,7 +145,7 @@ cdef FLOAT wolfe_C_nor(FLOAT alpha_new, FLOAT alpha_max, FLOAT c1, FLOAT c2,
 		# else:
 		# 	phi_new = predict_nor.R_E_and_grad_C_one(grad,
 		# 				M, C, X, R, I, J, normConstant, eta)
-		predict.get_R_E_and_Grad_C_nsp_omp(grad, M, C, X, R, I, J, K, normConstant)
+		predict.get_R_E_and_Grad_C_nsp_omp(vec_grad, M, C, X, R, I, J, K, normConstant)
 		if isNaN(phi_new):
 			print "\n**************", "phi_new =", "NaN!!!!", "**************\n"
 			return alpha_old
@@ -1182,44 +1182,56 @@ cdef FLOAT armijo2_C_nor(FLOAT a_new, FLOAT a_max, FLOAT c1,
 							int I, int K, int J, int* itrs, 
 							FLOAT lowerBound, FLOAT upperBound):
 	itrs[0] = 0
-	cdef int maxitr = 20
+	#cdef int maxitr = 20
 	cdef FLOAT phi_a_new = phi_0
 	cdef FLOAT a_old = 0.0
 	cdef FLOAT phi_a_old = phi_0
 	cdef INT k, j
-	#print "\t\t** Armijo linesearch 2 C itr", itrs[0], ";", "init a =", a_new, "K =", K
-
+	print "\t\t** Armijo linesearch 2 C itr", itrs[0], ";", "init a =", a_new, "K =", K
+	sys.stdout.flush()
 	for j in range(J):
 		for k in range(K):
+			print "C[", j, ",", k, "] =", C0[j][k], "+", a_new, "&*&", d[j*K + k], " ",
+			sys.stdout.flush()
 			C[j][k] = C0[j][k] + a_new * d[j*K + k]
 			# clip values to ensure that they stay within [0,1].
+			print "***C[", j, ",", k, "] "
+			sys.stdout.flush()
 			if C[j][k] > upperBound:
 				C[j][k] = upperBound
 			elif C[j][k] < lowerBound:
 				C[j][k] = lowerBound
-
-	phi_a_new = predict.get_R_and_E_omp(R,
-				M_data, M_indices, M_indptr,
-				C, X, I, J, K,
-				normConstant)
-				
+	print "\n\narmijo2_C_nor", 2
+	sys.stdout.flush()
+	# phi_a_new = predict.get_R_and_E_omp(R,
+	# 			M_data, M_indices, M_indptr,
+	# 			C, X, I, J, K,
+	# 			normConstant)
+	phi_a_new = predict.get_R_and_E_nsp_omp(R, M, C, X, I, J, K, normConstant)
+	print "armijo2_C_nor", 3
+	sys.stdout.flush()		
 	if phi_a_new <= phi_0 + c1 * a_new * der_phi_0: # or (phi_a_old > phi_a_new):
+		print "armijo2_C_nor", 4
+		sys.stdout.flush()
 		return zmnor.armijo2_C_increase_alpha_nor(a_new, phi_a_new, 
 				a_old, phi_a_old,
 				phi_0, der_phi_0,
-				c1, C0, C, M, 
-				M_data, M_indices, M_indptr, X, R,
-				d, d_data, d_indices, d_indptr,
-				normConstant,  I, K, J,
-				lowerBound, upperBound)
-	
-	elif phi_a_new > phi_0 + c1 * a_new * der_phi_0: # or (phi_a_new >= phi_a_old):
-		return zmnor.armijo2_C_interpolate_nor(a_new, phi_a_new,
-				a_old, phi_a_old,
-				phi_0, der_phi_0,
-				c1, C0, C, M, 
-				M_data, M_indices, M_indptr, 
+				c1, C0, C, 
+				M, M_data, M_indices, M_indptr, 
 				X, R,
 				d, d_data, d_indices, d_indptr,
-				normConstant,  I, K, J,
-				lowerBound, upperBound)	
+				normConstant, I, K, J,
+				lowerBound, upperBound)
+	
+	#elif phi_a_new > phi_0 + c1 * a_new * der_phi_0: # or (phi_a_new >= phi_a_old):
+	print "armijo2_C_nor", 5
+	sys.stdout.flush()
+	return zmnor.armijo2_C_interpolate_nor(a_new, phi_a_new,
+			a_old, phi_a_old,
+			phi_0, der_phi_0,
+			c1, C0, C, 
+			M, M_data, M_indices, M_indptr, 
+			X, R,
+			d, d_data, d_indices, d_indptr,
+			normConstant, I, K, J,
+			lowerBound, upperBound)

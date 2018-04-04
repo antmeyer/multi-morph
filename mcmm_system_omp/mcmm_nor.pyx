@@ -458,15 +458,21 @@ cdef class MCMM:
                 print "In iteration", self.numIters, "\n"
                 print "YEESSSSS", 1
                 sys.stdout.flush()
-                self.E = optimize_nor.optimize_C_nor(X_ptr, R_ptr, C_ptr, M_ptr,
-                    self.I, self.J, self.K, self.normConstant,
-                    self.numIters, self.objFunc, self.qn, self.cg,
-                    &self.C_distance, &self.num_C_steps, lower, upper)
+                # self.E = optimize_nor.optimize_C_nor(X_ptr, R_ptr, C_ptr, M_ptr,
+                #     self.I, self.J, self.K, self.normConstant,
+                #     self.numIters, self.objFunc, self.qn, self.cg,
+                #     &self.C_distance, &self.num_C_steps, lower, upper)
+                # E_after_C = self.E
+                self.E = cg_nor.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
+                        self.I, self.K, self.J, self.normConstant,
+                        lower, upper)
                 E_after_C = self.E
                 print "\n@@@@@@ mcmm_cy", "self.I =", self.I
+                sys.stdout.flush()
                 print "\n@@@@@@ end optimize_C"
+                sys.stdout.flush()
                 print "\nE from C", "=", E_after_C
-
+                sys.stdout.flush()
                 self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
 
