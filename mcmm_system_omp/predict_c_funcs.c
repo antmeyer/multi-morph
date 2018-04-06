@@ -36,7 +36,7 @@ double R_and_E_omp(double** R, double* M_data, int* M_indices,
 					int * M_indptr, double** C, double** X, 
 					int I, int J, int K, double normConstant)
 {					
-	double E = 0.0;
+	double E;
 	// #pragma omp parallel
 	// {
 	double prod;
@@ -54,7 +54,7 @@ double R_and_E_omp(double** R, double* M_data, int* M_indices,
 			R[i][j] = 1.0 - prod;
 		}
 	}
-
+	E = 0.0;
 	#pragma omp parallel for reduction(+:E)
 	for (int i=0; i<I; i++) {
 		for (int j=0; j<J; j++) {
@@ -90,28 +90,27 @@ double R_and_E_nsp(double** R, double** M, double** C, double** X,
 double R_and_E_nsp_omp(double** R, double** M, double** C, double** X,
 				int I, int J, int K, double normConstant)
 {					
-	double E = 0.0;
-	#pragma omp parallel
+	double E, prod;
+	// #pragma omp parallel
+	// {
+	#pragma omp parallel for private(prod)
+	for (int i=0; i<I; i++) 
 	{
-		#pragma omp for
-		for (int i=0; i<I; i++) 
-		{
-			for (int j=0; j<J; j++) {
-				double prod = 1.0;
-				for (int k=0; k<K; ++k)
-				{
-					prod *= (1.0 - M[i][k]*C[j][k]);
-				}
-				R[i][j] = 1.0 - prod;
+		for (int j=0; j<J; j++) {
+			prod = 1.0;
+			for (int k=0; k<K; ++k)
+			{
+				prod *= (1.0 - M[i][k]*C[j][k]);
 			}
+			R[i][j] = 1.0 - prod;
 		}
-
-		#pragma omp for reduction(+:E)
-		for (int i=0; i<I; i++) {
-			for (int j=0; j<J; j++) {
-				E += (R[i][j] - X[i][j]) * (R[i][j] - X[i][j]);
-			}	
-		}
+	}
+	E = 0.0;
+	#pragma omp parallel for reduction(+:E)
+	for (int i=0; i<I; i++) {
+		for (int j=0; j<J; j++) {
+			E += (R[i][j] - X[i][j]) * (R[i][j] - X[i][j]);
+		}	
 	}
 	return 0.5*E*normConstant;
 }
@@ -267,7 +266,7 @@ double R_E_and_Grad_C_omp(double** Grad,
 	return 0.5*E*normConstant;
 }
 
-double R_E_and_Grad_C_nsp(double** Grad,
+double R_E_and_Grad_C_nsp(double* vec_Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant)
  {					
@@ -276,7 +275,7 @@ double R_E_and_Grad_C_nsp(double** Grad,
 
 	for (int j=0; j<J; j++) {
 		for (int k=0; k<K; k++) {
-			Grad[j][k] = 0.0;
+			vec_Grad[j*K + k] = 0.0;
 		}
 	}
 
@@ -311,7 +310,7 @@ double R_E_and_Grad_C_nsp(double** Grad,
 					double m = M[i][k];
 					double denom = 1.0 - m*C[j][k];
 					if (denom*denom > 0.0) {
-						Grad[j][k] += ( s / denom ) * m;
+						vec_Grad[j*K + k] += ( s / denom ) * m;
 					}
 				}
 			}
@@ -326,65 +325,80 @@ double R_E_and_Grad_C_nsp_omp(double* vec_Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant)
  {	
- 	double E;				
-	double *Diff = (double *)malloc(I*J * sizeof(double));;
-	#pragma omp parallel
+ 	double E, prod;	
+ 	const int N = J*K;
+ 	const int Z = I*J;		
+	double *Diff = (double *)malloc(Z * sizeof(double));
+	for (int n=0; n<N; n++) {
+		vec_Grad[n] = 0.0;
+	}
+	// #pragma omp parallel
+	// {
+		//#pragma omp for
+		//for (int j=0; j<J; j++) {
+		//	for (int k=0; k<K; k++) {
+		//		vec_Grad[j*K + k] = 0.0;
+		//	}
+		//}
+	#pragma omp parallel for private(prod)
+	for (int i=0; i<I; i++) 
 	{
-		#pragma omp for
 		for (int j=0; j<J; j++) {
-			for (int k=0; k<K; k++) {
-				vec_Grad[j*K + k] = 0.0;
+			prod = 1.0;
+			for (int k=0; k<K; ++k)
+			{
+				prod *= (1.0 - M[i][k]*C[j][k]);
 			}
+			R[i][j] = 1.0 - prod;
+			Diff[i*J + j] = R[i][j] - X[i][j];
 		}
-		#pragma omp for
-		for (int i=0; i<I; i++) 
+	}
+	E = 0.0;
+	#pragma omp parallel for reduction(+:E)
+	//E = 0.0;
+	for (int z=0; z<Z; z++) {
+		E += Diff[z] * Diff[z];
+	}
+		// for (int i=0; i<I; i++) {
+		// 	for (int j=0; j<J; j++) {
+		// 		E += Diff[i*J + j] * Diff[i*J + j];
+		// 	}	
+		// }
+	#pragma omp parallel 
+	{
+	double * private_Grad = (double *)calloc(J*K, sizeof(double));
+
+	#pragma omp for //private(m,denom)
+	for (int i=0; i<I; ++i) 
+	{
+		for (int j=0; j<J; ++j) 
 		{
-			for (int j=0; j<J; j++) {
-				double prod = 1.0;
+			double s = (-R[i][j] + 1.0) * Diff[i*J + j] * normConstant;
+			if (s*s > 0.0)
+			{
 				for (int k=0; k<K; ++k)
 				{
-					prod *= (1.0 - M[i][k]*C[j][k]);
-				}
-				R[i][j] = 1.0 - prod;
-				Diff[i*J + j] = R[i][j] - X[i][j];
-			}
-		}
-		E = 0.0;
-		#pragma omp for reduction(+:E)
-		for (int i=0; i<I; i++) {
-			for (int j=0; j<J; j++) {
-				E += Diff[i*J + j] * Diff[i*J + j];
-			}	
-		}
-
-		double * private_Grad = (double *)calloc(J*K, sizeof(double));;
-
-		#pragma omp for //private(m,denom)
-		for (int i=0; i<I; ++i) 
-		{
-			for (int j=0; j<J; ++j) 
-			{
-				double s = (-R[i][j] + 1.0) * Diff[i*J + j] * normConstant;
-				if (s*s > 0.0)
-				{
-					for (int k=0; k<K; ++k)
-					{
-						double m = M[i][k];
-						double denom = 1.0 - m*C[j][k];
-						if (denom*denom > 0.0) {
-							private_Grad[j*K + k] += ( s / denom ) * m;
-						}
+					double m = M[i][k];
+					double denom = 1.0 - m*C[j][k];
+					if (denom*denom > 0.0) {
+						private_Grad[j*K + k] += ( s / denom ) * m;
 					}
 				}
 			}
 		}
+	}
+		// #pragma omp critical
+		// for (int j=0; j<J; ++j) 
+		// {
+		// 	for (int k=0; k<K; ++k) 
+		// 	{
+		// 		vec_Grad[j*K + k] += private_Grad[j*K + k];
+		// 	}
+		// }
+		// free(private_Grad);
 		#pragma omp critical
-		for (int j=0; j<J; ++j) 
-		{
-			for (int k=0; k<K; ++k) 
-			{
-				vec_Grad[j*K + k] += private_Grad[j*K + k];
-			}
+		for (int n=0; n<N; ++n) {
+			vec_Grad[n] += private_Grad[n];
 		}
 		free(private_Grad);
 	}
@@ -1737,7 +1751,7 @@ double cg_M_nor(double** M_ptr, int i, double* m_old,
 					d, d_data, d_indices, d_indptr,
 					normConstant, K, J, a_iter_ptr,
 					l, u);
-		printf("In CG_M; a_iter_ptr = %d\n", a_iter_ptr[0]);
+		//printf("In CG_M; a_iter_ptr = %d\n", a_iter_ptr[0]);
 		for (int k=0; k<K; k++) {
 			m_old[k] = M_ptr[i][k];
 		}
@@ -1797,7 +1811,7 @@ double cg_M_nor(double** M_ptr, int i, double* m_old,
 				sTy += s_vec[diagP0_indices[h]] * y_vec[diagP0_indices[h]];
 			}
 			if (sTy == 0.0) {
-				printf("sTy == 0.0; BREAK!\n");
+				//printf("sTy == 0.0; BREAK!\n");
 				break;
 			}
 			else {
@@ -1829,7 +1843,7 @@ double cg_M_nor(double** M_ptr, int i, double* m_old,
 		compress_flt_vec(z, z_data, z_indices, z_indptr, K);
 		
 		if (delta_old == 0.0) {
-			printf("delta_old = 0; BREAK!\n");
+			//printf("delta_old = 0; BREAK!\n");
 			break;
 		}
 		else {
@@ -1891,7 +1905,7 @@ double cg_M_nor(double** M_ptr, int i, double* m_old,
 		// 	print "\n\n", "********************* CG M, gTd NaN *********************\n\n"
 		// 	break
 		if ((prev_err_cg - error)/prev_err_cg < 0.000000001) {
-			printf("&&&& break cg error\n");
+			//printf("&&&& break cg error\n");
 			break;
 		}
 		// if (cg_i >= cg_max) {
@@ -2149,13 +2163,15 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 				grad_sq_sum += grad[k] * grad[k];
 			}
 			double grad_len = sqrt(grad_sq_sum); 
-			printf("here now 1\n");
-			printf("*** M[%d]; e: %f; dif: %f; cgi:%d; gn: %f; K:%d\n", i, error, prev_err - error, cg_itrs_ptr[0], grad_len, K); 
+			//printf("here now 1\n");
+			if (i%30==0) {
+				printf("*** M[%d]; e: %f; dif: %f; cgi:%d; gn: %f; K:%d\n", i, error, prev_err - error, cg_itrs_ptr[0], grad_len, K); 
+			}
 			// # 	print "; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
 			// # 	print "; cgi: " + str(cg_itrs_ptr[0]) + ";",
 			// # 	print "ni: " + str(numIters) + "; K: " + str(K)								
 			//}
-			printf("here now 2\n");
+			//printf("here now 2\n");
 			cg_itrs_ptr=NULL;
 			nr_itrs_ptr=NULL;
 			//free(grad);
@@ -2169,7 +2185,7 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 		// free(y_vecs);
 		//free(grad);
 	//}
-	printf("here now 3\n");
+	//printf("here now 3\n");
 	free(grad);
 	free(C_data);
 	free(C_indices);

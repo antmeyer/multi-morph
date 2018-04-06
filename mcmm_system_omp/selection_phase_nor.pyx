@@ -645,7 +645,7 @@ cdef FLOAT armijo2_C_decrease_alpha_nor(FLOAT a_higher, FLOAT phi_a_higher,
 # 		if phi_a_higher - phi_a_lower < 0.000001:
 # 			#print "Duplicate phi value."
 # 			return 0.0
-		if a_lower < 0.0000001:
+		if a_lower < 0.0:
 			return a_lower
 	#print "Search failed; returning", a_lower
 	return a_lower
@@ -1071,7 +1071,7 @@ cdef FLOAT armijo2_C_interpolate_nor(FLOAT a2, FLOAT phi_a2,
 	cdef int maxitr = 20
 	cdef int num_extremes
 	cdef int h,j,k
-	cdef double lim = 0.000001
+	cdef double lim = 0.0
 	cdef FLOAT a3, phi_a3, a_lo, a_hi, phi_a_lo, phi_a_hi
 	phi_a3 = 0.0
 	cdef FLOAT a0 = 0.0

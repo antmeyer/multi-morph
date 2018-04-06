@@ -29,7 +29,7 @@ cdef extern from "predict_c_funcs.h" nogil:
 							FLOAT** C, FLOAT** X, FLOAT** R,
 							int I, int J, int K, FLOAT normConstant)				
 
-	FLOAT R_E_and_Grad_C_nsp(FLOAT** Grad,
+	FLOAT R_E_and_Grad_C_nsp(FLOAT* Grad,
 							FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
 							int I, int J, int K, FLOAT normConstant)
 

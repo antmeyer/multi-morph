@@ -36,7 +36,7 @@ cdef FLOAT get_R_E_and_Grad_C_omp(FLOAT** Grad,
 	return c_predict.R_E_and_Grad_C_omp(Grad, M_data, M_indices, M_indptr,
 						C, X, R, I, J, K, normConstant)
 
-cdef FLOAT get_R_E_and_Grad_C_nsp(FLOAT** Grad, FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
+cdef FLOAT get_R_E_and_Grad_C_nsp(FLOAT* Grad, FLOAT** M, FLOAT** C, FLOAT** X, FLOAT** R,
 						int I, int J, int K, FLOAT normConstant):
 	return c_predict.R_E_and_Grad_C_nsp( Grad, M, C, X, R, I, J, K, normConstant )
 

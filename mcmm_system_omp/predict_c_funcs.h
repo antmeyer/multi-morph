@@ -21,7 +21,7 @@ double R_E_and_Grad_C_omp(double** Grad, double* M_data,
 						double** C, double** X, double** R,
 						int I, int J, int K, double normConstant);				
 
-double R_E_and_Grad_C_nsp(double** Grad,
+double R_E_and_Grad_C_nsp(double* vec_Grad,
 						double** M, double** C, double** X, double** R,
 						int I, int J, int K, double normConstant);
 

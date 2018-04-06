@@ -17,7 +17,7 @@
 #cp optimize_sp2_newhope.py optimize_sp2.pyx
 rm optimize_nor.so
 rm optimize_nor.c
-cp optimize_nor.py optimize_nor.pyx
+#cp optimize_nor.py optimize_nor.pyx
 
 #cp optimize_sp2_newhope_vec.py optimize_sp2.pyx
 #cp optimize_1K_sp2_r_all_nsp.py optimize_1K_sp2.pyx
@@ -32,37 +32,68 @@ rm linesearch.c
 rm selection_phase_nor.so
 rm selection_phase_nor.c
 
-rm selection_phase_wwb.so
-rm selection_phase_wwb.c
+#rm selection_phase_wwb.so
+#rm selection_phase_wwb.c
 
 #cp optimize_sp2_supercharged_m-justnr.py optimize_sp2.pyx
 rm predict_nor.so
 rm predict_nor.c
 
-rm predict_wwb.so
-rm predict_wwb.c
+#rm predict_wwb.so
+#rm predict_wwb.c
 
-rm encode_nor.c
-rm encode_nor.so
+if [ -e "encode_nor.so" ]; then
+	rm encode_nor.so
+fi
 
-rm decode.so
-rm decode.c
+if [ -e "encode_nor.so" ]; then
+	rm encode_nor.so
+fi
 
-rm bcubed_eval.so
-rm bcubed_eval.c
+if [ -e "decode.so" ]; then
+	rm decode.so
+fi
 
-rm clustertest_nor.so
-rm clustertest_nor.c
+if [ -e "decode.so" ]; then
+	rm decode.so
+fi
 
-rm sparsemat.so
-rm sparsemat.c
+if [ -e "bcubed_eval.so" ]; then
+	rm bcubed_eval.so
+fi
 
-rm matmath_sparse.so
-rm matmath_sparse.c
+if [ -e "bcubed_eval.c" ]; then
+	rm bcubed_eval.c
+fi
+
+if [ -e "clustertest_nor.so" ]; then
+	rm clustertest_nor.so
+fi
+
+if [ -e "clustertest_nor.c" ]; then
+	rm clustertest_nor.c
+fi
+
+if [ -e "sparsemat.so" ]; then
+	rm sparsemat.so
+fi
+
+if [ -e "sparsemat.c" ]; then
+	rm sparsemat.c
+fi
+
+if [ -e "matmath_sparse.so" ]; then
+	rm matmath_sparse.so
+fi
+
+if [ -e "matmath_sparse.c" ]; then
+	rm matmath_sparse.c
+fi
 
 if [ -e "matmath_nullptr.so" ]; then
 	rm matmath_nullptr.so
 fi
+
 if [ -e "matmath_nullptr.c" ]; then
 	rm matmath_nullptr.c
 fi
@@ -70,19 +101,31 @@ fi
 if [ -e "search_direction.so" ]; then
 	rm search_direction.so
 fi
+
 if [ -e "search_direction.c" ]; then
 	rm search_direction.c
 fi
 
-rm dealloc.so
-rm dealloc.c
+if [ -e "dealloc.so" ]; then
+	rm dealloc.so
+fi
 
-rm mcmm_nor.so
-rm mcmm_nor.c
+if [ -e "dealloc.c" ]; then
+	rm dealloc.c
+fi
 
-cp encode_nor.py encode_nor.pyx
-cp mcmm_nor.py mcmm_nor.pyx
-cp new_wrapper_nor.py wrapper_nor.pyx
+if [ -e "mcmm_nor.so" ]; then
+	rm mcmm_nor.so
+fi
+
+if [ -e "mcmm_nor.c" ]; then
+	rm mcmm_nor.c
+fi
+
+
+#cp encode_nor.py encode_nor.pyx
+#cp mcmm_nor.py mcmm_nor.pyx
+#cp new_wrapper_nor.py wrapper_nor.pyx
 
 python setup_nor.py build_ext --inplace
 #python setup_wrapper_sp1.py build_ext --inplace
