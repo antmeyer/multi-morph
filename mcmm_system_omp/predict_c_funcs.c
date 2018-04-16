@@ -1010,7 +1010,7 @@ double armijo2_M_increase_alpha_nor(double a_higher, double phi_a_higher,
 		a_higher *= 5.0;
 		itr++;
 		if (itr > maxitr) {
-			// print "\tToo many iterations; returning a_hi =", "{:.6f}".format(a_higher), "\n"
+			// printf("\tToo many iterations; returning a_hi =", "{:.6f}".format(a_higher), "\n"
 			return a_higher;
 		}
 		if (phi_a_higher == 1.0 && phi_a_lower == 1.0) {
@@ -1059,7 +1059,7 @@ double armijo2_M_increase_alpha_nor(double a_higher, double phi_a_higher,
 // 		a_higher *= 5.0;
 // 		itr++;
 // 		if (itr > maxitr) {
-// 			// print "\tToo many iterations; returning a_hi =", "{:.6f}".format(a_higher), "\n"
+// 			// printf("\tToo many iterations; returning a_hi =", "{:.6f}".format(a_higher), "\n"
 // 			return a_higher;
 // 		}
 // 		if (phi_a_higher == 1.0 && phi_a_lower == 1.0) {
@@ -1088,7 +1088,7 @@ double armijo2_M_increase_alpha_nor(double a_higher, double phi_a_higher,
 // 	//while (itr < maxitr) {
 // 	for (int itr=1; itr<maxitr; itr++) {   
 // 		if (itr == 1) {
-// 			//print "(quad)",
+// 			//printf("(quad)",
 // 			// a2 is the most recent alpha.
 // 			a3 = quadratic_interpolate(phi_0, der_phi_0, a2, phi_a2);
 // 			if (a3 < 0.0) { a3 = a0 + 0.5*fabs(a0 - a2); }
@@ -1126,7 +1126,7 @@ double armijo2_M_increase_alpha_nor(double a_higher, double phi_a_higher,
 // 		phi_a1 = phi_a2;
 // 		phi_a2 = phi_a3;
 // 		//itr++;
-// 	//print "\n\t**** Search failed; returning a3 =", a3, "\n"
+// 	//printf("\n\t**** Search failed; returning a3 =", a3, "\n"
 // 	}
 // 	return a3;
 // }
@@ -1149,7 +1149,7 @@ double armijo2_M_interpolate_nor(double a2, double phi_a2,
 	//while (itr < maxitr) {
 	for (int itr=1; itr<maxitr; itr++) {   
 		if (itr == 1) {
-			//print "(quad)",
+			//printf("(quad)",
 			// a2 is the most recent alpha.
 			a3 = quadratic_interpolate(phi_0, der_phi_0, a2, phi_a2);
 			if (a3 < 0.0) { a3 = a0 + 0.5*fabs(a0 - a2); }
@@ -1185,7 +1185,7 @@ double armijo2_M_interpolate_nor(double a2, double phi_a2,
 		phi_a1 = phi_a2;
 		phi_a2 = phi_a3;
 		//itr++;
-	//print "\n\t**** Search failed; returning a3 =", a3, "\n"
+	//printf("\n\t**** Search failed; returning a3 =", a3, "\n"
 	}
 	return a3;
 }
@@ -1249,8 +1249,9 @@ double armijo2_M_nor(double a_new, double a_max, double c1,
 	double a_old = 0.0;
 	double phi_a_old = phi_0;
 
+	for (int k; k < K; ++k) {m_test[k] = M_ptr[i][k];}
 	for (int h = 0; h < d_indptr[1]; h++) {
-		m_test[d_indices[h]] = M_ptr[i][d_indices[h]] + a_new * d_data[h];
+		m_test[d_indices[h]] += a_new * d_data[h];
 		//clip values to ensure that they stay within [0,1].
 		if (m_test[d_indices[h]] > upperBound) m_test[d_indices[h]] = upperBound;
 		else if (m_test[d_indices[h]] < lowerBound) m_test[d_indices[h]] = lowerBound;
@@ -1585,6 +1586,653 @@ void compress_flt_vec(double* vector, double* data, int* indices, int* indptr, i
 	indptr[1] = counter;
 }
 
+double cg_M(double** M,
+			const double** C,
+			const double** X, double** R,
+			const int I, const int K, const int J, const double normConstant,
+			const double l, const double u):
+	// # We need to partition the indices of the vectorized direction matrix.
+	// # That is, we need to put each d_i into one of 3 categories according to
+	// # the position of x_i (the i-th element of a given data point). 
+	// # These categories are L (for "lower bound"), F (for "Free variable"), 
+	// # and U (for "upper bound"). The constraint "l <= x <= u" is said to 
+	// # be active at the lower and upper bounds. To be more precise,
+	// #		L   =  indices i where x_i = l and the Gradient g_i(x_i) >= 0
+	// #		F1  =  indices i where l < x_i < u, and ||g_i(x_i)|| ~ 0
+	// #		F2  =  indices i where l < x_i < u, and ||g_i(x_i)|| > 0
+	// #		U   =  indices i where x_i = u, and g_i(x_i) <= 0
+	// # Note that F is divided into two subcategories, depending on the value 
+	// # of the Gradient.
+	int cg_i = 0;
+	double alpha1 = 1.0;
+	const double alpha_max = 10000000.0;
+	double error, error_old;
+	const double c1 = 0.1;
+	const double eps = 0.001;
+	double gTg = 0.0;
+	double g_oldTg_old = 0.0;
+	double gTd_old = 0.0;
+	double gTy = 0.0;
+	double gTd = 0.0;
+	double Grad_norm = 0.0;
+	double Grad_old_norm = 0.0;
+	int a_iter = 0;
+	int* a_iter_ptr = &a_iter;
+	int n, j, k;
+
+	double* C_data = (double*)malloc(J*K*sizeof(double));
+	int* C_indices = (int*)malloc(J*K*sizeof(int));
+	int* C_indptr = (int*)malloc((J+1)*sizeof(int));
+	C_indptr[0] = 0;
+	
+	compress_flt_mat(C_ptr, C_data, C_indices, C_indptr, J, K);
+
+	double* grad = (double *)calloc(K,sizeof(double));
+	double* grad_old = (double *)calloc(K,sizeof(double));
+	double* y_vec = (double *)calloc(K,sizeof(double));
+	double* d_old = (double *)calloc(K,sizeof(double));
+	
+	double* d = (double *)calloc(K,sizeof(double));
+	double* d_data = (double *)calloc(K,sizeof(double));
+	int* d_indices = (int *)calloc(K,sizeof(int))
+	int* d_indptr  = (int *)calloc(2,sizeof(int))
+
+	double* m_test = (double *)calloc(K,sizeof(double));
+
+	//Compute original error
+	error = r_e_and_grad_m_nsp_omp(grad, M[i], C, X[i], R[i], I, J, K, normConstant);
+
+	d_indptr[1] = 0;
+	for(int j=0; j<J; ++j) {
+		for(int k=0; k<K; ++k) {
+			int n = k;
+			// # in the case of descent to toward minimum, is the Grad positive or negative?
+			// # --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+			// # point in opposing directions. When this is no longer true, the model
+			// # is moving away from its target.
+			// # However, d is not always going to be negative; its sign just needs to oppose
+			// # the Gradient's sign.
+			if (l < M[i][k] && M[i][k] < u) {
+				d[k] = -grad[k];
+				d_indices[d_indptr[1]] = n;
+				d_data[d_indptr[1]] = -grad[k];
+				d_indptr[1]++;
+			}
+			else if (M[i][k] == l) {
+				if (grad[k] >= 0.0) d[k] = 0.0;
+				else {
+					d[k] = -grad[k];
+					d_indices[d_indptr[1]] = n;
+					d_data[d_indptr[1]] = -grad[k];
+					d_indptr[1]++;
+				}
+			}
+			else if (M[i][k] == u) { 
+				if grad[k] <= 0.0: d[k] = 0.0
+				else {
+					d[k] = -grad[k];
+					d_indices[d_indptr[1]] = n;
+					d_data[d_indptr[1]] = -grad[k];
+					d_indptr[1]++;
+				}
+	gTd = 0.0;
+	for(int k=0; k<K; ++k) {
+		gTd += grad[k]*d[k];
+	}
+	
+	// cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, c1, error, gTd, 
+	// 					M[i], m_test, 
+	// 					C, C_data, C_indices, C_indptr, 
+	// 					X[i], R[i], 
+	// 					d, d_data, d_indices, d_indptr,
+	// 					normConstant, I, K, J, a_iter_ptr, l, u);
+	double phi_a_new = phi_0;
+	double a_old = 0.0;
+	double phi_a_old = phi_0;
+
+	for (int h = 0; h < d_indptr[1]; h++) {
+		m_test[d_indices[h]] = M_ptr[i][d_indices[h]] + a_new * d_data[h];
+		//clip values to ensure that they stay within [0,1].
+		if (m_test[d_indices[h]] > upperBound) m_test[d_indices[h]] = upperBound;
+		else if (m_test[d_indices[h]] < lowerBound) m_test[d_indices[h]] = lowerBound;
+	}
+	phi_a_new = r_and_e(R[i], m_test, 
+					C_data, C_indices, C_indptr,
+					X[i], J, K, normConstant);
+					
+	if (phi_a_new <= phi_0 + c1 * a_new * der_phi_0) {      
+	//int itr = 1;
+	////////////////////////////////////////////////////////
+		const int maxitr = 20;
+		double phi_a3 = 0.0;
+		double a3 = 0.0;
+		//int extremes, zeros;
+		double a0 = a1;
+		//while (itr < maxitr) {
+		for (int itr=1; itr<maxitr; itr++) {   
+			if (itr == 1) {
+				//printf("(quad)",
+				// a2 is the most recent alpha.
+				a3 = quadratic_interpolate(phi_0, der_phi_0, a2, phi_a2);
+				if (a3 < 0.0) { a3 = a0 + 0.5*fabs(a0 - a2); }
+			}						
+			else {
+				a3 = cubic(phi_0, der_phi_0, phi_a1, a1, phi_a2, a2);
+				if (a3 < 0.0) {a3 = a0 + 0.5*fabs(a0 - a2);}
+			}
+			if (a3 < 0.000000001) return 0.0;	
+			for (int h=0; h<d_indptr[1]; h++) {   
+				m_test[d_indices[h]] = M_ptr[i][d_indices[h]] + a3 * d_data[h];
+				// clip values to ensure that they stay within [0,1].
+				if (m_test[d_indices[h]] >= u) {m_test[d_indices[h]] = u;}
+				else if (m_test[d_indices[h]] <= l) {m_test[d_indices[h]] = l;}
+			}
+			phi_a3 = r_and_e_nsp(R_ptr[i], m_test, C, X_ptr[i], J, K, normConstant);
+			if (a2 == 0.0) return 0.0;
+			if (phi_a3 <= phi_0 + c1 * a3 * der_phi_0) {
+				// a2 satisfies the Armijo condition
+				return a3;
+			}
+			a1 = a2;
+			a2 = a3;
+			phi_a1 = phi_a2;
+			phi_a2 = phi_a3;
+			//itr++;
+		//printf("\n\t**** Search failed; returning a3 =", a3, "\n"
+		}
+		//return a3;
+	///////////////////////////////
+	}
+	//else { //(phi_a_new > phi_0 + c1 * a_new * der_phi_0) {
+	cg_alpha = armijo2_M_interpolate_nor(a_new, phi_a_new,
+			a_old, phi_a_old, phi_0, der_phi_0,
+			c1, M, m_test, i, 
+			C, C_data, C_indices, C_indptr,
+			X, R,
+			d, d_data, d_indices, d_indptr,
+			normConstant, K, J,
+			lowerBound, upperBound);
+
+	for(int k=0; k<K; ++k) {
+		d_old[k] = d[k];
+	}
+	for(int k=0; k<K; ++k) {
+		//k = d_indices[k_ptr]
+		//M[i][k] += cg_alpha * d_data[k_ptr]
+		M[i][k] += cg_alpha * d[k];
+		if (M[i][k] > u) M[i][k] = u;
+		else if (M[i][k] < l) M[i][k] = l;					
+	}
+	double v = 0.0;
+	error_old = error;
+	for(int k=0; k<K; ++k) {
+		grad_old[k] = grad[k];
+	}
+	error = r_e_and_grad_m_nsp_omp(grad, M[i], C, X[i], R[i], I, J, K, normConstant);
+	
+	for(int k=0; k<K; ++k) {
+		gTg += grad[k]*grad[k];
+		g_oldTg_old += grad_old[k]*grad_old[k];
+		y_vec[k] = grad[k] - grad_old[k];
+		gTd_old += grad[k] * d_old[k];
+	}
+	for(int k=0; k<K; ++k) {
+		gTy += grad[k] * y_vec[k];
+	}	
+	beta_PRP = gTy/(g_oldTg_old);
+	eta = gTd_old/(g_oldTg_old);
+	Grad_norm = sqrt(gTg);
+	printf("\t*** cgi: %d; ", cg_i);
+	printf("E: %f; ", error);
+	printf("Edif: %f; ", error_old - error);
+	printf("gTd_old : %f; ", gTd_old);
+	printf("gn: %f; ", Grad_norm);
+	printf("bPRP: %f; ", beta_PRP);
+	printf("K: %d\n", K);
+
+	while error_old - error >= 0.000001:
+		cg_i++;
+
+		for(int k=0; k<K; ++k) {
+			d_old[k] = d[k];
+		}
+		d_indptr[1] = 0;
+
+		for(int k=0; k<K; ++k) {
+			// # in the case of descent to toward minimum, is the Grad positive or negative?
+			// # --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+			// # point in opposing directions. When this becomes no longer true, it means the model
+			// # is moving away from its target (at the given dimension).
+			// # However, d is not always going to be negative; its sign just needs to oppose
+			// # the Gradient's sign.
+			if (l < M[i][k] && M[i][k] < u) {
+				d[k] = -grad[k];
+				d_indices[d_indptr[1]] = k;
+				d_data[d_indptr[1]] = - grad[k];
+				if (grad[k]*grad[k] >= eps) 
+				{
+					v = beta_PRP*d_old[k] - eta*y_vec[k];
+					d[k] += v;
+					d_data[d_indptr[1]] += v;
+				}
+				d_indptr[1]++;
+			}
+			else if (M[i][k] == l) { 
+				if (grad[k] >= 0.0) d[k] = 0.0;
+				else {
+					d[k] = -grad[k];
+					d_indices[d_indptr[1]] = k;
+					d_data[d_indptr[1]] = -grad[k];
+					d_indptr[1]++;
+				}
+			}
+			else if (M[i][k] == u) { 
+				if (grad[k] <= 0.0) d[k] = 0.0;
+				else {
+					d[k] = -grad[k];
+					d_indices[d_indptr[1]] = k;
+					d_data[d_indptr[1]] = -grad[k];
+					d_indptr[1]++;
+				}
+			}
+		}
+		gTd = 0.0;
+		for(int k=0; k<K; ++k) {
+			gTd += grad[k]*d[k];
+		}
+		//printf("cg_M %d ", 30);
+			
+		alpha1 = 1.0;
+		cg_alpha = linesearch.armijo2_M_nor(alpha1, alpha_max, 
+					c1, error, gTd,
+					M[i], m_test, 
+					C, C_data, C_indices, C_indptr,
+					X[i], R,
+					d, d_data, d_indices, d_indptr,
+					normConstant, I, K, J, a_iter_ptr,
+					l, u);
+		printf("cg_M %d ", 31);
+			
+
+		//for k_ptr in range(d_indptr[1]):
+		for (int k=0; k<K; ++k) {
+			//k = d_indices[k_ptr]
+			printf("a= %f; M[%d][%d] (%f) += %f * %f = %f", cg_alpha, i, k, M[i][k], cg_alpha, d[k]);
+			M[i][k] += cg_alpha * d[k];
+			printf("*M[%d][%d] (%f); ^grad[%d] = %f\n", i, k, M[i][k], k, grad[k]);
+			if (M[i][k] < 0.0 || M[i][k] > 1.0) {
+				printf("************ M_ik out of bounds!!! ************\n");
+			}
+			if (M[i][k] > u) M[i][k] = u;
+			else if (M[i][k] < l) M[i][k] = l;
+		}	
+		printf("cg_M %d ", 35);
+			
+		error_old = error;
+		for(int k=0; k<K; ++k) {
+			grad_old[k] = grad[k];
+		}
+		error = r_e_and_grad_m_nsp_omp(grad, M[i], C, X[i], R[i], I, J, K, normConstant);
+		
+		printf("\t*** cgi %d; ", cg_i);
+		printf("E: %f; ", error);
+		printf("Edif: %f; ", error_old - error);
+		printf("gTd_old = %f; ", gTd_old);
+		printf("gn: %f; ", Grad_norm);
+		printf("bPRP: %f;", beta_PRP);
+		printf("K: %d; ", K);
+		printf("\n");
+		printf("cg_M %d ", 38);
+		
+		for(int k=0; k<K; ++k) {
+			gTg += grad[k]*grad[k];
+			g_oldTg_old += grad_old[k]*grad_old[k];
+			y_vec[k] = grad[k] - grad_old[k];
+			gTd_old += grad[k] * d_old[k];
+		}
+		for(int k=0; k<K; ++k) {
+			gTy += grad[k] * y_vec[k];
+		}
+		beta_PRP = gTy/(g_oldTg_old);
+		eta = gTd_old/(g_oldTg_old);
+		Grad_norm = sqrt(gTg);
+
+	free(m_test);
+	//printf("cg_M", 50
+	
+	free(M_data);
+	//printf("cg_M", 51
+	
+	free(M_indices);
+	//printf("cg_M", 52
+	
+	free(M_indptr);
+	//printf("cg_M", 53
+	
+	free(y_vec);
+	//printf("cg_M", 54
+	
+	free(d_old);
+	//printf("cg_M", 55
+	
+	free(grad_old);
+	//printf("cg_M", 56
+	
+	free(d);
+	//printf("cg_M", 64
+	
+	free(d_data);
+	//printf("cg_M", 65
+	
+	free(d_indices);
+	//printf("cg_M", 66
+	
+	free(d_indptr);
+	return error;
+}
+
+
+double cg_C(double** C,
+			const double** M,
+			const double** X, double** R,
+			const int I, const int K, const int J, const double normConstant,
+			const double l, const double u) {
+	// # We need to partition the indices of the vectorized direction matrix.
+	// # That is, we need to put each d_i into one of 3 categories according to
+	// # the position of x_i (the i-th element of a given data point). 
+	// # These categories are L (for "lower bound"), F (for "Free variable"), 
+	// # and U (for "upper bound"). The constraint "l <= x <= u" is said to 
+	// # be active at the lower and upper bounds. To be more precise,
+	// #		L   =  indices i where x_i = l and the Gradient g_i(x_i) >= 0
+	// #		F1  =  indices i where l < x_i < u, and ||g_i(x_i)|| ~ 0
+	// #		F2  =  indices i where l < x_i < u, and ||g_i(x_i)|| > 0
+	// #		U   =  indices i where x_i = u, and g_i(x_i) <= 0
+	// # Note that F is divided into two subcategories, depending on the value 
+	// # of the Gradient.
+	const int N = J*K;
+	int cg_i = 0;
+	double alpha1 = 1.0;
+	const double alpha_max = 10000000.0;
+	double error, error_old;
+	const double c1 = 0.1;
+	const double eps = 0.001;
+	double gTg = 0.0;
+	double g_oldTg_old = 0.0;
+	double gTd_old = 0.0;
+	double gTy = 0.0;
+	double gTd = 0.0;
+	double Grad_norm = 0.0;
+	double Grad_old_norm = 0.0;
+	int a_iter = 0;
+	int* a_iter_ptr = &a_iter;
+	int n, j, k;
+
+	double* M_data = (double *)calloc(I*K,sizeof(double));
+	int* M_indices = (int *)calloc(I*K,sizeof(int))
+	int* M_indptr  = (int *)calloc((I+1),sizeof(int))
+
+	double* vec_Grad = (double *)calloc(N,sizeof(double));
+	double* vec_Grad_old = (double *)calloc(N,sizeof(double));
+	double* y_vec = (double *)calloc(N,sizeof(double));
+	double* vec_D_old = (double *)calloc(N,sizeof(double));
+	
+	double* vec_D = (double *)calloc(N,sizeof(double));
+	double* vec_D_data = (double *)calloc(N,sizeof(double));
+	int* vec_D_indices = (int *)calloc(N,sizeof(int))
+	int* vec_D_indptr  = (int *)calloc(2,sizeof(int))
+
+	double** C_test = (double**)malloc(J*sizeof(double*));
+	for(int j=0; j<J; ++j) {
+		C_test[j] = (double *)malloc(K*sizeof(double));
+		for(int k=0; k<K; ++k) {
+			C_test[j][k] = 0.0;
+	C_test = &C_test[0];
+
+	compress_flt_mat(M, M_data, M_indices, M_indptr, I, K);
+
+	//Compute original error
+	error = R_E_and_Grad_C_nsp_omp(vec_Grad, M, C, X, R, I, J, K, normConstant);
+
+	vec_D_indptr[1] = 0;
+	for(int j=0; j<J; ++j) {
+		for(int k=0; k<K; ++k) {
+			int n = j*K + k;
+			// # in the case of descent to toward minimum, is the Grad positive or negative?
+			// # --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+			// # point in opposing directions. When this is no longer true, the model
+			// # is moving away from its target.
+			// # However, d is not always going to be negative; its sign just needs to oppose
+			// # the Gradient's sign.
+			if (l < C[j][k] && C[j][k] < u) {
+				vec_D[n] = -vec_Grad[n];
+				vec_D_indices[vec_D_indptr[1]] = n;
+				vec_D_data[vec_D_indptr[1]] = -vec_Grad[n];
+				vec_D_indptr[1]++;
+			}
+			else if (C[j][k] == l) {
+				if (vec_Grad[n] >= 0.0) vec_D[n] = 0.0;
+				else {
+					vec_D[n] = -vec_Grad[n];
+					vec_D_indices[vec_D_indptr[1]] = n;
+					vec_D_data[vec_D_indptr[1]] = -vec_Grad[n];
+					vec_D_indptr[1]++;
+				}
+			}
+			else if (C[j][k] == u) { 
+				if vec_Grad[n] <= 0.0: vec_D[n] = 0.0;
+				else {
+					vec_D[n] = -vec_Grad[n];
+					vec_D_indices[vec_D_indptr[1]] = n;
+					vec_D_data[vec_D_indptr[1]] = -vec_Grad[n];
+					vec_D_indptr[1]++;
+				}
+			}
+		}
+	}
+	gTd = 0.0;
+	for(int n=0; n<N; ++n) {
+		gTd += vec_Grad[n]*vec_D[n];
+	}
+	
+	cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, c1, error, gTd, 
+						C, C_test, 
+						M, M_data, M_indices, M_indptr, 
+						X, R, 
+						vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+						normConstant, I, K, J, a_iter_ptr, l, u);
+	
+	for(int n=0; n<N; ++n) {
+		vec_D_old[n] = vec_D[n];
+	}
+	for(int j=0; j<J; ++j) {
+		for(int k=0; k<K; ++k) {
+			//k = vec_D_indices[k_ptr]
+			//C[j][k] += cg_alpha * vec_D_data[k_ptr]
+			C[j][k] += cg_alpha * vec_D[j*K + k];
+			if (C[j][k] > u) C[j][k] = u;
+			else if (C[j][k] < l) C[j][k] = l;					
+		}
+	}
+	double v = 0.0;
+	error_old = error;
+	for(int n=0; n<N; ++n) {
+		vec_Grad_old[n] = vec_Grad[n];
+	}
+	error = R_E_and_Grad_C_nsp_omp(vec_Grad, M, C, X, R, I, J, K, normConstant);
+	
+	for(int n=0; n<N; ++n) {
+		gTg += vec_Grad[n]*vec_Grad[n];
+		g_oldTg_old += vec_Grad_old[n]*vec_Grad_old[n];
+		y_vec[n] = vec_Grad[n] - vec_Grad_old[n];
+		gTd_old += vec_Grad[n] * vec_D_old[n];
+	}
+	for(int n=0; n<N; ++n) {
+		gTy += vec_Grad[n] * y_vec[n];
+	}	
+	beta_PRP = gTy/(g_oldTg_old);
+	eta = gTd_old/(g_oldTg_old);
+	Grad_norm = sqrt(gTg);
+	printf("\t*** cgi: %d; ", cg_i);
+	printf("E: %f; ", error);
+	printf("Edif: %f; ", error_old - error);
+	printf("gTd_old : %f; ", gTd_old);
+	printf("gn: %f; ", Grad_norm);
+	printf("bPRP: %f; ", beta_PRP);
+	printf("K: %d\n", K);
+
+	while error_old - error >= 0.000001:
+		cg_i++;
+
+		for(int n=0; n<N; ++n) {
+			vec_D_old[n] = vec_D[n];
+		}
+		vec_D_indptr[1] = 0;
+
+		for(int j=0; j<J; ++j) {
+			for(int k=0; k<K; ++k) {
+				int n = j*K + k;
+				// # in the case of descent to toward minimum, is the Grad positive or negative?
+				// # --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
+				// # point in opposing directions. When this becomes no longer true, it means the model
+				// # is moving away from its target (at the given dimension).
+				// # However, d is not always going to be negative; its sign just needs to oppose
+				// # the Gradient's sign.
+				if (l < C[j][k] && C[j][k] < u) {
+					vec_D[n] = -vec_Grad[n];
+					vec_D_indices[vec_D_indptr[1]] = n;
+					vec_D_data[vec_D_indptr[1]] = - vec_Grad[n];
+					if (vec_Grad[n]*vec_Grad[n] >= eps) 
+					{
+						v = beta_PRP*vec_D_old[n] - eta*y_vec[n];
+						vec_D[n] += v;
+						vec_D_data[vec_D_indptr[1]] += v;
+					}
+					vec_D_indptr[1]++;
+				}
+				else if (C[j][k] == l) { 
+					if (vec_Grad[n] >= 0.0) vec_D[n] = 0.0;
+					else {
+						vec_D[n] = -vec_Grad[n];
+						vec_D_indices[vec_D_indptr[1]] = n;
+						vec_D_data[vec_D_indptr[1]] = -vec_Grad[n];
+						vec_D_indptr[1]++;
+					}
+				}
+				else if (C[j][k] == u) { 
+					if (vec_Grad[n] <= 0.0) vec_D[n] = 0.0;
+					else {
+						vec_D[n] = -vec_Grad[n];
+						vec_D_indices[vec_D_indptr[1]] = n;
+						vec_D_data[vec_D_indptr[1]] = -vec_Grad[n];
+						vec_D_indptr[1]++;
+					}
+				}
+			}
+		}
+		
+		gTd = 0.0;
+		for(int n=0; n<N; ++n) {
+			gTd += vec_Grad[n]*vec_D[n];
+		//printf("cg_C %d ", 30);
+			
+		alpha1 = 1.0;
+		cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, 
+					c1, error, gTd,
+					C, C_test, M, M_data, M_indices, M_indptr,
+					X, R,
+					vec_D, vec_D_data, vec_D_indices, vec_D_indptr,
+					normConstant, I, K, J, a_iter_ptr,
+					l, u);
+		printf("cg_C %d ", 31);
+			
+		if (cg_alpha == 0.0) break;
+		else {
+			for (int j=0; j<J; ++j) {
+				//for k_ptr in range(vec_D_indptr[1]):
+				for (int k=0; k<K; ++k) {
+					//k = vec_D_indices[k_ptr]
+					printf("a= %f; C[%d][%d] (%f) += %f * %f = %f\n", cg_alpha, j, k, C[j][k], cg_alpha, vec_D[j*K + k]);
+					C[j][k] += cg_alpha * vec_D[j*K + k];
+					printf("*C[%d][%d] (%f); ^vec_Grad[%d] = %f\n", j,k, C[j][k], j*K + k, vec_Grad[j*K + k]);
+					if (C[j][k] < 0.0 || C[j][k] > 1.0) {
+						printf("************ C out of bounds!!! ************\n");
+					}
+					if (C[j][k] > u) C[j][k] = u;
+					else if (C[j][k] < l) C[j][k] = l;
+				}	
+			}
+		}
+		printf("cg_C %d ", 35);
+			
+
+		error_old = error;
+		for(int n=0; n<N; ++n) {
+			vec_Grad_old[n] = vec_Grad[n];
+		}
+		error = R_E_and_Grad_C_nsp_omp(vec_Grad, M, C, X, R, I, J, K, normConstant);
+		
+		printf("\t*** cgi %d; ", cg_i);
+		printf("E: %f; ", error);
+		printf("Edif: %f; ", error_old - error);
+		printf("gTd_old = %f; ", gTd_old);
+		printf("gn: %f; ", Grad_norm);
+		printf("bPRP: %f;", beta_PRP);
+		printf("K: %d; ", K);
+		printf("\n");
+		printf("cg_C %d ", 38);
+		
+
+		for(int n=0; n<N; ++n) {
+			gTg += vec_Grad[n]*vec_Grad[n];
+			g_oldTg_old += vec_Grad_old[n]*vec_Grad_old[n];
+			y_vec[n] = vec_Grad[n] - vec_Grad_old[n];
+			gTd_old += vec_Grad[n] * vec_D_old[n];
+		}
+		for(int n=0; n<N; ++n) {
+			gTy += vec_Grad[n] * y_vec[n];
+		}
+		beta_PRP = gTy/(g_oldTg_old);
+		eta = gTd_old/(g_oldTg_old);
+		Grad_norm = sqrt(gTg);
+
+	
+	for (int j=0; j<J; ++j) {
+		free(C_test[j]);
+  	}
+
+	//printf("cg_C", 50
+	
+	free(M_data);
+	//printf("cg_C", 51
+	
+	free(M_indices);
+	//printf("cg_C", 52
+	
+	free(M_indptr);
+	//printf("cg_C", 53
+	
+	free(y_vec);
+	//printf("cg_C", 54
+	
+	free(vec_D_old);
+	//printf("cg_C", 55
+	
+	free(vec_Grad_old);
+	//printf("cg_C", 56
+	
+	free(vec_D);
+	//printf("cg_C", 64
+	
+	free(vec_D_data);
+	//printf("cg_C", 65
+	
+	free(vec_D_indices);
+	//printf("cg_C", 66
+	
+	free(vec_D_indptr);
+	return error;
+}
+
 double cg_M_nor(double** M_ptr, int i, double* m_old,
 			double* m_test, 
 			double** C, double* C_data, int* C_indices, int* C_indptr,
@@ -1899,17 +2547,17 @@ double cg_M_nor(double** M_ptr, int i, double* m_old,
 			gTd += d_data[h] * grad[d_indices[h]];
 			//gTd += d[k] * grad[k];		
 		}
-		//print "cg_M ;", "cg_criterion =", cg_criterion
-		//print "\t\t", itr_counter, ".  cg_M", "err diff =", "{:.12f}".format((prev_err_cg - error)/prev_err_cg)
+		//printf("cg_M ;", "cg_criterion =", cg_criterion
+		//printf("\t\t", itr_counter, ".  cg_M", "err diff =", "{:.12f}".format((prev_err_cg - error)/prev_err_cg)
 		// if isNaN(gTd):
-		// 	print "\n\n", "********************* CG M, gTd NaN *********************\n\n"
+		// 	printf("\n\n", "********************* CG M, gTd NaN *********************\n\n"
 		// 	break
 		if ((prev_err_cg - error)/prev_err_cg < 0.000000001) {
 			//printf("&&&& break cg error\n");
 			break;
 		}
 		// if (cg_i >= cg_max) {
-		// 	//print "\tbreak cgi", "; K" + str(K)
+		// 	//printf("\tbreak cgi", "; K" + str(K)
 		// 	break;
 		// }
 		cg_criterion = -gTd;
@@ -1961,7 +2609,7 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 {   
 	printf("We're in optimize_M!\n");
 	//double E = 0.0;
-	//print "Error:", error, "\n"
+	//printf("Error:", error, "\n"
 	//int Z = 5;
 	//int t = 0;
 	//const int t_max = 10;
@@ -2044,8 +2692,8 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 	//double prev_err_global = 1000000000000.0;
 	//double err_before_cg = 0.0;
 	//double sum_cg_err_diffs = 0.0;
-	//cdef bint grad_break = 0
-	//cdef bint gTd_break = 0
+	//bint grad_break = 0
+	//bint gTd_break = 0
 	//double sign = -1.0;
 	double gTd = 0.0;
 	int cg_itr_max = 40;
@@ -2060,7 +2708,7 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 
 		// double** s_vecs = (double **)malloc(size_max*sizeof(double*));
 		// for (int n=0; n<size_max; n++) {
-		// 	s_vecs[n] = <double *>calloc(K,sizeof(double));
+		// 	s_vecs[n] = (double *)calloc(K,sizeof(double));
 		// }
 		// //s_vecs = &s_vecs[0];
 		// double** y_vecs = (double **)malloc(size_max*sizeof(double*));
@@ -2167,9 +2815,9 @@ void optimize_M_nor(double** X_ptr, double** R_ptr, double** M_ptr,
 			if (i%30==0) {
 				printf("*** M[%d]; e: %f; dif: %f; cgi:%d; gn: %f; K:%d\n", i, error, prev_err - error, cg_itrs_ptr[0], grad_len, K); 
 			}
-			// # 	print "; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
-			// # 	print "; cgi: " + str(cg_itrs_ptr[0]) + ";",
-			// # 	print "ni: " + str(numIters) + "; K: " + str(K)								
+			// # 	printf("; nz: " + str(M_i_nnz) + "/" + str(K) + "; gn =", grad_len, 
+			// # 	printf("; cgi: " + str(cg_itrs_ptr[0]) + ";",
+			// # 	printf("ni: " + str(numIters) + "; K: " + str(K)								
 			//}
 			//printf("here now 2\n");
 			cg_itrs_ptr=NULL;

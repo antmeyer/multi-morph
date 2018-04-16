@@ -315,21 +315,11 @@ cdef FLOAT cg_M_nor(FLOAT* m, FLOAT* m_old,
 	return error
 
 
-cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
-			#double** C_test, 
-			double** M, #double* M_data, int* M_indices, int* M_indptr,
+cdef double cg_C(double** C,
+			double** M,
 			double** X, double** R,
-			#double** Grad, double* vec_Grad, #double* y_vec,
-			#double* vec_D, #double* vec_D_data, int* vec_D_indices, int* vec_D_indptr,
-			int I, int K, int J, double normConstant, #int* cg_itrs,
+			int I, int K, int J, double normConstant,
 			double l, double u):
-		# error = cg_C(C_ptr, vec_C, vec_C_old, C_test, 
-		# 					M_ptr, M_data, M_indices, M_indptr,
-		# 					X_ptr, R_ptr,
-		# 					grad, vec_grad, #y_vecs[0],
-		# 					vec_D, #vec_D_data, vec_D_indices, vec_D_indptr,
-		# 					I, K, J, normConstant, cg_itrs_ptr,
-		# 					lower, upper)
 	# We need to partition the indices of the vectorized direction matrix.
 	# That is, we need to put each d_i into one of 3 categories according to
 	# the position of x_i (the i-th element of a given data point). 
@@ -382,21 +372,10 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 	C_test = &C_test[0]	
 
 	sp.compress_flt_mat(M, M_data, M_indices, M_indptr, I, K)
-	#print "cg_C", 1
-	#sys.stdout.flush()
-	
-	#matmath_nullptr.vec(Grad, vec_Grad, J, K)
 
-	#error = predict.get_R_and_E_nsp_omp(R, M, C, X, I, J, K, normConstant)
-	#Original error
+	# Compute original error
 	error = predict.get_R_E_and_Grad_C_nsp_omp(vec_Grad, M, C, X, R, I, J, K, normConstant)
 
-	#print "cg_C", 2
-	#sys.stdout.flush()
-
-	#for n in range(N):
-		#vec_D_old[n] = vec_D[n]
-		#vec_Grad_old[n] = vec_Grad[n]
 	vec_D_indptr[1] = 0
 	for j in range(J):
 		#GradFactor = (boundSum - 2.0*x[n]) * Grad[n]
@@ -413,28 +392,25 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 				vec_D_indices[vec_D_indptr[1]] = n
 				vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
 				vec_D_indptr[1] += 1
-			elif (C[j][k] == l and vec_Grad[n] >= 0.0) or (C[j][k] == u and vec_Grad[n] <= 0.0):
-				vec_D[n] = 0.0
-			#else:
-			elif (C[j][k] == l and vec_Grad[n] < 0.0) or (C[j][k] == u and vec_Grad[n] > 0.0):
-				# if vec_Grad[n] != 0.0:
-				vec_D[n] = -vec_Grad[n]
-				vec_D_indices[vec_D_indptr[1]] = n
-				vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
-				vec_D_indptr[1] += 1
-				# else:
-				# 	vec_D[n] = 0.0
-			# else:
-			# 	vec_D[n] = 0.0
+			elif C[j][k] == l: 
+				if vec_Grad[n] >= 0.0: vec_D[n] = 0.0
+				else:
+					vec_D[n] = -vec_Grad[n]
+					vec_D_indices[vec_D_indptr[1]] = n
+					vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
+					vec_D_indptr[1] += 1
+			elif C[j][k] == u: 
+				if vec_Grad[n] <= 0.0: vec_D[n] = 0.0
+				else:
+					vec_D[n] = -vec_Grad[n]
+					vec_D_indices[vec_D_indptr[1]] = n
+					vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
+					vec_D_indptr[1] += 1
 
-	#print "cg_C", 5
-	#sys.stdout.flush()
 	gTd = 0.0
 	for n in range(N):
 		gTd += vec_Grad[n]*vec_D[n]
-	#sp.compress_flt_vec(vec_D, vec_D_data, vec_D_indices, vec_D_indptr, N)
-	#print "cg_C", 6
-	#sys.stdout.flush()
+
 	alpha1 = 1.0
 	cg_alpha = linesearch.armijo2_C_nor(alpha1, alpha_max, c1, error, gTd, 
 						C, C_test, 
@@ -444,10 +420,8 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 						normConstant, I, K, J, a_iter_ptr, l, u)
 	for n in range(N):
 		vec_D_old[n] = vec_D[n]
-	#print "cg_C", 10
-	#sys.stdout.flush()
+
 	for j in range(J):
-		#for k_ptr in range(vec_D_indptr[1]):
 		for k in range(K):
 			#k = vec_D_indices[k_ptr]
 			#C[j][k] += cg_alpha * vec_D_data[k_ptr]
@@ -456,8 +430,7 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 				C[j][k] = u
 			elif C[j][k] < l:
 				C[j][k] = l					
-	#print "cg_C", 15
-	#sys.stdout.flush()
+
 	cdef double v = 0.0;
 	error_old = error
 	for n in range(N):
@@ -482,26 +455,21 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 	print "gTd_old =", "{:.8f}".format(gTd_old) + ";", 
 	print "gn:", "{:.8f}".format(Grad_norm) + ";", 
 	print "bPRP:", "{:.6f}".format(beta_PRP) + ";",
-	#print "P0:", str(diagP0_indptr[1]) + "/" + str(K*J) + ";",
 	print "K:", K
 
 	while error_old - error >= 0.000001:
 		cg_i += 1
 
-		#print "cg_C", 20
-		#sys.stdout.flush()
-
 		for n in range(N):
 			vec_D_old[n] = vec_D[n]
 		vec_D_indptr[1] = 0
 		for j in range(J):
-			#GradFactor = (boundSum - 2.0*x[n]) * Grad[n]
 			for k in range(K):
 				n = j*K + k
 				# in the case of descent to toward minimum, is the Grad positive or negative?
 				# --> We want gTd to be negative, and d = -Grad initially. That is, d and Grad
-				# point in opposing directions. When this is no longer true, the model
-				# is moving away from its target.
+				# point in opposing directions. When this becomes no longer true, it means the model
+				# is moving away from its target (at the given dimension).
 				# However, d is not always going to be negative; its sign just needs to oppose
 				# the Gradient's sign.
 				if l < C[j][k] and C[j][k] < u:
@@ -527,43 +495,7 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 						vec_D_indices[vec_D_indptr[1]] = n
 						vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
 						vec_D_indptr[1] += 1
-
-
-				# or (C[j][k] == u and vec_Grad[n] <= 0.0):
-				# 	vec_D[n] = 0.0
-				# #else:
-				# elif (C[j][k] == l and vec_Grad[n] < 0.0) or (C[j][k] == u and vec_Grad[n] > 0.0):
-				# 	# if vec_Grad[n]*vec_Grad[n] > eps*eps:
-				# 	vec_D[n] = -vec_Grad[n]
-				# 	vec_D_indices[vec_D_indptr[1]] = n
-				# 	vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
-				# 	vec_D_indptr[1] += 1
-				# else:
-				# 	vec_D[n] = 0.0
-				# else:
-				# 	if vec_Grad[n]*vec_Grad[n] > eps*eps:
-				# 		vec_D[n] = -vec_Grad[n]
-				# 		vec_D_indices[vec_D_indptr[1]] = n
-				# 		vec_D_data[vec_D_indptr[1]] = -vec_Grad[n]
-				# 		vec_D_indptr[1] += 1
-				# 	else:
-				# 		vec_D[n] = 0.0
-				
-				# print "cg_C;", "vec_D[", n, "] =", vec_D[n], "\t",
-				# #sys.stdout.flush()
-				# if n%3==0: 
-				# 	print ""
-					
-		# print "********************"
-		# #sys.stdout.flush()
-		# for h in range(vec_D_indptr[1]):
-		# 	print "cg_C;", "vec_D_indptr[", h, "] =", vec_D_indptr[h], "\t",
-		# 	#sys.stdout.flush()
-		# 	if n%3==0: 
-		# 		print ""
-		# 		#sys.stdout.flush()
-		# print "\n"
-		#sys.stdout.flush()
+		
 		gTd = 0.0
 		for n in range(N):
 			gTd += vec_Grad[n]*vec_D[n]
@@ -586,7 +518,6 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 				#for k_ptr in range(vec_D_indptr[1]):
 				for k in range(K):
 					#k = vec_D_indices[k_ptr]
-					#C[j][k] += cg_alpha * vec_D_data[k_ptr]
 					print "a=", "{:.4f}".format(cg_alpha), "C[",j,",",k,"] (", "{:.6f}".format(C[j][k]), ") +=","{:.6f}".format(cg_alpha), "*", "{:.6f}".format(vec_D[j*K + k]), " = ",
 					C[j][k] += cg_alpha * vec_D[j*K + k]
 					print "*C[",j,",",k,"] (", "{:.6f}".format(C[j][k]), "); ^vec_Grad[", j*K + k, "] =", "{:.6f}".format(vec_Grad[j*K + k])
@@ -628,14 +559,7 @@ cdef double cg_C(double** C, #double* vec_C, double* vec_C_old,
 		beta_PRP = gTy/(g_oldTg_old)
 		eta = gTd_old/(g_oldTg_old)
 		Grad_norm = sqrt(gTg)
-		# print "\t*** cgi", str(cg_i) + ";", 
-		# print "E:", "{:.7f}".format(error) + ";", 
-		# print "Edif:", "{:.8f}".format(error_old - error) + ";", 
-		# print "gTd_old =", "{:.8f}".format(gTd_old) + ";", 
-		# print "gn: =", "{:.8f}".format(Grad_norm) + ";", 
-		# print "bPRP:", beta_PRP, ";",
-		# #print "P0:", str(diagP0_indptr[1]) + "/" + str(K*J) + ";",
-		# print "K:", K
+
 	
 	dealloc_matrix_2(C_test, J)
 	#print "cg_C", 50

@@ -23,7 +23,7 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 	#cdef INT memory_size
 	cdef INT C_nnz = 0
 	cdef INT i,j,k,k1,k2,n,n1,n2,h,h1,h2
-	cdef FLOAT  grad_norm_diff, grad_norm, grad_norm_old, error_test, grad_sq_sum
+	cdef FLOAT grad_norm_diff, grad_norm, grad_norm_old, error_test, grad_sq_sum
 	grad_norm = 0.0
 	grad_sq_sum = 0.0
 	cdef FLOAT gTd, gTd_old, sTy, sTs, yTy, dTy, sse
@@ -652,7 +652,7 @@ cdef FLOAT optimize_C_nor(FLOAT** X_ptr, FLOAT** R_ptr, FLOAT** C_ptr,
 # 		print "******** pre-cg_C =", grad_norm, "********\n"
 # 		print "******** pre-cg_C =", grad_norm, "********\n"
 		#gamma_ptr[0] = 0.001 / grad_norm
-		gamma_ptr[0] = 1000.0
+		#gamma_ptr[0] = 1000.0
 		prev_err_nr = error
 		#print "\n"
 		#print "\n\n\n", "\t\t\t", "pre-error =", error, "\t\t\t", "\n\n\n"

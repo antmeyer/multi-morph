@@ -181,6 +181,11 @@ setup(
 #     cmdclass = {'build_ext': build_ext},
 #     ext_modules = cythonize('optimize_nor.pyx', annotate=True),
 # )
+setup(
+    include_dirs = [np.get_include(), '.'],
+    cmdclass = {'build_ext': build_ext},
+    ext_modules = cythonize('set_ops.pyx'), # accepts a glob pattern 
+)
 
 setup(
     include_dirs = [np.get_include(), '.'],

@@ -237,6 +237,7 @@ cdef void prelims_slmqn_C(FLOAT* grad,
 		elif ((l <= x[n] <= l_plus_eps) or (u_minus_eps <= x[n] <= u)) and gradFactor < 0.0:
 			diagP2_indices[diagP2_indptr[1]] = n
 			diagP2_indptr[1] += 1
+			
 			#P2_counts[counter] += 1
 		elif ((l < x[n] <= l_plus_eps) or (u_minus_eps <= x[n] < u)) and gradFactor >= 0.0:
 			diagP3_indices[diagP3_indptr[1]] = n
