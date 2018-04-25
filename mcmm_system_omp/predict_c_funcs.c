@@ -90,27 +90,30 @@ double R_and_E_nsp(double** R, double** M, double** C, double** X,
 double R_and_E_nsp_omp(double** R, double** M, double** C, double** X,
 				int I, int J, int K, double normConstant)
 {					
-	double E, prod;
-	// #pragma omp parallel
-	// {
-	#pragma omp parallel for private(prod)
-	for (int i=0; i<I; i++) 
+	double E;
+	#pragma omp parallel
 	{
-		for (int j=0; j<J; j++) {
-			prod = 1.0;
-			for (int k=0; k<K; ++k)
-			{
-				prod *= (1.0 - M[i][k]*C[j][k]);
+		double prod;
+		//double local_E;
+		#pragma omp for
+		for (int i=0; i<I; i++) 
+		{
+			for (int j=0; j<J; j++) {
+				prod = 1.0;
+				for (int k=0; k<K; ++k)
+				{
+					prod *= (1.0 - M[i][k]*C[j][k]);
+				}
+				R[i][j] = 1.0 - prod;
 			}
-			R[i][j] = 1.0 - prod;
 		}
-	}
-	E = 0.0;
-	#pragma omp parallel for reduction(+:E)
-	for (int i=0; i<I; i++) {
-		for (int j=0; j<J; j++) {
-			E += (R[i][j] - X[i][j]) * (R[i][j] - X[i][j]);
-		}	
+		E = 0.0;
+		#pragma omp for reduction(+:E)
+		for (int i=0; i<I; i++) {
+			for (int j=0; j<J; j++) {
+				E += (R[i][j] - X[i][j]) * (R[i][j] - X[i][j]);
+			}	
+		}
 	}
 	return 0.5*E*normConstant;
 }
@@ -184,7 +187,7 @@ double R_E_and_Grad_C_omp(double** Grad,
 	//double *Diff = (double *)malloc(I*J * sizeof(double));;
 	double *Diff = (double *)calloc(I*J, sizeof(double));;
 	//double s, m, denom, 
-	double prod, E;
+	double E;
 
 	// #pragma omp parallel for
 	// for (int j=0; j<J; j++) {
@@ -194,6 +197,7 @@ double R_E_and_Grad_C_omp(double** Grad,
 	// }
 	#pragma omp parallel
 	{
+		double prod;
 		#pragma omp for
 		for (int j=0; j<J; j++) {
 			for (int k=0; k<K; k++) {
@@ -1790,7 +1794,7 @@ double cg_M(double** M,
 	printf("bPRP: %f; ", beta_PRP);
 	printf("K: %d\n", K);
 
-	while error_old - error >= 0.000001:
+	while error_old - error >= 0.000001 {
 		cg_i++;
 
 		for(int k=0; k<K; ++k) {
@@ -1896,7 +1900,7 @@ double cg_M(double** M,
 		beta_PRP = gTy/(g_oldTg_old);
 		eta = gTd_old/(g_oldTg_old);
 		Grad_norm = sqrt(gTg);
-
+	}
 	free(m_test);
 	//printf("cg_M", 50
 	
