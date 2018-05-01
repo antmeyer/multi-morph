@@ -6,16 +6,27 @@ import Cython.Compiler.Options
 Cython.Compiler.Options.annotate = True
 from Cython.Build import cythonize
 import numpy as np
-
+import sys
 print "\n\nsetup 1\n\n"
+sys.stdout.flush()
+# ext = Extension("predict",
+#               sources=["predict.pyx", "predict_c_funcs.c"],
+#               extra_compile_args = ["-O2", "-fopenmp"],
+#               extra_link_args=['-fopenmp']
+#               )
+# setup(
+#     name="predict",
+#     ext_modules = cythonize([ext]),
+#     include_dirs = [np.get_include()]
+# )
 
-ext = Extension("predict",
-              sources=["predict.pyx", "predict_c_funcs.c"],
-              extra_compile_args = ["-O2", "-fopenmp"],
+ext = Extension("mcmm_functions",
+              sources=["mcmm_functions.pyx", "c_funcs.c"],
+              extra_compile_args = ["-O3", "-fopenmp"],
               extra_link_args=['-fopenmp']
               )
 setup(
-    name="predict",
+    name="mcmm_functions",
     ext_modules = cythonize([ext]),
     include_dirs = [np.get_include()]
 )
@@ -39,24 +50,21 @@ setup(
     ext_modules = cythonize('numberNonZeros.pyx', annotate=True),
 )
 
+print "\n\nsetup 2\n\n"
+sys.stdout.flush()
+
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
     ext_modules = cythonize('matmath_nullptr.pyx', annotate=True),
 )
 
-print "\n\nsetup 2\n\n"
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
     ext_modules = cythonize('sparsemat.pyx', annotate=True),
 )
 
-# setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#     ext_modules = cythonize('prod_sp2.pyx', annotate=True),
-# )
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
@@ -70,11 +78,11 @@ setup(
 # 	ext_modules = cythonize('lbfgs.pyx', annotate=True),
 # )
 print "\n\nsetup 3\n\n"
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-	ext_modules = cythonize('search_direction.pyx', annotate=True),
-)
+# setup(
+#     include_dirs = [np.get_include(), '.'],
+#     cmdclass = {'build_ext': build_ext},
+# 	ext_modules = cythonize('search_direction.pyx', annotate=True),
+# )
 #print "\n\nsetup 3.5\n\n"
 # setup(
 #     include_dirs = [np.get_include(), '.'],
@@ -94,13 +102,9 @@ print "\n\n", "setup 4", "\n\n"
 #    	ext_modules = cythonize('predict_nonsparse.pyx', annotate=True),
 # )
 
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-	ext_modules = cythonize('interpolate.pyx', annotate=True),
-)
 
-print "\n\n", "setup 4.2", "\n\n"
+
+#print "\n\n", "setup 4.2", "\n\n"
 
 # setup(
 #     include_dirs = [np.get_include(), '.'],
@@ -108,55 +112,33 @@ print "\n\n", "setup 4.2", "\n\n"
 # 	ext_modules = cythonize('lcsubseq.pyx', annotate=True),
 # )
 
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-	ext_modules = cythonize('selection_phase_nor.pyx', annotate=True),
-)
+
+
 
 # setup(
 #     include_dirs = [np.get_include(), '.'],
 #     cmdclass = {'build_ext': build_ext},
-# 	ext_modules = cythonize('selection_phase_wwb.pyx', annotate=True),
+#     ext_modules = cythonize('interpolate.pyx', annotate=True),
 # )
-
-print "\n\n", "setup 4.3", "\n\n"
-
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-   	ext_modules = cythonize('linesearch.pyx', annotate=True),
-)
 
 # setup(
 #     include_dirs = [np.get_include(), '.'],
 #     cmdclass = {'build_ext': build_ext},
-#    	ext_modules = cythonize('predict_nor.pyx', annotate=True),
-# )
-# setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#    	ext_modules = cythonize('predict_wwb.pyx', annotate=True),
+# 	ext_modules = cythonize('selection_phase_nor.pyx', annotate=True),
 # )
 
-print "\n\n", "setup 4.4", "\n\n"
-
-setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-   	ext_modules = cythonize('cg_nor.pyx', annotate=True),
-)
+# print "\n\n", "setup 4.3", "\n\n"
 
 # setup(
 #     include_dirs = [np.get_include(), '.'],
 #     cmdclass = {'build_ext': build_ext},
-#    	ext_modules = cythonize('optimize_wwb.pyx', annotate=True),
+#    	ext_modules = cythonize('linesearch.pyx', annotate=True),
 # )
-# setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#    	ext_modules = cythonize('optimize_nor.pyx', annotate=True),
-# )
+
+
+
+
+
 # ext_modules = [
 #     Extension(
 #         "hello",
@@ -187,6 +169,9 @@ setup(
     ext_modules = cythonize('set_ops.pyx'), # accepts a glob pattern 
 )
 
+print "\n\nsetup 5\n\n"
+sys.stdout.flush()
+
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
@@ -197,11 +182,7 @@ setup(
     cmdclass = {'build_ext': build_ext},
     ext_modules = cythonize('encode_nor.pyx', annotate=True),
 )
-# setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#     ext_modules = cythonize('encode_nor.pyx', annotate=True),
-# )
+
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
@@ -209,24 +190,24 @@ setup(
 )
 
 
-# sourcefiles = ['mcmm_wwb.pyx', 'clustertest_wwb.c', 'cg_wwb.c', 'optimize_wwb.c', 'predict_wwb.c', 'decode.c', 'encode_wwb.c', 'dealloc.c']
-
+# ext = Extension("mcmm_nor",
+#               sources=["mcmm_nor.pyx", "c_funcs.c"],
+#               extra_compile_args = ["-O2", "-fopenmp"],
+#               extra_link_args=['-fopenmp']
+#               )
 # setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#     ext_modules = [Extension("mcmm_wwb", sourcefiles)]
+#     name="mcmm_nor",
+#     ext_modules = cythonize([ext]),
+#     include_dirs = [np.get_include()]
 # )
+
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
     ext_modules = cythonize('mcmm_nor.pyx', annotate=True),
 )
 print "\n\nsetup 6\n\n"
-# setup(
-#     include_dirs = [np.get_include(), '.'],
-#     cmdclass = {'build_ext': build_ext},
-#    	ext_modules = cythonize('mcmm_sp2.pyx', annotate=True),
-# )
+sys.stdout.flush()
 
 setup(
     include_dirs = [np.get_include(), '.'],

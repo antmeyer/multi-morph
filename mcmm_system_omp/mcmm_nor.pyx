@@ -114,7 +114,7 @@ cdef class MCMM:
         else:
             #cluster_list = self.find_cluster_to_split()
             k_to_split = self.find_cluster_to_split()
-            # k_to_split = predict.get_cluster_to_split_nsp_omp(M_ptr_ct, C_ptr_ct, X_ptr_ct, 
+            # k_to_split = mcmm_functions.get_cluster_to_split_nsp_omp(M_ptr_ct, C_ptr_ct, X_ptr_ct, 
             #                     R_ptr, self.I, self.J, self.K, self.normConstant)
             sys.stdout.write("Splitting cluster " + str(k_to_split) + "\n")
             sys.stdout.flush()
@@ -137,6 +137,7 @@ cdef class MCMM:
         cdef FLOAT ** R_ptr_ct = <FLOAT**>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** M_ptr_ct = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr_ct = <FLOAT**>malloc(self.J*sizeof(FLOAT*))
+        #cdef FLOAT * vec_C_ptr_ct = <FLOAT*>malloc(self.J*self.K*sizeof(FLOAT))
 
         cdef FLOAT** M_ptr = <FLOAT**>malloc(self.I*sizeof(FLOAT*))
         for i in range(self.I):
@@ -157,6 +158,9 @@ cdef class MCMM:
         for i in range(self.I):
             X_ptr_ct[i] = &self.Xv[i,0]
             R_ptr_ct[i] = &self.Rv[i,0]
+        # for j in range(self.J):
+        #     for k in range(self.K): 
+        #         vec_C_ptr_ct[j*K+k] = self.Cv[j,k]
         for j in range(self.J):
             C_ptr_ct[j] = &self.Cv[j,0]
         print "fctsplit", 2.5
@@ -183,14 +187,15 @@ cdef class MCMM:
         #     if error > max_error:
         #         k_to_split = k
         #cluster_list.sort()
-        k_to_split = predict.get_cluster_to_split_nsp_omp(M_ptr_ct, C_ptr_ct, X_ptr_ct, R_ptr_ct, 
+
+        k_to_split = mcmm_functions.get_cluster_to_split(M_ptr_ct, C_ptr_ct, X_ptr_ct, R_ptr_ct, 
                                 self.I, self.J, self.K, self.normConstant)
 
         dealloc_matrix(X_ptr_ct, self.I)
         dealloc_matrix(R_ptr_ct, self.I)
         dealloc_matrix(M_ptr_ct, self.I)
         dealloc_matrix(C_ptr_ct, self.J)
-
+        # dealloc_vector(vec_C_ptr_ct)
         # dealloc_matrix_2(M_ptr_ct, self.I)
         # dealloc_vector(M_data_ct)
         # dealloc_vec_int(M_indices_ct)
@@ -356,6 +361,7 @@ cdef class MCMM:
         cdef FLOAT ** R_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** M_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr = <FLOAT **>malloc(self.J*sizeof(FLOAT*))
+        cdef FLOAT * vec_C = <FLOAT *>malloc(self.J*self.K*sizeof(FLOAT))
         #cdef FLOAT * etas_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
        # cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
         # cdef INT negc
@@ -395,11 +401,14 @@ cdef class MCMM:
                 for j in range(self.J):
                     C_ptr[j] = &self.Cv[j,0]
                 C_ptr = &C_ptr[0]
+                # for j in range(self.J):
+                #     for k in range(self.K):
+                #         vec_C[j*K + k] = self.Cv[j,k]
                 #sp.compress_dbl_mat(M_ptr, M_data, M_indices, M_indptr, self.I, max(1,self.K))
                 # self.E = predict_nor.R_and_E_one(M_ptr,
                 #         C_ptr, X_ptr, R_ptr,
                 #         self.I, self.J, self.normConstant, self.eta)
-                self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr, 
+                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, vec_C, X_ptr, 
                                             self.I, self.J, self.K, self.normConstant)
                 self.original_E = self.E
             else:
@@ -419,6 +428,9 @@ cdef class MCMM:
                 sys.stdout.flush()
                 M_ptr = &M_ptr[0]
                 C_ptr = &C_ptr[0]
+                # for j in range(self.J):
+                #     for k in range(self.K):
+                #         vec_C[j*K + k] = self.Cv[j,k]
 
             print "mcmm", "H4"
             sys.stdout.flush()
@@ -432,7 +444,7 @@ cdef class MCMM:
             # self.E = predict_nor.R_and_E_3(C_ptr, M_ptr, X_ptr, R_ptr,
             #                         self.E, self.I, self.J, self.K, self.normConstant,
             #                         self.eta)
-            self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr, 
+            self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
             print "\n@@@@@@ mcmm_cy", "self.I =", self.I
             sys.stdout.flush()
@@ -443,14 +455,16 @@ cdef class MCMM:
                 # self.E = optimize_nor.optimize_M_nor(X_ptr, R_ptr, M_ptr, C_ptr,
                 #         self.I, self.J, self.K, self.normConstants_M, self.numIters, self.qn, self.cg, 
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
-                predict.optimize_M(X_ptr, R_ptr, M_ptr, C_ptr,
-                        self.I, self.J, self.K, self.normConstant_M, self.numIters, self.qn, self.cg, 
-                        &self.M_distance, &self.num_M_steps, lower, upper)
+                # mcmm_functions.optimize_M(X_ptr, R_ptr, M_ptr, C_ptr,
+                #         self.I, self.J, self.K, self.normConstant_M, self.numIters, self.qn, self.cg, 
+                #         &self.M_distance, &self.num_M_steps, lower, upper)
+                self.E = mcmm_functions.cg_M(M_ptr, C_ptr, X_ptr, R_ptr, 
+                        self.I, self.K, self.J, self.normConstant, lower, upper)
                 #E_after_M = self.E
                 #print "\nmcmm E from M", "=", E_after_M
                 #sys.stdout.flush()
 
-                self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr,
+                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr,
                                         self.I, self.J, self.K, self.normConstant)
                 print "M, now R_and_E"
                 E_after_R = self.E
@@ -463,9 +477,12 @@ cdef class MCMM:
                 #     self.numIters, self.objFunc, self.qn, self.cg,
                 #     &self.C_distance, &self.num_C_steps, lower, upper)
                 # E_after_C = self.E
-                self.E = cg_nor.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
+                self.E = mcmm_functions.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
                         self.I, self.K, self.J, self.normConstant,
                         lower, upper)
+                for j in range(self.J):
+                    for k in range(self.K):
+                        vec_C[J*K + k] = C_ptr[j][k]
                 E_after_C = self.E
                 print "\n@@@@@@ mcmm_cy", "self.I =", self.I
                 sys.stdout.flush()
@@ -473,7 +490,7 @@ cdef class MCMM:
                 sys.stdout.flush()
                 print "\nE from C", "=", E_after_C
                 sys.stdout.flush()
-                self.E = predict.get_R_and_E_nsp_omp(R_ptr, M_ptr, C_ptr, X_ptr, 
+                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, vec_C, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
 
                 print "mcmm M, now R_and_E"
@@ -531,7 +548,7 @@ cdef class MCMM:
         #print "freed M", "\n\n"
         dealloc_matrix(C_ptr, self.J)
         #print "freed C", "\n\n"
-        #dealloc_vector(etas_M)
+        dealloc_vector(vec_C)
         #dealloc_vector(normConstants_M) 
         
     cpdef INT get_K(self):
