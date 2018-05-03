@@ -1,4 +1,4 @@
-#include "c_funcs.h"
+//#include "c_funcs.h"
 
 double cg_M_omp(double** M,
 			double** C,

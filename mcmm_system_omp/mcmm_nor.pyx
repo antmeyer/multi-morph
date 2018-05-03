@@ -361,7 +361,7 @@ cdef class MCMM:
         cdef FLOAT ** R_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** M_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr = <FLOAT **>malloc(self.J*sizeof(FLOAT*))
-        cdef FLOAT * vec_C = <FLOAT *>malloc(self.J*self.K*sizeof(FLOAT))
+        #cdef FLOAT * vec_C = <FLOAT *>malloc(self.J*self.K*sizeof(FLOAT))
         #cdef FLOAT * etas_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
        # cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
         # cdef INT negc
@@ -408,7 +408,7 @@ cdef class MCMM:
                 # self.E = predict_nor.R_and_E_one(M_ptr,
                 #         C_ptr, X_ptr, R_ptr,
                 #         self.I, self.J, self.normConstant, self.eta)
-                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, vec_C, X_ptr, 
+                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                             self.I, self.J, self.K, self.normConstant)
                 self.original_E = self.E
             else:
@@ -480,9 +480,9 @@ cdef class MCMM:
                 self.E = mcmm_functions.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
                         self.I, self.K, self.J, self.normConstant,
                         lower, upper)
-                for j in range(self.J):
-                    for k in range(self.K):
-                        vec_C[J*K + k] = C_ptr[j][k]
+                # for j in range(self.J):
+                #     for k in range(self.K):
+                #         vec_C[J*K + k] = C_ptr[j][k]
                 E_after_C = self.E
                 print "\n@@@@@@ mcmm_cy", "self.I =", self.I
                 sys.stdout.flush()
@@ -490,7 +490,7 @@ cdef class MCMM:
                 sys.stdout.flush()
                 print "\nE from C", "=", E_after_C
                 sys.stdout.flush()
-                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, vec_C, X_ptr, 
+                self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
 
                 print "mcmm M, now R_and_E"
@@ -548,7 +548,7 @@ cdef class MCMM:
         #print "freed M", "\n\n"
         dealloc_matrix(C_ptr, self.J)
         #print "freed C", "\n\n"
-        dealloc_vector(vec_C)
+        #dealloc_vector(vec_C)
         #dealloc_vector(normConstants_M) 
         
     cpdef INT get_K(self):

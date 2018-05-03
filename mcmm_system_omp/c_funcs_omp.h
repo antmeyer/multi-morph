@@ -1,5 +1,5 @@
 #include "c_funcs.h"
-#include <omp.h>
+//#include <omp.h>
 
 double cg_M(double** M,
 			double** C,
