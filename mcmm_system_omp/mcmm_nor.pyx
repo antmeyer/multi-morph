@@ -459,7 +459,7 @@ cdef class MCMM:
                 #         self.I, self.J, self.K, self.normConstant_M, self.numIters, self.qn, self.cg, 
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
                 self.E = mcmm_functions.cg_M(M_ptr, C_ptr, X_ptr, R_ptr, 
-                        self.I, self.K, self.J, self.normConstant, lower, upper)
+                        self.I, self.J, self.K, self.normConstant, lower, upper)
                 #E_after_M = self.E
                 #print "\nmcmm E from M", "=", E_after_M
                 #sys.stdout.flush()
@@ -478,7 +478,7 @@ cdef class MCMM:
                 #     &self.C_distance, &self.num_C_steps, lower, upper)
                 # E_after_C = self.E
                 self.E = mcmm_functions.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
-                        self.I, self.K, self.J, self.normConstant,
+                        self.I, self.J, self.K, self.normConstant,
                         lower, upper)
                 # for j in range(self.J):
                 #     for k in range(self.K):
