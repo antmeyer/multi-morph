@@ -18,11 +18,8 @@ PRECSPAN=
 PRECSPAN_FLAG=0
 INPUT_CORPUS=
 INPUT_CORPUS_FLAG=0
-#PREFIX="/Users/anthonymeyer/Documents/qual_paper_2/code/mcmm-cython/mcmm_results"
 PREFIX0="/Users/anthonymeyer/Development/multimorph"
 PREFIX="/Users/anthonymeyer/Development/multimorph/mcmm_results"
-			#rest: /mcmm_results/<$DIR>/<$name>
-#DATE=$(date +"%m-%d-%Y")
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
 
 while getopts "r:o:K:l:a:d:I:" OPTION
@@ -97,23 +94,6 @@ if [ "$INPUT_CORPUS_FLAG" == 0 ]
 then
 	INPUT_CORPUS="$PREFIX0""/""hebrewWords.txt"
 fi
-
-# if [ -d "$DIR_EVAL" ]; then
-#   # Control will enter here if $DIR_EVAL exists.
-# 	#echo "The directory ""$DIR_EVAL"" already exists."
-# 	#exit
-# 	CONTENTS=`ls $DIR_EVAL`
-# 	if [ ${#CONTENTS} -gt 0 ]
-# 	then
-# 		echo "Deleting the contents of ""$DIR_EVAL"
-# 		for f in `ls $DIR_EVAL/*`
-# 		do
-# 			rm $f
-# 		done
-# 	fi
-# else
-# 	mkdir "$DIR_EVAL"
-# fi
 
 if [ -d "$DIR_EVAL" ]; then
 	echo "$DIR_EVAL exists. Thanks!"

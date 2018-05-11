@@ -350,15 +350,15 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     alphabet = np.array(list(alphabet), dtype='S1')
     #cdef object standards = ["m--", "m-r", "mc-", "mcr"]
     cdef object standards = ["mc-"]
-    print "\nB  I  G  R  A  M  S  = ", bigrams, "\n"
+    #print "\nB  I  G  R  A  M  S  = ", bigrams, "\n"
     my_encoder = encode_nor.FeatureEncoder(inputFile + ".txt", <int>affixlen, prec_span, <bint>bigrams)
     my_encoder.encodeWords()
     my_encoder.writeVectorsToFile(inputFile + "_in.txt")
     featureList = my_encoder.getFeatures()
     t1 = time.clock()
     alphabet, data = alphabetAndData(inputFile + "_in.txt")
-    sys.stderr.write("**************** DATA:\n")
-    sys.stderr.write(str(data) + "\n")
+    #sys.stderr.write("**************** DATA:\n")
+    #sys.stderr.write(str(data) + "\n")
     #print "********* DATA:"
     #print data
     dataMatrix = np.array(data, dtype=np.float64)
@@ -377,7 +377,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #print "dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
     #print "num featuresSharedByAll =", len(featuresSharedByAll)
     #print u"deletedFeatures_str:", ", ".join(featuresSharedByAll)
-    sys.stdout.flush()
+    #sys.stdout.flush()
     for col,val in homogenousColumns:
         print "  col =", col
         print "  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
@@ -556,6 +556,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         clusterEntries = activationsDecoder.getClusters(std)
         clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
         print "new_wrapper", 16.7, "std =", std
+        print "Number of Cluster Entries =", len(clusterEntries_justWords)
+        sys.stdout.flush()
         outputName = outputPrefix + "." + std
         print "new_wrapper", 16.8, "outputName =", outputName
         #print "\nclusterEntries:\n", clusterEntries
@@ -586,9 +588,9 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         fobj_C.close()
         print "new_wrapper", 22
         sys.stdout.flush()
-        fobj_Clusters = open(outputName + ".clusters", 'w')
-        fobj_Clusters_justWords = open(outputName + ".clusters_justWords", 'w')
-        fobj_Features = open(outputName + ".features", 'w')
+        fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
+        fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
+        fobj_Features = codecs.open(outputName + ".features", 'w', encoding='utf8')
         fobj_Clusters.write("#" + outputPrefix.split("/")[-1] + "\n")
         fobj_Clusters_justWords.write("#" + outputPrefix.split("/")[-1] + "\n")
         fobj_Clusters.write("#" + "%.3f" % percentErrReduction + " & " + "%.3f" % total_min + " min (%.3f" % total_hrs + " hrs)\n")
@@ -692,6 +694,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     ##    print "%%%%% OUTPUT PREFIX:PUT PREFIX:
     fobj_Clusters.close()
     fobj_Features.close()
+
     
 if __name__ == "__main__":
     # program_name  input-type  input-file-name  output-file-name  splitSequence-file-name

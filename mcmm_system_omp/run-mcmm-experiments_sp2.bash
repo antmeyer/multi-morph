@@ -1,5 +1,5 @@
 #!/bin/bash
-# run-mcmm-experiments.bash
+# run-mcmm-experiments_sp2.bash
 #
 # Run a loop of mcmm experiments
 
@@ -8,7 +8,6 @@ INPUT=""
 INDIR=""
 INFILE=""
 INFLAG=0
-#INFILE="data/hbwrds_charsamp_r22_3"
 OUTDIR=""
 OUTFILE=""
 DIR=
@@ -22,7 +21,6 @@ PREC_RANGE=0
 PREC_RANGE_FLAG=0
 BIGRAMS=0
 BIGRAMS_FLAG=0
-# FEATURE_FLAG=0
 TEMPDIR=temp_files
 M_FILE=
 C_FILE=
@@ -42,10 +40,7 @@ TITLE4=
 TITLE5=
 TITLE6=
 PREFIX="/Users/anthonymeyer/Development/multimorph"
-#PREFIX="/N/u/antmeyer/BigRed2/mcmm/"
-#DATE=$(date +"%m-%d-%Y")
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
-# echo "* BIGRAMS: $BIGRAMS"
 
 while getopts "i:N:K:l:a:d:b:m:c:Qj:yzM:" OPTION
 do
@@ -96,7 +91,7 @@ do
 		TITLE3="Objective function: $OBJFUNC; "
 		;;
 	y)
-		echo "&***&&&***&&   -y OPT QN (1)   &&***&&&***&"
+		#echo "&***&&&***&&   -y OPT QN (1)   &&***&&&***&"
 		QN=1
 		TITLE4="QN? $QN; "
 		;;
@@ -153,16 +148,6 @@ else
 fi
 TITLE1=" Bigrams? $BIGRAMS; "
 
-# if [ "$INFLAG" == 0 ]
-# then
-# 	INDIR="."
-# 	OUTDIR=mcmm-out_"$TIME"
-# else
-# 	INDIR=`echo "$INPUT" | cut -d '/' -f2`
-# 	INFILE=`echo "$INPUT" | cut -d '/' -f3`
-# 	OUTDIR="../mcmm_results/mcmm-out""_""N-$N""_""K-$bigK""_""$TIME"
-# fi
-
 if [ "$OBJFUNC_FLAG" == 0 ]
 then
 	OBJFUNC=0
@@ -202,19 +187,6 @@ else
 fi
 mkdir "$OUTDIR"
 
-# if [ -d "$TEMPDIR" ]; then
-# 	echo "${TEMPDIR} exists. Thanks!"
-# 	CONTENTS=`ls "$TEMPDIR"`
-# 	if [ ${#CONTENTS} -gt 0 ]; then
-# 		for FILE in $TEMPDIR/*; do
-# 			rm $FILE
-# 		done
-# 	fi
-# else
-# 	mkdir "$TEMPDIR" 
-# fi
-
-#chmod a+rwx mcmm_sp2.bash
 echo ""
 echo ""
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
@@ -234,12 +206,7 @@ for KVAL in ${K_RANGE}; do
 		if [ "$AFFIXLEN" == "" ]; then
 			continue
 		fi
-# 		if [ "$AFFIXLEN" != 0 ]; then
-# 			TYPE=positional
-# 			TIME=`eval date +"%Y-%m-%d_%H-%M"`
-# 			OUTFILE="$AFFIXLEN"_na_K-"$KVAL"_N-"$N"_"$TIME"
-# 			bash mcmm.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -f "$TYPE" -t "$TEMPDIR"
-# 		fi
+
 		for DIST in ${PREC_RANGE}; do
 			if [ "$DIST" == "" ]; then
 				continue
@@ -265,9 +232,13 @@ for KVAL in ${K_RANGE}; do
 	done
 done
 
+
+#***************************************************************************
+
+
 echo "Finished with run-mcmm-experiments"
-chmod a+rwx run-eval.bash 
-bash run-eval.bash -r "$OUTDIR" -K "$bigK" -l "$K_INTERVAL" -a "$POS_RANGE" -d "$PREC_RANGE" -I "$INDIR""/""$INFILE"".txt"
-if [ -d "$OUTDIR"_eval ]; then
-	bash makeTable.bash -r "$OUTDIR" -o "$OUTDIR"_eval
-fi
+# chmod a+rwx run-eval.bash 
+# bash run-eval.bash -r "$OUTDIR" -K "$bigK" -l "$K_INTERVAL" -a "$POS_RANGE" -d "$PREC_RANGE" -I "$INDIR""/""$INFILE"".txt"
+# if [ -d "$OUTDIR"_eval ]; then
+# 	bash makeTable.bash -r "$OUTDIR" -o "$OUTDIR"_eval
+# fi
