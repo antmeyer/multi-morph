@@ -1,11 +1,16 @@
 # encoding: utf-8
 # cython: profile=True
 # filename: decode.pyx
-
+import codecs
 import sys
 import numpy as np
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
-cpdef object sequenceMap(np.ndarray[FLOAT, ndim=1] valList, np.ndarray alphabet):
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+
+cpdef object sequenceMap(np.ndarray[FLOAT, ndim=1] valList, object alphabet):
         output = ""
         cdef INT counter = 0
         cdef FLOAT maxval = 0.0
@@ -67,7 +72,7 @@ cpdef object sorted_output_str(object memberList):
     return  ", ".join(outputs) + "\n"
     
 cdef class FeatureDecoder:
-    def __init__(self, np.ndarray[FLOAT, ndim=1] valList, affixlen, prec_span, bigrams, np.ndarray alphabet):
+    def __init__(self, np.ndarray[FLOAT, ndim=1] valList, affixlen, prec_span, bigrams, object alphabet):
         self.affixlen = int(affixlen)
         self.positional = False
         self.precedence = False
@@ -84,7 +89,8 @@ cdef class FeatureDecoder:
         if bigrams != "0":
             self.bigrams = True
         self.featureVector = valList
-        self.alphabet = np.asarray(alphabet, dtype='|S1')
+        #self.alphabet = np.asarray(alphabet, dtype='|S1')
+        self.alphabet = list(alphabet)
         self.posFeatures = list()
         self.precFeatures = list()
         self.bigramFeatures = list()

@@ -6,7 +6,7 @@ ctypedef np.float64_t DOUBLE_t
 ctypedef int INT
 ctypedef double FLOAT
 
-cpdef object sequenceMap(np.ndarray[FLOAT, ndim=1] valList, np.ndarray alphabet)
+cpdef object sequenceMap(np.ndarray[FLOAT, ndim=1] valList, object alphabet)
 
 cpdef int greaterThanMin(FLOAT candidate, object valsAndIndices)
 
@@ -20,7 +20,7 @@ cdef class FeatureDecoder:
     cdef bint bigrams
     cdef object joiner
     cdef np.ndarray featureVector
-    cdef np.ndarray alphabet
+    cdef object alphabet
     cdef object posFeatures
     cdef object precFeatures
     cdef object bigramFeatures

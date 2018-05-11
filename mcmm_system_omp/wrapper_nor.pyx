@@ -1,9 +1,12 @@
-# encoding: utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # filename: wrapper.pyx
+# encoding: utf-8
 
-import os,sys,re,math,pprint
-import random
+import os,sys,math
+import random, codecs, unicodedata
 from random import choice
+import regex as re
 from StringIO import StringIO
 #import numpy
 #from numpy import *
@@ -19,6 +22,10 @@ import mcmm_nor
 #from common_subsequences import common_subsequences
 cimport mcmm_nor
 from transliterate import *
+reload(sys)  
+sys.setdefaultencoding('utf8')
+UTF8Writer = codecs.getwriter('utf-8')
+sys.stdout = UTF8Writer(sys.stdout)
 
 def generateData(numExamples, width):
     choices = [0]*(width-1)
@@ -79,13 +86,13 @@ def writeDataToFile(data, filename, width, x_by_y=False):
     fobj.close()
 
 def writeOutput(dataStrings, filename):
-    fobj = open(filename, 'w')
+    fobj = codecs.open(filename, 'w', encoding='utf8')
     for string in dataStrings:
         fobj.write(str(string) + "\n")
     fobj.close()
         
 def processFile(filename):
-    fobj = open(filename, 'r')
+    fobj = codecs.open(filename, 'r', encoding='utf8')
     dataMatrix = list()
     for line in fobj.readlines():
         string = string.replace("\n","")
@@ -117,16 +124,20 @@ def getHomogeneousColumns(matrix):
     return all_same_cols
             
 def alphabetAndData(filename):
-    fobj = open(filename, 'r')
+    fobj = codecs.open(filename, 'r', encoding='utf8')
     dataMatrix = list()
     alphabet = ""
     for line in fobj.readlines():
         string = line
         string = string.replace("\n","")
         string = string.replace("\r","")
-        if string == "" or re.search("\"", string):
+        if isinstance(string, (unicode)) == False:
+            string = unicode(string, 'utf8')
+        pat_slash = ur"\""
+        re_slash = re.compile(pat_slash, re.UNICODE)
+        if string == u"" or re_slash.search(string):
             break
-        if string[0] == "#":
+        if string[0] == u"#":
             alphabet = string[1:]
         else:
             dataRow = string.split()
@@ -136,18 +147,24 @@ def alphabetAndData(filename):
     return (alphabet, dataMatrix)
 
 def wordsFromFile(filename):
-    fobj = open(filename, 'r')
+    fobj = codecs.open(filename, 'r', encoding='utf8')
     dataMatrix = list()
-    alphabet = ""
+    alphabet = ur""
     for line in fobj.readlines():
-        string = line
+        string = line 
         string = string.replace("\n","")
         string = string.replace("\r","")
         string = string.replace("'","")
-        if string == "" or re.search("\"", string):
+        if isinstance(string, (unicode)) == False:
+            string = unicode(string, 'utf8')
+        pat_quot = ur"\""
+        re_quot = re.compile(pat_quot, re.UNICODE)
+        if string == u"" or re_quot.search(string):
             break
-        if string[0] == "#":
+        if string[0] == u"#":
             alphabet = string[1:]
+            if isinstance(alphabet, (unicode)) == False:
+                alphabet = unicode(alphabet, 'utf8')
         else:
             words = string.split()
             dataMatrix.append(words[0])
@@ -301,13 +318,36 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #max_K = 5
     affixlen = int(affixlen)
     max_K = int(max_K)
-    alphaString, wordList = wordsFromFile(inputFile + ".txt")
+    #alphabet_uni, wordList = wordsFromFile(inputFile + ".txt")
+    alphabet, wordList = wordsFromFile(inputFile + ".txt")
+    #sys.stdout.write("************ alphabet_uni:\n")
+    #alphabet_uni = alphabet_uni.encode('utf8').decode('utf8')
+    # try: alphabet_uni = alphabet_uni.decode('utf8')
+    # except UnicodeDecodeError:
+    #     print "*** UnicodeDecodeError !!!! ***"
+    #     sys.stdout.flush()
+    #     try: alphabet_uni = alphabet_uni.encode('utf8')
+    #     except UnicodeEncodeError:
+    #         print "*** UnicodeEncodeError !!!! ***"
+    #         sys.stdout.flush()
+    #         try: alphabet_uni = alphabet_uni.encode('utf8').decode('utf8')
+    #         except UnicodeDecodeError:
+    #             print "*** UnicodeDecodeError 2 !!!! ***"
+    #             sys.stdout.flush()
+    #sys.stdout.write(alphabet_uni + "\n")
+    #sys.stdout.flush()
+    #sys.stdout.write("************ WORDLIST:\n")
     #print wordList
+    #sys.stdout.flush()
     useSQ = int(useSQ)
     maxLength = longestLength(wordList)
     #affixlen = int(math.ceil(maxLength/2.0))
     #print str(affixlen) + "\n\n\n\n"
-    alphabet = np.array(list(alphaString), dtype='S1')
+    #temp_str = alphabet_uni.encode('utf8')
+    #temp_str = alphabet_uni
+    #alphabet_ascii = alphabet_uni.encode('utf8')
+    #alphabet = np.array(list(alphabet_ascii), dtype='S1')
+    alphabet = np.array(list(alphabet), dtype='S1')
     #cdef object standards = ["m--", "m-r", "mc-", "mcr"]
     cdef object standards = ["mc-"]
     print "\nB  I  G  R  A  M  S  = ", bigrams, "\n"
@@ -315,27 +355,38 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     my_encoder.encodeWords()
     my_encoder.writeVectorsToFile(inputFile + "_in.txt")
     featureList = my_encoder.getFeatures()
-    
     t1 = time.clock()
-    alphaString, data = alphabetAndData(inputFile + "_in.txt")
+    alphabet, data = alphabetAndData(inputFile + "_in.txt")
+    sys.stderr.write("**************** DATA:\n")
+    sys.stderr.write(str(data) + "\n")
+    #print "********* DATA:"
+    #print data
     dataMatrix = np.array(data, dtype=np.float64)
     homogenousColumns = []
     homogenousColumns = getHomogeneousColumns(dataMatrix)
     homogenousColumns.sort(reverse=True)
     print "homogenousColumns =", homogenousColumns
     featuresSharedByAll = []
+    features_uni = u""
     for col,val in homogenousColumns:
-        featuresSharedByAll.append(str(col) + ":" + featureList[col] + ":{:.1f}".format(val))
-    print "dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
-    print "num featuresSharedByAll =", len(featuresSharedByAll)
-    print "deletedFeature_str:", ", ".join(featuresSharedByAll)
+        features_str = str(col) + ":" + featureList[col] + ":{:.1f}".format(val)
+        features_uni = features_str
+        if isinstance(features_str, (unicode)) == False:
+            features_uni = unicode(features_str, 'utf8')
+        featuresSharedByAll.append(features_uni)
+    #print "dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
+    #print "num featuresSharedByAll =", len(featuresSharedByAll)
+    #print u"deletedFeatures_str:", ", ".join(featuresSharedByAll)
     sys.stdout.flush()
     for col,val in homogenousColumns:
         print "  col =", col
         print "  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
         dataMatrix = np.delete(dataMatrix,(col),1)
-    deletedFeature_str = ", ".join(featuresSharedByAll)
-    #print "deletedFeature_str:", deletedFeature_str
+    deletedFeatures_str = ", ".join(featuresSharedByAll)
+    #deletedFeatures_uni = deletedFeatures_str 
+    if isinstance(deletedFeatures_str, (unicode)) == False:
+        deletedFeatures_str = unicode(deletedFeatures_str, 'utf8')
+    #print "deletedFeature_uni:", deletedFeature_uni.encode('utf8')
     #print dataMatrix
     sys.stdout.flush()
     # Perhaps we can send a list of max_K values to mcmm_multiK
@@ -399,7 +450,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     print "new_wrapper", 8
     sys.stdout.flush()
     clusterEntries = list()
-    splitSequence = list(my_mcmm.get_splitSequence())
+    splitSequence = list()
     print "new_wrapper", 9
     sys.stdout.flush()
     formatted_M_strings = format_M(M, wordList)
@@ -415,7 +466,6 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     sys.stdout.flush()
     error = my_mcmm.getError()
 
-    
     ######################################
     M_1_ratio = 0
     M_0_ratio = 0
@@ -524,13 +574,13 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     ##    print "%%%%% OUTPUT PREFIX:", outputPrefix
     ##    print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
         #Open files for writing the numerical contents of the M and C matrices
-        fobj_M = open(outputName + ".M_vals", 'w')
+        fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
         for string in formatted_M_strings:
            fobj_M.write(string)
         fobj_M.close()
         print "new_wrapper", 20
         sys.stdout.flush()
-        fobj_C = open(outputName + ".C_vals", 'w')
+        fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
         for string in formatted_C_strings:
            fobj_C.write(string)
         fobj_C.close()
@@ -548,7 +598,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         fobj_Clusters.write("\n\n")
         fobj_Clusters.write(str(I) + " data points were processed.\n")
         fobj_Clusters.write("Each data point comprised " + str(J) + " features.\n")
-        fobj_Clusters.write("Deleted Features: " + deletedFeature_str+ "\n\n")
+        fobj_Clusters.write("Deleted Features: " + deletedFeatures_str+ "\n\n")
         fobj_Clusters.write("\nElapsed time:  %.3f" % total_min + " min  (%.3f" % total_hrs + " hrs)\n")
         fobj_Clusters.write("\nOriginal Error:  %.5f" % my_mcmm.getOriginalError())
         fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
@@ -591,7 +641,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         fobj_Features.write("MOST ACTIVE FEATURES FOR EACH CLUSTER\n")
         fobj_Features.write(experimentTitle)
         fobj_Features.write("\n\n")
-        fobj_Features.write("Deleted Features: " + deletedFeature_str + "\n\n")
+        fobj_Features.write("Deleted Features: " + deletedFeatures_str + "\n\n")
         
         sys.stderr.write("K = " + str(K) + "\n")
         sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")

@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os,sys,re,math,pprint
-import random
+# encoding: utf-8
+import os,sys, codecs
+import regex as re
+import random, math
 from random import choice
 from StringIO import StringIO
 from numpy import *
 from numpy.linalg import *
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
 
 cdef class FeatureEncoder:
 	def __init__(self, corpusFile, affixlen, prec_span, bigrams):
@@ -25,7 +32,8 @@ cdef class FeatureEncoder:
 			self.prec_span = int(prec_span)
 		if bigrams == "1":
 			self.bigrams = True	
-		fobj = open(corpusFile, 'r')
+		#fobj = open(corpusFile, 'r')
+		fobj = codecs.open(corpusFile, 'r', encoding='utf8')
 		self.words = list()
 		self.vectors = list()
 		self.alphabet = list()
@@ -36,33 +44,102 @@ cdef class FeatureEncoder:
 		self.precFeatures = list()
 		self.bigramFeatures = list()
 		self.allFeatures = list()
-                
-		for line in fobj.readlines():
-			string = line
+		lines = fobj.readlines()
+		#firstLine = lines[0]
+		#firstLine = lines[0].encode('utf-8')
+		firstLine = lines[0]
+		print "first line type =", type(firstLine)
+		sys.stdout.flush()
+		#print "FL:", firstLine.decode('utf-8')
+		#firstLine = unicode(firstLine, 'utf-8')
+		print "FL:", type(firstLine)
+		sys.stdout.flush()
+		if firstLine[0] == u"#":
+			firstLine = lines.pop(0)
+			firstLine = firstLine.replace(u"\n",u"")
+			firstLine = firstLine.replace(u"\r",u"")
+			self.alphabet = list(firstLine[1:])
+			self.alphalen = len(self.alphabet)
+			print "ALPHABET:"
+			sys.stdout.flush()
+			#new_alphabet = []
+			#new_letter = u""
+			# for letter in self.alphabet:
+			# 	if isinstance(letter, (unicode)) == False:
+			# 		letter = unicode(letter, 'utf8')
+
+					#pass
+				# elif isinstance(letter, (str)):
+				# 	letter = unicode(letter, 'utf8')
+				# else:
+				# 	letter = unicode(letter, 'utf8')
+					#new_letter = unicode(letter, 'utf8')
+				#else: new_letter = letter
+				#new_alphabet.append(new_letter)
+				#self.alphabet.append(letter)
+				#print "Type =", type(letter)
+				#print "Letter =", letter
+				#sys.stdout.flush()
+			#self.alphabet = list(new_alphabet)
+			#print "*** Alphabet chars, length, affixlen:"
+			#print self.alphabet
+			#print self.alphalen, self.affixlen 
+
+		for line in lines:
+			string = line  #.encode('utf-8')
+			#sys.stdout.write(u"A1 " + repr(string) + u"\n")
+			print "Type of string:", type(string)
+			sys.stdout.flush()
 			string = string.replace("\n","")
 			string = string.replace("\r","")
-			if string == "" or re.search("\"", string):
-				break 
-			if string[0] == "#":
-				self.alphabet = list(string[1:])
-				self.alphalen = len(self.alphabet)
-##				print "Alphabet length, affixlen:"
-##				print self.alphalen, self.affixlen
-##				print "\n\n\n"
-			else:
-				dataRow = string.split()
-				word = dataRow[0]
-				prelimVector = []
-				#if self.positional:
-				#prelimVector = [0]*(self.affixlen*2*self.alphalen)
-				#prelimVector.append(0) We don't need the "duplicate-char "feature.
-				#self.numPosFeatures = self.affixlen*2*self.alphalen
-				# add feature slots for precedence features.
-				## the number of prec. features is the length of the alphabet squared.
-				#prelimVector.extend([0]*(self.alphalen*self.alphalen))
-				self.words.append(word)
-				self.vectors.append(prelimVector)
+			#if type(string) != "<type 'unicode'>":
+			if isinstance(string, (unicode)) == False:
+				#string = string.decode('utf8')
+				string = unicode(string, 'utf8')
+			pat_quot = ur"\""
+			#pat_hash = ur"^#.+"
+			#print "Type of string 2:", type(string)
+			re_quot = re.compile(pat_quot, re.UNICODE)
+			#re_hash = re.compile(pat_hash, re.UNICODE)
+			#sys.stdout.write(u"A2 " + string + u'\n')
+			print "Type of string 3:", type(string)
+			sys.stdout.flush()
+			if string == u"" or re_quot.search(string):
+				break
+			#if string[0] == u"#":
+			# if re_hash.search(string):
+			# 	#self.alphabet = list(string[1:].encode('utf_8'))
+			# 	print "STRING:"
+			# 	self.alphabet = list(string[1:])
+			# 	print "ALPHABET:"
+			# 	for letter in self.alphabet:
+			# 		print letter, type(letter)
+			# 	sys.stdout.flush()
+			# 	self.alphalen = len(self.alphabet)
+			# 	print u"\n\n\n"
+			# 	print u"*** Alphabet chars, length, affixlen:"
+			# 	print repr(self.alphabet)
+			# 	print self.alphalen, self.affixlen
+			# 	print u"\n\n\n"
+			# 	sys.stdout.flush()
+			# else:
+			dataRow = string.split()
+			word = dataRow[0]  #.encode('utf-8')
+			#print u"word:", word, type(word)
+			prelimVector = []
+			#if self.positional:
+			#prelimVector = [0]*(self.affixlen*2*self.alphalen)
+			#prelimVector.append(0) We don't need the "duplicate-char "feature.
+			#self.numPosFeatures = self.affixlen*2*self.alphalen
+			# add feature slots for precedence features.
+			## the number of prec. features is the length of the alphabet squared.
+			#prelimVector.extend([0]*(self.alphalen*self.alphalen))
+			self.words.append(word)
+			#self.words.append(word.encode('utf_8'))
+			self.vectors.append(prelimVector)
 		fobj.close()
+		#print "encode", 7
+		sys.stdout.flush()
 		if self.positional:
 			# initialize positional features
 			self.numPosFeatures = self.affixlen*2*self.alphalen
@@ -70,11 +147,15 @@ cdef class FeatureEncoder:
 				prelimVector.extend([0]*(self.numPosFeatures))
 			for i in range(self.affixlen):
 				for j in range(self.alphalen):
-					self.posFeatures.append(self.alphabet[j] + "@[" + str(i) + "]")
+					#self.posFeatures.append(self.alphabet[j] + "@[" + str(i).encode('utf8') + "]")
+					self.posFeatures.append(self.alphabet[j] + u"@[" + unicode(i) + u"]")
 			for i in reversed(range(self.affixlen)):
 				for j in range(self.alphalen):
-					self.posFeatures.append(self.alphabet[j] + "@[" + str(i-self.affixlen) + "]")
+					#self.posFeatures.append(self.alphabet[j] + "@[" + str(i-self.affixlen).encode('utf8') + "]")
+					self.posFeatures.append(self.alphabet[j] + u"@[" + unicode(i-self.affixlen) + u"]")
 			self.allFeatures.extend(self.posFeatures)
+		print "encode", 8
+		sys.stdout.flush()
 		if self.precedence:
 			# initialize positional features
 			self.numPrecFeatures = self.alphalen*self.alphalen
@@ -83,6 +164,7 @@ cdef class FeatureEncoder:
 			self.precFeatures = list()
 			for char_x in self.alphabet:
 				for char_y in self.alphabet:
+					#self.precFeatures.append(unicode(char_x) + u"<" + unicode(char_y)
 					self.precFeatures.append(char_x + "<" + char_y)
 			self.allFeatures.extend(self.precFeatures)
 		if self.bigrams:
@@ -93,6 +175,7 @@ cdef class FeatureEncoder:
 			self.bigramFeatures = list()
 			for char_x in self.alphabet:
 				for char_y in self.alphabet:
+					#self.bigramFeatures.append(unicode(char_x) + u"+" + unicode(char_y)
 					self.bigramFeatures.append(char_x + "+" + char_y)
 			self.allFeatures.extend(self.bigramFeatures)
         #self.alphabet = list("abgdhwzxviklmnsypcqret")
@@ -105,6 +188,8 @@ cdef class FeatureEncoder:
 ##			return False
 		
 	cpdef int encodeWords(self):
+		print "encode", 9, "   ", len(self.words)
+		sys.stdout.flush()
 		for n in range(len(self.words)):
 			if self.positional:
 				###################################################### encode positional featuree
@@ -113,6 +198,10 @@ cdef class FeatureEncoder:
 						if (len(self.words[n])-1) - i <= 0:
 							continue
 						char = self.words[n][i]
+						if isinstance(char, (unicode)) == False:
+							char = unicode(char, 'utf8')
+						#print "char TYPE:", type(char), "   self.alphabet:", "".join(self.alphabet)
+						sys.stdout.flush()
 						alpha_ndx = self.alphabet.index(char)
 					except IndexError: continue
 					else:
@@ -122,6 +211,8 @@ cdef class FeatureEncoder:
 						self.vectors[n][feature_ndx] = 1.0
 						#feature = char + "@" + "[" + str(i) + "]"
 						#self.allFeatures[feature_ndx] = feature
+				print "encode", 10, "   n =", n
+				sys.stdout.flush()
 				for i in reversed(range(self.affixlen)):
 					# for i = 3,2,1,0: (self.affixlen = 4)
 					# i = 3 references the last character
@@ -129,8 +220,13 @@ cdef class FeatureEncoder:
 						if i-self.affixlen + len(self.words[n]) <= 0:
 							continue
 						char = self.words[n][i-self.affixlen]
+						if isinstance(char, (unicode)) == False:
+							char = unicode(char, 'utf8')
 						alpha_ndx = self.alphabet.index(char)
-					except IndexError: continue
+					except IndexError: 
+						print "INDEX ERROR"
+						sys.stdout.flush()
+						continue
 					else:
 						# ((affixlen times two) - 1 - i) times number of slots per character + alphabet index
 						# for i = 2 and self.affixlen = 3:
@@ -141,6 +237,8 @@ cdef class FeatureEncoder:
 						#self.allFeatures[feature_ndx] = feature
 				###################################################
 				###################################################
+			print "encode", 15
+			sys.stdout.flush()
 			if self.precedence:                                               
 				### encode precedence features
 				# The value "len(self.words[n])" is the length (in characters) of the n-th word
@@ -177,12 +275,21 @@ cdef class FeatureEncoder:
 					right_edge = i+1+self.prec_span
 					if right_edge > len(self.words[n]):
 						right_edge = len(self.words[n])
+					print "encode", 16, i
+					sys.stdout.flush()
 					for j in range(i+1, right_edge):
+						print "encode", 17
+						sys.stdout.flush()
 						try: feature = self.words[n][i] + "<" + self.words[n][j]
 						except IndexError: continue
+						if isinstance(feature, (unicode)) == False:
+							feature = unicode(feature, 'utf8')
+						print "encode", 17.5
+						sys.stdout.flush()
 						feature_ndx = self.precFeatures.index(feature) + self.numPosFeatures
 						self.vectors[n][feature_ndx] = 1.0
-						print "encode", i, j, feature, self.words[n], "feature_ndx =", feature_ndx, self.vectors[n][feature_ndx]
+						#print "**ENCODE**", i, j, feature, unicode(self.words[n]), u"feature_ndx =", feature_ndx, unicode(self.vectors[n][feature_ndx])
+						print "**ENCODE**"
 						sys.stdout.flush()
 				print "*end of word*"
 				sys.stdout.flush()
@@ -205,16 +312,32 @@ cdef class FeatureEncoder:
 		return self.vectors
 
 	cpdef int writeVectorsToFile(self, object outputFile):
-		fobj = open(outputFile, 'w')
+		fobj = codecs.open(outputFile, 'w', encoding='utf-8')
 		# the alphabet is printed on the first line
-		fobj.write("#" + "".join(self.alphabet) + "\n")
+		#print "encode", 19
+		sys.stdout.flush()
+		alphaStr = "".join(self.alphabet)
+		alpha_uni = alphaStr
+		#print "ALPHA_UNI_1* =", unicode(alpha_uni)
+		if isinstance(alphaStr, (unicode)) == False:
+			# alpha_uni = unicode(alphaStr, 'utf-8')
+			# alpha_uni = alphaStr.decode('utf8')
+			alpha_uni = unicode(alphaStr)
+		#print "ALPHA_UNI_2 =", alpha_uni  #alpha_uni.encode('utf8')
+		if alpha_uni[0] != "#":
+			alpha_uni += "#"
+		fobj.write("#" + alpha_uni + "\n")
+		#sys.stdout.write("&&& alpha_uni = " + alpha_uni + "\n")
 		for i in range(len(self.vectors)):
 			for item in self.vectors[i]:
 				#print item
-				fobj.write(str(item))
+				fobj.write(unicode(str(item)))
+				#fobj.write(str(item))
 				if self.vectors[i].index(item) < (len(self.vectors[i]) - 1):
 					fobj.write("  ")
+			sys.stdout.flush()
 			fobj.write("\n")
+		#print "encode", 20
 		fobj.close()
 	
 def main(inputFile, outputFile):
