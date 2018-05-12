@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 # encoding: utf-8
 import os,sys, codecs
-import regex as re
+#import regex as re
 import random, math
 from random import choice
 from StringIO import StringIO
 from numpy import *
 from numpy.linalg import *
 reload(sys)  
-#sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf8')
 
 UTF8Writer = codecs.getwriter('utf8')
-#sys.stdout = UTF8Writer(#sys.stdout)
+sys.stdout = UTF8Writer(sys.stdout)
 
 cdef class FeatureEncoder:
 	def __init__(self, corpusFile, affixlen, prec_span, bigrams):
@@ -95,22 +95,22 @@ cdef class FeatureEncoder:
 			string = string.replace("\n","")
 			string = string.replace("\r","")
 
-			#if type(string) != "<type 'unicode'>":
-			if isinstance(string, (unicode)) == False:
-				#string = string.decode('utf8')
-				string = unicode(string, 'utf8')
-			pat_quot = ur"\""
+			# if isinstance(string, (unicode)) == False:
+			# 	string = unicode(string, 'utf8')
+			#pat_quot = ur"\""
 			#pat_hash = ur"^#.+"
 			#print "Type of string 2:", type(string)
-			re_quot = re.compile(pat_quot, re.UNICODE)
+			#re_quot = re.compile(pat_quot, re.UNICODE)
+			if string == "" or "\"" in string:
+				continue
 			#re_hash = re.compile(pat_hash, re.UNICODE)
 			##sys.stdout.write(u"A2 " + string + u'\n')
 			#print "Type of string 3:", type(string)
 			#sys.stdout.flush()
-			if string == u"":
-				break
-			if re_quot.search(string):
-				pass
+			# if string == "":
+			# 	break
+			# if re_quot.search(string):
+			# 	pass
 			#if string[0] == u"#":
 			# if re_hash.search(string):
 			# 	#self.alphabet = list(string[1:].encode('utf_8'))
@@ -153,11 +153,11 @@ cdef class FeatureEncoder:
 			for i in range(self.affixlen):
 				for j in range(self.alphalen):
 					#self.posFeatures.append(self.alphabet[j] + "@[" + str(i).encode('utf8') + "]")
-					self.posFeatures.append(self.alphabet[j] + u"@[" + unicode(i) + u"]")
+					self.posFeatures.append(self.alphabet[j] + "@[" + unicode(i) + "]")
 			for i in reversed(range(self.affixlen)):
 				for j in range(self.alphalen):
 					#self.posFeatures.append(self.alphabet[j] + "@[" + str(i-self.affixlen).encode('utf8') + "]")
-					self.posFeatures.append(self.alphabet[j] + u"@[" + unicode(i-self.affixlen) + u"]")
+					self.posFeatures.append(self.alphabet[j] + "@[" + unicode(i-self.affixlen) + "]")
 			self.allFeatures.extend(self.posFeatures)
 		#print "encode", 8
 		#sys.stdout.flush()
@@ -203,8 +203,8 @@ cdef class FeatureEncoder:
 						if (len(self.words[n])-1) - i <= 0:
 							continue
 						char = self.words[n][i]
-						if isinstance(char, (unicode)) == False:
-							char = unicode(char, 'utf8')
+						# if isinstance(char, (unicode)) == False:
+						# 	char = unicode(char, 'utf8')
 						#print "char TYPE:", type(char), "   self.alphabet:", "".join(self.alphabet)
 						#sys.stdout.flush()
 						alpha_ndx = self.alphabet.index(char)
@@ -225,8 +225,8 @@ cdef class FeatureEncoder:
 						if i-self.affixlen + len(self.words[n]) <= 0:
 							continue
 						char = self.words[n][i-self.affixlen]
-						if isinstance(char, (unicode)) == False:
-							char = unicode(char, 'utf8')
+						# if isinstance(char, (unicode)) == False:
+						# 	char = unicode(char, 'utf8')
 						alpha_ndx = self.alphabet.index(char)
 					except IndexError: 
 						#print "INDEX ERROR"
@@ -287,8 +287,8 @@ cdef class FeatureEncoder:
 						#sys.stdout.flush()
 						try: feature = self.words[n][i] + "<" + self.words[n][j]
 						except IndexError: continue
-						if isinstance(feature, (unicode)) == False:
-							feature = unicode(feature, 'utf8')
+						# if isinstance(feature, (unicode)) == False:
+						# 	feature = unicode(feature, 'utf8')
 						#print "encode", 17.5
 						#sys.stdout.flush()
 						feature_ndx = self.precFeatures.index(feature) + self.numPosFeatures

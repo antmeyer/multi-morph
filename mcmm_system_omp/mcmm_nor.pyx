@@ -522,19 +522,19 @@ cdef class MCMM:
                 #if ((breakTest < 0.0001 or diff < 0.00001) and flag == 0) or numIters >= 40:
                 if (breakTest < breakErr and flag == 0) or self.numIters >= 35:
                 #if (breakTest < 0.000001 and flag == 0):
-                    if self.K % self.evalInterval == 0 or end_condition < end_thresh:
-                        print "mcmm_nor; activations decoder"
-                        sys.stdout.flush()
-                        # What is 'clusterEntries'? It is a list of all clusters (and their members) that presently exist.
-                        # The clusterEntries list is constantly evolving, and its cardinality increases with K.
-                        # What format does "alphabet" need to be in for activationsDecoder?
-                        activationsDecoder = decode.ActivationsDecoder(self.Mv, self.Cv, self.Rv, 
-                                                self.wordList, self.thresh)
-                        for i in range(len(standards)):
-                            mila_preprocess(activationsDecoder.getClusters(standards[i]), self.tempDir, 
-                                                self.outputPrefix, self.K, standards[i])
-                        print "mcmm_nor; 1003"
-                        sys.stdout.flush()
+                    # if self.K % self.evalInterval == 0 or end_condition < end_thresh:
+                    #     print "mcmm_nor; activations decoder"
+                    #     sys.stdout.flush()
+                    #     # What is 'clusterEntries'? It is a list of all clusters (and their members) that presently exist.
+                    #     # The clusterEntries list is constantly evolving, and its cardinality increases with K.
+                    #     # What format does "alphabet" need to be in for activationsDecoder?
+                    #     activationsDecoder = decode.ActivationsDecoder(self.Mv, self.Cv, self.Rv, 
+                    #                             self.wordList, self.thresh)
+                    #     for i in range(len(standards)):
+                    #         mila_preprocess(activationsDecoder.getClusters(standards[i]), self.tempDir, 
+                    #                             self.outputPrefix, self.K, standards[i])
+                    #     print "mcmm_nor; 1003"
+                    #     sys.stdout.flush()
                     break
                 flag = 0
                 self.numIters += 1

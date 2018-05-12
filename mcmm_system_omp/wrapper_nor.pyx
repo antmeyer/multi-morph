@@ -6,7 +6,7 @@
 import os,sys,math
 import random, codecs, unicodedata
 from random import choice
-import regex as re
+#import regex as re
 from StringIO import StringIO
 #import numpy
 #from numpy import *
@@ -133,12 +133,13 @@ def alphabetAndData(filename):
         string = string.replace("\r","")
         if isinstance(string, (unicode)) == False:
             string = unicode(string, 'utf8')
-        pat_slash = ur"\""
-        re_slash = re.compile(pat_slash, re.UNICODE)
-        if string == u"" or re_slash.search(string):
-            break
-        if string[0] == u"#":
-            alphabet = string[1:]
+        # pat_quot = ur"\""
+        # re_quot = re.compile(pat_quot, re.UNICODE)
+        # if string == u"" or re_quot.search(string):
+        #     break
+        if string == u"" or "\"" in string: continue
+        if string[0] == "#":
+            alphabet = string.replace("#", "")
         else:
             dataRow = string.split()
             valList = [float(value) for value in dataRow]
@@ -157,14 +158,17 @@ def wordsFromFile(filename):
         string = string.replace("'","")
         if isinstance(string, (unicode)) == False:
             string = unicode(string, 'utf8')
-        pat_quot = ur"\""
-        re_quot = re.compile(pat_quot, re.UNICODE)
-        if string == u"" or re_quot.search(string):
-            break
-        if string[0] == u"#":
-            alphabet = string[1:]
-            if isinstance(alphabet, (unicode)) == False:
-                alphabet = unicode(alphabet, 'utf8')
+        # pat_quot = ur"\""
+        # re_quot = re.compile(pat_quot, re.UNICODE)
+        # if string == u"" or re_quot.search(string):
+        #     break
+        # if string[0] == u"#":
+        #     alphabet = string[1:]
+        if string =="" or "\"" in string: continue
+        if string[0] == "#":
+            alphabet = string.replace("#", "")
+            # if isinstance(alphabet, (unicode)) == False:
+            #     alphabet = unicode(alphabet, 'utf8')
         else:
             words = string.split()
             dataMatrix.append(words[0])
@@ -677,18 +681,18 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
             featureStr += ', '.join(my_decoder.tenLeastActive())
             fobj_Features.write("## " + str(k) + "\n")
             fobj_Features.write(featureStr + "\n\n")
-        print "new_wrapper", 36
-        sys.stdout.flush()
+        #print "new_wrapper", 36
+        #sys.stdout.flush()
         # write cluster split sequence to Cluster file.
         fobj_Clusters.write("\n\nCLUSTER SPLIT SEQUENCE:\n\n")
         for i in range(len(splitSequence)):
             fobj_Clusters.write(str(i+1) + ". " + splitSequence[i])
-        print "new_wrapper", 37
-        print ""
-        print "TEMPDIR:", tempDir
+        #print "new_wrapper", 37
+        #print ""
+        #print "TEMPDIR:", tempDir
         
-        print "new_wrapper", 40
-        sys.stdout.flush()
+        #print "new_wrapper", 40
+        #sys.stdout.flush()
 #        sys.stdout.flush()%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
     ##    print "%%%%% OUT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
     ##    print "%%%%% OUTPUT PREFIX:PUT PREFIX:

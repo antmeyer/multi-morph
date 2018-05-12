@@ -225,7 +225,7 @@ cdef class ActivationsDecoder:
             # Iterate over the row M[i], which is a row of k elements
             # Each k represents a cluster
             for k in range(K):
-                # for each index k, find the corresponding kth column in the
+                # for each index k, find the kth column in the
                 # J x K matrix C.
                 # Then proceed down the j (row) indices in this column
                 # until a [j,k] cell is found that meets the membership
@@ -298,7 +298,7 @@ cdef class ActivationsDecoder:
         for k in range(len(clusters_m)):
             self.clusters_m_toPrint.append(sorted_output_str(clusters_m[k]))
 
-        print str(clusters_mr)
+        #print str(clusters_mr)
         for k in range(len(clusters_mr)):
             self.clusters_mr_toPrint.append(sorted_output_str(clusters_mr[k]))
 
