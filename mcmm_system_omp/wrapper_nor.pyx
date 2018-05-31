@@ -26,7 +26,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf-8')
 sys.stdout = UTF8Writer(sys.stdout)
-
+sys.stderr = UTF8Writer(sys.stderr)
 def generateData(numExamples, width):
     choices = [0]*(width-1)
     choices.append(1)
@@ -54,7 +54,7 @@ def generateData(numExamples, width):
     return data
 
 def writeMatrixToFile(data, numRows, numColumns, filename, width, x_by_y=False, addendum=False):
-    fobj = open(filename, 'w')
+    fobj = codecs.open(filename, 'w', encoding='utf8')
     for i in range(numRows):
         for j in range(numColumns):
             if x_by_y:    
@@ -70,7 +70,7 @@ def writeMatrixToFile(data, numRows, numColumns, filename, width, x_by_y=False, 
     fobj.close()
     
 def writeDataToFile(data, filename, width, x_by_y=False):
-    fobj = open(filename, 'w')
+    fobj = codecs.open(filename, 'w', encoding='utf8')
     for i in range(len(data)):
         for j in range(len(data[i])):
             if x_by_y:    
@@ -206,7 +206,7 @@ def diagMatrix(squareMatrix, size):
     return diagM
     
 def import_M(filename, words):
-    fobj = open(filename, "r")
+    fobj = codecs.open(filename, 'r', encoding='utf8')
     data_from_file = list()
     words_from_file = list()
     for line in fobj.readlines():
@@ -239,7 +239,7 @@ def import_M(filename, words):
     return M
     
 def import_C(filename, features):
-    fobj = open(filename, "r")
+    fobj = codecs.open(filename, 'r', encoding='utf8')
     data_from_file = list()
     features_from_file = list()
     for line in fobj.readlines():
@@ -661,7 +661,7 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
             for char in clusterEntries[k]:
                 if char == ")":
                     numParen += 1
-            string = str(numParen) + " word"
+            string = unicode(numParen) + u" word"
             if numParen > 1 or numParen == 0:
                 string += "s"
             sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")

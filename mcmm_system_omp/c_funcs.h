@@ -22,6 +22,11 @@ double R_E_and_Grad_C(double* vec_Grad,
 						double** M, double* vec_C, double** X, double** R,
 						int I, int J, int K, double normConstant);
 
+double R_E_and_Grad_C_2(double* vec_Grad, double** M, 
+						double* M_data, int* M_indices, int* M_indptr,
+						double* vec_C, double** X, double** R,
+						int I, int J, int K, double normConstant);
+
 double r_and_e(double* r, double* m, double *C_data, int *C_indices, 
 			int *C_indptr, double* x, int J, int K, double normConstant);
 

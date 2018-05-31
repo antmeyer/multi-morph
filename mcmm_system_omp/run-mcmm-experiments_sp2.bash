@@ -40,6 +40,7 @@ TITLE4=
 TITLE5=
 TITLE6=
 PREFIX="/Users/anthonymeyer/Development/multimorph"
+#PREFIX="/N/u/antmeyer/BigRed2/mcmm/multimorph"
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
 
 while getopts "i:N:K:l:a:d:b:m:c:Qj:yzM:" OPTION

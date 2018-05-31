@@ -78,7 +78,7 @@ cdef class MCMM:
         self.initFlag = 1
         self.splitSequence = np.empty([0], dtype='S1')
         self.numIters = 0
-        print "mcmm boost", 0
+        #print "mcmm boost", 0
         self.Mv = init_M
         self.Cv = init_C
         self.thresh = thresh
@@ -100,8 +100,8 @@ cdef class MCMM:
         self.normConstant_M = norm_factor / <FLOAT>self.J
         
     cdef void split_cluster(self):
-        print "split_cluster", 0
-        sys.stdout.flush()
+        #print "split_cluster", 0
+        #sys.stdout.flush()
         cdef int num_new_clusters = 1
         cdef int k_to_shake
         cdef int k_to_split, k, h
@@ -116,8 +116,8 @@ cdef class MCMM:
             k_to_split = self.find_cluster_to_split()
             # k_to_split = mcmm_functions.get_cluster_to_split_nsp_omp(M_ptr_ct, C_ptr_ct, X_ptr_ct, 
             #                     R_ptr, self.I, self.J, self.K, self.normConstant)
-            sys.stdout.write("Splitting cluster " + str(k_to_split) + "\n")
-            sys.stdout.flush()
+            #sys.stdout.write("Splitting cluster " + str(k_to_split) + "\n")
+            #sys.stdout.flush()
             self.duplicate_cluster(k_to_split)
             # for h in range(min(self.K,num_new_clusters)):
             #     k_to_split = cluster_list[h][1]
@@ -145,15 +145,15 @@ cdef class MCMM:
             for k in range(self.K):
                 M_ptr_ct[i][k] = self.Mv[i,k]
         M_ptr_ct = &M_ptr_ct[0]
-        print "fctsplit", 1
-        sys.stdout.flush()
+        #print "fctsplit", 1
+        #sys.stdout.flush()
         # cdef FLOAT * M_data_ct = <FLOAT *>malloc( self.I*(<int>max(1,self.K)) * sizeof(FLOAT*))
         # cdef int * M_indices_ct = <int *>malloc( self.I*(<int>max(1,self.K)) * sizeof(int))
         # cdef int * M_indptr_ct = <int *>malloc( (self.I+1)*sizeof(int) )
         
         cdef object cluster_list = list()
-        print "fctsplit", 2
-        sys.stdout.flush()
+        #print "fctsplit", 2
+        #sys.stdout.flush()
         cdef object all_k_indices = []
         for i in range(self.I):
             X_ptr_ct[i] = &self.Xv[i,0]
@@ -163,12 +163,12 @@ cdef class MCMM:
         #         vec_C_ptr_ct[j*K+k] = self.Cv[j,k]
         for j in range(self.J):
             C_ptr_ct[j] = &self.Cv[j,0]
-        print "fctsplit", 2.5
-        sys.stdout.flush()
+        #print "fctsplit", 2.5
+        #sys.stdout.flush()
         #sp.compress_dbl_mat(M_ptr_ct, M_data_ct, M_indices_ct, M_indptr_ct, self.I, <int>max(1,self.K))
         amount = max(1,self.K)
-        print "fctsplit", 3
-        sys.stdout.flush()
+        #print "fctsplit", 3
+        #sys.stdout.flush()
         print "\nRanking existing clusters...\n"
         # sys.stdout.flush()
         # cdef FLOAT lowestError = 0.0
@@ -229,7 +229,7 @@ cdef class MCMM:
     		
     	Together, column K + 1 in M and row J + 1 in C identify the new cluster.
     	"""
-        print "\nduplicating cluster\n"
+        #print "\nduplicating cluster\n"
         cdef unint i,j,h
         cdef FLOAT rate = 0.1
         cdef FLOAT avg_M_step = self.M_distance / <FLOAT>max(1, self.num_M_steps)
@@ -245,8 +245,8 @@ cdef class MCMM:
         timeElapsed_hrs = timeElapsed_min/60.0
         clusterTime_min = timeElapsed_min - self.timePrevious/60.0
         self.timePrevious = <FLOAT>time.clock()
-        print "mcmm dup", 0
-        sys.stdout.flush()
+        #print "mcmm dup", 0
+        #sys.stdout.flush()
         writeString = "Split " + str(k) + ";  "
         writeString += "Clstr t: %.4f" % clusterTime_min + " (m);  "
         writeString += "Cum t: %.4f" % timeElapsed_min + " (m), %.4f" % timeElapsed_hrs + " (h);  "
@@ -261,16 +261,16 @@ cdef class MCMM:
             sequence_temp[i] = self.splitSequence[i]
         sequence_temp[newLength-1] = writeString
         self.splitSequence = sequence_temp
-        print "mcmm dup 1"
-        sys.stdout.flush()
+        #print "mcmm dup 1"
+        #sys.stdout.flush()
         self.K += 1
         cdef np.ndarray[FLOAT, ndim=2] new_matrix_M = np.empty([self.I, self.K])
         cdef np.ndarray[FLOAT, ndim=2] new_matrix_C = np.empty([self.J, self.K])
         # Duplicate a cluster in the M matrix.
         ## Each column vector in the M matrix represents a cluster.
         ## "new_vector" temporarily holds the duplicated cluster.
-        print "mcmm dup 1.1"
-        sys.stdout.flush()
+        #print "mcmm dup 1.1"
+        #sys.stdout.flush()
         for i in range(self.I):
             #print "mcmm dup 1.2." + str(i)
             sys.stdout.flush()
@@ -289,8 +289,8 @@ cdef class MCMM:
 ##                    elif new_matrix_M[i,h] > 1.0:
 ##                        new_matrix_M[i,h] = 1.0 - random.uniform(0.0,1.0)*rate
         # Create a new column for the M matrix.
-        print "mcmm dup 1.5"
-        sys.stdout.flush()
+        #print "mcmm dup 1.5"
+        #sys.stdout.flush()
         for i in range(self.I):
             new_matrix_M[i,self.K-1] = self.Mv[i,k] + random.uniform(-1.0,1.0)*rate
             if new_matrix_M[i,self.K-1] < 0.0:
@@ -307,8 +307,8 @@ cdef class MCMM:
         # duplicate the corresponding centroid in the C matrix
         # make a 1-by-J row vector (a single-row matrix) copy of self.C[k,:]
         new_matrix_C = np.empty([self.J, self.K])
-        print "mcmm dup 4"
-        sys.stdout.flush()
+        #print "mcmm dup 4"
+        #sys.stdout.flush()
         for j in range(self.J):
             for h in range(self.K-1):
                 if h == k:
@@ -332,19 +332,19 @@ cdef class MCMM:
             elif new_matrix_C[j,self.K-1] > 1.0:
                 new_matrix_C[j,self.K-1] = 1.0 - random.uniform(0.0,1.0)*rate
         self.Cv = new_matrix_C
-        sys.stdout.flush()
-        print "mcmm dup 5"
-        sys.stdout.flush()
+        #sys.stdout.flush()
+        #print "mcmm dup 5"
+        #sys.stdout.flush()
         
     cpdef run_MCMM(self):
-        print "run_MCMM", 0
+        #print "run_MCMM", 0
         sys.stdout.flush()
         cdef INT i,k,j, posctr, negctr
         cdef FLOAT end_thresh = 0.00001
         cdef FLOAT breakErr = 0.00001
         cdef FLOAT lower = 0.0
         cdef FLOAT upper = 1.0
-        print "objFunc =", self.objFunc
+        #print "objFunc =", self.objFunc
         cdef FLOAT E_after_M = 0.0
         cdef FLOAT E_after_R = 0.0
         cdef FLOAT E_after_C = 0.0
@@ -383,7 +383,7 @@ cdef class MCMM:
         C_ptr = &C_ptr[0]
         M_ptr = &M_ptr[0]
         #################
-        print "run_MCMM", 2
+        #print "run_MCMM", 2
         sys.stdout.flush()
 
         for i in range(self.I):
@@ -415,25 +415,25 @@ cdef class MCMM:
                 self.split_cluster()
                 print "\n***** K =", self.K, "*****\n"
                 #############
-                print "mcmm H"
-                sys.stdout.flush()
+                #print "mcmm H"
+                #sys.stdout.flush()
                 for i in range(self.I):
                     #free(M_ptr[i])
                     M_ptr[i] = &self.Mv[i,0]
-                print "mcmm H1"
-                sys.stdout.flush()
+                #print "mcmm H1"
+                #sys.stdout.flush()
                 for j in range(self.J):
                     C_ptr[j] = &self.Cv[j,0]
-                print "mcmm H2"
-                sys.stdout.flush()
+                #print "mcmm H2"
+                #sys.stdout.flush()
                 M_ptr = &M_ptr[0]
                 C_ptr = &C_ptr[0]
                 # for j in range(self.J):
                 #     for k in range(self.K):
                 #         vec_C[j*K + k] = self.Cv[j,k]
 
-            print "mcmm", "H4"
-            sys.stdout.flush()
+            #print "mcmm", "H4"
+            #sys.stdout.flush()
             flag = 1          
             print "\nself.E =", self.E, "  K =", self.K, "\n"
             sys.stdout.flush()
@@ -451,7 +451,8 @@ cdef class MCMM:
             while 1 == 1:
                 print "\nIteration:", self.numIters
                 print "################################################"
-                prev_E = self.E
+                prev_E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr,
+                                        self.I, self.J, self.K, self.normConstant)
                 # self.E = optimize_nor.optimize_M_nor(X_ptr, R_ptr, M_ptr, C_ptr,
                 #         self.I, self.J, self.K, self.normConstants_M, self.numIters, self.qn, self.cg, 
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
@@ -463,14 +464,13 @@ cdef class MCMM:
                 #E_after_M = self.E
                 #print "\nmcmm E from M", "=", E_after_M
                 #sys.stdout.flush()
-
                 self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr,
                                         self.I, self.J, self.K, self.normConstant)
-                print "M, now R_and_E"
+                print "M; E diff =", prev_E - self.E
+                #sys.stdout.flush()
                 E_after_R = self.E
                 print "\nE after R", "=", self.E
                 print "In iteration", self.numIters, "\n"
-                print "YEESSSSS", 1
                 sys.stdout.flush()
                 # self.E = optimize_nor.optimize_C_nor(X_ptr, R_ptr, C_ptr, M_ptr,
                 #     self.I, self.J, self.K, self.normConstant,
@@ -484,8 +484,8 @@ cdef class MCMM:
                 #     for k in range(self.K):
                 #         vec_C[J*K + k] = C_ptr[j][k]
                 E_after_C = self.E
-                print "\n@@@@@@ mcmm_cy", "self.I =", self.I
-                sys.stdout.flush()
+                #print "\n@@@@@@ mcmm_cy", "self.I =", self.I
+                #sys.stdout.flush()
                 print "\n@@@@@@ end optimize_C"
                 sys.stdout.flush()
                 print "\nE from C", "=", E_after_C
@@ -517,8 +517,8 @@ cdef class MCMM:
                 #sys.stdout.write("####################################################\n\n")
                 if isNaN(self.E):
                     break
-                print "mcmm_nor; 1000"
-                sys.stdout.flush()
+                #print "mcmm_nor; 1000"
+                #sys.stdout.flush()
                 #if ((breakTest < 0.0001 or diff < 0.00001) and flag == 0) or numIters >= 40:
                 if (breakTest < breakErr and flag == 0) or self.numIters >= 35:
                 #if (breakTest < 0.000001 and flag == 0):

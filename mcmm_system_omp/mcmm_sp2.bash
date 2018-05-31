@@ -38,8 +38,9 @@ CG_FLAG=0
 MIXING_FUNC=
 MIXING_FUNC_FLAG=0
 PREFIX1="/Users/anthonymeyer"
-PREFIX2="/Development/mcmm/mcmm_system"
 PREFIX2="/Development/multimorph/mcmm_system_omp"
+#PREFIX1="N/u/antmeyer"
+#PREFIX2="/mcmm/multimorph/mcmm_system_omp"
 STD=
 while getopts "K:l:i:o:a:d:b:t:e:m:c:Q:j:y:z:M:E:" OPTION
 do
