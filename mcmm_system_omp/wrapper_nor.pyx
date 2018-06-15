@@ -122,7 +122,7 @@ def getHomogeneousColumns(matrix):
     #     if all_same:
     #         trivial_cols.append((j, prev_val))
     cdef object trivial_cols = []
-    cdef np.ndarray matT = np.copy(matrix.T)
+    cdef np.ndarray matT = np.copy(matrix).T
     cdef double s = 0.0
     #cdef double val = 0.0
     trivial_cols
@@ -691,20 +691,29 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         #         INT objFunc, bint qn, bint cg, FLOAT thresh, object experimentTitle)
     my_mcmm.run_MCMM()
     #print "new_wrapper", 5
-    # M = np.asarray(my_mcmm.get_M())
-    # #print "new_wrapper", 6
-    # C = np.asarray(my_mcmm.get_C())
-    # #print "new_wrapper", 7
-    # #sys.stdout.flush()
-    # R = np.asarray(my_mcmm.get_R())
-    # error = my_mcmm.getError()
-    # originalErr = my_mcmm.getOriginalError()
-    # K = my_mcmm.get_K()
-    # I = my_mcmm.get_I()
-    # J = my_mcmm.get_J()
-    # writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, featureList, 
-    #                 thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str)
-    
+    K = my_mcmm.get_K()
+    if K%k_interval != 0:
+        M = np.asarray(my_mcmm.get_M())
+        # #print "new_wrapper", 6
+        C = np.asarray(my_mcmm.get_C())
+        # #print "new_wrapper", 7
+        # #sys.stdout.flush()
+        R = np.asarray(my_mcmm.get_R())
+        error = my_mcmm.getError()
+        originalErr = my_mcmm.getOriginalError()
+        K = my_mcmm.get_K()
+        I = my_mcmm.get_I()
+        J = my_mcmm.get_J()
+
+        writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, featureList, 
+                         thresh, I, J, K, outputPrefix + "_k-" + str(K), experimentTitle, deletedFeatures_str)
+    # wrp.writeOutputFiles(np.asarray(self.Mv), 
+    #                                     np.asarray(self.Cv), 
+    #                                     np.asarray(self.Rv), self.E, self.original_E, self.midpoint, 
+    #                                     self.prec_span, self.prec_types, self.alphabet, self.wordList, 
+    #                                     self.featureList, self.thresh, self.I, self.J, self.K, 
+    #                                     self.outputPrefix + "_k-" + str(self.K), self.experimentTitle,
+    #                                     self.deletedFeatures_str)
     # def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, 
     #                 featureList, thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str):
 

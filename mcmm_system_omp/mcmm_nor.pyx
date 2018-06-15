@@ -351,7 +351,7 @@ cdef class MCMM:
         #print "run_MCMM", 0
         sys.stdout.flush()
         cdef INT i,k,j, posctr, negctr
-        cdef FLOAT end_thresh = 0.00001
+        cdef FLOAT end_thresh = 0.0001
         cdef FLOAT breakErr = 0.00001
         cdef FLOAT lower = 0.0
         cdef FLOAT upper = 1.0

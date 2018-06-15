@@ -40,6 +40,7 @@ CG_FLAG=0
 MIXING_FUNC=
 MIXING_FUNC_FLAG=0
 PREFIX1="/Users/anthonymeyer"
+#PREFIX1="~"
 PREFIX2="/Development/multimorph/mcmm_system_omp"
 #PREFIX1="N/u/antmeyer"
 #PREFIX2="/mcmm/multimorph/mcmm_system_omp"
@@ -198,7 +199,7 @@ fi
 
 if [ "$OBJFUNC_FLAG" == 0 ]
 then
-	OBJFUNC="log"
+	OBJFUNC="SSE"
 fi
 
 if [ "$EXPER_FLAG" == 0 ]
@@ -231,7 +232,7 @@ echo "mcmm bash; CG? $CG"
 echo "***"
 echo "***"
 echo "*** OUTPUT FILE = ""$OUTPUTFILE"
-echo "***  INPUT FILE = ""$INPUTFILE"
+echo "*** INPUT FILE = ""$INPUTFILE"
 echo "***"
 echo "***"
 echo "***"
