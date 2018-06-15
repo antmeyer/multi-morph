@@ -72,7 +72,7 @@ cpdef object sorted_output_str(object memberList):
     return  ", ".join(outputs) + "\n"
     
 cdef class FeatureDecoder:
-    def __init__(self, np.ndarray[FLOAT, ndim=1] valList, affixlen, prec_span, bigrams, object alphabet):
+    def __init__(self, np.ndarray[FLOAT, ndim=1] valList, affixlen, prec_span, bigrams, object alphabet, object featureList):
         self.affixlen = int(affixlen)
         self.positional = False
         self.precedence = False
@@ -94,25 +94,25 @@ cdef class FeatureDecoder:
         self.posFeatures = list()
         self.precFeatures = list()
         self.bigramFeatures = list()
-        self.allFeatures = list()
-        if self.positional:
-            for i in range(self.affixlen):
-                for j in range(len(self.alphabet)):
-                    self.posFeatures.append(self.alphabet[j] + "@[" + str(i) + "]")
-            for i in reversed(range(self.affixlen)):
-                for j in range(len(self.alphabet)):
-                    self.posFeatures.append(self.alphabet[j] + "@[" + str(i-self.affixlen) + "]")
-            self.allFeatures.extend(self.posFeatures)
-        if self.precedence:
-            for char_x in self.alphabet:
-                for char_y in self.alphabet:
-                    self.precFeatures.append(char_x + "<" + char_y)
-            self.allFeatures.extend(self.precFeatures)
-        if self.bigrams:
-            for char_x in self.alphabet:
-                for char_y in self.alphabet:
-                    self.bigramFeatures.append(char_x + "+" + char_y)
-            self.allFeatures.extend(self.bigramFeatures)
+        self.allFeatures = featureList
+        # if self.positional:
+        #     for i in range(self.affixlen):
+        #         for j in range(len(self.alphabet)):
+        #             self.posFeatures.append(self.alphabet[j] + "@[" + str(i) + "]")
+        #     for i in reversed(range(self.affixlen)):
+        #         for j in range(len(self.alphabet)):
+        #             self.posFeatures.append(self.alphabet[j] + "@[" + str(i-self.affixlen) + "]")
+        #     self.allFeatures.extend(self.posFeatures)
+        # if self.precedence:
+        #     for char_x in self.alphabet:
+        #         for char_y in self.alphabet:
+        #             self.precFeatures.append(char_x + "<" + char_y)
+        #     self.allFeatures.extend(self.precFeatures)
+        # if self.bigrams:
+        #     for char_x in self.alphabet:
+        #         for char_y in self.alphabet:
+        #             self.bigramFeatures.append(char_x + "+" + char_y)
+        #     self.allFeatures.extend(self.bigramFeatures)
 
 ##    cpdef object highestValsAndIndices(self, INT N):
 ##        mostActive = list()
@@ -175,8 +175,8 @@ cdef class FeatureDecoder:
 cdef class ActivationsDecoder:
     def __init__(self, FLOAT[:,::1] Mv, FLOAT[:,::1] Cv, FLOAT[:,::1] Rv, object wordList, FLOAT thresh):
                 
-        #This class's primary purpose is to assemble an inverted cluster
-        #assignment matrix. Mv is a cluster
+        #This class's msin purpose is to assemble an inverted 
+        #"cluster-assignment" matrix. Mv is a cluster
         #activity matrix. It is a typed memoryview.
         #The "v" in "Mv" stands for "view."
 
@@ -197,10 +197,10 @@ cdef class ActivationsDecoder:
         #In this class, we don't care about cluster centroids, i.e., about particular labels for clusters.
         #What we care about is cluster membership.
 
-        self.clusters_m_toPrint = []
-        self.clusters_mr_toPrint = []
+        #self.clusters_m_toPrint = []
+        #self.clusters_mr_toPrint = []
         self.clusters_mc_toPrint = []
-        self.clusters_mcr_toPrint = []
+        #self.clusters_mcr_toPrint = []
         self.clusters_justWords = []
         self.Rv = Rv
         self.Mv = Mv
@@ -209,11 +209,11 @@ cdef class ActivationsDecoder:
         cdef INT I = self.Rv.shape[0]
         cdef INT K = self.Mv.shape[1]
         cdef INT J = self.Cv.shape[0]
-        cdef object clusters_m, clusters_mr, clusters_mc, clusters_mcr
-        clusters_m = [[] for k in range(K)]
-        clusters_mr = [[] for k in range(K)]
+        #cdef object clusters_m, clusters_mr, clusters_mc, clusters_mcr
+        #clusters_m = [[] for k in range(K)]
+        #clusters_mr = [[] for k in range(K)]
         clusters_mc = [[] for k in range(K)]
-        clusters_mcr = [[] for k in range(K)]
+        #clusters_mcr = [[] for k in range(K)]
         self.clusters_justWords = [[] for k in range(K)]
         cdef bint membership = 0
         cdef object word_and_val
@@ -231,33 +231,33 @@ cdef class ActivationsDecoder:
                 # until a [j,k] cell is found that meets the membership
                 # criteria. Only one such cell is needed.
 
-                if self.Mv[i,k] >= thresh:
-                    word_and_val = (wordList[i], "{:.4f}".format(self.Mv[i,k]))
-                    if word_and_val in clusters_m[k]:
-                        pass
-                    else:
-                        clusters_mcr[k].append(word_and_val)
-                    if wordList[i] in self.clusters_justWords[k]:
-                        pass
-                    else:
-                        self.clusters_justWords[k].append(wordList[i])
+                # if self.Mv[i,k] >= thresh:
+                #     word_and_val = (wordList[i], "{:.4f}".format(self.Mv[i,k]))
+                #     if word_and_val in clusters_m[k]:
+                #         pass
+                #     else:
+                #         clusters_mcr[k].append(word_and_val)
+                #     if wordList[i] in self.clusters_justWords[k]:
+                #         pass
+                #     else:
+                #         self.clusters_justWords[k].append(wordList[i])
 
-                if self.Mv[i,k] >= thresh:
-                    for j in range(J):
-                        if (self.Rv[i,j] >= 0.5):
-                            membership = 1
-                            break
-                if membership == 1:
-                    membership = 0
-                    word_and_val = (wordList[i], "{:.4f}".format(self.Mv[i,k]))
-                    if word_and_val in clusters_mr[k]:
-                        pass
-                    else:
-                        clusters_mr[k].append(word_and_val)
-                    if wordList[i] in self.clusters_justWords[k]:
-                        pass
-                    else:
-                        self.clusters_justWords[k].append(wordList[i])
+                # if self.Mv[i,k] >= thresh:
+                #     for j in range(J):
+                #         if (self.Rv[i,j] >= 0.5):
+                #             membership = 1
+                #             break
+                # if membership == 1:
+                #     membership = 0
+                #     word_and_val = (wordList[i], "{:.4f}".format(self.Mv[i,k]))
+                #     if word_and_val in clusters_mr[k]:
+                #         pass
+                #     else:
+                #         clusters_mr[k].append(word_and_val)
+                #     if wordList[i] in self.clusters_justWords[k]:
+                #         pass
+                #     else:
+                #         self.clusters_justWords[k].append(wordList[i])
 
                 mc = 0.0
                 for j in range(J):
@@ -277,57 +277,59 @@ cdef class ActivationsDecoder:
                     else:
                         self.clusters_justWords[k].append(wordList[i])
 
-                mc = 0.0
-                for j in range(J):
-                    mc = self.Mv[i,k]*self.Cv[j,k]
-                    if (mc >= thresh) and (self.Rv[i,j] >= 0.5):
-                        membership = 1
-                        break
-                if membership == 1:
-                    membership = 0
-                    word_and_val = (wordList[i], "{:.4f}".format(mc))
-                    if word_and_val in clusters_mcr[k]:
-                        pass
-                    else:
-                        clusters_mcr[k].append(word_and_val)
-                    if wordList[i] in self.clusters_justWords[k]:
-                        pass
-                    else:
-                        self.clusters_justWords[k].append(wordList[i])
+                # mc = 0.0
+                # for j in range(J):
+                #     mc = self.Mv[i,k]*self.Cv[j,k]
+                #     if (mc >= thresh) and (self.Rv[i,j] >= 0.5):
+                #         membership = 1
+                #         break
+                # if membership == 1:
+                #     membership = 0
+                #     word_and_val = (wordList[i], "{:.4f}".format(mc))
+                #     if word_and_val in clusters_mcr[k]:
+                #         pass
+                #     else:
+                #         clusters_mcr[k].append(word_and_val)
+                #     if wordList[i] in self.clusters_justWords[k]:
+                #         pass
+                #     else:
+                #         self.clusters_justWords[k].append(wordList[i])
                     
-        for k in range(len(clusters_m)):
-            self.clusters_m_toPrint.append(sorted_output_str(clusters_m[k]))
+        # for k in range(len(clusters_m)):
+        #     self.clusters_m_toPrint.append(sorted_output_str(clusters_m[k]))
 
-        #print str(clusters_mr)
-        for k in range(len(clusters_mr)):
-            self.clusters_mr_toPrint.append(sorted_output_str(clusters_mr[k]))
+        # #print str(clusters_mr)
+        # for k in range(len(clusters_mr)):
+        #     self.clusters_mr_toPrint.append(sorted_output_str(clusters_mr[k]))
 
         for k in range(len(clusters_mc)):
             self.clusters_mc_toPrint.append(sorted_output_str(clusters_mc[k]))
 
-        for k in range(len(clusters_mcr)):
-            self.clusters_mcr_toPrint.append(sorted_output_str(clusters_mcr[k]))
+        # for k in range(len(clusters_mcr)):
+        #     self.clusters_mcr_toPrint.append(sorted_output_str(clusters_mcr[k]))
             
     cpdef object getClusters(self, standard):
-        if standard == "m--":
-            return self.clusters_m_toPrint
-        elif standard == "m-r":
-            return self.clusters_mr_toPrint
-        elif standard == "mc-":
-            return self.clusters_mc_toPrint
-        elif standard == "mcr":
-            return self.clusters_mcr_toPrint
-        else:
-            return []
+        return self.clusters_mc_toPrint
+        # if standard == "m--":
+        #     return self.clusters_m_toPrint
+        # elif standard == "m-r":
+        #     return self.clusters_mr_toPrint
+        # elif standard == "mc-":
+        #     return self.clusters_mc_toPrint
+        # elif standard == "mcr":
+        #     return self.clusters_mcr_toPrint
+        # else:
+        #     return []
 
     cpdef object getClusters_justWords(self, standard):
-        if standard == "m--":
-            return self.clusters_justWords
-        elif standard == "m-r":
-            return self.clusters_justWords
-        elif standard == "mc-":
-            return self.clusters_justWords
-        elif standard == "mcr":
-            return self.clusters_justWords
-        else:
-            return []
+        return self.clusters_justWords
+        # if standard == "m--":
+        #     return self.clusters_justWords
+        # elif standard == "m-r":
+        #     return self.clusters_justWords
+        # elif standard == "mc-":
+        #     return self.clusters_justWords
+        # elif standard == "mcr":
+        #     return self.clusters_justWords
+        # else:
+        #     return []

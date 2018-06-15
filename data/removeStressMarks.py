@@ -11,9 +11,9 @@ for line in lines:
 	#a-accent
 	line = unicode(line.replace(u"\u00E1", u"\u0061"))
 	#e-accent
-	line = unicode(line.replace(u"\u00ED", u"\u0065"))
+	line = unicode(line.replace(u"\u00E9", u"\u0065"))
 	#i-accent
-	line = unicode(line.replace(u"\u00E9", u"\u0069"))
+	line = unicode(line.replace(u"\u00ED", u"\u0069"))
 	#o-accent
 	line = unicode(line.replace(u"\u00F3", u"\u006F"))
 	#u-accent

@@ -9,6 +9,7 @@ INPUTFILE=
 OUTPUTFILE=
 AFFIXLEN=
 PRECSPAN=
+PREC_TYPES=
 FEATURETYPE=
 TEMPDIR=
 EXPERI_TITLE=
@@ -19,6 +20,7 @@ INPUTFILE_FLAG=0
 OUTPUTFILE_FLAG=0
 AFFIXLEN_FLAG=0
 PRECSPAN_FLAG=0
+PREC_TYPE_FLAG=
 BIGRAMS=0
 BIGRAMS_FLAG=0
 TEMPDIR_FLAG=0
@@ -42,7 +44,7 @@ PREFIX2="/Development/multimorph/mcmm_system_omp"
 #PREFIX1="N/u/antmeyer"
 #PREFIX2="/mcmm/multimorph/mcmm_system_omp"
 STD=
-while getopts "K:l:i:o:a:d:b:t:e:m:c:Q:j:y:z:M:E:" OPTION
+while getopts "K:l:i:o:a:d:D:b:t:e:m:c:Q:j:y:z:M:E:" OPTION
 do
 	case $OPTION in
 	K)	
@@ -69,16 +71,20 @@ do
 		PRECSPAN="$OPTARG"
 		PRECSPAN_FLAG==1
 		;;
+	D)
+		PREC_TYPES="$OPTARG"
+		PREC_TYPE_FLAG==1
+		;;
 	b)
 		BIGRAMS="$OPTARG"
 		BIGRAMS_FLAG==1
 		;;
 	t)
-		TEMPDIR=$OPTARG
+		TEMPDIR="$OPTARG"
 		TEMPDIR_FLAG=1
 		;;
 	e)
-		EXPERI_TITLE=$OPTARG
+		EXPERI_TITLE="$OPTARG"
 		EXPERI_FLAG=1
 		;;
 	m)
@@ -165,6 +171,11 @@ then
 	PRECSPAN="0"
 fi
 
+if [ "$PREC_TYPE_FLAG" == 0 ]
+then
+	PREC_TYPES="basic"
+fi
+
 if [ "$BIGRAMS_FLAG" == 0 ]
 then
 	BIGRAMS="0"
@@ -192,7 +203,7 @@ fi
 
 if [ "$EXPER_FLAG" == 0 ]
 then
-	EXPER_TITLE="Use S and Q: $USE_SQ; Objective Function: $OBJFUNC"
+	EXPER_TITLE="Objective Function: $OBJFUNC"
 fi
 
 if [ "$QN_FLAG" == 0 ]
@@ -219,22 +230,22 @@ echo "mcmm bash; QN? $QN"
 echo "mcmm bash; CG? $CG"
 echo "***"
 echo "***"
+echo "*** OUTPUT FILE = ""$OUTPUTFILE"
+echo "***  INPUT FILE = ""$INPUTFILE"
 echo "***"
-echo "*** INPUTFILE = ""$INPUTFILE"
 echo "***"
 echo "***"
-echo "***"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
+# echo ""
+# echo ""
+# echo ""
+# echo ""
+# echo ""
+# echo ""
 #if [ "$MIXING_FUNC" == "wwb" ]; then
 	#python wrapper_wrapper_wwb.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC"
 #fi
 
-python wrapper_wrapper_nor.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC"
+python wrapper_wrapper_nor.py "$INPUTFILE" "$OUTPUTFILE" "$AFFIXLEN" "$PRECSPAN" "$PREC_TYPES" "$BIGRAMS" "$NUMCLUSTERS" "$K_INTERVAL" "$TEMPDIR" "$EXPERI_TITLE" "$M_FILE" "$C_FILE" "$USE_SQ" "$OBJFUNC" "$QN" "$CG" "$MIXING_FUNC"
 
 
 # MILA_DIR="$PREFIX1/Development/morphAnalyzer_v_1-0/jars/"

@@ -14,6 +14,7 @@ from dealloc cimport dealloc_matrix
 from dealloc cimport dealloc_matrix_3d
 from dealloc cimport dealloc_vector
 from dealloc cimport dealloc_vec_int
+#cimport wrapper_nor as wrp
 from libc.stdlib cimport malloc, free, realloc
 from libc.math cimport sqrt, fabs
 
@@ -24,12 +25,15 @@ ctypedef double FLOAT
 
 cdef class MCMM:
 
-	cdef int I, J, K, midpoint, max_K, evalInterval, numIters, objFunc,
+	cdef int I, J, K, midpoint, prec_span, max_K, evalInterval, numIters, objFunc,
+	cdef object prec_types
 	cdef bint initFlag, qn, cg
 	cdef FLOAT[:,::1] Xv, Rv, Cv, Mv
 	cdef FLOAT initTime, timePrevious, E, original_E
-	cdef object alphabet,wordList,splitSequence
+	cdef object alphabet,wordList,splitSequence,featureList
+	cdef object experimentTitle
 	cdef object outputPrefix
+	cdef object deletedFeatures_str
 	cdef object tempDir
 	cdef FLOAT M_distance, C_distance
 	cdef int num_M_steps, num_C_steps

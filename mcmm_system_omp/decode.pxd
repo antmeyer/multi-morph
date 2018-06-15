@@ -1,4 +1,8 @@
 #decode.pxd
+#cython: profile=True
+#cython: boundscheck=False
+#cython: wraparound=False
+#cython: cdivision=True
 
 cimport numpy as np
 cimport cython

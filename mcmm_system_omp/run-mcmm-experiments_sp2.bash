@@ -19,6 +19,7 @@ POS_RANGE=
 POS_RANGE_FLAG=0
 PREC_RANGE=0
 PREC_RANGE_FLAG=0
+PREC_TYPE_FLAG=0
 BIGRAMS=0
 BIGRAMS_FLAG=0
 TEMPDIR=temp_files
@@ -41,9 +42,10 @@ TITLE5=
 TITLE6=
 PREFIX="/Users/anthonymeyer/Development/multimorph"
 #PREFIX="/N/u/antmeyer/BigRed2/mcmm/multimorph"
-TIME=`eval date +"%Y-%m-%d_%H-%M"`
+#TIME=`eval date +"%Y-%m-%d_%H-%M"`
+TIME=`eval date +"%y%m%d_%H-%M"`
 
-while getopts "i:N:K:l:a:d:b:m:c:Qj:yzM:" OPTION
+while getopts "i:N:K:l:a:d:D:b:m:c:Qj:yzM:" OPTION
 do
 	case $OPTION in
 	i)	
@@ -70,6 +72,10 @@ do
 		PREC_RANGE="${OPTARG}"
 		PREC_RANGE_FLAG=1
 		;;
+	D)
+		PREC_TYPES="${OPTARG}"
+		PREC_TYPE_FLAG=1
+		;;
 	b)
 		BIGRAMS=1
 		BIGRAMS_FLAG=1
@@ -84,7 +90,7 @@ do
 		;;
 	Q)
 		USE_SQ=1
-		TITLE2="Use S and Q? $USE_SQ; "
+		#TITLE2="Use S and Q? $USE_SQ; "
 		;;
 	j)
 		OBJFUNC="$OPTARG"
@@ -141,6 +147,11 @@ then
 	PREC_RANGE="1 2 3 star"
 fi
 
+if [ "$PREC_TYPE_FLAG" == 0 ]
+then
+	PREC_TYPES="basic"
+fi
+TITLE7=" Precedence Feature Types: = $PREC_TYPES; "
 if [ "$BIGRAMS_FLAG" == 0 ]
 then
 	BIGRAMS=0
@@ -183,7 +194,7 @@ else
 	INDIR="$PREFIX""/""$INDIR"
 	INFILE=`echo "$INPUT" | cut -d '/' -f2`
 	#INFILE="$INFILE"".txt"
-	OUTDIR="$PREFIX""/mcmm_results/mcmm-out""_""N-$N""_""K-$bigK""_""$TIME"
+	OUTDIR="$PREFIX""/mcmm_results/m-out_${POS_RANGE}_${PREC_RANGE}_K$bigK_$N_${PREC_TYPES}_${TIME}"
 
 fi
 mkdir "$OUTDIR"
@@ -214,20 +225,23 @@ for KVAL in ${K_RANGE}; do
 			fi
 			if [ "$AFFIXLEN" == 0 ]; then
 				#TYPE=precedence
-				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE=na_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				#TIME=`eval date +"%Y-%m-%d_%H-%M"`
+				#OUTFILE=na_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				OUTFILE="na_$DIST_""K${KVAL}""_N""$N""_${PREC_TYPES}_${TIME}"
 				echo "DIST: ""$DIST"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -D "$PREC_TYPES" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			elif [ "$DIST" == 0 ] && [ "$AFFIXLEN" != 0 ]; then
 				#TYPE=positional
-				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE="$AFFIXLEN"_na_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
+				#TIME=`eval date +"%Y-%m-%d_%H-%M"`
+				#OUTFILE="$AFFIXLEN"_na_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				OUTFILE="$AFFIXLEN_na_K$KVAL_N$N_${PREC_TYPES}_${TIME}"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -D "$PREC_TYPES" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			else
 				#TYPE=both
-				TIME=`eval date +"%Y-%m-%d_%H-%M"`
-				OUTFILE="$AFFIXLEN"_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
-				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
+				#TIME=`eval date +"%Y-%m-%d_%H-%M"`
+				#OUTFILE="$AFFIXLEN"_"$DIST"_"$BIGRAMS"_K-"$KVAL"_N-"$N"_"$TIME"
+				OUTFILE="${AFFIXLEN}""_""${DIST}""_K""${KVAL}""_N""${N}""_${PREC_TYPES}_${TIME}"
+				bash mcmm_sp2.bash -K "$KVAL" -l "$K_INTERVAL" -i "$INDIR"/"$INFILE" -o "$OUTDIR"/"$OUTFILE" -a "$AFFIXLEN" -d "$DIST" -D "$PREC_TYPES" -b "$BIGRAMS" -t "$TEMPDIR" -e "$EXPERI_TITLE" -m "$M_FILE" -c "$C_FILE" -Q "$USE_SQ" -j "$OBJFUNC" -y "$QN" -z "$CG" -M "$MIXING_FUNC"
 			fi
 		done
 	done

@@ -1,8 +1,7 @@
+#cython: profile=True
+#cython: cdivision=True
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# filename: wrapper.pyx
-# encoding: utf-8
-
 import os,sys,math
 import random, codecs, unicodedata
 from random import choice
@@ -104,25 +103,53 @@ def processFile(filename):
     return dataMatrix
 
 def getHomogeneousColumns(matrix):
-    I = matrix.shape[0]
-    J = matrix.shape[1]
+    cdef int i,j
+    cdef int I = matrix.shape[0]
+    cdef int J = matrix.shape[1]
     if I <= 1:
         return matrix
-    all_same_cols = []
-    all_same = False
-    prev_val = 0.0
+    # cdef object trivial_cols = []
+    # all_same = False
+    # prev_val = 0.0
+    # for j in range(J):
+    #     all_same = True
+    #     prev_val = matrix[0,j]
+    #     for i in range(1,I):
+    #         if prev_val != matrix[i,j]:
+    #             all_same = False
+    #             break
+    #         prev_val = matrix[i,j]
+    #     if all_same:
+    #         trivial_cols.append((j, prev_val))
+    cdef object trivial_cols = []
+    cdef np.ndarray matT = np.copy(matrix.T)
+    cdef double s = 0.0
+    #cdef double val = 0.0
+    trivial_cols
     for j in range(J):
-        all_same = True
-        prev_val = matrix[0][j]
-        for i in range(1,I):
-            if prev_val != matrix[i,j]:
-                all_same = False
-                break
-            prev_val = matrix[i,j]
-        if all_same:
-            all_same_cols.append((j, prev_val))
-    return all_same_cols
-            
+        s = np.sum(matT[j,:])
+        if s == J: 
+            trivial_cols.append((j, 1.0))
+        elif s == 0.0:
+            trivial_cols.append((j, 0.0))
+    return trivial_cols
+
+def getFeatureFreqs(matrix, featureList):
+    cdef int i,j
+    cdef int I = matrix.shape[0]
+    cdef int J = matrix.shape[1]
+    matT = np.copy(matrix.T)
+    featureFreqs = {}
+    for j in range(J):
+        featureFreqs[featureList[j]] = np.sum(matT[j,:])
+    # for j in range(J):
+    #     feature_str = featureList[j]
+    #     featureFreqs[feature_str] = 0
+    #     for i in range(I):
+    #         featureFreqs[feature_str] += matrix[i,j]
+    return featureFreqs
+
+
 def alphabetAndData(filename):
     fobj = codecs.open(filename, 'r', encoding='utf8')
     dataMatrix = list()
@@ -313,104 +340,313 @@ def format_C(C, features):
 # def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
 #                          max_K, k_interval, tempDir, experimentTitle, useSQ, objFunc,
 #                          qn, cg, mixingFunc, eta_raw):
-def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
-                         max_K, k_interval, tempDir, experimentTitle, useSQ, objFunc,
+
+def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, 
+                    featureList, thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str):
+    clusterEntries = list()
+    splitSequence = list()
+    formatted_M_strings = format_M(M, wordList)
+    formatted_C_strings = format_C(C, featureList)
+    bigrams = 0
+    ######################################
+    cdef double M_1 = 0.0
+    cdef double M_0 = 0.0
+    cdef double M_other = 0.0
+    cdef double M_1_ratio = 0.0
+    cdef double M_0_ratio = 0.0
+    cdef double M_other_ratio = 0.0
+    cdef double avg_C_other = 0.0
+    cdef double avg_c = 0.0
+    cdef double avg_m = 0.0
+    cdef double avg_m_per_i = 0.0
+    for i in range(I):
+        avg_m = 0.0
+        for k in range(K):
+            avg_m += M[i,k]
+            if M[i,k] == 0.0:
+                M_0+=1
+            elif M[i,k] == 1.0:
+                M_1+=1
+            else:
+                M_other+=1
+        avg_m_per_i += avg_m/float(K)
+    avg_m_per_i = avg_m_per_i/float(I)
+    M_1_ratio = M_1/float(I*K)
+    M_0_ratio = M_0/float(I*K)
+    M_other_ratio = M_other/float(I*K)
+    #print "wrapper_nor", 15
+    #sys.stdout.flush()
+    cdef double C_1 = 0.0
+    cdef double C_0 = 0.0
+    cdef double C_neg1 = 0.0
+    cdef double C_other = 0.0
+    cdef double avg_C_1 = 0.0
+    cdef double avg_C_0 = 0.0
+    #cdef double avg_C_neg1 = 0.0
+    avg_C_other = 0.0
+    avg_c = 0.0
+    for j in range(J):
+        for k in range(K):
+            avg_c += C[j,k]
+            if C[j,k] == 0.0:
+                C_0 += 1.0
+            elif C[j,k] == 1.0:
+                C_1 += 1.0
+            # elif C[j,k] == -1.0:
+            #     C_neg1 += 1
+            else:
+                C_other += 1.0
+    avg_c = avg_c/float(J*K)
+    avg_C_1 = float(C_1)/float(J*K)
+    avg_C_0 = float(C_0)/float(J*K)
+    #avg_C_neg1 = C_neg1/float(J*K)
+    avg_C_other = float(C_other)/float(J*K)
+    #print "wrapper_nor", 20
+    #sys.stdout.flush()
+    cdef double avg_mc = 0.0
+    cdef double avg_mc_per_i = 0.0
+    for i in range(I):
+        avg_mc = 0.0
+        for j in range(J):
+            for k in range(K):
+                avg_mc += M[i,k]*C[j,k]
+        avg_mc_per_i += avg_mc/float(J*K)
+    avg_mc_per_i = avg_mc_per_i/float(I)
+
+    cdef double avg_r = 0.0
+    cdef double avg_r_per_i = 0.0
+    for i in range(I):
+        avg_r = 0.0
+        for j in range(J):
+            avg_r += R[i,j]
+        avg_r_per_i += avg_r/float(J)
+    avg_r_per_i = avg_r_per_i/float(I)
+    print "wrapper_nor", 30
+    sys.stdout.flush()
+    sparsity_stats = "M\tm = 0\t" + "{:.6f}".format(M_0_ratio) + "\n"
+    sparsity_stats += "M\tm = 1\t" + "{:.6f}".format(M_1_ratio) + "\n"
+    sparsity_stats += "M\tm other\t" + "{:.6f}".format(M_other_ratio) + "\n"
+    sparsity_stats += "M\tavg m\t" + "{:.6f}".format(avg_m_per_i) + "\n\n"
+    sparsity_stats += "C\tc = 0\t" + "{:.6f}".format(avg_C_0) + "\n"
+    sparsity_stats += "C\tc = 1\t" + "{:.6f}".format(avg_C_1) + "\n"
+    #sparsity_stats += "C\tc = -1\t" + "{:.6f}".format(avg_C_neg1) + "\n"
+    sparsity_stats += "C\tc other\t" + "{:.6f}".format(avg_C_other) + "\n"
+    sparsity_stats += "C\tavg c\t" + "{:.6f}".format(avg_c) + "\n\n"
+    sparsity_stats += "MC\tavg m*c\t" + "{:.6f}".format(avg_mc_per_i) + "\n"
+    sparsity_stats += "R\tavg r\t" + "{:.6f}".format(avg_r_per_i) + "\n"
+    ######################################
+    
+    #cdef double t2 = time.clock()
+    #cdef double total_min = (t2 - t1)/60.0
+    #cdef double total_hrs = total_min/60.0
+    words = list()
+    #print "wrapper_nor", 30.5
+    #sys.stdout.flush()
+    activationsDecoder = decode.ActivationsDecoder(M, C, R, wordList, thresh)
+    #std = "mc-"
+    std=""
+    outputName = outputPrefix + "." + std
+    clusterEntries = activationsDecoder.getClusters(std)
+    clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
+    #print "new_wrapper", 16.7, "std =", std
+    print "Number of Cluster Entries =", len(clusterEntries_justWords)
+    sys.stdout.flush()
+    #outputName = 
+    print "Output Name =", outputName
+    #print "\nclusterEntries:\n", clusterEntries
+    print "len(clusterEntries) =", len(clusterEntries)
+    sys.stdout.flush()
+    print "OriginalErr =", originalErr
+    sys.stdout.flush()
+    if float(originalErr) > 0.0:
+        percentErrReduction = ((originalErr - error)/float(originalErr))*100.0
+    else:
+        percentErrReduction = 0.0
+    print "PercentErrReduction = ", percentErrReduction
+    sys.stdout.flush()
+    #Open files for writing the numerical contents of the M and C matrices
+    fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
+    for string in formatted_M_strings:
+       fobj_M.write(string)
+    fobj_M.close()
+    #print "new_wrapper", 20
+    #sys.stdout.flush()
+    fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
+    for string in formatted_C_strings:
+       fobj_C.write(string)
+    fobj_C.close()
+    sys.stdout.flush()
+
+    fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
+    fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
+    fobj_Features = codecs.open(outputName + ".features", 'w', encoding='utf8')
+    fobj_Clusters.write("#" + outputPrefix.split("/")[-1] + "\n")
+    fobj_Clusters_justWords.write("#" + outputPrefix.split("/")[-1] + "\n")
+    fobj_Clusters.write("#" + "%.3f" % percentErrReduction + "\n") #" & " + "%.3f" % total_min + " min (%.3f" % total_hrs + " hrs)\n")
+    fobj_Clusters.write("\n\n")
+    fobj_Clusters.write("MCMM CLUSTERING RESULTS (" + std + ")\n")
+    fobj_Clusters.write(experimentTitle)
+    fobj_Clusters.write("\n\n")
+    fobj_Clusters.write(str(I) + " data points were processed.\n")
+    fobj_Clusters.write("Each data point comprised " + str(J) + " features.\n")
+    fobj_Clusters.write("Deleted Features: " + deletedFeatures_str + "\n\n")
+    # fobj_Clusters.write("\nElapsed time:  %.3f" % total_min + " min  (%.3f" % total_hrs + " hrs)\n")
+    fobj_Clusters.write("\nOriginal Error:  %.5f" % originalErr)
+    fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
+    fobj_Clusters.write("\n\nSparsity Stats:\n" + sparsity_stats + "\n")
+    #print "new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
+    sys.stdout.flush()
+    cluster_str = ""
+    for k in range(len(clusterEntries_justWords)):
+        cluster_str = ""
+        for word in clusterEntries_justWords[k]:
+            cluster_str += word + " "
+        cluster_str.rstrip()
+        fobj_Clusters_justWords.write(cluster_str + "\n")
+    fobj_Clusters_justWords.close()        
+
+    fobj_Clusters.write("\n\nCLUSTERS:\n\n")
+    fobj_Features.write("\nSparsity Stats:\n" + sparsity_stats + "\n")
+    fobj_Features.write("MOST ACTIVE FEATURES FOR EACH CLUSTER\n")
+    fobj_Features.write(experimentTitle)
+    fobj_Features.write("\n\n")
+    fobj_Features.write("Deleted Features: " + deletedFeatures_str + "\n\n")
+    
+    sys.stderr.write("K = " + str(K) + "\n")
+    sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")
+    string = ""
+    sys.stdout.flush()
+    for k in range(len(clusterEntries)):
+        #print "new_wrapper", 31, "; std =", std, "; k =", k
+        numParen = 0
+        #count words by counting parentheses. Each word has activity value enclosed in parens.
+        for char in clusterEntries[k]:
+            if char == ")":
+                numParen += 1
+        string = str(numParen) + " word"
+        if numParen > 1 or numParen == 0:
+            string += "s"
+        sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")
+        sys.stderr.write("\t" + clusterEntries[k][:50] + "\n")
+    #print "new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
+    sys.stdout.flush()
+    for k in range(K):
+        #print "new_wrapper", 36, "; std =", std, "; k =", k 
+        fobj_Clusters.write("## " + str(k) + "\n")
+        fobj_Clusters.write(clusterEntries[k])
+        fobj_Clusters.write("%%\n\n")
+        ###
+        my_decoder = decode.FeatureDecoder(C.T[k], affixlen, prec_span, <bint>bigrams, sorted(alphabet), featureList) 
+        featureStr = "Most Active\n"
+        featureStr += ', '.join(my_decoder.tenMostActive())
+        featureStr += "\n\nLeast Active\n"
+        featureStr += ', '.join(my_decoder.tenLeastActive())
+        fobj_Features.write("## " + str(k) + "\n")
+        fobj_Features.write(featureStr + "\n\n")
+
+    # write cluster split sequence to Cluster file.
+    fobj_Clusters.write("\n\nCLUSTER SPLIT SEQUENCE:\n\n")
+    for i in range(len(splitSequence)):
+        fobj_Clusters.write(str(i+1) + ". " + splitSequence[i])
+    fobj_Clusters.close()
+    fobj_Features.close()
+
+
+def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, prec_types, bigrams,
+                         max_K, k_interval, tempDir, experimentTitle, objFunc,
                          qn, cg, mixingFunc):
-    print "TEMPDIR:", tempDir
-    print ""
+    # print "TEMPDIR:", tempDir
+    # print ""
+    cdef int i,j,k,I,J,K,init_K
     cdef double thresh = 0.5
-    #max_K = 5
     affixlen = int(affixlen)
-    max_K = int(max_K)
-    #alphabet_uni, wordList = wordsFromFile(inputFile + ".txt")
     alphabet, wordList = wordsFromFile(inputFile + ".txt")
-    #sys.stdout.write("************ alphabet_uni:\n")
-    #alphabet_uni = alphabet_uni.encode('utf8').decode('utf8')
-    # try: alphabet_uni = alphabet_uni.decode('utf8')
-    # except UnicodeDecodeError:
-    #     print "*** UnicodeDecodeError !!!! ***"
-    #     sys.stdout.flush()
-    #     try: alphabet_uni = alphabet_uni.encode('utf8')
-    #     except UnicodeEncodeError:
-    #         print "*** UnicodeEncodeError !!!! ***"
-    #         sys.stdout.flush()
-    #         try: alphabet_uni = alphabet_uni.encode('utf8').decode('utf8')
-    #         except UnicodeDecodeError:
-    #             print "*** UnicodeDecodeError 2 !!!! ***"
-    #             sys.stdout.flush()
-    #sys.stdout.write(alphabet_uni + "\n")
-    #sys.stdout.flush()
-    #sys.stdout.write("************ WORDLIST:\n")
-    #print wordList
-    #sys.stdout.flush()
-    useSQ = int(useSQ)
-    maxLength = longestLength(wordList)
-    #affixlen = int(math.ceil(maxLength/2.0))
-    #print str(affixlen) + "\n\n\n\n"
-    #temp_str = alphabet_uni.encode('utf8')
-    #temp_str = alphabet_uni
-    #alphabet_ascii = alphabet_uni.encode('utf8')
-    #alphabet = np.array(list(alphabet_ascii), dtype='S1')
-    alphabet = np.array(list(alphabet), dtype='S1')
+    #useSQ = int(useSQ)
+    wordList.sort()
+    cdef int maxLength = longestLength(wordList)
+    alphabet = np.array(sorted(list(alphabet)), dtype='S1')
     #cdef object standards = ["m--", "m-r", "mc-", "mcr"]
-    cdef object standards = ["mc-"]
-    #print "\nB  I  G  R  A  M  S  = ", bigrams, "\n"
-    my_encoder = encode_nor.FeatureEncoder(inputFile + ".txt", <int>affixlen, prec_span, <bint>bigrams)
+    print "wrapper_nor", 2
+    sys.stdout.flush()
+    max_K = int(max_K)
+    k_interval = int(k_interval)
+    #precFeatureTypes = prec_types.split(",")
+    my_encoder = encode_nor.FeatureEncoder(inputFile + ".txt", <int>affixlen, prec_span, prec_types, <bint>bigrams)
+    print "wrapper_nor", "2.1"
+    sys.stdout.flush()
     my_encoder.encodeWords()
-    my_encoder.writeVectorsToFile(inputFile + "_in.txt")
+    print "wrapper_nor 2.1"
+    sys.stdout.flush()
+    dataMatrix = my_encoder.getVectors()
+    
+    print "wrapper_nor 2.2"
+    print "\nDATAMATRIX SUM 1 =", np.sum(dataMatrix), "\n"
+    sys.stdout.flush()
+    #my_encoder.writeVectorsToFile(inputFile + "_in.txt")
     featureList = my_encoder.getFeatures()
-    t1 = time.clock()
-    alphabet, data = alphabetAndData(inputFile + "_in.txt")
+    #t1 = time.clock()
+    #alphabet, data = alphabetAndData(inputFile + "_in.txt")
     #sys.stderr.write("**************** DATA:\n")
     #sys.stderr.write(str(data) + "\n")
     #print "********* DATA:"
     #print data
-    dataMatrix = np.array(data, dtype=np.float64)
+    #dataMatrix = np.array(data, dtype=np.float64)
+    print "wrapper_nor", "2.3"
+    sys.stdout.flush()
     homogenousColumns = []
     homogenousColumns = getHomogeneousColumns(dataMatrix)
     homogenousColumns.sort(reverse=True)
-    print "homogenousColumns =", homogenousColumns
+    #print "homogenousColumns =", homogenousColumns
     featuresSharedByAll = []
-    features_uni = u""
+    #features_uni = u""
+    cdef object colsToDelete = []
     for col,val in homogenousColumns:
+        colsToDelete.append(col)
         features_str = str(col) + ":" + featureList[col] + ":{:.1f}".format(val)
-        features_uni = features_str
-        if isinstance(features_str, (unicode)) == False:
-            features_uni = unicode(features_str, 'utf8')
-        featuresSharedByAll.append(features_uni)
+        featuresSharedByAll.append(features_str)
+    featureFreqs = {}
+    featureFreqs = getFeatureFreqs(dataMatrix, featureList)
     #print "dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
     #print "num featuresSharedByAll =", len(featuresSharedByAll)
     #print u"deletedFeatures_str:", ", ".join(featuresSharedByAll)
     #sys.stdout.flush()
-    for col,val in homogenousColumns:
-        print "  col =", col
-        print "  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
-        dataMatrix = np.delete(dataMatrix,(col),1)
-    deletedFeatures_str = ", ".join(featuresSharedByAll)
-    #deletedFeatures_uni = deletedFeatures_str 
-    if isinstance(deletedFeatures_str, (unicode)) == False:
-        deletedFeatures_str = unicode(deletedFeatures_str, 'utf8')
-    #print "deletedFeature_uni:", deletedFeature_uni.encode('utf8')
-    #print dataMatrix
+    #print "wrapper_nor", 3
     sys.stdout.flush()
+    # for col,val in homogenousColumns:
+    #     colsToDelete.append(col)
+    #     print "  col =", col
+    print "\nDATAMATRIX SUM 2 =", np.sum(dataMatrix), "\n"
+    print "Before deleting homogenous columns:"
+    print "dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
+    #     print "  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
+    dataMatrix = np.delete(dataMatrix,colsToDelete,1)
+    dataMatrix = np.ascontiguousarray(dataMatrix, dtype=np.float64)
+    cdef double[:,::1] dm_view = np.asarray(dataMatrix,dtype='double',order='C')
+    print dm_view
+    deletedFeatures_str = ", ".join(featuresSharedByAll)
+    print "Afterwards:"
+    print "dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
+    #deletedFeatures_uni = deletedFeatures_str 
+    sys.stdout.flush()
+    fobj_unused = codecs.open(outputPrefix + ".featfreqs", 'w', encoding='utf8')
+    unused = []
+    print "wrapper_nor", 3.5
+    sys.stdout.flush()
+    for index in colsToDelete:
+        feature = featureList.pop(index)
+        unused.append(feature)
+    for feature in sorted(unused):
+        fobj_unused.write(feature + "\n")
+    fobj_unused.write("\n#FEATURE FREQUENCIES\n\n#Feature\tFreq.\n")
+    for feature,freq in sorted(featureFreqs.items()):
+        fobj_unused.write(feature + "\t" + str(freq) + "\n")
+    fobj_unused.close()
     # Perhaps we can send a list of max_K values to mcmm_multiK
     # Then the mcmm would be responsible for outputing data to files
     # Is this possible?
     I = dataMatrix.shape[0]
     J = dataMatrix.shape[1]
-##    negc = 0
-##    c = 0
-##    eta = 0.0
-##    if eta_raw == 0:
-##         for i in range(I):
-##            for j in range(J):
-##                if dataMatrix[i][j] < 0:
-##                    negc += 1
-##                elif dataMatrix[i][j] >= 0:
-##                    c += 1
-##        eta = <double>negc / 100.0
-##    else:
-##        eta = <double>eta_raw / 100.0
+
     if init_M_file and init_C_file:
         init_M_matrix = import_M(init_M_file, wordList)
         init_K = init_M_matrix.shape[1]
@@ -434,270 +670,266 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         objFunc_int = 1
     elif objFunc == "sse":
         objFunc_int = 0
+    print "wrapper_nor", 4
+    sys.stdout.flush()
+    # if mixingFunc == "wwb":	
+    #     my_mcmm = mcmm_wwb.MCMM(alphabet, wordList, dataMatrix, init_M_matrix, init_C_matrix,
+    #                             affixlen, init_K, max_K, k_interval, I, J, outputPrefix, tempDir,
+    #                             objFunc_int, qn, cg, thresh) #, eta_raw)
+    #if mixingFunc == "nor":
+    my_mcmm = mcmm_nor.MCMM(alphabet, wordList, featureList, dm_view, init_M_matrix, init_C_matrix,
+                            int(affixlen), int(prec_span), prec_types, init_K, max_K, k_interval, I, J, 
+                            outputPrefix, tempDir,
+                            objFunc_int, qn, cg, thresh, experimentTitle, deletedFeatures_str) #, eta_raw)
 
-    if mixingFunc == "wwb":	
-        my_mcmm = mcmm_wwb.MCMM(alphabet, wordList, dataMatrix, init_M_matrix, init_C_matrix,
-                                affixlen, init_K, max_K, k_interval, I, J, outputPrefix, tempDir,
-                                objFunc_int, qn, cg, thresh) #, eta_raw)
-    elif mixingFunc == "nor":
-        my_mcmm = mcmm_nor.MCMM(alphabet, wordList, dataMatrix, init_M_matrix, init_C_matrix,
-                                affixlen, init_K, max_K, k_interval, I, J, outputPrefix, tempDir,
-                                objFunc_int, qn, cg, thresh) #, eta_raw)
+        # def __init__(self, object charSet, object wordList, object featureList, 
+        #         FLOAT[:,::1] dataMatrix,
+        #         FLOAT[:,::1] init_M, FLOAT[:,::1] init_C, INT midpoint, 
+        #         INT prec_span, object prec_types,
+        #         INT init_K, INT max_K,
+        #         INT evalInterval, INT I, INT J, INT K, object outputPrefix, object tempDir,
+        #         INT objFunc, bint qn, bint cg, FLOAT thresh, object experimentTitle)
     my_mcmm.run_MCMM()
-    print "new_wrapper", 5
-    M = np.asarray(my_mcmm.get_M())
-    print "new_wrapper", 6
-    C = np.asarray(my_mcmm.get_C())
-    print "new_wrapper", 7
-    sys.stdout.flush()
-    R = np.asarray(my_mcmm.get_R())
-    print "new_wrapper", 8
-    sys.stdout.flush()
-    clusterEntries = list()
-    splitSequence = list()
-    print "new_wrapper", 9
-    sys.stdout.flush()
-    formatted_M_strings = format_M(M, wordList)
-    print "new_wrapper", 10
-    sys.stdout.flush()
-    formatted_C_strings = format_C(C, featureList)
-    print "new_wrapper", 11
-    sys.stdout.flush()
-    K = my_mcmm.get_K()
-    I = my_mcmm.get_I()
-    J = my_mcmm.get_J()
-    print "new_wrapper", 14
-    sys.stdout.flush()
-    error = my_mcmm.getError()
-
-    ######################################
-    M_1_ratio = 0
-    M_0_ratio = 0
-    M_other = 0
-    avg_m = 0.0
-    avg_m_per_i = 0.0
-    for i in range(I):
-        avg_m = 0.0
-        for k in range(K):
-            avg_m += M[i,k]
-            if M[i,k] == 0.0:
-                M_0_ratio+=1
-            elif M[i,k] == 1.0:
-                M_1_ratio+=1
-            else:
-                M_other+=1
-        avg_m_per_i += avg_m/float(K)
-    avg_m_per_i = avg_m_per_i/float(I)
-    M_1_ratio = M_1_ratio/float(I*K)
-    M_0_ratio = M_0_ratio/float(I*K)
-    M_other = M_other/float(I*K)
-
-    C_1 = 0
-    C_0 = 0
-    C_neg1 = 0
-    C_other = 0
-    avg_c = 0.0
-    for j in range(J):
-        for k in range(K):
-            avg_c += C[j,k]
-            if C[j,k] == 0.0:
-                C_0 += 1
-            elif C[j,k] == 1.0:
-                C_1 += 1
-            elif C[j,k] == -1.0:
-                C_neg1 += 1
-            else:
-                C_other += 1
-    avg_c = avg_c/float(J*K)
-    C_1 = C_1/float(J*K)
-    C_0 = C_0/float(J*K)
-    C_neg1 = C_neg1/float(J*K)
-    C_other = C_other/float(J*K)
-
-    avg_mc = 0.0
-    avg_mc_per_i = 0.0
-    for i in range(I):
-        avg_mc = 0.0
-        for j in range(J):
-            for k in range(K):
-                avg_mc += M[i,k]*C[j,k]
-        avg_mc_per_i += avg_mc/float(J*K)
-    avg_mc_per_i = avg_mc_per_i/float(I)
-
-    avg_r = 0.0
-    avg_r_per_i = 0.0
-    for i in range(I):
-        avg_r = 0.0
-        for j in range(J):
-            avg_r += R[i,j]
-        avg_r_per_i += avg_r/float(J)
-    avg_r_per_i = avg_r_per_i/float(I)
-
-    sparsity_stats = "M\tm = 0\t" + "{:.6f}".format(M_0_ratio) + "\n"
-    sparsity_stats += "M\tm = 1\t" + "{:.6f}".format(M_1_ratio) + "\n"
-    sparsity_stats += "M\tm other\t" + "{:.6f}".format(M_other) + "\n"
-    sparsity_stats += "M\tavg m\t" + "{:.6f}".format(avg_m_per_i) + "\n\n"
-    sparsity_stats += "C\tc = 0\t" + "{:.6f}".format(C_0) + "\n"
-    sparsity_stats += "C\tc = 1\t" + "{:.6f}".format(C_1) + "\n"
-    sparsity_stats += "C\tc = -1\t" + "{:.6f}".format(C_neg1) + "\n"
-    sparsity_stats += "C\tc other\t" + "{:.6f}".format(C_other) + "\n"
-    sparsity_stats += "C\tavg c\t" + "{:.6f}".format(avg_c) + "\n\n"
-    sparsity_stats += "MC\tavg m*c\t" + "{:.6f}".format(avg_mc_per_i) + "\n"
-    sparsity_stats += "R\tavg r\t" + "{:.6f}".format(avg_r_per_i) + "\n"
-    ######################################
+    #print "new_wrapper", 5
+    # M = np.asarray(my_mcmm.get_M())
+    # #print "new_wrapper", 6
+    # C = np.asarray(my_mcmm.get_C())
+    # #print "new_wrapper", 7
+    # #sys.stdout.flush()
+    # R = np.asarray(my_mcmm.get_R())
+    # error = my_mcmm.getError()
+    # originalErr = my_mcmm.getOriginalError()
+    # K = my_mcmm.get_K()
+    # I = my_mcmm.get_I()
+    # J = my_mcmm.get_J()
+    # writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, featureList, 
+    #                 thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str)
     
-    t2 = time.clock()
-    total_min = (t2 - t1)/60.0
-    total_hrs = total_min/60.0
-    words = list()
-    #threshold=0.5
-    print "new_wrapper", 15
-    sys.stdout.flush()
-    activationsDecoder = decode.ActivationsDecoder(M, C, R, wordList, thresh)
+    # def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, 
+    #                 featureList, thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str):
 
-    for std in standards:
-        outputName = ""
-        clusterEntries = activationsDecoder.getClusters(std)
-        clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
-        print "new_wrapper", 16.7, "std =", std
-        print "Number of Cluster Entries =", len(clusterEntries_justWords)
-        sys.stdout.flush()
-        outputName = outputPrefix + "." + std
-        print "new_wrapper", 16.8, "outputName =", outputName
-        #print "\nclusterEntries:\n", clusterEntries
-        print "new_wrapper", 17, "; len(clusterEntries) =", len(clusterEntries)
-        sys.stdout.flush()
-        originalErr = my_mcmm.getOriginalError()
-        print "new_wrapper", 18, "; originalErr =", originalErr
-        sys.stdout.flush()
-        if float(originalErr) > 0.0:
-            percentErrReduction = ((originalErr - error)/float(originalErr))*100.0
-        else:
-            percentErrReduction = 0.0
-        print "new_wrapper", 18.5, "; percentErrReduction = ", percentErrReduction
-        sys.stdout.flush()
-    ##    print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-    ##    print "%%%%% OUTPUT PREFIX:", outputPrefix
-    ##    print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        #Open files for writing the numerical contents of the M and C matrices
-        fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
-        for string in formatted_M_strings:
-           fobj_M.write(string)
-        fobj_M.close()
-        print "new_wrapper", 20
-        sys.stdout.flush()
-        fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
-        for string in formatted_C_strings:
-           fobj_C.write(string)
-        fobj_C.close()
-        print "new_wrapper", 22
-        sys.stdout.flush()
-        fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
-        fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
-        fobj_Features = codecs.open(outputName + ".features", 'w', encoding='utf8')
-        fobj_Clusters.write("#" + outputPrefix.split("/")[-1] + "\n")
-        fobj_Clusters_justWords.write("#" + outputPrefix.split("/")[-1] + "\n")
-        fobj_Clusters.write("#" + "%.3f" % percentErrReduction + " & " + "%.3f" % total_min + " min (%.3f" % total_hrs + " hrs)\n")
-        fobj_Clusters.write("\n\n")
-        fobj_Clusters.write("MCMM CLUSTERING RESULTS (" + std + ")\n")
-        fobj_Clusters.write(experimentTitle)
-        fobj_Clusters.write("\n\n")
-        fobj_Clusters.write(str(I) + " data points were processed.\n")
-        fobj_Clusters.write("Each data point comprised " + str(J) + " features.\n")
-        fobj_Clusters.write("Deleted Features: " + deletedFeatures_str+ "\n\n")
-        fobj_Clusters.write("\nElapsed time:  %.3f" % total_min + " min  (%.3f" % total_hrs + " hrs)\n")
-        fobj_Clusters.write("\nOriginal Error:  %.5f" % my_mcmm.getOriginalError())
-        fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
-        fobj_Clusters.write("\n\nSparsity Stats:\n" + sparsity_stats + "\n")
-        print "new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
-        sys.stdout.flush()
-        cluster_str = ""
-        for k in range(len(clusterEntries_justWords)):
-            cluster_str = ""
-            for word in clusterEntries_justWords[k]:
-                cluster_str += word + " "
-            cluster_str.rstrip()
-            fobj_Clusters_justWords.write(cluster_str + "\n")
-        fobj_Clusters_justWords.close()        
-##        num_best = 7
-##        fobj_Clusters.write(str(num_best) + " Most Frequent Common Subsequences in Each Cluster\n")
-##        n_best_str = ""
-##        n_best = []
-        #print 
-##        for k in range(len(clusterEntries_justWords)):
-##            #print "clusterEntries_justWords[", k, "]:", clusterEntries_justWords[k]
-##            n_best = get_n_best(clusterEntries_justWords[k], num_best)
-##            #print "****\n", "n_best =", n_best, "****\n",
-##            n_best_str = str(k) + ". (" + n_best[0][1] + " " + str(n_best[0][0]) + ")"
-##            for n in range(1,num_best):
-####                lcs_pair = nbest[n]
-####                lcs = lcs_pair[0]
-####                freq = str(lcs_pair[1])
-##               n_best_str += " (" + n_best[n][1] + " " + str(n_best[n][0]) + ")"
-##            fobj_Clusters.write(n_best_str + "\n")
+    #print "new_wrapper", 8
+    #sys.stdout.flush()
+    # clusterEntries = list()
+    # splitSequence = list()
+    # #sys.stdout.flush()
+    # formatted_M_strings = format_M(M, wordList)
+    # #print "new_wrapper", 10
+    # #sys.stdout.flush()
+    # formatted_C_strings = format_C(C, featureList)
+    # #print "new_wrapper", 11
+    # #sys.stdout.flush()
+    # K = my_mcmm.get_K()
+    # I = my_mcmm.get_I()
+    # J = my_mcmm.get_J()
+    # #print "new_wrapper", 14
+    # #sys.stdout.flush()
+    # error = my_mcmm.getError()
 
-##            my_cs = common_subsequences(clusterEntries_justWords[k], num_best)
-##            n_best = my_cs.get_n_best()
-##            n_best_str = str(k) + ". (" + n_best[0][1] + " " + str(n_best[0][0]) + ")"
-##            for n in range(1,num_best):
-##                n_best_str += " (" + n_best[n][1] + " " + str(n_best[n][0]) + ")"
-##            fobj_Clusters.write(n_best_str + "\n")
-        fobj_Clusters.write("\n\nCLUSTERS:\n\n")
-        fobj_Features.write("\nSparsity Stats:\n" + sparsity_stats + "\n")
-        fobj_Features.write("MOST ACTIVE FEATURES FOR EACH CLUSTER\n")
-        fobj_Features.write(experimentTitle)
-        fobj_Features.write("\n\n")
-        fobj_Features.write("Deleted Features: " + deletedFeatures_str + "\n\n")
+    # ######################################
+    # cdef double M_1 = 0.0
+    # cdef double M_0 = 0.0
+    # cdef double M_other = 0.0
+    # cdef double M_1_ratio = 0.0
+    # cdef double M_0_ratio = 0.0
+    # cdef double M_other_ratio = 0.0
+    # cdef double avg_C_other = 0.0
+    # cdef double avg_c = 0.0
+    # cdef double avg_m = 0.0
+    # cdef double avg_m_per_i = 0.0
+    # for i in range(I):
+    #     avg_m = 0.0
+    #     for k in range(K):
+    #         avg_m += M[i,k]
+    #         if M[i,k] == 0.0:
+    #             M_0+=1
+    #         elif M[i,k] == 1.0:
+    #             M_1+=1
+    #         else:
+    #             M_other+=1
+    #     avg_m_per_i += avg_m/float(K)
+    # avg_m_per_i = avg_m_per_i/float(I)
+    # M_1_ratio = M_1/float(I*K)
+    # M_0_ratio = M_0/float(I*K)
+    # M_other_ratio = M_other/float(I*K)
+    # #print "wrapper_nor", 15
+    # #sys.stdout.flush()
+    # cdef double C_1 = 0.0
+    # cdef double C_0 = 0.0
+    # cdef double C_neg1 = 0.0
+    # cdef double C_other = 0.0
+    # cdef double avg_C_1 = 0.0
+    # cdef double avg_C_0 = 0.0
+    # #cdef double avg_C_neg1 = 0.0
+    # avg_C_other = 0.0
+    # avg_c = 0.0
+    # for j in range(J):
+    #     for k in range(K):
+    #         avg_c += C[j,k]
+    #         if C[j,k] == 0.0:
+    #             C_0 += 1.0
+    #         elif C[j,k] == 1.0:
+    #             C_1 += 1.0
+    #         # elif C[j,k] == -1.0:
+    #         #     C_neg1 += 1
+    #         else:
+    #             C_other += 1.0
+    # avg_c = avg_c/float(J*K)
+    # avg_C_1 = float(C_1)/float(J*K)
+    # avg_C_0 = float(C_0)/float(J*K)
+    # #avg_C_neg1 = C_neg1/float(J*K)
+    # avg_C_other = float(C_other)/float(J*K)
+    # #print "wrapper_nor", 20
+    # #sys.stdout.flush()
+    # cdef double avg_mc = 0.0
+    # cdef double avg_mc_per_i = 0.0
+    # for i in range(I):
+    #     avg_mc = 0.0
+    #     for j in range(J):
+    #         for k in range(K):
+    #             avg_mc += M[i,k]*C[j,k]
+    #     avg_mc_per_i += avg_mc/float(J*K)
+    # avg_mc_per_i = avg_mc_per_i/float(I)
+
+    # cdef double avg_r = 0.0
+    # cdef double avg_r_per_i = 0.0
+    # for i in range(I):
+    #     avg_r = 0.0
+    #     for j in range(J):
+    #         avg_r += R[i,j]
+    #     avg_r_per_i += avg_r/float(J)
+    # avg_r_per_i = avg_r_per_i/float(I)
+    # print "wrapper_nor", 30
+    # sys.stdout.flush()
+    # sparsity_stats = "M\tm = 0\t" + "{:.6f}".format(M_0_ratio) + "\n"
+    # sparsity_stats += "M\tm = 1\t" + "{:.6f}".format(M_1_ratio) + "\n"
+    # sparsity_stats += "M\tm other\t" + "{:.6f}".format(M_other_ratio) + "\n"
+    # sparsity_stats += "M\tavg m\t" + "{:.6f}".format(avg_m_per_i) + "\n\n"
+    # sparsity_stats += "C\tc = 0\t" + "{:.6f}".format(avg_C_0) + "\n"
+    # sparsity_stats += "C\tc = 1\t" + "{:.6f}".format(avg_C_1) + "\n"
+    # #sparsity_stats += "C\tc = -1\t" + "{:.6f}".format(avg_C_neg1) + "\n"
+    # sparsity_stats += "C\tc other\t" + "{:.6f}".format(avg_C_other) + "\n"
+    # sparsity_stats += "C\tavg c\t" + "{:.6f}".format(avg_c) + "\n\n"
+    # sparsity_stats += "MC\tavg m*c\t" + "{:.6f}".format(avg_mc_per_i) + "\n"
+    # sparsity_stats += "R\tavg r\t" + "{:.6f}".format(avg_r_per_i) + "\n"
+    # ######################################
+    
+    # #cdef double t2 = time.clock()
+    # #cdef double total_min = (t2 - t1)/60.0
+    # #cdef double total_hrs = total_min/60.0
+    # words = list()
+    # #print "wrapper_nor", 30.5
+    # #sys.stdout.flush()
+    # activationsDecoder = decode.ActivationsDecoder(M, C, R, wordList, thresh)
+
+    # cdef object standards = ["mc-"]
+    # for std in standards:
+    #     outputName = ""
+    #     clusterEntries = activationsDecoder.getClusters(std)
+    #     clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
+    #     #print "new_wrapper", 16.7, "std =", std
+    #     print "Number of Cluster Entries =", len(clusterEntries_justWords)
+    #     sys.stdout.flush()
+    #     outputName = outputPrefix + "." + std
+    #     print "Output Name =", outputName
+    #     #print "\nclusterEntries:\n", clusterEntries
+    #     print "len(clusterEntries) =", len(clusterEntries)
+    #     sys.stdout.flush()
+    #     originalErr = my_mcmm.getOriginalErr()
+    #     print "OriginalErr =", originalErr
+    #     sys.stdout.flush()
+    #     if float(originalErr) > 0.0:
+    #         percentErrReduction = ((originalErr - error)/float(originalErr))*100.0
+    #     else:
+    #         percentErrReduction = 0.0
+    #     print "PercentErrReduction = ", percentErrReduction
+    #     sys.stdout.flush()
+    #     #Open files for writing the numerical contents of the M and C matrices
+    #     fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
+    #     for string in formatted_M_strings:
+    #        fobj_M.write(string)
+    #     fobj_M.close()
+    #     #print "new_wrapper", 20
+    #     #sys.stdout.flush()
+    #     fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
+    #     for string in formatted_C_strings:
+    #        fobj_C.write(string)
+    #     fobj_C.close()
+    #     sys.stdout.flush()
+
+    #     fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
+    #     fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
+    #     fobj_Features = codecs.open(outputName + ".features", 'w', encoding='utf8')
+    #     fobj_Clusters.write("#" + outputPrefix.split("/")[-1] + "\n")
+    #     fobj_Clusters_justWords.write("#" + outputPrefix.split("/")[-1] + "\n")
+    #     fobj_Clusters.write("#" + "%.3f" % percentErrReduction + "\n") #" & " + "%.3f" % total_min + " min (%.3f" % total_hrs + " hrs)\n")
+    #     fobj_Clusters.write("\n\n")
+    #     fobj_Clusters.write("MCMM CLUSTERING RESULTS (" + std + ")\n")
+    #     fobj_Clusters.write(experimentTitle)
+    #     fobj_Clusters.write("\n\n")
+    #     fobj_Clusters.write(str(I) + " data points were processed.\n")
+    #     fobj_Clusters.write("Each data point comprised " + str(J) + " features.\n")
+    #     fobj_Clusters.write("Deleted Features: " + deletedFeatures_str + "\n\n")
+    #     # fobj_Clusters.write("\nElapsed time:  %.3f" % total_min + " min  (%.3f" % total_hrs + " hrs)\n")
+    #     fobj_Clusters.write("\nOriginal Error:  %.5f" % originalErr)
+    #     fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
+    #     fobj_Clusters.write("\n\nSparsity Stats:\n" + sparsity_stats + "\n")
+    #     #print "new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
+    #     sys.stdout.flush()
+    #     cluster_str = ""
+    #     for k in range(len(clusterEntries_justWords)):
+    #         cluster_str = ""
+    #         for word in clusterEntries_justWords[k]:
+    #             cluster_str += word + " "
+    #         cluster_str.rstrip()
+    #         fobj_Clusters_justWords.write(cluster_str + "\n")
+    #     fobj_Clusters_justWords.close()        
+
+    #     fobj_Clusters.write("\n\nCLUSTERS:\n\n")
+    #     fobj_Features.write("\nSparsity Stats:\n" + sparsity_stats + "\n")
+    #     fobj_Features.write("MOST ACTIVE FEATURES FOR EACH CLUSTER\n")
+    #     fobj_Features.write(experimentTitle)
+    #     fobj_Features.write("\n\n")
+    #     fobj_Features.write("Deleted Features: " + deletedFeatures_str + "\n\n")
         
-        sys.stderr.write("K = " + str(K) + "\n")
-        sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")
-        string = ""
-        print "new_wrapper", 30, "; std =", std
-        sys.stdout.flush()
-        #cluster_entries = []
-        for k in range(len(clusterEntries)):
-            print "new_wrapper", 31, "; std =", std, "; k =", k
-            numParen = 0
-            for char in clusterEntries[k]:
-                if char == ")":
-                    numParen += 1
-            string = unicode(numParen) + u" word"
-            if numParen > 1 or numParen == 0:
-                string += "s"
-            sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")
-            sys.stderr.write("\t" + clusterEntries[k][:50] + "\n")
-        print "new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
-        sys.stdout.flush()
-        for k in range(K):
-            print "new_wrapper", 36, "; std =", std, "; k =", k 
-            fobj_Clusters.write("## " + str(k) + "\n")
-            fobj_Clusters.write(clusterEntries[k])
-            fobj_Clusters.write("%%\n\n")
-            ###
-            my_decoder = decode.FeatureDecoder(C.T[k], affixlen, prec_span, <bint>bigrams, alphabet)
-            featureStr = "Most Active\n"
-            featureStr += ', '.join(my_decoder.tenMostActive())
-            featureStr += "\n\nLeast Active\n"
-            featureStr += ', '.join(my_decoder.tenLeastActive())
-            fobj_Features.write("## " + str(k) + "\n")
-            fobj_Features.write(featureStr + "\n\n")
-        #print "new_wrapper", 36
-        #sys.stdout.flush()
-        # write cluster split sequence to Cluster file.
-        fobj_Clusters.write("\n\nCLUSTER SPLIT SEQUENCE:\n\n")
-        for i in range(len(splitSequence)):
-            fobj_Clusters.write(str(i+1) + ". " + splitSequence[i])
-        #print "new_wrapper", 37
-        #print ""
-        #print "TEMPDIR:", tempDir
-        
-        #print "new_wrapper", 40
-        #sys.stdout.flush()
-#        sys.stdout.flush()%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-    ##    print "%%%%% OUT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-    ##    print "%%%%% OUTPUT PREFIX:PUT PREFIX:
-    fobj_Clusters.close()
-    fobj_Features.close()
+    #     sys.stderr.write("K = " + str(K) + "\n")
+    #     sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")
+    #     string = ""
+    #     sys.stdout.flush()
+    #     for k in range(len(clusterEntries)):
+    #         #print "new_wrapper", 31, "; std =", std, "; k =", k
+    #         numParen = 0
+    #         #count words by counting parentheses. Each word has activity value enclosed in parens.
+    #         for char in clusterEntries[k]:
+    #             if char == ")":
+    #                 numParen += 1
+    #         string = str(numParen) + " word"
+    #         if numParen > 1 or numParen == 0:
+    #             string += "s"
+    #         sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")
+    #         sys.stderr.write("\t" + clusterEntries[k][:50] + "\n")
+    #     #print "new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
+    #     sys.stdout.flush()
+    #     for k in range(K):
+    #         #print "new_wrapper", 36, "; std =", std, "; k =", k 
+    #         fobj_Clusters.write("## " + str(k) + "\n")
+    #         fobj_Clusters.write(clusterEntries[k])
+    #         fobj_Clusters.write("%%\n\n")
+    #         ###
+    #         my_decoder = decode.FeatureDecoder(C.T[k], affixlen, prec_span, <bint>bigrams, sorted(alphabet), featureList) 
+    #         featureStr = "Most Active\n"
+    #         featureStr += ', '.join(my_decoder.tenMostActive())
+    #         featureStr += "\n\nLeast Active\n"
+    #         featureStr += ', '.join(my_decoder.tenLeastActive())
+    #         fobj_Features.write("## " + str(k) + "\n")
+    #         fobj_Features.write(featureStr + "\n\n")
+
+    #     # write cluster split sequence to Cluster file.
+    #     fobj_Clusters.write("\n\nCLUSTER SPLIT SEQUENCE:\n\n")
+    #     for i in range(len(splitSequence)):
+    #         fobj_Clusters.write(str(i+1) + ". " + splitSequence[i])
+    # fobj_Clusters.close()
+    # fobj_Features.close()
 
     
 if __name__ == "__main__":
@@ -707,22 +939,28 @@ if __name__ == "__main__":
     outputPrefix = sys.argv[2]
     affixlen = sys.argv[3]
     prec_span = sys.argv[4]
-    bigrams = sys.argv[5]
-    num_clusters = sys.argv[6]
-    feature_type = sys.argv[7]
-    tempDir = sys.argv[8]
-    experimentTitle = sys.argv[9]
-    init_M_file = sys.argv[10]
-    init_C_file = sys.argv[11]
-    useSQ = int(sys.argv[12])
+    prec_types = sys.argv[5]
+    bigrams = sys.argv[6]
+    num_clusters = sys.argv[7]
+    feature_type = sys.argv[8]
+    tempDir = sys.argv[9]
+    experimentTitle = sys.argv[10]
+    init_M_file = sys.argv[11]
+    init_C_file = sys.argv[12]
+    #useSQ = int(sys.argv[12])
     objFunc = sys.argv[13]
     qn = int(sys.argv[14])
     cg = sys.argv[15]
     mixingFunc = sys.argv[16]
+
+    print "^^^Now in wrapper. Prec_types =", prec_types
     #eta_raw = sys.argv[16]
     # main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
     #     num_clusters, k_interval, feature_type, tempDir, experimentTitle,
     #     useSQ, objFunc, qn, cg, mixingFunc, eta_raw)
-    main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
+    # main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
+    #     num_clusters, k_interval, feature_type, tempDir, experimentTitle,
+    #     useSQ, objFunc, qn, cg, mixingFunc)
+    main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, prec_types, bigrams,
         num_clusters, k_interval, feature_type, tempDir, experimentTitle,
-        useSQ, objFunc, qn, cg, mixingFunc)
+        objFunc, qn, cg, mixingFunc)

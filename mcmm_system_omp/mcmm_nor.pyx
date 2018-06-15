@@ -4,7 +4,7 @@ import numpy as np
 import time
 import decode
 from transliterate import *
-
+import wrapper_nor as wrp
 #DOUBLE = np.FLOAT64
 
 cpdef mila_preprocess(object clusterEntries, object tempDir, outputPrefix, int K, object standard):
@@ -52,17 +52,24 @@ def isNaN(x):
 
 cdef class MCMM:
         
-    def __init__(self, object charSet, object wordList, FLOAT[:,::1] dataMatrix,
-                 FLOAT[:,::1] init_M, FLOAT[:,::1] init_C, INT midpoint, INT init_K, 
-                 INT max_K,
-                 INT evalInterval, INT I, INT J, object outputPrefix, object tempDir,
-                 INT objFunc, bint qn, bint cg, FLOAT thresh):
+    def __init__(self, object charSet, object wordList, object featureList, 
+                FLOAT[:,::1] dataMatrix,
+                FLOAT[:,::1] init_M, FLOAT[:,::1] init_C, INT midpoint, 
+                INT prec_span, object prec_types,
+                INT init_K, INT max_K,
+                INT evalInterval, INT I, INT J, object outputPrefix, object tempDir,
+                INT objFunc, bint qn, bint cg, FLOAT thresh, object experimentTitle, 
+                deletedFeatures_str):
+        self.prec_span = prec_span
+        self.prec_types = prec_types
         self.initTime = <FLOAT>time.clock()
         self.timePrevious = <FLOAT>time.clock() 
         self.alphabet = np.asarray(charSet, dtype='S1')
         self.wordList = wordList
         self.midpoint = midpoint
+        self.featureList = featureList
         self.Xv = dataMatrix
+        self.experimentTitle = experimentTitle
         #self.Xptr = &dataMatrix[0,0]
         self.I = I
         self.J = J
@@ -77,11 +84,13 @@ cdef class MCMM:
         self.E = 0.0
         self.initFlag = 1
         self.splitSequence = np.empty([0], dtype='S1')
+        self.deletedFeatures_str = deletedFeatures_str
         self.numIters = 0
         #print "mcmm boost", 0
         self.Mv = init_M
         self.Cv = init_C
         self.thresh = thresh
+        self.original_E = 0.0
         print "mcmm self.Cv is", self.Cv.shape[0], "by", self.Cv.shape[1]
         self.outputPrefix = outputPrefix
         self.tempDir = tempDir
@@ -135,7 +144,7 @@ cdef class MCMM:
 ##        cdef FLOAT normConstant = 1.0/(<FLOAT>(self.I*self.J))
         cdef FLOAT ** X_ptr_ct = <FLOAT**>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** R_ptr_ct = <FLOAT**>malloc(self.I*sizeof(FLOAT*))
-        cdef FLOAT ** M_ptr_ct = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
+        cdef FLOAT ** M_ptr_ct = <FLOAT**>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr_ct = <FLOAT**>malloc(self.J*sizeof(FLOAT*))
         #cdef FLOAT * vec_C_ptr_ct = <FLOAT*>malloc(self.J*self.K*sizeof(FLOAT))
 
@@ -147,9 +156,9 @@ cdef class MCMM:
         M_ptr_ct = &M_ptr_ct[0]
         #print "fctsplit", 1
         #sys.stdout.flush()
-        # cdef FLOAT * M_data_ct = <FLOAT *>malloc( self.I*(<int>max(1,self.K)) * sizeof(FLOAT*))
-        # cdef int * M_indices_ct = <int *>malloc( self.I*(<int>max(1,self.K)) * sizeof(int))
-        # cdef int * M_indptr_ct = <int *>malloc( (self.I+1)*sizeof(int) )
+        cdef FLOAT * M_data_ct = <FLOAT *>malloc( self.I*(<int>max(1,self.K)) * sizeof(FLOAT) )
+        cdef int * M_indices_ct = <int *>malloc( self.I*(<int>max(1,self.K)) * sizeof(int) )
+        cdef int * M_indptr_ct = <int *>malloc( (self.I+1)*sizeof(int) )
         
         cdef object cluster_list = list()
         #print "fctsplit", 2
@@ -165,7 +174,7 @@ cdef class MCMM:
             C_ptr_ct[j] = &self.Cv[j,0]
         #print "fctsplit", 2.5
         #sys.stdout.flush()
-        #sp.compress_dbl_mat(M_ptr_ct, M_data_ct, M_indices_ct, M_indptr_ct, self.I, <int>max(1,self.K))
+        sp.compress_dbl_mat(M_ptr_ct, M_data_ct, M_indices_ct, M_indptr_ct, self.I, <int>max(1,self.K))
         amount = max(1,self.K)
         #print "fctsplit", 3
         #sys.stdout.flush()
@@ -188,18 +197,20 @@ cdef class MCMM:
         #         k_to_split = k
         #cluster_list.sort()
 
-        k_to_split = mcmm_functions.get_cluster_to_split(M_ptr_ct, C_ptr_ct, X_ptr_ct, R_ptr_ct, 
+        k_to_split = mcmm_functions.get_cluster_to_split(M_ptr_ct, M_data_ct, 
+                                M_indices_ct, M_indptr_ct,
+                                C_ptr_ct, X_ptr_ct, R_ptr_ct, 
                                 self.I, self.J, self.K, self.normConstant)
 
         dealloc_matrix(X_ptr_ct, self.I)
         dealloc_matrix(R_ptr_ct, self.I)
-        dealloc_matrix(M_ptr_ct, self.I)
+        #dealloc_matrix(M_ptr_ct, self.I)
         dealloc_matrix(C_ptr_ct, self.J)
         # dealloc_vector(vec_C_ptr_ct)
-        # dealloc_matrix_2(M_ptr_ct, self.I)
-        # dealloc_vector(M_data_ct)
-        # dealloc_vec_int(M_indices_ct)
-        # dealloc_vec_int(M_indptr_ct)
+        dealloc_matrix_2(M_ptr_ct, self.I)
+        dealloc_vector(M_data_ct)
+        dealloc_vec_int(M_indices_ct)
+        dealloc_vec_int(M_indptr_ct)
         #return cluster_list
         return k_to_split
 
@@ -361,6 +372,7 @@ cdef class MCMM:
         cdef FLOAT ** R_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** M_ptr = <FLOAT **>malloc(self.I*sizeof(FLOAT*))
         cdef FLOAT ** C_ptr = <FLOAT **>malloc(self.J*sizeof(FLOAT*))
+
         #cdef FLOAT * vec_C = <FLOAT *>malloc(self.J*self.K*sizeof(FLOAT))
         #cdef FLOAT * etas_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
        # cdef FLOAT * normConstants_M = <FLOAT *>malloc(self.I*sizeof(FLOAT))
@@ -459,18 +471,17 @@ cdef class MCMM:
                 # mcmm_functions.optimize_M(X_ptr, R_ptr, M_ptr, C_ptr,
                 #         self.I, self.J, self.K, self.normConstant_M, self.numIters, self.qn, self.cg, 
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
-                self.E = mcmm_functions.cg_M(M_ptr, C_ptr, X_ptr, R_ptr, 
-                        self.I, self.J, self.K, self.normConstant, lower, upper)
-                #E_after_M = self.E
-                #print "\nmcmm E from M", "=", E_after_M
+                mcmm_functions.cg_M(M_ptr, C_ptr, X_ptr, R_ptr, 
+                        self.I, self.J, self.K, self.normConstant_M, lower, upper)
+                # E_after_M = self.E
+                # print "\nmcmm E from M", "=", E_after_M
                 #sys.stdout.flush()
                 self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr,
                                         self.I, self.J, self.K, self.normConstant)
-                print "M; E diff =", prev_E - self.E
+                #print "M; E diff =", prev_E - self.E
                 #sys.stdout.flush()
                 E_after_R = self.E
                 print "\nE after R", "=", self.E
-                print "In iteration", self.numIters, "\n"
                 sys.stdout.flush()
                 # self.E = optimize_nor.optimize_C_nor(X_ptr, R_ptr, C_ptr, M_ptr,
                 #     self.I, self.J, self.K, self.normConstant,
@@ -487,15 +498,13 @@ cdef class MCMM:
                 #print "\n@@@@@@ mcmm_cy", "self.I =", self.I
                 #sys.stdout.flush()
                 print "\n@@@@@@ end optimize_C"
-                sys.stdout.flush()
                 print "\nE from C", "=", E_after_C
                 sys.stdout.flush()
                 self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
-
-                print "mcmm M, now R_and_E"
                 E_after_R = self.E
-
+                print "E after R =", self.E
+                sys.stdout.flush()
                 sys.stdout.write("\n\n##################################################\n")
                 sys.stdout.write("Err_new = " + "%.7f" % self.E  + "\n")
                 sys.stdout.write("Err_prev = " + "%.7f" % prev_E + "\n")
@@ -522,14 +531,23 @@ cdef class MCMM:
                 #if ((breakTest < 0.0001 or diff < 0.00001) and flag == 0) or numIters >= 40:
                 if (breakTest < breakErr and flag == 0) or self.numIters >= 35:
                 #if (breakTest < 0.000001 and flag == 0):
-                    # if self.K % self.evalInterval == 0 or end_condition < end_thresh:
+                    if self.K % self.evalInterval == 0 or end_condition < end_thresh:
                     #     print "mcmm_nor; activations decoder"
                     #     sys.stdout.flush()
                     #     # What is 'clusterEntries'? It is a list of all clusters (and their members) that presently exist.
                     #     # The clusterEntries list is constantly evolving, and its cardinality increases with K.
                     #     # What format does "alphabet" need to be in for activationsDecoder?
-                    #     activationsDecoder = decode.ActivationsDecoder(self.Mv, self.Cv, self.Rv, 
-                    #                             self.wordList, self.thresh)
+                        wrp.writeOutputFiles(np.asarray(self.Mv), 
+                                        np.asarray(self.Cv), 
+                                        np.asarray(self.Rv), self.E, self.original_E, self.midpoint, 
+                                        self.prec_span, self.prec_types, self.alphabet, self.wordList, 
+                                        self.featureList, self.thresh, self.I, self.J, self.K, 
+                                        self.outputPrefix + "_k-" + str(self.K), self.experimentTitle,
+                                        self.deletedFeatures_str)
+                # writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, 
+                #     featureList, thresh, I, J, K)
+                        # activationsDecoder = decode.ActivationsDecoder(self.Mv, self.Cv, self.Rv, 
+                        #                         self.wordList, self.thresh)
                     #     for i in range(len(standards)):
                     #         mila_preprocess(activationsDecoder.getClusters(standards[i]), self.tempDir, 
                     #                             self.outputPrefix, self.K, standards[i])

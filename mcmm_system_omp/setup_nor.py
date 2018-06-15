@@ -9,16 +9,7 @@ import numpy as np
 import sys
 print "\n\nsetup 1\n\n"
 sys.stdout.flush()
-# ext = Extension("predict",
-#               sources=["predict.pyx", "predict_c_funcs.c"],
-#               extra_compile_args = ["-O2", "-fopenmp"],
-#               extra_link_args=['-fopenmp']
-#               )
-# setup(
-#     name="predict",
-#     ext_modules = cythonize([ext]),
-#     include_dirs = [np.get_include()]
-# )
+
 
 ext = Extension("mcmm_functions",
               sources=["mcmm_functions.pyx", "c_funcs.c"],
@@ -59,6 +50,7 @@ setup(
     ext_modules = cythonize('matmath_nullptr.pyx', annotate=True),
 )
 
+print "\n\nsetup 3\n\n"
 setup(
     include_dirs = [np.get_include(), '.'],
     cmdclass = {'build_ext': build_ext},
@@ -77,7 +69,7 @@ setup(
 #     cmdclass = {'build_ext': build_ext},
 # 	ext_modules = cythonize('lbfgs.pyx', annotate=True),
 # )
-print "\n\nsetup 3\n\n"
+
 # setup(
 #     include_dirs = [np.get_include(), '.'],
 #     cmdclass = {'build_ext': build_ext},
@@ -177,10 +169,21 @@ setup(
     cmdclass = {'build_ext': build_ext},
    	ext_modules = cythonize('clustertest_nor.pyx', annotate=True),
 )
+# setup(
+#     include_dirs = [np.get_include(), '.'],
+#     cmdclass = {'build_ext': build_ext},
+#     ext_modules = cythonize('encode_nor.pyx', annotate=True),
+# )
+
+ext = Extension("encode_nor",
+              sources=["encode_nor.pyx"],
+              #extra_compile_args = ["-O3", "-fopenmp"],
+              extra_link_args=['-fopenmp']
+              )
 setup(
-    include_dirs = [np.get_include(), '.'],
-    cmdclass = {'build_ext': build_ext},
-    ext_modules = cythonize('encode_nor.pyx', annotate=True),
+    name="encode_nor",
+    ext_modules = cythonize([ext]),
+    include_dirs = [np.get_include()]
 )
 
 setup(

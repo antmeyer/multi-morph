@@ -1,19 +1,27 @@
-#cython: boundscheck=False
-#cython: wraparound=False
+#cython: profile=True
 #cython: cdivision=True
 
 cimport cython
+cimport numpy as np
+
+cpdef get_prec_subset(object prec_type, object vowels, object cons, object alphabet)
 
 cdef class FeatureEncoder:
 	cdef int affixlen
 	cdef int prec_span
 	cdef bint positional
 	cdef bint precedence
+	cdef object prec_types
+	cdef object V_string
+	# cdef object V_pat
+	# cdef object re_V
 	cdef bint bigrams
 	cdef object words
-	cdef object vectors
+	cdef np.ndarray vectors
 	cdef object alphabet
 	cdef object alphalen
+	cdef int numV
+	cdef int numC
 	cdef object posFeatures
 	cdef object precFeatures
 	cdef object bigramFeatures
@@ -21,33 +29,11 @@ cdef class FeatureEncoder:
 	cdef int numPosFeatures
 	cdef int numPrecFeatures
 	cdef int numBigramFeatures
-	
-	
-# 		self.affixlen = affixlen
-# 		self.prec_span = 0
-# 		self.positional = False
-# 		self.precedence = False
-# 		self.bigrams = False
-# 		if affixlen != "0":
-# 
-# 		fobj = open(corpusFile, 'r')
-# 		self.words = list()
-# 		self.vectors = list()
-# 		self.alphabet = list()
-# 		self.alphalen = 0
-# 		self.numPosFeatures = 0
-# 		self.numPrecFeatures = 0
-# 		self.posFeatures = list()
-# 		self.precFeatures = list()
-# 		self.bigramFeatures = list()
-# 		self.allFeatures = list()
-		
+	cdef object V_set
+	cdef object C_set
+	cpdef bint isCons(self, object x)
+	cpdef object C_or_V(self, object x)
 	cpdef int encodeWords(self)
-	
 	cpdef object getFeatures(self)
-	
-	cpdef object getVectors(self)
-
-	cpdef int writeVectorsToFile(self, object outputFile)
-
-
+	cpdef np.ndarray getVectors(self)
+	#cpdef int writeVectorsToFile(self, object outputFile)
