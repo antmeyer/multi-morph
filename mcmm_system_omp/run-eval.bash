@@ -25,6 +25,7 @@ PREFIX="/Users/anthonymeyer/Development/multimorph/mcmm_results"
 # PREFIX0="/N/u/antmeyer/BigRed2/mcmm/multimorph"
 # PREFIX="/N/u/antmeyer/BigRed2/mcmm/multimorph/mcmm_results"
 TIME=`eval date +"%Y-%m-%d_%H-%M"`
+#TIME=`eval date +"%y%m%d_%H-%M"`
 
 while getopts "r:o:K:l:a:d:I:" OPTION
 do

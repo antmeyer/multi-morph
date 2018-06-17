@@ -62,8 +62,10 @@ sys.stderr.write("\n")
 #wrapper_nor.main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams, 
 	#num_clusters, k_interval, tempDir, experimentTitle, useSQ, objFunc, qn, cg, mixingFunc)
 
-cProfile.runctx('wrapper_nor.main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, prec_types, bigrams, num_clusters, k_interval, tempDir, experimentTitle, objFunc, qn, cg, mixingFunc)', globals(), locals())
-
+#cProfile.runctx('wrapper_nor.main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, prec_types, bigrams, num_clusters, k_interval, tempDir, experimentTitle, objFunc, qn, cg, mixingFunc)', globals(), locals())
+wrapper_nor.main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, 
+				prec_types, bigrams, num_clusters, k_interval, tempDir, experimentTitle, 
+				objFunc, qn, cg, mixingFunc)
 #cProfile.runctx('wrapper_sp2.main(inputFileName, outputPrefix, init_M_file, init_C_file, 
 	#affixlen, prec_span, prec_types, bigrams, num_clusters, k_interval, tempDir, experimentTitle, useSQ, 
 	#objFunc, qn, cg, mixingFunc, eta)', globals(), locals())

@@ -195,7 +195,7 @@ else
 	INDIR="$PREFIX""/""$INDIR"
 	INFILE=`echo "$INPUT" | cut -d '/' -f2`
 	#INFILE="$INFILE"".txt"
-	OUTDIR="$PREFIX""/mcmm_results/m-out_${POS_RANGE}_${PREC_RANGE}_K$bigK_$N_${PREC_TYPES}_${TIME}"
+	OUTDIR="$PREFIX""/mcmm_results/m-out_${POS_RANGE}_${PREC_RANGE}_${K_RANGE}_${N}_${PREC_TYPES}_${TIME}"
 
 fi
 mkdir "$OUTDIR"

@@ -56,8 +56,15 @@ cdef class FeatureEncoder:
 		#if vv_cc == "1"
 			#self.vv_cc = True
 		#fobj = open(corpusFile, 'r')
+		if "," in prec_types:
+			self.prec_types = sorted(prec_types.split(","))
+		elif "-" in prec_types:
+			self.prec_types = sorted(prec_types.split("-"))
+		elif ";" in prec_types:
+			self.prec_types = sorted(prec_types.split("-"))
+		else:
+			self.prec_types = sorted(prec_types.split())
 
-		self.prec_types = sorted(prec_types.split(","))
 		#print "PRECEDENCE TYPES:", self.prec_types
 		fobj = codecs.open(corpusFile, 'r', encoding='utf8')
 		self.words = list()
@@ -233,7 +240,7 @@ cdef class FeatureEncoder:
 				#print "ENCODE Stg 1; this prec_type:", prec_type
 				feat_subset = get_prec_subset(prec_type, self.V_set, self.C_set, self.alphabet)
 				self.precFeatures.update(feat_subset)
-				sys.stdout.write("Feature Subset: ")
+				#sys.stdout.write("Feature Subset: ")
 				#for feat in feat_subset:
 				#print ", ".join(feat_subset)
 				#sys.stdout.flush()
@@ -328,9 +335,9 @@ cdef class FeatureEncoder:
 		#sys.stdout.flush()
 		#for n in range(len(self.words)):
 		for n in range(numWords):
-			if n%100 == 0:
-				print "... Encoding word", n, "..."
-				sys.stdout.flush()
+			#if n%100 == 0:
+				#print "... Encoding word", n, "..."
+				#sys.stdout.flush()
 			if self.positional:
 				###################################################### encode positional featuree
 				#limit = self.affixlen

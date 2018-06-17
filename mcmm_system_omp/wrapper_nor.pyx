@@ -80,7 +80,7 @@ def writeDataToFile(data, filename, width, x_by_y=False):
             else:
                 pass
                 #fobj.write("%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-    ##    print "%%%%% OUTPUT PREFIX:(str(data[i][j]) + "  ")
+    ##    #print"%%%%% OUTPUT PREFIX:(str(data[i][j]) + "  ")
         fobj.write("\n")
     fobj.close()
 
@@ -208,7 +208,7 @@ def longestLength(wordList):
         if len(word) > maxLength:
             maxLength = len(word)
     return maxLength
-    ##    print "%%%%% OUTPUT PREFIX:
+    ##    #print"%%%%% OUTPUT PREFIX:
 
 def inverseDiag(squareMatrix, size):
     diagM = zeros((size,size))
@@ -219,7 +219,7 @@ def inverseDiag(squareMatrix, size):
         except ZeroDivisionError:
             diagM = pinv(squareMatrix)
             sys.stdout.write("\n*** PINV of diagM:\n")
-            print diagM
+            #printdiagM
             sys.stdout.write("\n")
             break
         else:
@@ -374,8 +374,8 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
     M_1_ratio = M_1/float(I*K)
     M_0_ratio = M_0/float(I*K)
     M_other_ratio = M_other/float(I*K)
-    #print "wrapper_nor", 15
-    #sys.stdout.flush()
+    ##print"wrapper_nor", 15
+    ##sys.stdout.flush()
     cdef double C_1 = 0.0
     cdef double C_0 = 0.0
     cdef double C_neg1 = 0.0
@@ -401,8 +401,8 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
     avg_C_0 = float(C_0)/float(J*K)
     #avg_C_neg1 = C_neg1/float(J*K)
     avg_C_other = float(C_other)/float(J*K)
-    #print "wrapper_nor", 20
-    #sys.stdout.flush()
+    ###print"wrapper_nor", 20
+    ##sys.stdout.flush()
     cdef double avg_mc = 0.0
     cdef double avg_mc_per_i = 0.0
     for i in range(I):
@@ -421,8 +421,8 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
             avg_r += R[i,j]
         avg_r_per_i += avg_r/float(J)
     avg_r_per_i = avg_r_per_i/float(I)
-    print "wrapper_nor", 30
-    sys.stdout.flush()
+    #print"wrapper_nor", 30
+    #sys.stdout.flush()
     sparsity_stats = "M\tm = 0\t" + "{:.6f}".format(M_0_ratio) + "\n"
     sparsity_stats += "M\tm = 1\t" + "{:.6f}".format(M_1_ratio) + "\n"
     sparsity_stats += "M\tm other\t" + "{:.6f}".format(M_other_ratio) + "\n"
@@ -440,42 +440,37 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
     #cdef double total_min = (t2 - t1)/60.0
     #cdef double total_hrs = total_min/60.0
     words = list()
-    #print "wrapper_nor", 30.5
-    #sys.stdout.flush()
     activationsDecoder = decode.ActivationsDecoder(M, C, R, wordList, thresh)
     #std = "mc-"
     std=""
     outputName = outputPrefix + "." + std
     clusterEntries = activationsDecoder.getClusters(std)
     clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
-    #print "new_wrapper", 16.7, "std =", std
-    print "Number of Cluster Entries =", len(clusterEntries_justWords)
-    sys.stdout.flush()
+    #print"Number of Cluster Entries =", len(clusterEntries_justWords)
+    #sys.stdout.flush()
     #outputName = 
-    print "Output Name =", outputName
-    #print "\nclusterEntries:\n", clusterEntries
-    print "len(clusterEntries) =", len(clusterEntries)
-    sys.stdout.flush()
-    print "OriginalErr =", originalErr
-    sys.stdout.flush()
+    #print"Output Name =", outputName
+    ##print"\nclusterEntries:\n", clusterEntries
+    #print"len(clusterEntries) =", len(clusterEntries)
+    #sys.stdout.flush()
+    #print"OriginalErr =", originalErr
+    #sys.stdout.flush()
     if float(originalErr) > 0.0:
         percentErrReduction = ((originalErr - error)/float(originalErr))*100.0
     else:
         percentErrReduction = 0.0
-    print "PercentErrReduction = ", percentErrReduction
-    sys.stdout.flush()
+    #print"PercentErrReduction = ", percentErrReduction
+    #sys.stdout.flush()
     #Open files for writing the numerical contents of the M and C matrices
     fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
     for string in formatted_M_strings:
        fobj_M.write(string)
     fobj_M.close()
-    #print "new_wrapper", 20
-    #sys.stdout.flush()
     fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
     for string in formatted_C_strings:
        fobj_C.write(string)
     fobj_C.close()
-    sys.stdout.flush()
+    #sys.stdout.flush()
 
     fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
     fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
@@ -494,8 +489,8 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
     fobj_Clusters.write("\nOriginal Error:  %.5f" % originalErr)
     fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
     fobj_Clusters.write("\n\nSparsity Stats:\n" + sparsity_stats + "\n")
-    #print "new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
-    sys.stdout.flush()
+    ##print"new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
+    #sys.stdout.flush()
     cluster_str = ""
     for k in range(len(clusterEntries_justWords)):
         cluster_str = ""
@@ -515,9 +510,9 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
     sys.stderr.write("K = " + str(K) + "\n")
     sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")
     string = ""
-    sys.stdout.flush()
+    #sys.stdout.flush()
     for k in range(len(clusterEntries)):
-        #print "new_wrapper", 31, "; std =", std, "; k =", k
+        ##print"new_wrapper", 31, "; std =", std, "; k =", k
         numParen = 0
         #count words by counting parentheses. Each word has activity value enclosed in parens.
         for char in clusterEntries[k]:
@@ -528,10 +523,10 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
             string += "s"
         sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")
         sys.stderr.write("\t" + clusterEntries[k][:50] + "\n")
-    #print "new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
-    sys.stdout.flush()
+    ##print"new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
+    #sys.stdout.flush()
     for k in range(K):
-        #print "new_wrapper", 36, "; std =", std, "; k =", k 
+        ##print"new_wrapper", 36, "; std =", std, "; k =", k 
         fobj_Clusters.write("## " + str(k) + "\n")
         fobj_Clusters.write(clusterEntries[k])
         fobj_Clusters.write("%%\n\n")
@@ -555,8 +550,8 @@ def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_type
 def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, prec_types, bigrams,
                          max_K, k_interval, tempDir, experimentTitle, objFunc,
                          qn, cg, mixingFunc):
-    # print "TEMPDIR:", tempDir
-    # print ""
+    # #print"TEMPDIR:", tempDir
+    # #print""
     cdef int i,j,k,I,J,K,init_K
     cdef double thresh = 0.5
     affixlen = int(affixlen)
@@ -566,37 +561,37 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     cdef int maxLength = longestLength(wordList)
     alphabet = np.array(sorted(list(alphabet)), dtype='S1')
     #cdef object standards = ["m--", "m-r", "mc-", "mcr"]
-    print "wrapper_nor", 2
-    sys.stdout.flush()
+    ##print"wrapper_nor", 2
+    #sys.stdout.flush()
     max_K = int(max_K)
     k_interval = int(k_interval)
     #precFeatureTypes = prec_types.split(",")
     my_encoder = encode_nor.FeatureEncoder(inputFile + ".txt", <int>affixlen, prec_span, prec_types, <bint>bigrams)
-    print "wrapper_nor", "2.1"
-    sys.stdout.flush()
+    ##print"wrapper_nor", "2.1"
+    ##sys.stdout.flush()
     my_encoder.encodeWords()
-    print "wrapper_nor 2.1"
-    sys.stdout.flush()
+    ##print"wrapper_nor 2.1"
+    ##sys.stdout.flush()
     dataMatrix = my_encoder.getVectors()
     
-    print "wrapper_nor 2.2"
-    print "\nDATAMATRIX SUM 1 =", np.sum(dataMatrix), "\n"
-    sys.stdout.flush()
+    ##print"wrapper_nor 2.2"
+    #print"\nDATAMATRIX SUM 1 =", np.sum(dataMatrix), "\n"
+    ##sys.stdout.flush()
     #my_encoder.writeVectorsToFile(inputFile + "_in.txt")
     featureList = my_encoder.getFeatures()
     #t1 = time.clock()
     #alphabet, data = alphabetAndData(inputFile + "_in.txt")
     #sys.stderr.write("**************** DATA:\n")
     #sys.stderr.write(str(data) + "\n")
-    #print "********* DATA:"
-    #print data
+    ##print"********* DATA:"
+    ##printdata
     #dataMatrix = np.array(data, dtype=np.float64)
-    print "wrapper_nor", "2.3"
-    sys.stdout.flush()
+    ##print"wrapper_nor", "2.3"
+    ##sys.stdout.flush()
     homogenousColumns = []
     homogenousColumns = getHomogeneousColumns(dataMatrix)
     homogenousColumns.sort(reverse=True)
-    #print "homogenousColumns =", homogenousColumns
+    ##print"homogenousColumns =", homogenousColumns
     featuresSharedByAll = []
     #features_uni = u""
     cdef object colsToDelete = []
@@ -606,32 +601,32 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         featuresSharedByAll.append(features_str)
     featureFreqs = {}
     featureFreqs = getFeatureFreqs(dataMatrix, featureList)
-    #print "dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
-    #print "num featuresSharedByAll =", len(featuresSharedByAll)
-    #print u"deletedFeatures_str:", ", ".join(featuresSharedByAll)
+    ##print"dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
+    ##print"num featuresSharedByAll =", len(featuresSharedByAll)
+    ##printu"deletedFeatures_str:", ", ".join(featuresSharedByAll)
+    ##sys.stdout.flush()
+    ##print"wrapper_nor", 3
     #sys.stdout.flush()
-    #print "wrapper_nor", 3
-    sys.stdout.flush()
     # for col,val in homogenousColumns:
     #     colsToDelete.append(col)
-    #     print "  col =", col
-    print "\nDATAMATRIX SUM 2 =", np.sum(dataMatrix), "\n"
-    print "Before deleting homogenous columns:"
-    print "dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
-    #     print "  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
+    #     #print"  col =", col
+    #print"\nDATAMATRIX SUM 2 =", np.sum(dataMatrix), "\n"
+    #print"Before deleting homogenous columns:"
+    #print"dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
+    #     #print"  dataMatrix dims =", dataMatrix.shape[0], dataMatrix.shape[1]
     dataMatrix = np.delete(dataMatrix,colsToDelete,1)
     dataMatrix = np.ascontiguousarray(dataMatrix, dtype=np.float64)
     cdef double[:,::1] dm_view = np.asarray(dataMatrix,dtype='double',order='C')
-    print dm_view
+    #printdm_view
     deletedFeatures_str = ", ".join(featuresSharedByAll)
-    print "Afterwards:"
-    print "dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
+    #print"Afterwards:"
+    #print"dataMatrix Size: ", dataMatrix.shape[0], "x", dataMatrix.shape[1]
     #deletedFeatures_uni = deletedFeatures_str 
-    sys.stdout.flush()
+    #sys.stdout.flush()
     fobj_unused = codecs.open(outputPrefix + ".featfreqs", 'w', encoding='utf8')
     unused = []
-    print "wrapper_nor", 3.5
-    sys.stdout.flush()
+    #print"wrapper_nor", 3.5
+    #sys.stdout.flush()
     for index in colsToDelete:
         feature = featureList.pop(index)
         unused.append(feature)
@@ -661,17 +656,17 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
             init_C_matrix[j,0] = random.uniform(0.0, 1.0)
             #init_C_matrix[j,0] = random.uniform(-0.999, 0.999)
             #init_C_matrix[j,0] = 0.0
-    print "Initial Dimensions:"
-    print "M:", init_M_matrix.shape[0], "x", init_M_matrix.shape[1]
-    print "C:", init_C_matrix.shape[0], "x", init_C_matrix.shape[1]
+    #print"Initial Dimensions:"
+    #print"M:", init_M_matrix.shape[0], "x", init_M_matrix.shape[1]
+    #print"C:", init_C_matrix.shape[0], "x", init_C_matrix.shape[1]
     
     objFunc_int = 0
     if objFunc == "log":
         objFunc_int = 1
     elif objFunc == "sse":
         objFunc_int = 0
-    print "wrapper_nor", 4
-    sys.stdout.flush()
+    ##print"wrapper_nor", 4
+    #sys.stdout.flush()
     # if mixingFunc == "wwb":	
     #     my_mcmm = mcmm_wwb.MCMM(alphabet, wordList, dataMatrix, init_M_matrix, init_C_matrix,
     #                             affixlen, init_K, max_K, k_interval, I, J, outputPrefix, tempDir,
@@ -690,14 +685,14 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
         #         INT evalInterval, INT I, INT J, INT K, object outputPrefix, object tempDir,
         #         INT objFunc, bint qn, bint cg, FLOAT thresh, object experimentTitle)
     my_mcmm.run_MCMM()
-    #print "new_wrapper", 5
+    ##print"new_wrapper", 5
     K = my_mcmm.get_K()
     if K%k_interval != 0:
         M = np.asarray(my_mcmm.get_M())
-        # #print "new_wrapper", 6
+        # ##print"new_wrapper", 6
         C = np.asarray(my_mcmm.get_C())
-        # #print "new_wrapper", 7
-        # #sys.stdout.flush()
+        # ##print"new_wrapper", 7
+        # ##sys.stdout.flush()
         R = np.asarray(my_mcmm.get_R())
         error = my_mcmm.getError()
         originalErr = my_mcmm.getOriginalError()
@@ -717,22 +712,22 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     # def writeOutputFiles(M, C, R, error, originalErr, affixlen, prec_span, prec_types, alphabet, wordList, 
     #                 featureList, thresh, I, J, K, outputPrefix, experimentTitle, deletedFeatures_str):
 
-    #print "new_wrapper", 8
-    #sys.stdout.flush()
+    ##print"new_wrapper", 8
+    ##sys.stdout.flush()
     # clusterEntries = list()
     # splitSequence = list()
-    # #sys.stdout.flush()
+    # ##sys.stdout.flush()
     # formatted_M_strings = format_M(M, wordList)
-    # #print "new_wrapper", 10
-    # #sys.stdout.flush()
+    # ##print"new_wrapper", 10
+    # ##sys.stdout.flush()
     # formatted_C_strings = format_C(C, featureList)
-    # #print "new_wrapper", 11
-    # #sys.stdout.flush()
+    # ##print"new_wrapper", 11
+    # ##sys.stdout.flush()
     # K = my_mcmm.get_K()
     # I = my_mcmm.get_I()
     # J = my_mcmm.get_J()
-    # #print "new_wrapper", 14
-    # #sys.stdout.flush()
+    # ##print"new_wrapper", 14
+    # ##sys.stdout.flush()
     # error = my_mcmm.getError()
 
     # ######################################
@@ -761,8 +756,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     # M_1_ratio = M_1/float(I*K)
     # M_0_ratio = M_0/float(I*K)
     # M_other_ratio = M_other/float(I*K)
-    # #print "wrapper_nor", 15
-    # #sys.stdout.flush()
+    # ##print"wrapper_nor", 15
+    # ##sys.stdout.flush()
     # cdef double C_1 = 0.0
     # cdef double C_0 = 0.0
     # cdef double C_neg1 = 0.0
@@ -788,8 +783,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     # avg_C_0 = float(C_0)/float(J*K)
     # #avg_C_neg1 = C_neg1/float(J*K)
     # avg_C_other = float(C_other)/float(J*K)
-    # #print "wrapper_nor", 20
-    # #sys.stdout.flush()
+    # ###print"wrapper_nor", 20
+    # ##sys.stdout.flush()
     # cdef double avg_mc = 0.0
     # cdef double avg_mc_per_i = 0.0
     # for i in range(I):
@@ -808,8 +803,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #         avg_r += R[i,j]
     #     avg_r_per_i += avg_r/float(J)
     # avg_r_per_i = avg_r_per_i/float(I)
-    # print "wrapper_nor", 30
-    # sys.stdout.flush()
+    # #print"wrapper_nor", 30
+    # #sys.stdout.flush()
     # sparsity_stats = "M\tm = 0\t" + "{:.6f}".format(M_0_ratio) + "\n"
     # sparsity_stats += "M\tm = 1\t" + "{:.6f}".format(M_1_ratio) + "\n"
     # sparsity_stats += "M\tm other\t" + "{:.6f}".format(M_other_ratio) + "\n"
@@ -827,8 +822,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     # #cdef double total_min = (t2 - t1)/60.0
     # #cdef double total_hrs = total_min/60.0
     # words = list()
-    # #print "wrapper_nor", 30.5
-    # #sys.stdout.flush()
+    # ##print"wrapper_nor", 30.5
+    # ##sys.stdout.flush()
     # activationsDecoder = decode.ActivationsDecoder(M, C, R, wordList, thresh)
 
     # cdef object standards = ["mc-"]
@@ -836,35 +831,35 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #     outputName = ""
     #     clusterEntries = activationsDecoder.getClusters(std)
     #     clusterEntries_justWords = activationsDecoder.getClusters_justWords(std)
-    #     #print "new_wrapper", 16.7, "std =", std
-    #     print "Number of Cluster Entries =", len(clusterEntries_justWords)
-    #     sys.stdout.flush()
+    #     ##print"new_wrapper", 16.7, "std =", std
+    #     #print"Number of Cluster Entries =", len(clusterEntries_justWords)
+    #     #sys.stdout.flush()
     #     outputName = outputPrefix + "." + std
-    #     print "Output Name =", outputName
-    #     #print "\nclusterEntries:\n", clusterEntries
-    #     print "len(clusterEntries) =", len(clusterEntries)
-    #     sys.stdout.flush()
+    #     #print"Output Name =", outputName
+    #     ##print"\nclusterEntries:\n", clusterEntries
+    #     #print"len(clusterEntries) =", len(clusterEntries)
+    #     #sys.stdout.flush()
     #     originalErr = my_mcmm.getOriginalErr()
-    #     print "OriginalErr =", originalErr
-    #     sys.stdout.flush()
+    #     #print"OriginalErr =", originalErr
+    #     #sys.stdout.flush()
     #     if float(originalErr) > 0.0:
     #         percentErrReduction = ((originalErr - error)/float(originalErr))*100.0
     #     else:
     #         percentErrReduction = 0.0
-    #     print "PercentErrReduction = ", percentErrReduction
-    #     sys.stdout.flush()
+    #     #print"PercentErrReduction = ", percentErrReduction
+    #     #sys.stdout.flush()
     #     #Open files for writing the numerical contents of the M and C matrices
     #     fobj_M = codecs.open(outputName + ".M_vals", 'w', encoding='utf-8')
     #     for string in formatted_M_strings:
     #        fobj_M.write(string)
     #     fobj_M.close()
-    #     #print "new_wrapper", 20
-    #     #sys.stdout.flush()
+    #     ##print"new_wrapper", 20
+    #     ##sys.stdout.flush()
     #     fobj_C = codecs.open(outputName + ".C_vals", 'w', encoding='utf-8')
     #     for string in formatted_C_strings:
     #        fobj_C.write(string)
     #     fobj_C.close()
-    #     sys.stdout.flush()
+    #     #sys.stdout.flush()
 
     #     fobj_Clusters = codecs.open(outputName + ".clusters", 'w', encoding='utf8')
     #     fobj_Clusters_justWords = codecs.open(outputName + ".clusters_justWords", 'w', encoding='utf8')
@@ -883,8 +878,8 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #     fobj_Clusters.write("\nOriginal Error:  %.5f" % originalErr)
     #     fobj_Clusters.write("\nFinal Error:  " + "%.5f" % error + "\nFinal Cluster Count:  " + str(K))
     #     fobj_Clusters.write("\n\nSparsity Stats:\n" + sparsity_stats + "\n")
-    #     #print "new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
-    #     sys.stdout.flush()
+    #     ##print"new_wrapper", 28, "; len(clusterEntries_justWords) =", len(clusterEntries_justWords)
+    #     #sys.stdout.flush()
     #     cluster_str = ""
     #     for k in range(len(clusterEntries_justWords)):
     #         cluster_str = ""
@@ -904,9 +899,9 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #     sys.stderr.write("K = " + str(K) + "\n")
     #     sys.stderr.write("There are " + str(len(clusterEntries)) + " cluster entries.\n")
     #     string = ""
-    #     sys.stdout.flush()
+    #     #sys.stdout.flush()
     #     for k in range(len(clusterEntries)):
-    #         #print "new_wrapper", 31, "; std =", std, "; k =", k
+    #         ##print"new_wrapper", 31, "; std =", std, "; k =", k
     #         numParen = 0
     #         #count words by counting parentheses. Each word has activity value enclosed in parens.
     #         for char in clusterEntries[k]:
@@ -917,10 +912,10 @@ def main(inputFile, outputPrefix, init_M_file, init_C_file, affixlen, prec_span,
     #             string += "s"
     #         sys.stderr.write("   Cluster " + str(k) + " has " + string + ".\n")
     #         sys.stderr.write("\t" + clusterEntries[k][:50] + "\n")
-    #     #print "new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
-    #     sys.stdout.flush()
+    #     ##print"new_wrapper", 32, "; len(clusterEntries) =", len(clusterEntries)
+    #     #sys.stdout.flush()
     #     for k in range(K):
-    #         #print "new_wrapper", 36, "; std =", std, "; k =", k 
+    #         ##print"new_wrapper", 36, "; std =", std, "; k =", k 
     #         fobj_Clusters.write("## " + str(k) + "\n")
     #         fobj_Clusters.write(clusterEntries[k])
     #         fobj_Clusters.write("%%\n\n")
@@ -962,7 +957,7 @@ if __name__ == "__main__":
     cg = sys.argv[15]
     mixingFunc = sys.argv[16]
 
-    print "^^^Now in wrapper. Prec_types =", prec_types
+    #print"^^^Now in wrapper. Prec_types =", prec_types
     #eta_raw = sys.argv[16]
     # main(inputFileName, outputPrefix, init_M_file, init_C_file, affixlen, prec_span, bigrams,
     #     num_clusters, k_interval, feature_type, tempDir, experimentTitle,

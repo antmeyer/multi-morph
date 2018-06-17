@@ -91,7 +91,7 @@ cdef class MCMM:
         self.Cv = init_C
         self.thresh = thresh
         self.original_E = 0.0
-        print "mcmm self.Cv is", self.Cv.shape[0], "by", self.Cv.shape[1]
+        #print "mcmm self.Cv is", self.Cv.shape[0], "by", self.Cv.shape[1]
         self.outputPrefix = outputPrefix
         self.tempDir = tempDir
         self.objFunc = objFunc
@@ -178,7 +178,7 @@ cdef class MCMM:
         amount = max(1,self.K)
         #print "fctsplit", 3
         #sys.stdout.flush()
-        print "\nRanking existing clusters...\n"
+        #print "\nRanking existing clusters...\n"
         # sys.stdout.flush()
         # cdef FLOAT lowestError = 0.0
         # cdef FLOAT error = 0.0
@@ -425,7 +425,7 @@ cdef class MCMM:
                 self.original_E = self.E
             else:
                 self.split_cluster()
-                print "\n***** K =", self.K, "*****\n"
+                #print "\n***** K =", self.K, "*****\n"
                 #############
                 #print "mcmm H"
                 #sys.stdout.flush()
@@ -447,7 +447,7 @@ cdef class MCMM:
             #print "mcmm", "H4"
             #sys.stdout.flush()
             flag = 1          
-            print "\nself.E =", self.E, "  K =", self.K, "\n"
+            #print "\nself.E =", self.E, "  K =", self.K, "\n"
             sys.stdout.flush()
             # The following inner loop iteratively optimizes the M and C matrices while holding K fixed.
             # It stops when the M and C matrices cannot be optimized further.
@@ -458,11 +458,11 @@ cdef class MCMM:
             #                         self.eta)
             self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
-            print "\n@@@@@@ mcmm_cy", "self.I =", self.I
+            #print "\n@@@@@@ mcmm_cy", "self.I =", self.I
             sys.stdout.flush()
             while 1 == 1:
-                print "\nIteration:", self.numIters
-                print "################################################"
+                #print "\nIteration:", self.numIters
+                #print "################################################"
                 prev_E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr,
                                         self.I, self.J, self.K, self.normConstant)
                 # self.E = optimize_nor.optimize_M_nor(X_ptr, R_ptr, M_ptr, C_ptr,
@@ -473,6 +473,7 @@ cdef class MCMM:
                 #         &self.M_distance, &self.num_M_steps, lower, upper)
                 mcmm_functions.cg_M(M_ptr, C_ptr, X_ptr, R_ptr, 
                         self.I, self.J, self.K, self.normConstant_M, lower, upper)
+                #print "@@@@@@ end cg_M"
                 # E_after_M = self.E
                 # print "\nmcmm E from M", "=", E_after_M
                 #sys.stdout.flush()
@@ -481,7 +482,7 @@ cdef class MCMM:
                 #print "M; E diff =", prev_E - self.E
                 #sys.stdout.flush()
                 E_after_R = self.E
-                print "\nE after R", "=", self.E
+                #print "\nE after R", "=", self.E
                 sys.stdout.flush()
                 # self.E = optimize_nor.optimize_C_nor(X_ptr, R_ptr, C_ptr, M_ptr,
                 #     self.I, self.J, self.K, self.normConstant,
@@ -491,28 +492,28 @@ cdef class MCMM:
                 self.E = mcmm_functions.cg_C(C_ptr, M_ptr, X_ptr, R_ptr, 
                         self.I, self.J, self.K, self.normConstant,
                         lower, upper)
+                #print "@@@@@@ end cg_C"
                 # for j in range(self.J):
                 #     for k in range(self.K):
                 #         vec_C[J*K + k] = C_ptr[j][k]
                 E_after_C = self.E
                 #print "\n@@@@@@ mcmm_cy", "self.I =", self.I
                 #sys.stdout.flush()
-                print "\n@@@@@@ end optimize_C"
-                print "\nE from C", "=", E_after_C
+                #print "E from C", "=", E_after_C
                 sys.stdout.flush()
                 self.E = mcmm_functions.R_and_E_2(R_ptr, M_ptr, C_ptr, X_ptr, 
                                     self.I, self.J, self.K, self.normConstant)
                 E_after_R = self.E
-                print "E after R =", self.E
+                #print "E after R =", self.E
                 sys.stdout.flush()
-                sys.stdout.write("\n\n##################################################\n")
-                sys.stdout.write("Err_new = " + "%.7f" % self.E  + "\n")
-                sys.stdout.write("Err_prev = " + "%.7f" % prev_E + "\n")
+                sys.stdout.write("\n##################################################\n")
+                sys.stdout.write("Err_new = " + "%.7f" % self.E  + "; Err_prev = " + "%.7f" % prev_E + "\n")
+                #sys.stdout.write("Err_prev = " + "%.7f" % prev_E + "\n")
                 sys.stdout.write("Err_start = " + "%.7f" % Err_start + "\n")
                 sys.stdout.write("\nErr_prev - Err_new = " + "%.7f" % (prev_E - self.E) + "\n")
                 sys.stdout.write("Err_start - Err_new = " + "%.7f" % (Err_start - self.E) + "\n")
-                sys.stdout.write("\nK = " + str(self.K) + "; J = " + str(self.J) + "\n")
-                sys.stdout.write("Iteration: " + str(self.numIters) + "\n")
+                sys.stdout.write("\nJ = " + str(self.J) + "; K = " + str(self.K) + "; Iter: " + str(self.numIters) + "\n")
+                #sys.stdout.write("Iter: " + str(self.numIters) + "\n")
                 sys.stdout.write("##################################################\n\n")
                 ######################################
                 # Break if there is no significant change in the error
@@ -582,8 +583,8 @@ cdef class MCMM:
         return self.Mv
     
     cpdef FLOAT[:,::1] get_C(self):
-        print "mcmm_nor: self.Cv dim 1:", self.Cv.shape[0]
-        print "mcmm_nor: self.Cv dim 2:", self.Cv.shape[1]
+        #print "mcmm_nor: self.Cv dim 1:", self.Cv.shape[0]
+        #print "mcmm_nor: self.Cv dim 2:", self.Cv.shape[1]
         return self.Cv
 
     cpdef FLOAT[:,::1] get_R(self):
