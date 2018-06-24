@@ -505,25 +505,30 @@ cdef class MCMM:
                                     self.I, self.J, self.K, self.normConstant)
                 E_after_R = self.E
                 #print "E after R =", self.E
-                sys.stdout.flush()
-                sys.stdout.write("\n##################################################\n")
-                sys.stdout.write("Err_new = " + "%.7f" % self.E  + "; Err_prev = " + "%.7f" % prev_E + "\n")
-                #sys.stdout.write("Err_prev = " + "%.7f" % prev_E + "\n")
-                sys.stdout.write("Err_start = " + "%.7f" % Err_start + "\n")
-                sys.stdout.write("\nErr_prev - Err_new = " + "%.7f" % (prev_E - self.E) + "\n")
-                sys.stdout.write("Err_start - Err_new = " + "%.7f" % (Err_start - self.E) + "\n")
-                sys.stdout.write("\nJ = " + str(self.J) + "; K = " + str(self.K) + "; Iter: " + str(self.numIters) + "\n")
-                #sys.stdout.write("Iter: " + str(self.numIters) + "\n")
-                sys.stdout.write("##################################################\n\n")
+                # sys.stdout.flush()
+                # sys.stdout.write("\n##################################################\n")
+                # sys.stdout.write("Err_new = " + "%.7f" % self.E  + "; Err_prev = " + "%.7f" % prev_E + "\n")
+                # #sys.stdout.write("Err_prev = " + "%.7f" % prev_E + "\n")
+                # sys.stdout.write("Err_start = " + "%.7f" % Err_start + "\n")
+                # sys.stdout.write("\nErr_prev - Err_new = " + "%.7f" % (prev_E - self.E) + "\n")
+                # sys.stdout.write("Err_start - Err_new = " + "%.7f" % (Err_start - self.E) + "\n")
+                # sys.stdout.write("\nJ = " + str(self.J) + "; K = " + str(self.K) + "; Iter: " + str(self.numIters) + "\n")
+                # #sys.stdout.write("Iter: " + str(self.numIters) + "\n")
+                # sys.stdout.write("##################################################\n\n")
                 ######################################
                 # Break if there is no significant change in the error
                 diff = prev_E - self.E
                 breakTest = prev_E - self.E
                 end_condition = self.E
-                #sys.stdout.write("\n\n####################################################\n")
-                sys.stdout.write("prev_E = %.7f" % prev_E + "; self.E = %.7f" % self.E + "; prev_E - self.E = %.7f" % diff + "\n\n")
-                sys.stdout.write("prev_E - self.E = %.7f" % breakTest + "\n\n")
-                print "To terminate: ", "{:.5f}".format(end_condition), " <= ", end_thresh
+                sys.stdout.write("####################################################\n")
+                sys.stdout.write("J = " + str(self.J) + "; K = " + str(self.K) + "; Iter: " + str(self.numIters) + "\n")
+                sys.stdout.write("start_E = " + "%.7f" % Err_start + "; ")
+                sys.stdout.write("prev_E = %.7f" % prev_E + "; cur_E = %.7f" % self.E + "\n")
+                sys.stdout.write("start_E - cur_E = " + "%.7f" % (Err_start - self.E) + "; ") 
+                sys.stdout.write("prev_E - cur_E = " + "%.7f" % diff + "\n")
+                #"Err_start - Err_new = " + "%.7f" % (Err_start - self.E) + "\n")
+                #sys.stdout.write("prev_E - self.E = %.7f" % breakTest + "\n\n")
+                #print "To terminate: ", "{:.5f}".format(end_condition), " <= ", end_thresh
                 #sys.stdout.write("####################################################\n\n")
                 if isNaN(self.E):
                     break
@@ -533,6 +538,8 @@ cdef class MCMM:
                 if (breakTest < breakErr and flag == 0) or self.numIters >= 35:
                 #if (breakTest < 0.000001 and flag == 0):
                     if self.K % self.evalInterval == 0 or end_condition < end_thresh:
+                        sys.stdout.write("####################################################\n") 
+                        print "To terminate: ", "{:.5f}".format(end_condition), " <= ", end_thresh  
                     #     print "mcmm_nor; activations decoder"
                     #     sys.stdout.flush()
                     #     # What is 'clusterEntries'? It is a list of all clusters (and their members) that presently exist.

@@ -40,7 +40,6 @@ cdef class FeatureEncoder:
 		self.prec_span = 0
 		self.positional = False
 		self.precedence = False
-		#self.vv_cc = False
 		#self.bigrams = False
 		if affixlen != "0":
 			self.positional = True
@@ -304,7 +303,7 @@ cdef class FeatureEncoder:
 		# if x in self.V_set:
 		# 	return False
 		# return True
-		cdef int i
+		#cdef int i
 		#cdef int I = self.numV
 		# if self.re_V.search(x):
 		# 	print x "is not a cons"
