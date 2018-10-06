@@ -27,12 +27,12 @@ re_hitpaelinf = re.compile(pat, re.UNICODE)
 pat=ur"(pre:sh&pos:v&.+&ptn:)(Ce?C[aoe]C&(?:pre:sh)?&ptn:qal)"
 re_qalsh = re.compile(pat, re.UNICODE)
 #pat = ur"(&?)(root:[^&]+&ptn:CoCaC&)(root:[^&]+&.+&ptn:nifal&)"
-pat = ur"(root:.+ptn:CoCaC)(&.*root:.+ptn:nifal)"
+pat = ur"(&root:.*&ptn:CoCaC)(.*)(&.*root:.*&ptn:nifal)"
 re_CoCaC = re.compile(pat, re.UNICODE)
-pat = ur"(ptn:Ce?C[aoe]C&root:[^&]+&)(ptn:qal&root:[^&]+&)"
+#pat = ur"(ptn:Ce?C[aoe]C&root:[^&]+&)(ptn:qal&root:[^&]+&)"
 
-pat = ur"(&root:[^&]+&ptn:[^&]+)([]*)(&root:[^&]+&ptn:(?:(?:qal)|(?:piel)|(?:hitpael)|(?:nifal)|(?:hufal)|(?:hifil)|(?:pual)))"
-re_slice = re.compile(pat, re.UNICODE)
+# pat = ur"(&root:[^&]+&ptn:[^&]+)([]*)(&root:[^&]+&ptn:(?:(?:qal)|(?:piel)|(?:hitpael)|(?:nifal)|(?:hufal)|(?:hifil)|(?:pual)))"
+# re_slice = re.compile(pat, re.UNICODE)
 
 for line in lines:
 	line
@@ -52,13 +52,17 @@ for line in lines:
 		sys.stdout.write(line)
 		line = re_nifalinf.sub(ur"\1nifal\3", line)
 		sys.stdout.write("**nifalinf   " + line)
+	if re_hitpaelinf.search(line):
+		sys.stdout.write(line)
+		line = re_hitpaelinf.sub(ur"\1nifal\3", line)
+		sys.stdout.write("**hitpaelinf   " + line)
 	if re_qalsh.search(line):
 		sys.stdout.write(line)
 		line = re_qalsh.sub(ur"\1qal", line)
 		sys.stdout.write("**qalsh " + line)
 	if re_CoCaC.search(line):
 		sys.stdout.write(line)
-		line = re_CoCaC.sub(ur"\2", line)
+		line = re_CoCaC.sub(ur"\2\3", line)
 		sys.stdout.write("**oCa   " + line)
 
 
