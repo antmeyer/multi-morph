@@ -9,6 +9,9 @@ import numpy as np
 analysesFile = sys.argv[1]
 inputFile = sys.argv[2]
 
+bermanAnalysesFile = sys.argv[1]
+clustersFile = sys.argv[2]
+
 def entropy(freqs, total_item_count):
 	#cdef double H, a, b, N
 	if total_item_count == 0:
@@ -181,7 +184,16 @@ allClasses = list()
 for k in range(len(clusters)):
 	str_k = "{0:04d}".format(k)
 	cluster_IDs.append(str_k)
-	my_parser = AnalysisParser(clusters[k], str_k, inputFile)
+	bl_analyzer = BL_analyzer(bermanAnalysesFile)
+	bl_analyzer.analyze_words(clusters[str_k], str_k)
+	# Create an instance of AnalysisParser called 'my_parser';
+	# the input arguments of its constructor in include a cluster (i.e.,
+	# a list of words, a k value (i.e., a sort of cluster ID), and an
+	# 'inputFile' containing analyses of words.
+	#my_parser = AnalysisParser(clusters[k], str_k, inputFile)
+	# The inputFile argument is actually a file of root annotations, which
+	# we no longer need.
+	my_parser = AnalysisParser(clusters[k], str_k)
 	wordsAndClassFreqs.update(my_parser.getWordsAndClasses())
 	clustersAndClasses.update(my_parser.getClustersAndClasses())
 	clusterFreqs[str_k] = my_parser.getClusterCardinality()

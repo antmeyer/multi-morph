@@ -5,7 +5,7 @@ ah	pos:n&gen:sg&num:sg&stat:unsp
 ak	pos:conj
 ak	pre:ke&pos:prep:pro&2&gen:fm&num:sg
 am	pos:n&gen:fm&num:sg&stat:unsp pos:voc
-ap	pos:n&root:ʔyp&ptn:CaC&gen:ms&num:sg&stat:unsp
+ap	pos:n&gen:ms&num:sg&stat:unsp
 aakil	pos:v&root:ʔkl&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 aaswp	pos:v&root:ʔsp&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 abn	pos:n&root:ʔbn&ptn:CeCeC&gen:fm&num:sg&stat:unsp
@@ -61,7 +61,7 @@ adwmwt	pos:adj&root:ʔdm&ptn:CaCoC&gen:fm&num:pl
 adxwp	pos:v&root:dxp&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ady	pos:v&root:ydʕ&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ae	pos:n&gen:fm&num:sg&mass:yes&stat:unsp
-ae	pos:n&root:ʔyš&ptn:CiC&gen:ms&num:sg&stat:unsp
+ae	pos:n&gen:ms&num:sg&stat:unsp
 aen	pos:v&root:yšn&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 aeab	pos:v&root:šʔb&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:sg
 aeair	pos:v&root:šʔr&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
@@ -120,9 +120,9 @@ ahih	pos:cop&root:hyy&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ahil	pos:n&gen:ms&num:sg&stat:unsp
 ahln	pos:co
 ahwbti	pos:n&gen:fm&num:sg&poss:1SG
-ai	pos:v&root:ʔpr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
-ai	root:ʔyt&ptn:CiC&que:ma root:ʔyt&ptn:CiC&pos:prep:pro&3&gen:fm&num:sg
-ai	root:ʔtm&ptn:CiCaC&pos:prep:pro&3&gen:ms&num:pl
+ai	pos:v&root:ʔpr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
+ai	&que:ma &pos:prep:pro&3&gen:fm&num:sg
+ai	&pos:prep:pro&3&gen:ms&num:pl
 ai	pos:co
 aik	pre:ke&que:ʔeyḳ
 aim	root:ʔym&ptn:CiC&
@@ -134,7 +134,7 @@ aiks	pos:co&
 aiksh	pos:co&
 ail	pos:n&root:ʔyl&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 ailim	pos:n&root:ʔyl&ptn:CaCaC&gen:ms&num:pl&pl:masc:bio&stat:free
-ailt	pos:n&root:ʔyl&ptn:CaCeC&gen:fm&num:sg&stat:cstr
+ailt	pos:n&root:ʔyl&ptn:CaCaC&gen:fm&num:sg&stat:cstr
 ailw	pos:que&num:pl
 ailw	&pos:prep
 aima	pos:v&root:yrd&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
@@ -362,7 +362,7 @@ aswr	root:ʔsr&ptn:CaCuC&pos:adv
 asxwb	pos:v&root:sxb&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 asy	pos:v&root:nsʕ&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 at	pos:n&gen:fm&num:sg&stat:free
-abdt	pos:v&root:ʔbd&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+abdt	pos:v&root:ʔbd&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 ataim	pos:v&root:tʔm&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 atblbl	pos:v&tense:fut&pers:1&gen:unsp&num:sg
 atgle	pos:v&root:glš&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:sg
@@ -389,8 +389,8 @@ atywrr	pos:v&root:ʕwr&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:sg
 avpl	pos:v&root:ṭpl&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 avrwp	pos:v&root:ṭrp&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 avws	pos:v&root:ṭws&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
-aw	root:ʔyt&ptn:CiCan&pos:prep:pro&1&gen:unsp&num:pl
-aw	pos:n&root:xnṭ&ptn:tbd&gen:fm&num:sg&stat:free
+aw	&pos:prep:pro&1&gen:unsp&num:pl
+aw	pos:n&gen:fm&num:sg&stat:free
 aw	pos:co
 awp	pos:co
 awcia	pos:v&root:ycʔ&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
@@ -464,7 +464,7 @@ awzn	pos:n&root:ʔzn&ptn:CóCeeC&gen:fm&num:sg&stat:unsp
 awznik	pos:n&root:ʔzn&ptn:CeCeC&gen:fm&num:pl&poss:2mascSG
 awzniih	pos:n&root:ʔzn&ptn:CoCC&gen:fm&num:sg&stat:free
 awzniim	pos:n&root:ʔzn&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
-ax	pos:n&root:ʔyx&ptn:CaC&gen:ms&num:sg&stat:unsp
+ax	pos:n&gen:ms&num:sg&stat:unsp
 axbq	pos:v&root:xbq&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 axbq	pos:v&root:xbq&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 axch	pos:v&root:xcy&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
@@ -524,7 +524,7 @@ azrwq	pos:v&root:zrq&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 azwz	pos:v&root:zwz&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 bk	pre:ke&pos:prep:pro&2&gen:fm&num:sg
 bn	pre:be&pos:n&gen:ms&num:sg&stat:cstr
-ba	pos:n&root:byʔ&ptn:CaC&gen:fm&num:sg&stat:unsp pos:part&root:bwʔ&ptn:qal&gen:ms&num:sg pos:v&root:bwʔ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
+ba	pos:n&gen:fm&num:sg&stat:unsp pos:part&root:bwʔ&ptn:qal&gen:ms&num:sg pos:v&root:bwʔ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 ba	pos:v&root:bwʔ&ptn:qal&tense:past&pers:3&gen:fm&num:sg pos:part&root:bwʔ&ptn:qal&gen:fm&num:sg
 bap	pre:be~pre:ha&pos:n&root:ʔyp&ptn:CaC&gen:ms&num:sg&stat:unsp
 baba	pre:be~pre:ha&pos:n&root:ʔbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
@@ -718,7 +718,7 @@ bcwwt	pre:be~pre:ha&pos:n&root:cwt&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 bcxwq	pre:be&pos:n&root:cxq&ptn:CCoC&gen:ms&num:sg&stat:unsp
 bcycwyim	pre:be~pre:ha&pos:n&gen:ms&num:pl&stat:free
 bcycwyim	pre:be&pos:n&gen:ms&num:pl&stat:free
-bd	pos:n&root:byd&ptn:CaC&gen:ms&num:sg&stat:unsp
+bd	pos:n&gen:ms&num:sg&stat:unsp
 bdp	pre:be~pre:ha&pos:n&root:dyp&ptn:CaC&gen:ms&num:sg&stat:unsp
 bdp	pre:be&pos:n&root:dyp&ptn:CaC&gen:ms&num:sg&stat:unsp
 bdbe	pre:be&pos:n&root:dbš&ptn:CCaC&gen:ms&num:sg&mass:yes&stat:unsp
@@ -1017,7 +1017,7 @@ blcnwx	pre:le&pos:v&root:cnx&ptn:qal&form:inf
 blcrwx	pre:le&pos:v&root:crx&ptn:qal&form:inf
 blcywq	pre:le&pos:v&root:cʕq&ptn:CCoC&form:inf
 bldawg	pre:le&pos:v&root:dʔg&ptn:CCoC&form:inf
-bldbr	pre:be~pre:ha&pre:le&pos:v&root:dbr&ptn:CaCeC&form:inf
+bldbr	pre:be~pre:ha&pre:le&pos:v&root:dbr&ptn:piel&form:inf
 bldpwq	pre:le&pos:v&root:dpq&ptn:CCoC&form:inf
 bldrwk	pre:le&pre:ke&pos:v&root:drk&ptn:qal&form:inf
 bldxwp	pre:le&pos:v&root:dxp&ptn:CCoC&form:inf
@@ -1036,7 +1036,7 @@ bletwt	pre:le&pos:v&root:šty&ptn:qal&form:inf pre:le&pre:be
 blevwp	pre:le&pos:v&root:šṭp&ptn:CCoC&form:inf
 blewn	pre:be~pre:ha&pos:n&root:lyš&ptn:CaCon&gen:fm&num:sg&stat:free
 blewn	pre:le&pos:prep pre:le&pos:v&root:yšn&ptn:qal&form:inf
-blexq	pre:be~pre:ha&pre:le&pos:v&root:ṣxq&ptn:CaCeC&form:inf
+blexq	pre:be~pre:ha&pre:le&pos:v&root:ṣxq&ptn:piel&form:inf
 blexwt	pre:le&pos:v&root:ṣxy&ptn:qal&form:inf
 blgn	pos:n&root:blg&ptn:CaCaCan&gen:ms&num:sg&stat:unsp
 blgmwr	pre:le&pos:v&root:gmr&ptn:CCoC&form:inf
@@ -1761,10 +1761,10 @@ bzkwkit	pre:be&pos:n&root:zkk&ptn:CiCuC&gen:fm&num:sg&stat:unsp
 bzmn	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 bznb	pre:be~pre:ha&pos:n&root:znb&ptn:CaCaC&gen:ms&num:sg&stat:free
 bzwati	pre:be&pro:dem&pers:3&gen:fm&num:sg
-cp	pos:on&root:cyp&ptn:CiC
+cp	pos:on
 ca	pos:v&root:ycʔ&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 cai	pos:v&root:ycʔ&ptn:qal&form:imp&pers:2&gen:fm&num:sg
-cb	pos:n&root:cyb&ptn:CaC&gen:ms&num:sg&stat:unsp
+cb	pos:n&gen:ms&num:sg&stat:unsp
 cbi	pos:n&gen:ms&num:sg&stat:unsp
 cbiih	pos:n&root:cby&ptn:cviya&gen:fm&num:sg&stat:free
 cbwri	pos:adj&root:cbr&gen:ms&num:sg&src:denom
@@ -1780,7 +1780,7 @@ cbyti	pos:v&root:cbʕ&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 cbyw	pos:v&root:cbʕ&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 cbywni	pos:adj&root:cbʕ&gen:ms&num:sg&src:denom
 cbywniim	pos:adj&root:cbʕ&gen:ms&num:pl&src:denom
-cd	pos:n&root:cyd&ptn:CaC&gen:ms&num:sg&stat:unsp pos:part&root:cwd&ptn:qal&gen:ms&num:sg
+cd	pos:n&gen:ms&num:sg&stat:unsp pos:part&root:cwd&ptn:qal&gen:ms&num:sg
 cdp	pos:n&root:cdp&ptn:CCaC&root:bgd&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 cdi	pos:n&gen:ms&num:pl&stat:cstr
 cdiq	pos:adj&root:cdq&ptn:CaCiC&gen:ms&num:sg
@@ -1789,7 +1789,7 @@ chwb	&pos:prep
 chwbh	root:chb&ptn:CeCuCa&pre:we pos:adj&root:chb&ptn:CaCoC&gen:fm&num:sg
 chwbim	pos:adj&root:chb&ptn:CaCoC&gen:ms&num:pl
 chwbwt	pos:adj&root:chb&ptn:CaCoC&gen:fm&num:pl
-ci	pos:v&root:cyr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+ci	pos:v&root:cyr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 cibwr	pos:n&root:cbr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 cici	pos:n&gen:ms&num:sg&stat:unsp
 cicim	pos:n&gen:ms&num:pl&stat:free
@@ -1824,8 +1824,8 @@ cmxw	pos:v&root:cmx&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 cmxwni	pos:adj&root:cyt&ptn:CaCCan&gen:ms&num:sg
 cncnt	pos:n&gen:fm&num:sg&stat:unsp
 cncnwt	pos:n&root:cnc&ptn:CiCCan&gen:fm&num:pl&stat:free
-clmnw	pos:v&root:clm&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
-ciirnw	pos:v&root:cyr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+clmnw	pos:v&root:clm&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
+ciirnw	pos:v&root:cyr&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 cnwnit	pos:n&root:cnn&ptn:cCoCiC&gen:fm&num:sg&stat:unsp
 cpcp	pos:v&root:cpcp&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 cpcph	pos:v&root:cpcp&ptn:piel&tense:past&pers:3&gen:fm&num:sg
@@ -1847,10 +1847,10 @@ crwdh	pos:adj&root:crd&ptn:CaCuC&gen:fm&num:sg&src:deverb
 crwr	pos:n&root:crr&ptn:CCoC&gen:ms&num:sg&stat:unsp
 crxnit	pos:adj&root:crx&ptn:CaCCan&gen:fm&num:sg
 cryh	pos:n&root:crʕ&ptn:CiCCa&gen:fm&num:sg&stat:free
-ciirt	pos:v&root:cyr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-ciirt	pos:v&root:cyr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-ctm	pos:v&root:cyr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:pl
-ciirti	pos:v&root:cyr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+ciirt	pos:v&root:cyr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+ciirt	pos:v&root:cyr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+ctm	pos:v&root:cyr&ptn:piel&tense:past&pers:2&gen:ms&num:pl
+ciirti	pos:v&root:cyr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 cvrk	pre:ke&pos:v&root:cṭr&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
 cwp	pos:v&root:cwp&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 cwwar	pos:n&gen:ms&num:sg&stat:free
@@ -1892,8 +1892,8 @@ cyir	pos:adj&root:cʕr&ptn:CaCiC&gen:ms&num:sg
 cyq	pos:v&root:cʕq&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 cyqh	pos:v&root:cʕq&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 cyqwt	pos:n&root:cʕq&ptn:CeCaCa&gen:fm&num:pl&stat:free
-dm	pos:n&root:dym&ptn:CaC&gen:ms&num:sg&stat:unsp
-dp	pos:n&root:dyp&ptn:CaC&gen:ms&num:sg&stat:cstr pos:n&root:dyp&ptn:CaC&gen:ms&num:sg&stat:unsp
+dm	pos:n&gen:ms&num:sg&stat:unsp
+dp	pos:n&gen:ms&num:sg&stat:cstr pos:n&gen:ms&num:sg&stat:unsp
 dbe	pos:n&root:dbš&ptn:CCaC&gen:ms&num:sg&mass:yes&stat:unsp
 dbiqh	pos:adj&root:dbq&ptn:CaCiC&gen:fm&num:sg
 dbq	pos:n&root:dbq&ptn:CeCeC&gen:ms&num:sg&stat:unsp
@@ -1909,17 +1909,17 @@ dbrw	pos:v&root:dbr&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
 dbwq	pos:adj&root:dbq&ptn:CaCuC&gen:ms&num:sg&src:deverb
 dbwrh	pos:n&root:dbr&ptn:CCoCa&gen:fm&num:sg&stat:free
 dbwrim	pos:n&root:dbr&ptn:CiCuC&gen:ms&num:pl&stat:free
-de	pos:n&root:dyš&ptn:CaC&gen:ms&num:sg&stat:unsp
+de	pos:n&gen:ms&num:sg&stat:unsp
 dea	pos:n&root:dšʔ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-dg	pos:n&root:dyg&ptn:CaC&gen:ms&num:sg&stat:unsp pos:num&root:dyg&ptn:CaC&gen:ms&num:sg&stat:unsp
+dg	pos:n&gen:ms&num:sg&stat:unsp pos:num&gen:ms&num:sg&stat:unsp
 dgdgt	pos:v&root:dgdg&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 dgim	pos:part&root:dyg&ptn:CaC&gen:ms&num:pl pos:n&root:dyg&ptn:CaC&gen:ms&num:pl&stat:free
 dgl	pos:n&root:dgl&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 dgli	pos:n&root:dgl&ptn:CeCeC&gen:ms&num:pl&stat:cstr
 dglim	pos:n&root:dgl&ptn:CeCeC&gen:ms&num:pl&stat:free
-di	root:dyy&ptn:CaC&pos:adv pos:co
+di	&pos:adv pos:co
 di	&pos:adv
-di	pos:v&root:dbr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+di	pos:v&root:dbr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 diinw	pos:adv
 diish	pos:n&root:dys&ptn:CaCCa&gen:fm&num:sg&stat:free
 disq	pos:n&root:dsq&ptn:CiCC&gen:ms&num:sg&stat:unsp
@@ -1938,7 +1938,7 @@ dmyh	pos:n&root:dmʕ&ptn:CiCCa&gen:fm&num:sg&stat:free
 dmywt	pos:n&root:dmʕ&ptn:CCaCa&gen:fm&num:pl&stat:free pos:n&root:dmʕ&ptn:CCaCa&gen:fm&num:pl&stat:cstr pos:n&root:dmʕ&ptn:CCaCa&gen:fm&num:pl&stat:cstr
 dnde	pos:adj&ptn:CaCaC&gen:ms&num:sg
 dng	pos:on&root:dng&ptn:CiCC&
-dnw	pos:v&root:dbr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+dnw	pos:v&root:dbr&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 dpdp	pos:v&root:dpdp&ptn:piel&form:imp&pers:2&gen:ms&num:sg
 dpdpi	pos:v&root:dpdp&ptn:piel&form:imp&pers:2&gen:fm&num:sg
 dpim	pos:n&root:dyp&ptn:CaC&gen:ms&num:pl&stat:free
@@ -1946,7 +1946,7 @@ dpq	pos:v&root:dpq&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 dpqt	pos:v&root:dpq&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 dpwq	pos:adj&root:dpq&ptn:CaCuC&gen:ms&num:sg&src:deverb
 dpwq	pos:v&root:dpq&ptn:CCoC&form:imp&pers:2&gen:ms&num:sg
-dq	pos:adj&root:dyq&ptn:CaC&root:dqq&gen:ms&num:sg
+dq	pos:adj&root:dqq&gen:ms&num:sg
 dqh	pos:adj&root:dyq&ptn:CaCa&root:dqq&gen:fm&num:sg
 dqiq	pos:adj&root:dqq&ptn:CaCiC&gen:ms&num:sg
 dqwt	pos:adj&root:dyq&ptn:CaCa&root:dqq&gen:fm&num:pl
@@ -1963,11 +1963,11 @@ drkw	pos:v&root:drk&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 drqwn	pos:n&root:drq&ptn:CCaCon&gen:ms&num:sg&stat:unsp
 drs	pos:v&root:drs&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 drsti	pos:v&root:drs&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-dt	pos:v&root:dbr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-dt	pos:v&root:dbr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-dt	pos:v&root:dlg&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-dti	pos:v&root:dbr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-dti	pos:v&root:dlg&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+dt	pos:v&root:dbr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+dt	pos:v&root:dbr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+dt	pos:v&root:dlg&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+dti	pos:v&root:dbr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+dti	pos:v&root:dlg&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 dtiim	pos:adj&root:dyt&ptn:CaC&gen:ms&num:pl&src:denom
 dwag	pos:part&root:dʔg&ptn:qal&gen:ms&num:sg
 dwagim	pos:part&root:dʔg&ptn:CoCaC&gen:ms&num:pl
@@ -2015,7 +2015,7 @@ dxpt	pos:v&root:dxp&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 dxpti	pos:v&root:dxp&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 dytk	pre:ke&pos:n&root:dʕt&ptn:CaCaC&gen:ms&num:sg&mass:yes&poss:2femSG
 dyti	pos:n&root:dʕt&ptn:CaCaC&gen:ms&num:sg&mass:yes&poss:1SG
-em	root:šym&ptn:CaC&pos:adv
+em	&pos:adv
 em	pos:n&gen:ms&num:sg&stat:unsp
 em	pos:part&root:ṣym&ptn:CaC&gen:ms&num:sg pos:v&root:ṣym&ptn:CaC&tense:past&pers:3&gen:ms&num:sg
 en	pos:v&root:yšn&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
@@ -2160,11 +2160,11 @@ ecby	pre:sh&pos:n&root:cbʕ&ptn:CeCaC&root:cvʕ&ptn:CeCeC&gen:ms&num:sg&stat:uns
 ecby	pre:sh&pos:v&root:cbʕ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 ecbywni	pre:sh&pos:adj&root:cbʕ&gen:ms&num:sg&src:denom
 echwbwt	pre:sh&pos:adj&root:chb&ptn:CaCoC&gen:fm&num:pl
-eci	pre:sh&pos:v&root:cyr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+eci	pre:sh&pos:v&root:cyr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 ecrik	pre:sh&pos:adv&conj:subor:sh
 ecrkim	pre:sh&pos:adj&root:crk&ptn:&gen:ms&num:pl&src:deverb
-eciirt	pre:sh&pos:v&root:cyr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-eciirt	pre:sh&pos:v&root:cyr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
+eciirt	pre:sh&pos:v&root:cyr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+eciirt	pre:sh&pos:v&root:cyr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
 ecwbyim	pre:sh&pos:part&root:cbʕ&ptn:qal&gen:ms&num:pl
 ecwxqim	pre:sh&pos:part&root:cxq&ptn:CoCaC&gen:ms&num:pl
 ecwyqim	pre:sh&pos:part&root:cʕq&ptn:CoCaC&gen:ms&num:pl
@@ -2174,8 +2174,8 @@ edbrim	pre:sh&pos:n&root:dbr&ptn:CCaC&gen:ms&num:pl&stat:free
 edh	pos:n&gen:ms&num:sg&stat:free
 edi	pre:sh&pos:adv&conj:subor:sh
 ediim	pos:n&root:šyd&ptn:CaC&gen:ms&num:pl&num:duo&stat:free
-ednw	pre:sh&pos:v&root:dbr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
-edt	pre:sh&pos:v&root:dbr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+ednw	pre:sh&pos:v&root:dbr&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
+edt	pre:sh&pos:v&root:dbr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 edwbi	pre:sh&dim:yes&root:dyb&ptn:CuC&gen:ms&num:sg&stat:free
 edwd	pre:sh&pos:n&root:dyd&ptn:CoC&gen:ms&num:sg&stat:unsp
 edwd	pre:sh&pos:n&root:dyd&ptn:CoCa&gen:fm&num:sg&stat:free
@@ -2203,12 +2203,12 @@ eemy	pre:sh&pos:v&root:šmʕ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl pre:sh&po
 eemynw	pre:sh&pos:v&root:šmʕ&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 eemyt	pre:sh&pos:v&root:šmʕ&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 eeninw	pre:sh&pro:person&pers:1&gen:ms&num:pl
-eenw	pre:sh&pos:v&root:šlm&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
-eenw	pre:sh&pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+eenw	pre:sh&pos:v&root:šlm&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
+eenw	pre:sh&pos:v&root:ṣxq&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 eepn	pre:sh&pos:n&root:šyp&ptn:CaCan&gen:ms&num:sg&stat:free
 eer	pre:sh&pos:n&root:šyr&ptn:CiC&gen:ms&num:sg&stat:unsp
-eet	pre:sh&pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-eew	pre:sh&pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:3&gen:unsp&num:pl
+eet	pre:sh&pos:v&root:ṣxq&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+eew	pre:sh&pos:v&root:ṣxq&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
 eewkb	pre:sh&pos:part&root:škb&ptn:qal&gen:ms&num:sg
 eewkbt	pre:sh&pos:part&root:škb&ptn:qal&gen:fm&num:sg
 eewnh	pre:sh&pos:adj&root:šny&ptn:CoCeC&gen:ms&num:sg&src:deverb
@@ -2222,7 +2222,7 @@ egmrt	pre:sh&pos:v&root:gmr&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 egr	pre:sh&pos:part&root:gwr&ptn:qal&gen:ms&num:sg
 egr	pre:sh&pos:part&root:gwr&ptn:qal&gen:fm&num:sg
 egwmrim	pre:sh&pos:part&root:gmr&ptn:qal&gen:ms&num:pl
-eh	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:3&gen:fm&num:sg
+eh	pos:v&root:ṣxq&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 ehm	pre:sh&pro:person&pers:3&gen:ms&num:pl pre:sh&pro:person&pers:3&gen:ms&num:pl
 ehn	pre:sh&pro:person&pers:3&gen:fm&num:pl
 eha	pre:sh&pro:person&pers:3&gen:fm&num:sg
@@ -2365,7 +2365,7 @@ ehyiniim	pre:sh&pre:ha&pos:n&root:ʔyn&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
 ehyviph	pos:n&root:ʕṭp&ptn:CaCiCa&pre:ha&gen:fm&num:sg&stat:free
 ehzkwkit	pre:sh&pre:ha&pos:n&root:zkk&ptn:CiCuC&gen:fm&num:sg&stat:unsp
 ehzmnt	pos:v&root:zmn&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
-ei	pos:v&root:ṣxq&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+ei	pos:v&root:ṣxq&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 eik	pre:ke&pos:adj&root:šyk&ptn:CaCaC&gen:ms&num:sg&src:deverb
 eim	root:šyn&ptn:CiC&pos:adv
 eim	pos:v&root:ṣym&ptn:CiC&form:imp&pers:2&gen:ms&num:sg
@@ -2506,7 +2506,7 @@ ekxt	pos:v&root:škx&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 ekxt	pos:v&root:škx&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 ekxti	pos:v&root:škx&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 ekyst	pre:sh&pos:v&root:kʕs&ptn:qal&tense:past&pers:2&gen:fm&num:sg
-el	pos:n&gen:fm&num:sg&stat:free &pos:prep pos:adj&root:ʔxr&ptn:CaCeC&gen:ms&num:sg pos:n&gen:fm&num:sg&stat:free &pers:3&gen:fm&num:sg pos:n&gen:ms&num:sg&stat:unsp pos:prep pos:n&gen:fm&num:sg&stat:free
+el	pos:n&gen:fm&num:sg&stat:free &pos:prep pos:adj&gen:ms&num:sg pos:n&gen:fm&num:sg&stat:free &pers:3&gen:fm&num:sg pos:n&gen:ms&num:sg&stat:unsp pos:prep pos:n&gen:fm&num:sg&stat:free
 elk	pre:sh&pre:ke&pos:prep&pers:2&gen:fm&num:sg
 elk	pre:ke&pos:prep:pro&2&gen:fm&num:sg
 elm	pos:adj&root:šlm&ptn:CaCeC&gen:ms&num:sg&src:deverb
@@ -2779,7 +2779,7 @@ entti	pre:sh&pos:v&root:ntn&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 entxil	pre:sh&pos:v&root:txl&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 envil	pre:sh&pos:v&root:ṭyl&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 enw	pre:sh&pos:co&conj:subor:sh
-enw	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+enw	pos:v&root:ṣxq&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 enwcia	pre:sh&pos:v&root:ycʔ&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 enwkl	pos:v&root:ykl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 enwrid	pre:sh&pos:v&root:yrd&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
@@ -2824,16 +2824,16 @@ epwcim	pos:n&root:špc&ptn:CiCuC&gen:ms&num:pl&stat:free
 epwtx	pre:sh&pos:part&root:ptx&ptn:qal&gen:ms&num:sg
 epwtxim	pre:sh&pos:part&root:ptx&ptn:qal&gen:ms&num:pl
 epym	pre:sh&root:pʕm&ptn:CaCaC&conj:subor:sh
-eq	pos:n&root:ṣyq&ptn:CaC&gen:ms&num:sg&stat:unsp
+eq	pos:n&gen:ms&num:sg&stat:unsp
 eqd	pos:n&root:šqd&ptn:CaCeC&gen:ms&num:sg&stat:free
 eqdim	pos:n&root:šqd&ptn:CCeC&gen:ms&num:pl&stat:free
 eqewr	pre:sh&pos:adj&root:qšr&ptn:CaCuC&gen:ms&num:sg&src:deverb
-eqi	pre:sh&pos:v&root:qbl&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+eqi	pre:sh&pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 eqi	pos:n&gen:ms&num:pl&stat:cstr
 eqiwt	pos:n&root:ṣyq&ptn:CaC&gen:fm&num:pl&stat:unsp
-eqinw	pre:sh&pos:v&root:qbl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+eqinw	pre:sh&pos:v&root:qbl&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 eqiqi	pos:n&root:ṣqq&ptn:CaCiC&gen:ms&num:pl&stat:cstr
-eqit	pre:sh&pos:v&root:qbl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+eqit	pre:sh&pos:v&root:qbl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 eqit	pos:n&root:ṣqt&ptn:CaCiC&gen:fm&num:sg&stat:unsp
 eql	pos:n&root:šql&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 eqlim	pos:n&root:šql&ptn:CeCeC&gen:ms&num:pl&stat:free
@@ -2846,8 +2846,8 @@ eqra	pre:sh&pos:part&root:qrʔ&ptn:nifal&gen:ms&num:sg pre:sh&pos:v&root:qrʔ&pt
 eqraw	pre:sh&pos:v&root:qrʔ&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 eqrh	pre:sh&pos:v&root:qry&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 eqrir	pre:sh&pos:adj&root:qrr&ptn:CaCiC&gen:ms&num:sg
-eqt	pre:sh&pos:v&root:qbl&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-eqti	pre:sh&pos:v&root:qbl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+eqt	pre:sh&pos:v&root:qbl&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+eqti	pre:sh&pos:v&root:qbl&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 eqv	pos:n&root:šqṭ&ptn:CeCeC&gen:ms&num:sg&mass:yes&stat:unsp
 eqvnwt	pre:sh&pos:part&root:qṭn&ptn:qal&gen:fm&num:pl
 eqwdm	pre:sh&root:qdm&ptn:CoCeC&conj:subor:sh
@@ -2857,7 +2857,7 @@ eqwrh	pre:sh&pos:part&root:qry&ptn:qal&gen:ms&num:sg
 eqwvpim	pre:sh&pos:part&root:qṭp&ptn:qal&gen:ms&num:pl
 eniqx	pre:sh&pos:v&root:lqx&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 er	pos:part&root:šyr&ptn:CaC&gen:ms&num:sg pos:v&root:šyr&ptn:CaC&tense:past&pers:3&gen:ms&num:sg
-er	root:šyr&ptn:CiC&pos:prep pos:n&root:šyr&ptn:CiC&gen:ms&num:sg&stat:unsp
+er	&pos:prep pos:n&gen:ms&num:sg&stat:unsp
 er	pos:part&root:šyr&ptn:CaCa&gen:fm&num:sg
 erp	pos:v&root:ṣrp&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 erainw	pre:sh&pos:v&root:rʔy&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
@@ -2895,16 +2895,16 @@ erxc	pre:sh&pos:v&root:rxc&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 ery	pre:sh&pos:adj&root:ryʕ&ptn:CaC&root:rʕʕ&gen:ms&num:sg
 esba	pre:sh&pos:n&root:sbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
 esbta	pre:sh&pos:n&gen:fm&num:sg&stat:free
-esikmnw	pre:sh&pos:v&root:skm&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
-eeidrti	pre:sh&pos:v&root:spr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+esikmnw	pre:sh&pos:v&root:skm&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
+eeidrti	pre:sh&pos:v&root:spr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 espti	pre:sh&dim:yes&root:spt&ptn:CaCC&gen:fm&num:sg&stat:free
 estm	pre:sh&root:stm&ptn:CCaC&conj:subor:sh
-esidrti	pre:sh&pos:v&root:sdr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+esidrti	pre:sh&pos:v&root:sdr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 enstkl	pre:sh&pos:v&root:skl&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
 esy	pre:sh&pos:v&root:nsʕ&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
-et	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-et	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-etm	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:2&gen:ms&num:pl
+et	pos:v&root:ṣxq&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+et	pos:v&root:ṣxq&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+etm	pos:v&root:ṣxq&ptn:piel&tense:past&pers:2&gen:ms&num:pl
 etaspi	pre:sh&pos:v&root:ʔsp&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 etbk	pre:sh&pos:v&root:bky&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 etbia	pos:v&root:bwʔ&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
@@ -2945,7 +2945,7 @@ ethi	pre:sh&pos:cop&root:hyy&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 ethi	pre:sh&pos:cop&root:hyy&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 ethii	pre:sh&pos:cop&root:hyy&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 eti	pos:num&root:šny&ptn:CeCi&gen:fm&stat:cstr
-eti	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+eti	pos:v&root:ṣxq&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 etiim	pos:num&root:šny&ptn:CeCi&gen:fm pro:person&pers:2&gen:fm&num:sg
 etkbh	pre:sh&pos:v&root:kby&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 etkbi	pre:sh&pos:v&root:kby&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
@@ -3014,7 +3014,7 @@ etzhri	pos:v&root:zhr&ptn:nifal&tense:fut&pers:2&gen:fm&num:sg
 etzkri	pre:sh&pos:v&root:zkr&ptn:CCeC&tense:fut&pers:2&gen:fm&num:sg
 evavati	pre:sh&pos:v&tense:past&pers:1&gen:unsp&num:sg
 evh	pos:part&root:šwṭ&ptn:qal&gen:fm&num:sg pos:v&root:šwṭ&ptn:qal&tense:past&pers:3&gen:fm&num:sg
-evi	pre:sh&pos:v&root:ṭps&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+evi	pre:sh&pos:v&root:ṭps&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 eviph	pre:sh&pos:n&root:ṭyp&ptn:CiCa&gen:fm&num:sg&stat:free
 evpvpt	pre:sh&pos:v&root:ṭpṭp&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 evivwl	pre:sh&pos:n&root:ṭṭl&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -3030,7 +3030,7 @@ evwrp	pre:sh&pos:part&root:ṭrp&ptn:qal&gen:ms&num:sg
 evwt	pos:n&root:šṭt&ptn:CCuC&gen:fm&num:sg&stat:unsp
 evwxim	pos:adj&root:šṭx&ptn:CaCuC&gen:ms&num:pl&src:deverb
 evyim	pre:sh&pos:adj&root:ṭʕm&ptn:CaCiCgen:ms&num:sg
-eixqw	pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:3&gen:unsp&num:pl
+eixqw	pos:v&root:ṣxq&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
 ewm	pos:n&gen:ms&num:sg&stat:unsp root:šym&ptn:CuC
 ewab	pos:n&root:šʔb&ptn:CoCeC&gen:ms&num:sg&stat:cstr
 enwakl	pre:sh&pos:v&root:ʔkl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
@@ -3104,13 +3104,13 @@ exim	pos:n&root:ṣyx&ptn:CiC&gen:ms&num:pl&stat:free
 exinw	pos:v&root:ṣxy&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 exit	pos:v&root:ṣxy&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 exiti	pos:v&root:ṣxy&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-exnw	pre:sh&pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+exnw	pre:sh&pos:v&root:xpṣ&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 exppti	pre:sh&pos:v&root:xpp&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 exsr	pre:sh&pos:adj&root:xsr&ptn:CaCeC&gen:ms&num:sg&src:deverb&stat:free
 exsrh	pre:sh&pos:adj&root:xsr&ptn:CaCeC&gen:fm&num:sg&src:deverb
 exsrim	pre:sh&pos:adj&root:xsr&ptn:CaCeC&gen:ms&num:pl&src:deverb
-ext	pre:sh&pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-exti	pre:sh&pos:v&root:xbq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+ext	pre:sh&pos:v&root:xpṣ&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+exti	pre:sh&pos:v&root:xbq&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 extwlim	pre:sh&pos:n&root:xtl&ptn:CaCuC&gen:ms&num:pl&pl:masc:bio&stat:free
 exwlh	pre:sh&pos:adj&root:xly&ptn:CoCeC&gen:ms&num:sg&src:deverb
 exwr	pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:sg pos:prep&root:šxr&ptn:CaCoC
@@ -3175,10 +3175,10 @@ ezw	pre:sh&pro:dem&pers:3&gen:fm&num:sg
 ezat	pre:sh&pro:dem&pers:3&gen:fm&num:sg
 givra	pos:n&root:gṭr&ptn:CiCaCa&gen:fm&num:sg&stat:unsp pos:n&root:gṭr&ptn:CiCaCa&gen:fm&num:sg&stat:unsp
 gm	pos:n&gen:ms&num:sg&stat:unsp
-gn	pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:unsp pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:cstr
+gn	pos:n&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&stat:cstr
 gah	pos:adj&root:gʔy&ptn:CeCeC&gen:fm&num:sg
 gawn	pos:n&root:gyʔ&ptn:CaCon&gen:ms&num:sg&stat:free
-gb	pos:n&root:gyb&ptn:CaC&gen:ms&num:sg&stat:unsp
+gb	pos:n&gen:ms&num:sg&stat:unsp
 gbi	pos:n&gen:ms&num:pl&stat:cstr
 gbi	pos:n&gen:ms&num:sg&stat:unsp
 gbihm	pos:n&gen:ms&num:pl&poss:3mascPL
@@ -3197,7 +3197,7 @@ gibwri	pos:n&root:gbr&ptn:CiCoC&gen:ms&num:pl&pl:masc:bio&stat:cstr
 gbwrim	pos:adj&root:gbr&ptn:CiCoC&gen:ms&num:pl pos:n&root:gbr&ptn:CiCoC&gen:ms&num:pl&pl:masc:bio&stat:free
 gbwt	pos:n&root:gyb&ptn:CaCa&gen:fm&num:pl&stat:unsp
 gbywt	pos:n&root:gbʕ&ptn:CCaCa&gen:fm&num:pl&stat:free
-gd	pos:n&root:gyd&ptn:CaC&gen:ms&num:sg&mass:yes&stat:unsp
+gd	pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 gdi	pos:n&gen:ms&num:sg&stat:unsp
 gdl	pos:part&root:gdl&ptn:piel&gen:ms&num:sg
 gdlim	pos:part&root:gdl&ptn:CCeC&gen:ms&num:pl
@@ -3217,7 +3217,7 @@ gem	pos:n&root:gšm&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 gei	pos:v&root:ngš&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 ger	pos:n&root:gšr&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 gerim	pos:n&root:gšr&ptn:CeCeC&gen:ms&num:pl&stat:free
-gg	pos:n&root:gyg&ptn:CaC&gen:ms&num:sg&stat:unsp
+gg	pos:n&gen:ms&num:sg&stat:unsp
 ggwt	pos:n&root:gyg&ptn:CaCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
 girp	pos:n&gen:ms&num:sg&stat:unsp
 girph	pos:n&gen:fm&num:sg&stat:unsp
@@ -3225,7 +3225,7 @@ gingi	pos:adj&gen:ms&num:sg&src:foreign pos:adj&gen:ms&num:sg&src:foreign
 gingiwt	pos:adj&gen:fm&num:pl&src:foreign
 gingit	pos:adj&gen:fm&num:sg&src:foreign pos:adj&gen:fm&num:sg&src:foreign
 girpwt	pos:n&gen:fm&num:pl&stat:unsp
-gl	pos:n&root:gyl&ptn:CaC&gen:ms&num:sg&stat:unsp
+gl	pos:n&gen:ms&num:sg&stat:unsp
 glgl	pos:n&gen:ms&num:sg&stat:unsp pre:we
 glgl	pos:v&root:glgl&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 glglim	pos:n&gen:ms&num:pl&stat:free
@@ -3271,7 +3271,7 @@ gpn	pos:n&root:gpn&ptn:CeCeC&root:gpn&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 gprwr	pos:n&gen:ms&num:sg&stat:unsp
 gprwrim	pos:n&gen:ms&num:pl&stat:free
 gr	pos:v&root:gwr&ptn:qal&tense:past&pers:3&gen:ms&num:sg pos:part&root:gwr&ptn:qal&gen:ms&num:sg
-gr	pos:n&root:gyr&ptn:CiC&gen:ms&num:sg&stat:unsp
+gr	pos:n&gen:ms&num:sg&stat:unsp
 gr	pos:v&root:gwr&ptn:qal&tense:past&pers:3&gen:fm&num:sg pos:part&root:gwr&ptn:qal&gen:fm&num:sg
 grm	pos:v&root:grm&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 grb	pos:n&root:grb&ptn:CeCeC&root:grv&ptn:CeCeC&gen:ms&num:sg&stat:unsp
@@ -3296,9 +3296,9 @@ grynim	pos:n&gen:ms&num:pl&stat:free
 gryps	pos:n&gen:ms&num:sg&stat:unsp
 grypsim	pos:n&gen:ms&num:pl&stat:free
 grzn	pos:n&gen:ms&num:sg&stat:unsp
-gt	pos:v&root:ghq&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-gt	pos:n&root:gbr&ptn:CeCeC&gen:fm&num:sg&stat:unsp
-gti	pos:v&root:ghq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+gt	pos:v&root:ghq&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+gt	pos:n&gen:fm&num:sg&stat:unsp
+gti	pos:v&root:ghq&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 gwp	pos:n&root:gyp&ptn:CuC&gen:ms&num:sg&stat:unsp
 gwb	pos:n&root:gyb&ptn:CoCa&gen:ms&num:sg&stat:free
 gwdl	pos:n&root:gdl&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
@@ -3330,7 +3330,7 @@ gwzrt	pos:part&root:grs&ptn:qal&gen:fm&num:sg
 gwzzim	pos:part&root:gzz&ptn:qal&gen:ms&num:pl
 gxlilit	pos:n&gen:fm&num:sg&stat:unsp
 gxliliwt	pos:n&gen:fm&num:pl&stat:unsp
-gz	pos:n&root:gyz&ptn:CaC&gen:ms&num:sg&stat:unsp
+gz	pos:n&gen:ms&num:sg&stat:unsp
 gzr	pos:v&root:grs&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 gzr	pos:n&root:gzr&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 gzrh	pos:n&root:gzr&ptn:CCiCa&gen:fm&num:sg&stat:free
@@ -3457,7 +3457,7 @@ haxrwnim	pre:ha&pos:adj&root:ʔxr&ptn:CaCCon&gen:ms&num:pl
 haxwriwt	pre:ha&pos:adj&root:ʔxr&ptn:CaCoC&gen:fm&num:pl&src:denom
 haxwt	pre:ha&pos:n&root:ʔyx&ptn:CaCa&gen:fm&num:sg&stat:unsp
 haz	pre:ha&pos:adv
-hb	pos:on&root:hyb&ptn:CaC
+hb	pos:on
 hb	pos:co
 hbn	pre:ha&pos:n&gen:ms&num:sg&stat:unsp pre:ha&pos:n&gen:ms&num:sg&stat:cstr
 hbp	pre:ha&pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -4578,7 +4578,7 @@ hqwrnplqs	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hqwrqbn	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hqwsm	pre:ha&pos:n&root:qsm&ptn:CoCeC&gen:ms&num:sg&stat:unsp
 hqyrh	pre:ha&pos:n&root:qʕr&ptn:CeCaCa&gen:fm&num:sg&stat:free
-hr	pos:n&root:hyr&ptn:CaC&gen:ms&num:sg&stat:unsp
+hr	pos:n&gen:ms&num:sg&stat:unsp
 hrm	pre:ha&pos:adj&root:rym&ptn:CaC&root:rwm&gen:ms&num:sg
 hrah	pos:v&root:rʔy&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 hrai	pre:ha&pos:v&root:rʔy&ptn:qal&form:imp&pers:2&gen:fm&num:sg
@@ -5209,7 +5209,7 @@ hzat	pre:ha&pro:dem&pers:3&gen:fm&num:sg
 hzxl	pre:ha&pos:v&root:zxl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 hzxl	pre:ha&pos:n&root:zxl&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 hzzti	pos:v&root:zwz&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
-im	pos:n&root:yym&ptn:CaC&gen:ms&num:sg&stat:unsp
+im	pos:n&gen:ms&num:sg&stat:unsp
 ia	pos:co
 iaswp	pos:v&root:ʔsp&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 iaswp	pos:v&root:ʔsp&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
@@ -5585,9 +5585,9 @@ izrwq	pos:v&root:zrq&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 izwz	pos:v&root:zwz&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 izwzw	pos:v&root:zwz&ptn:qal&tense:fut&pers:3&gen:unsp&num:pl
 kk	pre:ke~pre:ha&pre:ke&pos:adv
-kk	pos:adv&root:kyk&ptn:CaCa
+kk	pos:adv
 kn	pre:ke&pos:adj&root:kwn&gen:ms&num:sg pre:ke&pos:adv pre:ke&pos:co&
-kp	pos:n&root:kyp&ptn:CaC&gen:fm&num:sg&stat:unsp pos:n&root:kyp&ptn:CaC&gen:fm&num:sg&stat:cstr
+kp	pos:n&gen:fm&num:sg&stat:unsp pos:n&gen:fm&num:sg&stat:cstr
 kan	root:kan&ptn:qal&pos:adv
 kab	pos:v&root:kʔv&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 kab	pre:ke&pos:n&stat:cstr
@@ -5618,7 +5618,7 @@ kbwd	pos:n&root:kbd&ptn:CaCoC&gen:ms&num:sg&mass:yes&stat:free
 kbwd	pre:ke&pos:n&root:byd&ptn:CuC&gen:ms&num:sg&stat:unsp
 kbwi	pos:adj&root:kby&ptn:CaCuC&gen:ms&num:sg&src:deverb
 kbwih	pos:adj&root:kby&ptn:CaCuC&gen:fm&num:sg&src:deverb
-kd	pos:n&root:kyd&ptn:CaC&gen:ms&num:sg&stat:unsp
+kd	pos:n&gen:ms&num:sg&stat:unsp
 kdai	pre:ke&root:dʔy&ptn:daʔy&pos:adv
 kdi	pre:ke&pos:prep
 kdim	pos:n&root:kyd&ptn:CaC&gen:ms&num:pl&stat:free
@@ -5761,7 +5761,7 @@ kpr	pos:adj&root:kpr&ptn:CaCaCa&gen:unsp&num:unsp&src:denom
 kptwr	pos:n&gen:ms&num:sg&stat:unsp
 kptwrim	pos:n&gen:ms&num:pl&stat:free
 kpwt	pos:n&root:kyp&ptn:CaCa&gen:fm&num:pl&stat:unsp root:kpt&ptn:CaCoC&n:det&gen:fm&num:pl&stat:cstr
-kr	pos:n&root:kyr&ptn:CaC&gen:ms&num:sg&stat:unsp
+kr	pos:n&gen:ms&num:sg&stat:unsp
 krgil	pos:adv
 krgy	pos:adv
 krim	pos:n&root:kyr&ptn:CaC&gen:ms&num:pl&stat:free
@@ -5838,8 +5838,8 @@ kzw	pre:ke~pre:ha&pro:dem&pers:3&gen:fm&num:sg
 kzw	pre:ke~pre:ha&pro:dem&pers:3&gen:fm&num:sg
 kzwat	pre:ke~pre:ha&root:zʔt&ptn:CoCC&pro:dem&pers:3&gen:fm&num:sg
 kzwati	pre:ke~pre:ha&pro:dem&pers:3&gen:fm&num:sg
-lk	pre:le~pre:ha&pre:ke&pos:que&gen:ms pre:ke&pre:le&pos:prep&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pos:n&gen:fm&num:sg&stat:free pre:le~pre:ha&pre:ke&pos:n&root:byt&ptn:CeCeC&gen:ms&num:sg&stat:free pre:ke&pos:prep:pro&2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pro:person&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pro:person&pers:1&num:sg
-lk	pre:le&pre:ke&pos:v&root:hlk&ptn:qal&form:imp&pers:2&gen:ms&num:sg
+lk	pre:le~pre:ha&pre:ke&pos:que&gen:ms pre:ke&pre:le&pos:prep&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pos:n&gen:fm&num:sg&stat:free pre:le~pre:ha&pre:ke&pos:n&gen:ms&num:sg&stat:free pre:ke&pos:prep:pro&2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pro:person&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pro:person&pers:1&num:sg
+lk	pre:le&pre:ke&pos:v&form:imp&pers:2&gen:ms&num:sg
 lan	pre:le&root:ʔyn&ptn:CaC&pro:person&pers:1&num:pl
 lap	pre:le~pre:ha&pos:n&root:ʔyp&ptn:CaC&gen:ms&num:sg&stat:unsp
 lap	pre:le&pos:n&root:ʔyp&ptn:CaC&gen:ms&num:sg&stat:unsp
@@ -5921,13 +5921,13 @@ laz	pre:le&pos:adv
 lb	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 lbn	pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
 lbaqwrdiwn	pre:le&pos:n&pre:be~pre:ha&gen:ms&num:sg&stat:unsp
-lbcy	pre:le&pos:v&root:bcʕ&ptn:CaCeC&form:inf
+lbcy	pre:le&pos:v&root:bcʕ&ptn:piel&form:inf
 lbd	pre:le&pos:adv&root:byd&ptn:CaC&
 lbdiqh	pre:le&pos:n&root:bdq&ptn:CCiCa&gen:fm&num:sg&stat:free
 lbdw	pre:le&pos:adv&root:byd&ptn:CaC&pers:3&gen:ms&num:sg
 lbe	pos:v&root:lbš&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 lbeh	pos:v&root:lbš&ptn:qal&tense:past&pers:3&gen:fm&num:sg
-lbel	pre:le&pos:v&root:bšl&ptn:CaCeC&form:inf
+lbel	pre:le&pos:v&root:bšl&ptn:piel&form:inf
 lbet	pos:v&root:lbš&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 lbeti	pos:v&root:lbš&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 lbgdim	pre:le~pre:ha&pos:n&root:bgd&ptn:CeCeC&gen:ms&num:pl&stat:free
@@ -5957,8 +5957,8 @@ lbnq	pre:le&pos:n&root:bnq&ptn:CaCC&gen:ms&num:sg&stat:unsp
 lbnwt	pre:le~pre:ha&pos:n&root:bny&ptn:CaCa&gen:fm&num:pl&pl:fem:bio&stat:free
 lbnwt	pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:pl
 lbqbwq	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-lbqe	pre:le&pos:v&root:bqš&ptn:CaCeC&form:inf
-lbqr	pre:le&pos:v&root:bqr&ptn:CaCeC&form:inf
+lbqe	pre:le&pos:v&root:bqš&ptn:piel&form:inf
+lbqr	pre:le&pos:v&root:bqr&ptn:piel&form:inf
 lbrk	pre:le&pre:ke&pos:v&root:brk&ptn:piel&form:inf
 lbriawt	pre:le~pre:ha&pos:n&root:brʔ&ptn:CCiC&gen:fm&num:sg&stat:unsp pos:co
 lbrikh	pre:le~pre:ha&pos:n&root:brk&ptn:bCeCCa&gen:fm&num:sg&stat:free
@@ -5988,14 +5988,14 @@ lcd	pre:le&pos:n&root:cyd&ptn:CaC&gen:ms&num:sg&stat:unsp
 lcddim	pre:le~pre:ha&pos:n&root:cdd&ptn:CCaC&gen:ms&num:pl&stat:free
 lchwb	pre:le~pre:ha&pos:adj&root:chb&ptn:CaCoC&gen:ms&num:sg
 lchwb	pre:le&pos:adj&root:chb&ptn:CaCoC&gen:ms&num:sg
-lcic	pre:le&pos:v&root:cyc&ptn:CaCeC&form:inf
+lcic	pre:le&pos:v&root:cyc&ptn:piel&form:inf
 lcibwr	pre:le~pre:ha&pos:n&root:cbr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lcipwr	pre:le~pre:ha&pos:n&root:cpr&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 lcipwrim	pre:le~pre:ha&pos:n&root:cpr&ptn:CiCoC&gen:ms&num:pl&stat:free
-lcir	pre:le&pos:v&root:cyr&ptn:CaCeC&form:inf
+lcir	pre:le&pos:v&root:cyr&ptn:piel&form:inf
 lciwr	pre:le~pre:ha&pos:n&root:cyr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lciwr	pre:le&pos:n&root:cyr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
-lclm	pre:le&pos:v&root:clm&ptn:CaCeC&form:inf
+lclm	pre:le&pos:v&root:clm&ptn:piel&form:inf
 lclcl	pre:le&pos:v&root:clcl&ptn:piel&form:inf
 lclli	pre:le&pos:n&root:cll&ptn:CCiC&gen:ms&num:pl&stat:cstr
 lclxwt	pre:le~pre:ha&pos:n&root:clx&ptn:CaCaCa&gen:fm&num:pl&stat:free
@@ -6014,7 +6014,7 @@ lcxcx	pre:le&pos:v&root:cxcx&ptn:piel&form:inf
 lcycwy	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lcycwyim	pre:le~pre:ha&pos:n&gen:ms&num:pl&stat:free
 ldbr	pre:le~pre:ha&pos:n&root:dbr&ptn:CaCaC&gen:ms&num:sg&stat:free
-ldbr	pre:le&pos:v&root:dbr&ptn:CaCeC&form:inf
+ldbr	pre:le&pos:v&root:dbr&ptn:piel&form:inf
 ldbr	pre:le&pos:n&root:dbr&ptn:CaCaC&gen:ms&num:sg&stat:free
 ldea	pre:le~pre:ha&pos:n&root:dšʔ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 ldg	pre:le~pre:ha&pos:n&root:dyg&ptn:CaC&gen:ms&num:sg&stat:unsp
@@ -6040,7 +6040,7 @@ ldwd	pre:le&pos:n&root:dyd&ptn:CoCa&gen:fm&num:sg&stat:free
 ldwqvwr	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 ldytk	pre:le&pos:adv&root:dʕt&ptn:CaCaC&pers:2&gen:fm&num:sg
 ldyti	pre:le&pos:adv&root:dʕt&ptn:CaCaC&pers:1&gen:unsp&num:sg
-le	pos:acc&root:lyš&ptn:CaCa
+le	pos:acc
 lem	pre:le&pos:adv&root:šym&ptn:CaC&
 lneal	pre:le&pos:v&root:šʔl&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 lebt	pre:le&pos:v&root:qpc&ptn:qal&form:inf
@@ -6059,12 +6059,12 @@ leiyr	pre:le~pre:ha&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 leknh	pre:le~pre:ha&pos:n&root:škn&ptn:CCeCa&gen:fm&num:sg&stat:free
 lel	pre:le&pos:prep
 lelk	pre:le&pre:ke&pos:prep&pers:2&gen:fm&num:sg
-lelm	pre:le&pos:v&root:šlm&ptn:CaCeC&form:inf
+lelm	pre:le&pos:v&root:šlm&ptn:piel&form:inf
 lelebt	pre:le&pre:sh&pre:le~pre:ha&pos:v&root:yšb&ptn:qal&form:inf
 lelwm	pre:le&pos:n&root:šlm&ptn:CaCoC&gen:ms&num:sg&stat:free
 lelwe	pre:le~pre:ha&pos:num&root:šlš&ptn:CaCoC&gen:fm
 leme	pre:le~pre:ha&pos:n&root:šmš&ptn:CeCeC&gen:fm&num:sg&stat:unsp
-leme	pre:le&pos:v&root:šmš&ptn:CaCeC&form:inf
+leme	pre:le&pos:v&root:šmš&ptn:piel&form:inf
 leme	pre:le&pos:n&root:šmš&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 lemiim	pre:le~pre:ha&pos:n&root:šym&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
 lemkh	pre:le~pre:ha&pos:n&root:ṣmk&ptn:CCiCa&gen:fm&num:sg&stat:free
@@ -6080,7 +6080,7 @@ leniim	pre:le&pos:num&gen:ms
 lepn	pre:le~pre:ha&pos:n&root:šyp&ptn:CaCan&gen:ms&num:sg&stat:free
 lepni	pre:le&dim:yes&root:šyp&ptn:CaCan&gen:ms&num:sg&stat:free
 leqit	pre:le~pre:ha&pos:n&root:ṣqt&ptn:CaCiC&gen:fm&num:sg&stat:unsp
-leqr	pre:le&pos:v&root:šqr&ptn:CaCeC&form:inf
+leqr	pre:le&pos:v&root:šqr&ptn:piel&form:inf
 lerwk	pre:le~pre:ha&pre:ke&pos:n&gen:ms&num:sg&stat:unsp
 lerwtim	pre:le~pre:ha&pos:n&root:šrt&ptn:CeCuC&gen:ms&num:pl&stat:free
 lerwwl	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -6098,7 +6098,7 @@ lewpr	pre:le&pos:n&root:špr&ptn:CoCaC&gen:ms&num:sg&stat:unsp
 lewq	pre:le~pre:ha&pos:n&root:šyq&ptn:CuC&gen:ms&num:sg&stat:unsp
 lewqwld	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lewvr	pre:le~pre:ha&pos:n&root:šṭr&ptn:CoCeC&gen:ms&num:sg&stat:unsp
-lexq	pre:le&pos:v&root:ṣxq&ptn:CaCeC&form:inf pre:le&pos:v&root:ṣxq&ptn:CaCeC&form:imp&pers:2&gen:ms&num:sg
+lexq	pre:le&pos:v&root:ṣxq&ptn:piel&form:inf pre:le&pos:v&root:ṣxq&ptn:piel&form:imp&pers:2&gen:ms&num:sg
 lexrr	pre:le&pos:v&root:šxrr&ptn:piel&form:inf
 lexwr	pre:le~pre:ha&pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:sg
 leyey	pre:le&pos:v&root:šʕšʕ&ptn:piel&form:inf
@@ -6132,8 +6132,8 @@ lgnim	pre:le&pos:n&root:gyn&ptn:CaC&gen:ms&num:pl&stat:free
 lgnnt	pre:le~pre:ha&pos:n&root:gnn&ptn:CaCeC&gen:fm&num:sg&stat:unsp
 lgprwr	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lgrb	pre:le~pre:ha&pos:n&root:grb&ptn:CeCeC&root:grv&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-lgrd	pre:le&pos:v&root:grd&ptn:CaCeC&form:inf
-lgre	pre:le&pos:v&root:grš&ptn:CaCeC&form:inf
+lgrd	pre:le&pos:v&root:grd&ptn:piel&form:inf
+lgre	pre:le&pos:v&root:grš&ptn:piel&form:inf
 lgrwn	pre:le~pre:ha&pos:n&root:gyr&ptn:CaCon&gen:ms&num:sg&stat:free
 lgrwd	pre:le~pre:ha&pos:n&root:grd&ptn:CeCuC&gen:ms&num:sg&stat:unsp
 lgw	pos:n&gen:ms&num:sg&stat:unsp
@@ -6151,7 +6151,7 @@ lhakil	pos:v&root:ʔkl&ptn:hifil&form:inf
 lhamin	pos:v&root:ʔmn&ptn:CaCiC&form:inf
 lhbdil	pre:le&pos:v&root:bdl&ptn:hifil&form:inf
 lhbh	pre:le&pos:n&root:hyb&ptn:CaCa&gen:fm&num:sg&stat:free
-lhibhb	pre:le&pos:v&root:hbhb&ptn:piel&form:inf
+lhibhb	pre:le&pos:v&root:hbhb&ptn:nifal&form:inf
 lhbim	pre:le&pos:n&root:hyb&ptn:CeCeC&gen:ms&num:pl&stat:free
 lhbin	pre:le&pos:v&root:byn&ptn:hifil&form:inf
 lhbia	pre:le&pos:n&root:hbʔ&ptn:CaCiC&gen:ms&num:sg&stat:unsp
@@ -6169,8 +6169,8 @@ lhdbiq	pre:le&pos:v&root:dbq&ptn:hifil&form:inf
 lhdbqwt	pre:le~pre:ha&pos:n&gen:fm&num:pl&stat:unsp
 lhdliq	pre:le&pos:v&root:dlq&ptn:hifil&form:inf
 lheair	pre:le&pos:v&root:šʔr&ptn:hifil&form:inf
-lhiear	pos:v&root:šʔr&ptn:CaCeC&form:inf pos:v&root:šʔr&ptn:CaCeC&pre:le&ptn:nifal&form:imp&pers:2&gen:ms&num:sg
-lhiebr	pos:v&root:šbr&ptn:CaCeC&form:inf
+lhiear	pos:v&root:šʔr&ptn:nifal&form:inf pos:v&root:šʔr&ptn:piel&pre:le&ptn:nifal&form:imp&pers:2&gen:ms&num:sg
+lhiebr	pos:v&root:šbr&ptn:nifal&form:inf
 lhegix	pre:le&pos:v&root:šgx&ptn:hifil&form:inf
 lheig	pre:le&pos:v&root:nṣg&ptn:hifil&form:inf
 lhekbh	pre:le&pos:n&gen:fm&num:sg&stat:free
@@ -6185,7 +6185,7 @@ lhetwbb	pos:v&root:šbb&ptn:hitpael&form:inf
 lhetwll	pos:v&root:šll&ptn:hitpael&form:inf
 lhetyl	pos:v&pre:le&root:šʕl&ptn:&form:inf pos:v&root:šʕl&ptn:hitpael&form:inf
 lhexil	pre:le&pos:v&root:šxl&ptn:hifil&form:inf
-lhieyn	pos:v&root:šʕn&ptn:CaCeC&form:inf
+lhieyn	pos:v&root:šʕn&ptn:nifal&form:inf
 lhgbir	pre:le&pos:v&root:gbr&ptn:hifil&form:inf
 lhgid	pre:le&pos:v&root:ngd&ptn:hifil&form:inf
 lhgie	pre:le&pos:v&root:ngš&ptn:hifil&form:inf
@@ -6202,10 +6202,10 @@ lhkaib	pre:le&pos:v&root:kʔb&ptn:hifil&form:inf
 lhkin	pre:le&pos:v&root:kwn&ptn:hifil&form:inf
 lhkir	pre:le&pos:v&root:nkr&ptn:hifil&form:inf
 lhknis	pre:le&pos:v&root:kns&ptn:hifil&form:inf
-lhiktb	pos:v&root:ktb&ptn:CaCeC&form:inf
+lhiktb	pos:v&root:ktb&ptn:nifal&form:inf
 lhktib	pre:le&pos:v&root:ktb&ptn:hifil&form:inf
 lhlbie	pre:le&pos:v&root:lbš&ptn:hifil&form:inf
-lhilxm	pos:v&root:lxm&ptn:CaCeC&form:inf
+lhilxm	pos:v&root:lxm&ptn:nifal&form:inf
 lhmeik	pre:le&pre:ke&pos:v&root:hmš&ptn:hifil&form:inf
 lhmtiq	pre:le&pos:v&root:mtq&ptn:hifil&form:inf
 lhmvh	pre:le&pre:ha&pos:n&pre:le~pre:ha&gen:fm&num:sg&stat:free
@@ -6277,7 +6277,7 @@ lhtnhg	pos:v&root:nhg&ptn:hitpael&form:inf
 lhtptx	pos:v&root:ptx&ptn:hitpael&form:inf
 lhtpwcc	pos:v&root:pcc&ptn:hitpael&form:inf
 lhtqer	pos:v&root:qšr&ptn:hitpael&form:inf
-lhitql	pos:v&root:tql&ptn:CaCeC&form:inf
+lhitql	pos:v&root:tql&ptn:nifal&form:inf
 lhtqlx	pos:v&root:qlx&ptn:hitpael&form:inf
 lhitqy	pos:v&root:tqʕ&ptn:CaCaC&form:inf
 lhtrawt	pos:v&root:rʔy&ptn:hitpael&form:inf
@@ -6322,7 +6322,7 @@ lhzmin	pre:le&pos:v&root:zmn&ptn:hifil&form:inf
 li	pre:le&pos:prep:pro&pers:1&gen:unsp&num:sg
 lim	pre:le~pre:ha&pos:n&root:yym&ptn:CaC&gen:ms&num:sg&stat:unsp
 lim	pre:le&pos:n&root:yym&ptn:CaC&gen:ms&num:sg&stat:unsp
-libb	pre:le&pos:v&root:ybb&ptn:CaCeC&form:inf
+libb	pre:le&pos:v&root:ybb&ptn:piel&form:inf
 licn	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 licni	pre:le&dim:yes&gen:ms&num:sg&stat:free
 licnim	pre:le&pos:n&gen:ms&num:pl&pl:masc:bio&stat:free
@@ -6338,14 +6338,14 @@ lidkh	pre:le&pre:ke&root:yyd&ptn:CaC&pos:prep&pers:2&gen:ms&num:sg
 lidnw	pre:le&root:yyd&ptn:CaC&pos:prep&pers:1&gen:unsp&num:pl
 lidw	pre:le&pos:n&root:yyd&ptn:CaC&gen:fm&num:sg&poss:3mascSG pre:le&root:yyd&ptn:CaC&pos:prep&pers:3&gen:ms&num:sg
 lie	pre:le&pos:exs
-lier	pre:le&pos:v&root:yšr&ptn:CaCeC&form:inf
+lier	pre:le&pos:v&root:yšr&ptn:piel&form:inf
 liibwe	pre:le&pos:n&root:ybš&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lild	pre:le~pre:ha&pos:n&root:yld&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lild	pre:le&pos:n&root:yld&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lildh	pre:le~pre:ha&pos:n&root:yld&ptn:CeCeC&gen:fm&num:sg&stat:free pre:le~pre:ha&pos:n&root:yld&ptn:CeCeC&gen:fm&num:sg&stat:free
 lildh	pre:le&pos:n&root:yld&ptn:CeCeC&gen:fm&num:sg&stat:free
 lildim	pre:le~pre:ha&pos:n&root:lyd&ptn:CaC&pre:le&root:yld&ptn:CeCeC&gen:ms&num:pl&pl:masc:bio&stat:free pre:le~pre:ha&pos:n&root:lyd&ptn:CaC&root:yld&ptn:CeCeC&gen:ms&num:pl&pl:masc:bio&stat:free
-liill	pre:le&pos:v&root:yll&ptn:CaCeC&form:inf
+liill	pre:le&pos:v&root:yll&ptn:piel&form:inf
 limim	pos:n&pre:le~pre:ha&gen:ms&num:pl&stat:free
 liqintwn	pos:n&root:qnt&ptn:laya&pre:le~pre:ha&gen:ms&num:sg&stat:unsp
 liqinvwn	pos:n&root:qnṭ&ptn:laya&pre:le~pre:ha&gen:ms&num:sg&stat:unsp
@@ -6394,7 +6394,7 @@ lkr	pre:le~pre:ha&pos:n&root:kyr&ptn:CaC&gen:ms&num:sg&stat:unsp
 lkrim	pre:le~pre:ha&pos:n&root:kyr&ptn:CaC&gen:ms&num:pl&stat:free
 lkrit	pre:le~pre:ha&pos:n&root:krt&ptn:CaCiC&gen:fm&num:sg&stat:unsp
 lkswt	pre:le&pos:v&root:ksy&ptn:piel&form:inf
-lksx	pre:le&pos:v&root:ksx&ptn:CaCeC&form:inf
+lksx	pre:le&pos:v&root:ksx&ptn:piel&form:inf
 lktwm	pre:le~pre:ha&pos:adj&root:ktm&ptn:CaCoC&gen:ms&num:sg
 lktwm	pre:le&pos:adj&root:ktm&ptn:CaCoC&gen:ms&num:sg
 lkw	pos:v&root:hlk&ptn:qal&form:imp&pers:2&gen:unsp&num:pl
@@ -6412,7 +6412,7 @@ llbn	pre:le~pre:ha&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
 llbn	pre:le&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
 llbd	pre:le&pre:le&pos:adv&root:byd&ptn:CaC
 llbit	pre:le&pre:le~pre:ha&pos:n&root:byt&ptn:CeCeC&gen:ms&num:sg&stat:free
-llbqr	pre:le~pre:ha&pre:le&pos:v&root:bqr&ptn:CaCeC&form:inf
+llbqr	pre:le~pre:ha&pre:le&pos:v&root:bqr&ptn:piel&form:inf
 llem	pre:le&pre:le&pos:adv&root:šym&ptn:CaC
 llgn	pre:le~pre:ha&pre:le&pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:cstr
 llgn	pre:le&pre:le~pre:ha&pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:unsp
@@ -6429,11 +6429,11 @@ llklk	pre:le&pre:ke&pos:v&root:lkl&ptn:piel&form:inf
 llklwk	pre:le&pre:le&pre:ke&pos:n&gen:ms&num:sg&stat:unsp
 llkt	pre:le~pre:ha&pos:v&root:hlk&ptn:qal&form:inf pre:ha
 lllkt	pre:le&pre:le~pre:ha&pos:v&root:hlk&ptn:qal&form:inf
-llmd	pre:le&pos:v&root:lmd&ptn:CaCeC&form:inf
+llmd	pre:le&pos:v&root:lmd&ptn:piel&form:inf
 llmwd	pre:le&pre:le&pos:n&root:myd&ptn:CuC&gen:ms&num:sg&stat:unsp
 llnw	pre:le&pos:v&root:lwn&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 llprpr	pre:le&pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-llqq	pre:le&pos:v&root:lqq&ptn:CaCeC&form:inf
+llqq	pre:le&pos:v&root:lqq&ptn:piel&form:inf
 llrawt	pre:le&pre:le&pos:v&root:rʔy&ptn:qal&form:inf
 llwn	pre:le~pre:ha&pos:v&root:lwn&ptn:qal&form:inf
 llwa	pre:le&pos:neg&root:lyʔ&ptn:CoC
@@ -6483,7 +6483,7 @@ lmkwnit	pre:le~pre:ha&pos:n&root:ḳnt&ptn:meCoCiC&gen:fm&num:sg&stat:unsp
 lmkwniwt	pre:le~pre:ha&pos:n&gen:fm&num:pl&stat:unsp
 lmlk	pre:le~pre:ha&pre:ke&pos:n&root:mlk&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lmlk	pre:le&pre:ke&pos:n&root:mlk&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-lmla	pre:le&pos:v&root:mlʔ&ptn:CaCeC&form:inf
+lmla	pre:le&pos:v&root:mlʔ&ptn:piel&form:inf
 lmlbn	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lmlh	pre:le~pre:ha&pos:n&gen:fm&num:sg&stat:free
 lmlkh	pre:le~pre:ha&pos:n&root:mlk&ptn:CeCeC&gen:fm&num:sg&stat:free
@@ -6537,10 +6537,10 @@ lmzrqwt	pos:n&root:lami&ptn:miCCaCa&pre:le~pre:ha&root:mtn&ptn:CaCaCa&gen:fm&num
 lndnd	pre:le&pos:v&root:ndnd&ptn:piel&form:inf
 lndndwt	pre:le~pre:ha&pos:n&gen:fm&num:pl&stat:unsp
 lneim	pos:n&pre:le&gen:fm&num:pl&pl:masc:bio
-lneq	pre:le&pos:v&root:nšq&ptn:CaCeC&form:inf
+lneq	pre:le&pos:v&root:nšq&ptn:piel&form:inf
 lner	pre:le~pre:ha&pos:n&root:nšr&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-lngn	pre:le&pos:v&root:ngn&ptn:CaCeC&form:inf
-lngb	pre:le&pos:v&root:ngb&ptn:CaCeC&form:inf pre:le&pre:ke&root:ngb&ptn:CaCeCa&pos:prep:pro&2&gen:fm&num:sg
+lngn	pre:le&pos:v&root:ngn&ptn:piel&form:inf
+lngb	pre:le&pos:v&root:ngb&ptn:piel&form:inf pre:le&pre:ke&root:ngb&ptn:CaCeCa&pos:prep:pro&2&gen:fm&num:sg
 lngr	pre:le~pre:ha&pos:n&root:ngr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 lni	pre:le~pre:ha&pos:n&root:nyr&ptn:CiCaC&gen:ms&num:sg&stat:unsp
 lnim	pos:part&root:lwn&ptn:qal&gen:ms&num:pl
@@ -6551,9 +6551,9 @@ lnkwn	pre:le&pos:adv&root:nyk&ptn:CaCon pre:le&pos:co
 lnmlh	pre:le~pre:ha&pos:n&gen:fm&num:sg&stat:free
 lnmr	pre:le~pre:ha&pos:n&root:nmr&ptn:CaCeC&gen:ms&num:sg&stat:unsp
 lnmr	pre:le&pos:n&root:nmr&ptn:CaCeC&gen:ms&num:sg&stat:unsp
-lnpx	pre:le&pos:v&root:npx&ptn:CaCeC&form:inf pre:le&pos:v&root:npx&ptn:CaCeC&form:inf
+lnpx	pre:le&pos:v&root:npx&ptn:piel&form:inf pre:le&pos:v&root:npx&ptn:piel&form:inf
 lnqiih	pos:adj&root:lnq&ptn:CeCeC&pre:le&root:nqy&ptn:CaCiC&gen:fm&num:sg
-lnqr	pre:le&pos:v&root:nqr&ptn:CaCeC&form:inf
+lnqr	pre:le&pos:v&root:nqr&ptn:piel&form:inf
 lnqwdwt	pre:le~pre:ha&pos:n&root:nqd&ptn:CeCuCa&gen:fm&num:pl&stat:unsp
 lnqwt	pre:le&pos:v&root:nqy&ptn:piel&form:inf
 lnr	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -6567,7 +6567,7 @@ lnw	pos:v&root:lwn&ptn:qal&tense:past&pers:3&gen:unsp&num:pl root:lyn&ptn:CaC&po
 lnwm	pre:le~pre:ha&pos:v&root:nwm&ptn:qal&form:inf
 lnwx	pre:le~pre:ha&pos:v&root:nwx&ptn:qal&form:inf
 lnxe	pre:le~pre:ha&pos:n&root:nxš&ptn:CaCaC&gen:ms&num:sg&stat:free
-lnxe	pre:le&pos:v&root:nxš&ptn:CaCeC&form:inf
+lnxe	pre:le&pos:v&root:nxš&ptn:piel&form:inf
 lnyl	pre:le~pre:ha&pos:n&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 lnyliim	pre:le~pre:ha&pos:n&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
 lnyliim	pre:le&pos:n&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
@@ -6590,7 +6590,7 @@ lprh	pre:le&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 lpri	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lprizider	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lprpr	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-lprq	pre:le&pos:v&root:prq&ptn:CaCeC&form:inf
+lprq	pre:le&pos:v&root:prq&ptn:piel&form:inf
 lprxim	pre:le~pre:ha&pos:n&root:prx&ptn:CeCeC&gen:ms&num:pl&stat:free
 lprxim	pre:le&pos:n&root:prx&ptn:CeCeC&gen:ms&num:pl&stat:free
 lpsntr	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -6607,15 +6607,15 @@ lpwnim	pre:le~pre:ha&pos:n&root:pyn&ptn:CoC&gen:ms&num:pl&stat:free
 lpx	pre:le~pre:ha&pos:n&root:pyx&ptn:CaC&gen:ms&num:sg&stat:unsp
 lpxwt	pre:le&pos:adv&root:pyx&ptn:CaCa&
 lpzl	pre:le~pre:ha&pos:n&root:pzl&ptn:CaCeC&gen:ms&num:sg&stat:unsp
-lpzr	pre:le&pos:v&root:pzr&ptn:CaCeC&form:inf
+lpzr	pre:le&pos:v&root:pzr&ptn:piel&form:inf
 lqn	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-lqbl	pre:le&pos:v&root:qbl&ptn:CaCeC&form:inf
+lqbl	pre:le&pos:v&root:qbl&ptn:piel&form:inf
 lqbwcwt	pre:le&pos:n&root:qbc&ptn:CCuCa&gen:fm&num:pl&stat:unsp
 lqch	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:free
 lqch	pre:le&pos:n&gen:ms&num:sg&stat:cstr
 lqe	pre:le~pre:ha&pos:n&root:qyš&ptn:CaC&gen:ms&num:sg&stat:unsp
 lqeqe	pre:le&pos:v&root:qšqš&ptn:piel&form:inf
-lqev	pre:le&pos:v&root:qšṭ&ptn:CaCeC&form:inf
+lqev	pre:le&pos:v&root:qšṭ&ptn:piel&form:inf
 lqibwc	pre:le~pre:ha&pos:n&root:qbc&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lqiewv	pre:le&pos:n&root:qšṭ&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lqinwx	pre:le&pos:n&root:qnx&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -6623,16 +6623,16 @@ lqipwd	pre:le~pre:ha&pos:n&root:qpd&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 lqir	pre:le~pre:ha&pos:n&root:qyr&ptn:CiC&gen:ms&num:sg&stat:unsp
 lqrqs	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lqvnh	pre:le~pre:ha&pos:n&gen:fm&num:sg&stat:free
-lqlp	pre:le&pos:v&root:qlp&ptn:CaCeC&form:inf pre:le&pos:v&root:qlp&ptn:CaCeC&form:inf
+lqlp	pre:le&pos:v&root:qlp&ptn:piel&form:inf pre:le&pos:v&root:qlp&ptn:piel&form:inf
 lqlql	pre:le&pos:v&root:qlql&ptn:piel&form:inf
-lqmv	pre:le&pos:v&root:qmṭ&ptn:CaCeC&form:inf
+lqmv	pre:le&pos:v&root:qmṭ&ptn:piel&form:inf
 lqniwt	pre:le~pre:ha&pos:n&root:qny&ptn:qniya&gen:fm&num:pl&stat:unsp
 lqniwt	pre:le&pos:n&root:qny&ptn:qniya&gen:fm&num:pl&stat:unsp
-lqnx	pre:le&pos:v&root:qnx&ptn:CaCeC&form:inf
-lqpl	pre:le&pos:v&root:qpl&ptn:CaCeC&form:inf
+lqnx	pre:le&pos:v&root:qnx&ptn:piel&form:inf
+lqpl	pre:le&pos:v&root:qpl&ptn:piel&form:inf
 lqqi	pre:le~pre:ha&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
-lqrb	pre:le&pos:v&root:qrb&ptn:CaCeC&form:inf
-lqrr	pre:le&pos:v&root:qrr&ptn:CaCeC&form:inf
+lqrb	pre:le&pos:v&root:qrb&ptn:piel&form:inf
+lqrr	pre:le&pos:v&root:qrr&ptn:piel&form:inf
 lqsvh	pre:le~pre:ha&pos:n&root:qsṭ&ptn:CaCeCa&gen:fm&num:sg&stat:unsp
 lqvnim	pre:le~pre:ha&pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:pl
 lqvr	pre:le~pre:ha&pos:n&root:qṭr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
@@ -6660,7 +6660,7 @@ lrib	pre:le~pre:ha&pos:v&root:ryb&ptn:qal&form:inf
 lricph	pre:le~pre:ha&pos:n&root:rcp&ptn:CiCCa&gen:fm&num:sg&stat:free
 lrkbt	pre:le~pre:ha&pos:n&root:rkb&ptn:CaCeC&gen:fm&num:sg&stat:unsp
 lrpt	pre:le~pre:ha&pos:n&root:rép&ptn:ref&root:ršt&ptn:CeCeC&gen:fm&num:sg&stat:unsp
-lrsq	pre:le&pos:v&root:rsq&ptn:CaCeC&form:inf
+lrsq	pre:le&pos:v&root:rsq&ptn:piel&form:inf
 lrwc	pre:le~pre:ha&pos:v&root:rwc&ptn:qal&form:inf
 lrae	pre:le~pre:ha&pos:n&root:rʔš&ptn:CoCC&gen:ms&num:sg&stat:unsp
 lrwaenim	pre:le&pos:n&root:rʔš&ptn:CoCCan&gen:ms&num:pl&stat:free
@@ -6670,18 +6670,18 @@ lrwpa	pre:le~pre:ha&pos:n&root:rpʔ&ptn:CoCeC&num:sg&stat:unsp pre:le~pre:ha&roo
 lrwpah	pre:le~pre:ha&pos:n&root:rpʔ&ptn:CoCCa&gen:fm&num:sg&stat:free
 lrxwb	pre:le~pre:ha&pos:n&root:rxb&ptn:CeCoC&gen:ms&num:sg&stat:unsp
 lrye	pre:le~pre:ha&pos:n&root:rʕš&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-lsbn	pre:le&pos:v&root:sbn&ptn:CaCeC&form:inf
+lsbn	pre:le&pos:v&root:sbn&ptn:piel&form:inf
 lsba	pre:le&pos:n&root:sbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
 lsbibwn	pre:le~pre:ha&pos:n&root:sbb&ptn:CeCiCon&gen:ms&num:sg&stat:unsp
 lsbta	pre:le&pos:n&gen:fm&num:sg&stat:free
 lsbth	pre:le&pos:n&root:sbt&ptn:CaCaC&gen:fm&num:sg&poss:3femSG
 lsbwnlhikns	pre:le~pre:ha&pre:le&root:kns&ptn:nifal&form:inf
 lsdin	pre:le~pre:ha&pos:n&root:sdn&ptn:CaCiC&gen:ms&num:sg&stat:free
-lsdr	pre:le&pos:v&root:sdr&ptn:CaCeC&form:inf
+lsdr	pre:le&pos:v&root:sdr&ptn:piel&form:inf
 lsgwl	pre:le~pre:ha&pos:adj&root:sgl&ptn:CaCoC&gen:ms&num:sg
 lsgwl	pre:le&pos:adj&root:sgl&ptn:CaCoC&gen:ms&num:sg
-lsim	pre:le&pos:v&root:sym&ptn:CaCeC&form:inf
-lsid	pre:le&pos:v&root:syd&ptn:CaCeC&form:inf
+lsim	pre:le&pos:v&root:sym&ptn:piel&form:inf
+lsid	pre:le&pos:v&root:syd&ptn:piel&form:inf
 lsidwrim	pre:le&pos:n&root:sdr&ptn:CiCuC&gen:ms&num:pl&stat:free
 lsipwr	pre:le~pre:ha&pos:n&root:spr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lsipwr	pre:le&pos:n&root:spr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -6689,7 +6689,7 @@ lsir	pre:le~pre:ha&pos:n&root:syr&ptn:CiC&gen:ms&num:sg&stat:unsp
 lsl	pre:le~pre:ha&pos:n&root:syl&ptn:CaC&gen:ms&num:sg&stat:unsp
 lslv	pre:le~pre:ha&pos:n&root:slṭ&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 lslwn	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp pre:le~pre:ha&pre:mi
-lsmn	pre:le&pos:v&root:smn&ptn:CaCeC&form:inf
+lsmn	pre:le&pos:v&root:smn&ptn:piel&form:inf
 lsmikh	pre:le~pre:ha&pos:n&root:smk&ptn:CCiCa&gen:fm&num:sg&stat:free
 lsndl	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lsndlim	pre:le~pre:ha&pos:n&gen:ms&num:pl&stat:free
@@ -6704,7 +6704,7 @@ lsprim	pre:le~pre:ha&pos:n&root:spr&ptn:CeCeC&gen:ms&num:pl&stat:free
 lspsl	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lspsl	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 lspti	pre:le&dim:yes&root:spt&ptn:CaCC&gen:fm&num:sg&stat:free
-lsrq	pre:le&pos:v&root:srq&ptn:CaCeC&form:inf
+lsrq	pre:le&pos:v&root:srq&ptn:piel&form:inf
 lsrv	pre:le~pre:ha&pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lsrv	pre:le&pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lsrvn	pre:le~pre:ha&pos:n&root:srṭ&ptn:CaCCan&gen:ms&num:sg&stat:unsp
@@ -6732,7 +6732,7 @@ ltinwq	pre:le&pos:n&root:tnq&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 ltnwr	pre:le~pre:ha&pos:n&root:tnr&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 ltprh	pre:le~pre:ha&pos:n&root:tpr&ptn:CCiCa&gen:fm&num:sg&stat:free
 ltpwx	pre:le&pos:n&root:tpx&ptn:CaCuC&gen:ms&num:sg&stat:unsp
-ltqn	pre:le&pos:v&root:tqn&ptn:CaCeC&form:inf
+ltqn	pre:le&pos:v&root:tqn&ptn:piel&form:inf
 ltqrh	pre:le~pre:ha&pos:n&root:tqr&ptn:CiCCa&gen:fm&num:sg&stat:free
 ltrgili	pos:n&pre:le&gen:ms&num:pl&stat:cstr
 ltrngwl	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -6753,7 +6753,7 @@ lvah	pre:le&pos:n&root:ṭyʔ&ptn:CaCa&gen:fm&num:sg&stat:free
 lvava	pre:le&pos:v&root:ṭʔṭʔ&ptn:piel&form:inf
 lvip	pre:le~pre:ha&pos:n&root:rgʕ&ptn:CeCeC&gen:ms&num:sg&stat:unsp pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lvip	pre:le&pos:n&gen:ms&num:sg&stat:unsp
-lvil	pre:le&pos:v&root:ṭyl&ptn:CaCeC&form:inf
+lvil	pre:le&pos:v&root:ṭyl&ptn:piel&form:inf
 lvipwt	pre:le~pre:ha&pos:n&root:ṭyp&ptn:CiCa&gen:fm&num:pl&stat:unsp
 lviwl	pre:le~pre:ha&pos:n&root:ṭyl&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 lviwl	pre:le&pos:n&root:ṭyl&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -6762,8 +6762,8 @@ lvlh	pre:le&pos:n&gen:ms&num:sg&stat:free
 lvlpn	pre:le&pos:v&root:ṭlpn&ptn:piel&form:inf pre:le&pos:v&root:ṭlpn&ptn:piel&form:inf
 lvlpwn	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lvlwwizih	pre:le~pre:ha&pos:n&gen:fm&num:sg&stat:unsp
-lvpl	pre:le&pos:v&root:ṭpl&ptn:CaCeC&form:inf
-lvps	pre:le&pos:v&root:ṭps&ptn:CaCeC&form:inf
+lvpl	pre:le&pos:v&root:ṭpl&ptn:piel&form:inf
+lvps	pre:le&pos:v&root:ṭps&ptn:piel&form:inf
 lvpvp	pre:le&pos:v&root:ṭpṭp&ptn:piel&form:inf
 lvrqvwr	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lvwb	pre:le&pos:co
@@ -6778,7 +6778,7 @@ lwanyim	pos:n&pre:be~pre:ha&gen:fm&num:sg&stat:free
 lwbe	pos:part&root:lbš&ptn:qal&gen:ms&num:sg
 lwbeim	pos:part&root:lbš&ptn:qal&gen:ms&num:pl
 lwbet	pos:part&root:lbš&ptn:qal&gen:fm&num:sg
-lwwda	pre:le&pos:v&root:wdʔ&ptn:CaCeC&form:inf
+lwwda	pre:le&pos:v&root:wdʔ&ptn:piel&form:inf
 lwhlk	pre:ke&pos:v&root:lewe&ptn:lewe&pre:le&pre:we&root:hlk&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 lwicanw	pos:v&pre:le~pre:ha&pre:we&root:ycʔ&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 lwiih	pre:le&pos:n&root:wyy&ptn:CaCa&gen:fm&num:sg&stat:free
@@ -6820,9 +6820,9 @@ lxc	pos:v&root:lxc&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 lxm	pos:n&root:lxm&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lxm	pos:v&root:lxm&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 lxm	pos:part&root:lxm&ptn:nifal&gen:ms&num:sg
-lxbq	pre:le&pos:v&root:xbq&ptn:CaCeC&form:inf
+lxbq	pre:le&pos:v&root:xbq&ptn:piel&form:inf
 lxbr	pre:le~pre:ha&pos:n&root:xbr&ptn:CaCeC&gen:ms&num:sg&stat:unsp
-lxbr	pre:le&pos:v&root:xbr&ptn:CaCeC&form:inf
+lxbr	pre:le&pos:v&root:xbr&ptn:piel&form:inf
 lxbrim	pre:le~pre:ha&pos:n&root:xbr&ptn:CaCeC&gen:ms&num:pl&pl:masc:bio&stat:free
 lxbrwt	pre:le~pre:ha&pos:n&root:xbr&ptn:CaCeCa&gen:fm&num:pl&pl:fem:bio&stat:free
 lxbrwt	pre:le&pos:n&root:xbr&ptn:CaCeCa&gen:fm&num:pl&pl:fem:bio&stat:free
@@ -6837,7 +6837,7 @@ lxdr	pre:le&pos:n&root:xdr&ptn:CaCaC&gen:ms&num:sg&stat:cstr pre:le&root:xdr&ptn
 lxdr	pre:le&pos:n&root:xdr&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lxdrim	pre:le~pre:ha&pos:n&root:xdr&ptn:CeCeC&gen:ms&num:pl&stat:free
 lxe	pos:n&root:lxš&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-lxeb	pre:le&pos:v&root:xšb&ptn:CaCeC&form:inf
+lxeb	pre:le&pos:v&root:xšb&ptn:piel&form:inf
 lxeh	pos:v&root:lxš&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 lxeh	pos:v&root:lxš&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 lxeml	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -6849,7 +6849,7 @@ lxi	pre:le&pos:n&root:xc&ptn:CiCaC&gen:fm&num:sg&stat:cstr
 lxi	pos:n&gen:fm&num:sg&stat:unsp
 lxik	pre:le&pre:ke&pos:v&root:xyk&ptn:piel&form:inf
 lxidh	pre:le~pre:ha&pos:n&root:xyd&ptn:CiCa&gen:fm&num:sg&stat:free
-lxiig	pre:le&pos:v&root:xyg&ptn:CaCeC&form:inf pre:le&pos:v&root:xyg&ptn:CaCeC&form:imp&pers:2&gen:ms&num:sg
+lxiig	pre:le&pos:v&root:xyg&ptn:piel&form:inf pre:le&pos:v&root:xyg&ptn:piel&form:imp&pers:2&gen:ms&num:sg
 lxih	pre:le~pre:ha&pos:n&root:xyy&ptn:CaCa&gen:fm&num:sg&stat:free
 lxiim	pre:le&pos:n&root:xyy&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
 lxiim	pre:le&pos:co
@@ -6877,14 +6877,14 @@ lxnwkiih	pos:n&pre:le&gen:fm&num:sg&stat:free
 lxnwt	pre:le~pre:ha&pos:n&root:xyn&ptn:CaC&gen:fm&num:sg&stat:unsp
 lxnwt	pre:le~pre:ha&pos:v&root:xny&ptn:qal&form:inf
 lxnwt	pre:le&pos:n&root:xyn&ptn:CaC&gen:fm&num:sg&stat:unsp
-lxpe	pre:le&pos:v&root:xpṣ&ptn:CaCeC&form:inf
+lxpe	pre:le&pos:v&root:xpṣ&ptn:piel&form:inf
 lxpwp	pre:le~pre:ha&pos:v&root:xpp&ptn:CCoC&form:inf
 lxrwz	pre:le~pre:ha&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 lxrwz	pre:le&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 lxrwzim	pre:le~pre:ha&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:pl&stat:free
 lxsidh	pre:le~pre:ha&pos:n&root:xsd&ptn:CaCiCa&gen:fm&num:sg&stat:free
 lxsidh	pre:le&pos:n&root:xsd&ptn:CaCiCa&gen:fm&num:sg&stat:free
-lxsr	pre:le&pos:v&root:xsr&ptn:CaCeC&form:inf
+lxsr	pre:le&pos:v&root:xsr&ptn:piel&form:inf
 lxtkwt	pre:le&pos:n&root:xtk&ptn:CaCiCa&gen:fm&num:pl&stat:unsp
 lxtltwl	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lxtwk	pre:le~pre:ha&pre:ke&pos:v&root:xtk&ptn:qal&form:inf
@@ -7133,7 +7133,7 @@ mcxiq	pos:part&root:cxq&ptn:maCCiC&gen:ms&num:sg pos:adj&root:cxq&ptn:maCCiC&gen
 mcxiqh	pos:adj&root:cxq&ptn:maCCiCa&gen:fm&num:sg&src:deverb pos:part&root:cxq&ptn:maCCiCa&gen:fm&num:sg
 mcyd	pre:mi&pos:n&root:cʕd&ptn:miCCaC&gen:ms&num:sg&stat:unsp
 mcyh	pos:part&root:ycʕ&ptn:hifil&gen:fm&num:sg
-md	pos:n&root:myd&ptn:madCaC&gen:ms&num:sg&stat:cstr
+md	pos:n&gen:ms&num:sg&stat:cstr
 mdaig	pos:adj&root:dʔg&ptn:maCCiC&gen:ms&num:sg&src:deverb
 mdbe	pre:mi&&root:dbš&ptn:meCCaC&gen:ms&num:sg&mass:yes&stat:unsp
 mdbiqh	pos:part&root:dbq&ptn:maCCiCa&gen:fm&num:sg
@@ -7532,7 +7532,7 @@ mhzkwkit	pre:mi&pre:ha&pos:n&root:zkk&ptn:CiCuC&gen:fm&num:sg&stat:unsp
 mhzmr	pre:mi&pre:ha&pos:n&root:zmr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 mhznb	pre:mi&pre:ha&pos:n&root:znb&ptn:CaCaC&gen:ms&num:sg&stat:free
 mi	pos:n&gen:ms&num:pl&mass:yes&stat:cstr
-mi	pre:mi&pos:part&root:mcʔ&ptn:nifal&gen:ms&num:sg
+mi	pre:mi&pos:part&gen:ms&num:sg
 miiae	pos:part&root:yʔš&ptn:meCaCeC&gen:ms&num:sg
 miiaw	pre:mi&pos:on&root:yyʔ&ptn:miCaC
 mibbt	pos:part&root:ybb&ptn:meCaCeC&gen:fm&num:sg
@@ -7839,7 +7839,7 @@ mqwmwt	pre:mi&&root:qym&ptn:meCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
 mqwpl	pos:adj&root:qpl&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mqwr	pre:mi&&root:qyr&ptn:meCoC&gen:ms&num:sg&mass:yes&stat:unsp
 mqwrwt	pre:mi&&root:qyr&ptn:meCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
-mr	pos:adj&root:myr&ptn:marCaC&root:mrr&gen:ms&num:sg
+mr	pos:adj&root:mrr&gen:ms&num:sg
 mrah	pos:part&root:rʔy&ptn:hifil&gen:fm&num:sg
 mrah	pos:part&root:rʔy&ptn:hifil&gen:ms&num:sg
 mraim	pos:part&root:rʔy&ptn:hifil&gen:ms&num:pl
@@ -7988,7 +7988,7 @@ mswpr	pos:adj&root:spr&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mswq	pos:n&root:msq&ptn:CaCoC&gen:ms&num:sg&stat:unsp
 mswr	pos:n&root:msr&ptn:masorCaCoC&gen:ms&num:sg&stat:unsp
 msydh	pre:mi&pos:n&root:sʕd&ptn:miCCaCa&gen:fm&num:sg&stat:free
-mt	pre:mi&pos:part&root:mwt&ptn:qal&gen:ms&num:sg pre:mi&pos:adj&root:mwt&ptn:tbd&gen:ms&num:sg
+mt	pre:mi&pos:part&gen:ms&num:sg pre:mi&pos:adj&gen:ms&num:sg
 mt	pos:adj&root:mwt&ptn:&gen:fm&num:sg pos:part&root:mwt&ptn:qal&gen:fm&num:sg
 mtn	pos:n&root:myt&ptn:CaCan&gen:ms&num:sg&stat:unsp
 mtaim	pos:adj&root:tʔm&ptn:maCCiC&gen:ms&num:sg&src:deverb pos:part&root:tʔm&ptn:hifil&gen:ms&num:sg pos:adj&root:ʔdm&ptn:CaCoC&gen:ms&num:sg
@@ -8354,8 +8354,8 @@ mzrqh	pre:mi&pos:n&root:zrq&ptn:miCCaCa&root:mtn&ptn:CaCaCa&gen:fm&num:sg&stat:f
 mzrqwt	pre:mi&pos:n&root:zrq&ptn:miCCaCa&root:mtn&ptn:CaCaCa&gen:fm&num:pl&stat:free
 mzwn	pos:n&root:myz&ptn:CaCon&gen:ms&num:sg&stat:free
 mzwmnwt	pos:adj&root:zmn&ptn:&gen:fm&num:pl&src:deverb
-nn	pos:n&root:nyn&ptn:CaCa&gen:fm&num:sg&stat:unsp
-na	pos:adj&root:nyʔ&ptn:CaC&gen:ms&num:sg
+nn	pos:n&gen:fm&num:sg&stat:unsp
+na	pos:adj&gen:ms&num:sg
 nabd	pos:part&root:ʔbd&ptn:nifal&gen:ms&num:sg pos:v&root:ʔbd&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
 narik	pre:ke&pos:v&root:ʔrk&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 naswp	pos:v&root:ʔsp&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
@@ -8378,7 +8378,7 @@ ncir	pos:v&root:cyr&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 nclcl	pos:v&root:clcl&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 ncwc	pos:n&root:ncc&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 ncwlt	pos:n&gen:fm&num:sg&stat:cstr
-ncx	pos:v&root:ncx&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+ncx	pos:v&root:ncx&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 nd	pos:v&root:ndd&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 ndbiq	pos:v&root:dbq&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 ndbr	pos:v&root:dbr&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
@@ -8443,7 +8443,7 @@ ngnh	pos:v&root:ngn&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 ngr	pos:n&root:ngr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 ngrwb	pos:v&root:grb&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 ngs	pos:v&root:ngs&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-n	pos:n&root:ngb&ptn:CiCuC&gen:ms&num:sg&stat:unsp
+n	pos:n&gen:ms&num:sg&stat:unsp
 ngwdim	pos:n&root:ngd&ptn:CiCuC&gen:ms&num:pl&stat:free
 ngyh	pos:v&root:ngʕ&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 ngyt	pos:v&root:ngʕ&ptn:qal&tense:past&pers:2&gen:ms&num:sg
@@ -8464,9 +8464,9 @@ nhnh	pos:part&root:hny&ptn:nifal&gen:ms&num:sg
 nhnt	pos:v&root:hny&ptn:nifal&tense:past&pers:2&gen:fm&num:sg pos:part&root:hny&ptn:nifal&gen:fm&num:sg
 nhpk	pre:ke&pos:part&root:nhp&ptn:nifal&gen:ms&num:sg
 nhpwk	pre:ke&pos:v&root:hpk&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
-ni	pos:v&root:ngb&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+ni	pos:v&root:ngb&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 ni	pos:part&root:ntq&ptn:CiCaC&gen:ms&num:sg
-ni	pos:n&root:nyr&ptn:CiCaC&gen:ms&num:sg&stat:unsp
+ni	pos:n&gen:ms&num:sg&stat:unsp
 nicvnn	pos:v&root:cnn&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
 ndbqh	pos:v&root:dbq&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 nidlqt	pos:part&root:dlq&ptn:nifal&gen:fm&num:sg
@@ -8537,7 +8537,7 @@ nptxh	pos:v&root:ptx&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 nptxw	pos:v&root:ptx&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
 npwl	pos:v&root:npl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 npx	pos:v&root:npx&ptn:CaCeC&form:imp&pers:2&gen:ms&num:sg
-npx	pos:v&root:npx&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+npx	pos:v&root:npx&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 npxh	pos:v&root:npx&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 nqbc	pos:v&root:qbc&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 nqbh	pos:n&root:nqb&ptn:CeCeCa&gen:fm&num:sg&stat:free
@@ -8605,14 +8605,14 @@ nsyt	pos:v&root:nsʕ&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 nsyti	pos:v&root:nsʕ&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 nsyw	pos:v&root:nsʕ&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 nignt	pos:v&root:ngn&ptn:piel&tense:past&pers:2&gen:fm&num:sg
-nigbt	pos:v&root:ngb&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-nigbt	pos:v&root:ngb&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-nieqt	pos:v&root:nšq&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+nigbt	pos:v&root:ngb&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+nigbt	pos:v&root:ngb&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+nieqt	pos:v&root:nšq&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 ntm	pos:v&root:ngn&ptn:piel&tense:past&pers:2&gen:ms&num:pl
 ntn	pos:v&root:ntn&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 ntn	pos:v&root:ntn&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
-nigbtii	pos:v&root:ngb&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-nipxtii	pos:v&root:npx&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+nigbtii	pos:v&root:ngb&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+nipxtii	pos:v&root:npx&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 ntnh	pos:v&root:ntn&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 ntnw	pos:v&root:ntn&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 ntpsh	pos:v&root:tps&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
@@ -8773,9 +8773,9 @@ pgenw	pos:v&root:pgš&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 pget	pos:v&root:pgš&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 pgew	pos:v&root:pgš&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 pgy	pos:v&root:pgʕ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-pirq	pos:v&root:prq&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+pirq	pos:v&root:prq&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 pist	pos:n&root:ps&ptn:CiCaC&gen:fm&num:sg&stat:cstr
-pizr	pos:v&root:pzr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+pizr	pos:v&root:pzr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 pich	pos:n&gen:fm&num:sg&stat:unsp
 pirmidh	pos:n&gen:fm&num:sg&stat:unsp
 pirmidwt	pos:n&gen:fm&num:pl&stat:unsp
@@ -8835,7 +8835,7 @@ pqidh	pos:n&root:pqd&ptn:CCiCa&gen:fm&num:sg&stat:free
 pqq	pos:n&root:pqq&ptn:CCaC&gen:ms&num:sg&stat:unsp
 pqwxwt	pos:adj&root:pqx&ptn:CaCuC&gen:fm&num:pl&src:deverb
 pqx	pos:v&root:pqx&ptn:CCaC&form:imp&pers:2&gen:ms&num:sg
-pr	pos:n&root:pyr&ptn:CaC&gen:ms&num:sg&stat:unsp
+pr	pos:n&gen:ms&num:sg&stat:unsp
 prch	pos:n&root:prc&ptn:CiCCa&gen:fm&num:sg&stat:free
 prcplwk	pre:ke&pos:adj&gen:ms&num:sg
 prcwp	pos:n&gen:ms&num:sg&stat:unsp
@@ -8866,14 +8866,14 @@ prx	pos:n&root:prx&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 prxh	pos:n&root:prx&ptn:CCiCa&gen:fm&num:sg&stat:free
 prxim	pos:n&root:prx&ptn:CeCeC&gen:ms&num:pl&stat:free
 prxx	pos:n&gen:ms&num:sg&stat:unsp
-ps	pos:n&root:pys&ptn:CaC&gen:ms&num:sg&stat:unsp
+ps	pos:n&gen:ms&num:sg&stat:unsp
 psi	pos:n&gen:ms&num:pl&stat:cstr
 psim	pos:n&root:pys&ptn:CaC&gen:ms&num:pl&stat:free
 psikit	pos:adj&root:psk&ptn:CCiCit&gen:fm&num:sg&src:foreign
 psntr	pos:n&gen:ms&num:sg&stat:unsp
 psq	pos:part&root:psq&ptn:nifal&gen:ms&num:sg
 pt	pos:v&root:ṣym&ptn:qal&tense:past&pers:2&gen:fm&num:sg
-pt	pos:v&root:pzr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+pt	pos:v&root:pzr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 ptawm	pos:adv
 pth	pos:v&root:pty&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 ptix	pos:n&root:ptx&ptn:CaCiC&gen:ms&num:sg&stat:unsp
@@ -8931,7 +8931,7 @@ pwxd	pos:part&root:pxd&ptn:qal&gen:ms&num:sg
 pwxdt	pos:part&root:pxd&ptn:qal&gen:fm&num:sg
 pwyl	pos:part&root:pʕl&ptn:qal&gen:ms&num:sg
 pwylt	pos:part&root:pʕl&ptn:qal&gen:fm&num:sg
-px	pos:n&root:pyx&ptn:CaC&gen:ms&num:sg&stat:unsp pos:n&root:pyx&ptn:CaC&gen:ms&num:sg&stat:cstr
+px	pos:n&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&stat:cstr
 pxd	pos:v&root:pxd&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 pxd	pos:n&root:pxd&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 pxdh	pos:v&root:pxd&ptn:qal&tense:past&pers:3&gen:fm&num:sg
@@ -8944,7 +8944,7 @@ pymim	pos:n&root:pʕm&ptn:CeCeC&gen:fm&num:pl&pl:masc:mis&stat:free
 pymiim	pos:n&root:pʕm&ptn:CeCeC&gen:fm&num:duo&num:duo&stat:free
 pymwn	pos:n&root:pʕm&ptn:CaCaCon&gen:ms&num:sg&stat:unsp
 pywlwt	pos:n&root:pʕl&ptn:CeCuCa&gen:fm&num:pl&stat:unsp
-pz	pos:n&root:pyz&ptn:CaC&gen:ms&num:sg&mass:yes&stat:unsp
+pz	pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 pzl	pos:n&root:pzl&ptn:CaCeC&gen:ms&num:sg&stat:unsp
 qm	pos:part&root:qwm&ptn:qal&gen:ms&num:sg
 qn	pos:n&gen:ms&num:sg&stat:unsp
@@ -8967,7 +8967,7 @@ qcrim	pos:n&root:qcr&ptn:CeCeC&gen:ms&num:pl&stat:free
 qct	pos:adj&root:qct&ptn:CCaC&root:dmy&ptn:CoCeC&gen:ms&num:sg&src:deverb pos:adj&root:xly&ptn:CoCeCgen:fm&num:sg&src:deverb
 qcwc	pos:adj&root:qcc&ptn:CaCuC&gen:ms&num:sg
 qcwwt	pos:n&root:qcw&ptn:CCaCa&gen:ms&num:pl&pl:fem:mis&stat:free
-qe	pos:n&root:qyš&ptn:CaC&gen:ms&num:sg&stat:unsp
+qe	pos:n&gen:ms&num:sg&stat:unsp
 qeh	pos:adj&root:qšy&ptn:CaCeC&gen:fm&num:sg&src:deverb
 qeh	pos:adj&root:qšy&ptn:CaCeC&gen:ms&num:sg&src:deverb
 qeim	pos:n&root:qyš&ptn:CaC&gen:ms&num:pl&stat:free
@@ -8982,8 +8982,8 @@ qewrh	pos:adj&root:qšr&ptn:CaCuC&gen:fm&num:sg&src:deverb
 qewt	pos:adj&root:qšy&ptn:CaCeC&gen:fm&num:pl&src:deverb
 qewxh	pos:adj&root:qšx&ptn:CaCuC&gen:fm&num:sg&src:deverb
 qewxwt	pos:adj&root:qšx&ptn:CaCuC&gen:fm&num:pl&src:deverb
-qi	pos:v&root:qbl&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
-qi	pos:v&root:qlp&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+qi	pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:ms&num:sg
+qi	pos:v&root:qlp&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 qiblh	pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 qiblw	pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
 qibwc	pos:n&root:qbc&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -9001,18 +9001,18 @@ qiewvim	pos:n&root:qšṭ&ptn:CiCuC&gen:ms&num:pl&stat:free
 qlql	pos:v&root:qlql&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 qlqlt	pos:v&root:qlql&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 qilw	pos:n&gen:ms&num:sg&stat:unsp
-qiblnw	pos:v&root:qbl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+qiblnw	pos:v&root:qbl&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 qipwd	pos:n&root:qpd&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 qipwdi	dim:yes&root:qpd&ptn:CiCoC&gen:ms&num:sg&stat:free
 qir	pos:n&root:qyr&ptn:CiC&gen:ms&num:sg&stat:unsp
 qirai	pos:v&root:qrʔ&ptn:qal&form:imp&pers:2&gen:fm&num:sg
-qiblnw	pos:v&root:qbl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-qilpt	pos:v&root:qlp&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-qimvt	pos:v&root:qmṭ&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-qiplt	pos:v&root:qpl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+qiblnw	pos:v&root:qbl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+qilpt	pos:v&root:qlp&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+qimvt	pos:v&root:qmṭ&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+qiplt	pos:v&root:qpl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 qiwn	pos:n&root:qyy&ptn:CaCon&gen:ms&num:sg&stat:free
 qiwn	pos:n&root:qnm&ptn:CiCaCon&gen:ms&num:sg&mass:yes&stat:unsp
-ql	pos:adj&root:qyl&ptn:CaC&root:qll&gen:ms&num:sg
+ql	pos:adj&root:qll&gen:ms&num:sg
 qlp	pos:v&root:qlp&ptn:qal&root:qlp&tense:past&pers:3&gen:ms&num:sg
 qlp	pos:n&root:qlp&ptn:CCaC&gen:ms&num:sg&stat:unsp
 qlh	pos:adj&root:qyl&ptn:CaCa&root:qll&gen:fm&num:sg
@@ -9068,7 +9068,7 @@ qqaw	pos:n&root:qqʔ&ptn:CaCaC&gen:ms&num:sg&mass:yes&stat:unsp
 qqh	pos:n&root:qyq&ptn:CaCa&gen:ms&num:sg&stat:unsp
 qqi	pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 qqwe	pos:v&root:dbr&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
-qr	pos:adj&root:qyr&ptn:CaC&root:qrr&gen:ms&num:sg
+qr	pos:adj&root:qrr&gen:ms&num:sg
 qrm	pos:n&root:qrm&ptn:CCeC&gen:ms&num:sg&stat:unsp
 qra	pos:v&root:qrʔ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl pos:v&root:qrʔ&ptn:nifal&tense:past&pers:3&gen:ms&num:sg pos:part&root:qrʔ&ptn:nifal&gen:ms&num:sg
 qra	pos:v&root:qrʔ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
@@ -9113,12 +9113,12 @@ qryti	pos:v&root:qrʕ&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 qsvh	pos:n&root:qsṭ&ptn:CaCeCa&gen:fm&num:sg&stat:unsp
 qsvniivwt	pos:n&gen:fm&num:pl&stat:unsp
 qsvwt	pos:n&root:qsṭ&ptn:CaCeC&gen:fm&num:pl&stat:unsp
-qt	pos:v&root:qbl&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-qt	pos:v&root:qpl&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-qti	pos:v&root:qbl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-qti	pos:v&root:qlp&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-qti	pos:v&root:qpl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-qv	pos:adj&root:qyṭ&ptn:CaC&root:qṭn&gen:ms&num:sg
+qt	pos:v&root:qbl&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+qt	pos:v&root:qpl&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+qti	pos:v&root:qbl&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+qti	pos:v&root:qlp&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+qti	pos:v&root:qpl&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+qv	pos:adj&root:qṭn&gen:ms&num:sg
 qvn	pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
 qvp	pos:v&root:qṭp&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 qvewp	pos:n&gen:ms&num:sg&stat:unsp
@@ -9135,7 +9135,7 @@ qvnwt	pos:adj&root:qtn&ptn:CaCaC&gen:fm&num:pl pos:part&root:qṭn&ptn:qal&gen:f
 qvpw	pos:v&root:qṭp&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 qvr	pos:n&root:qṭr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 qvy	pos:n&root:qṭʕ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-qw	pos:n&root:qyw&ptn:CaC&gen:ms&num:sg&stat:unsp
+qw	pos:n&gen:ms&num:sg&stat:unsp
 qwc	pos:n&root:qyc&ptn:CoC&gen:ms&num:sg&stat:unsp
 qwm	pos:v&root:qwm&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 qwp	pos:n&root:qyp&ptn:CoC&gen:ms&num:sg&stat:unsp
@@ -9204,7 +9204,7 @@ qyrt	pos:n&gen:fm&num:sg&stat:cstr
 rc	pos:v&root:rwc&ptn:qal&tense:past&pers:3&gen:ms&num:sg pos:part&root:rwc&ptn:qal&gen:ms&num:sg
 rc	pos:v&root:rwc&ptn:qal&tense:past&pers:3&gen:fm&num:sg pos:part&root:rwc&ptn:qal&gen:fm&num:sg
 rk	pre:ke&pos:adj&root:rkk&gen:ms&num:sg
-rm	pos:adj&root:rym&ptn:CaC&root:rwm&gen:ms&num:sg
+rm	pos:adj&root:rwm&gen:ms&num:sg
 raewn	pos:adj&root:rʔš&ptn:CiCCon&gen:ms&num:sg&src:deverb
 raewnh	pos:adj&root:rʔš&ptn:CiCCon&gen:fm&num:sg&src:deverb
 rai	pos:v&root:rʔy&ptn:qal&form:imp&pers:2&gen:fm&num:sg
@@ -9215,7 +9215,7 @@ raitm	pos:v&root:rʔy&ptn:qal&tense:past&pers:2&gen:ms&num:pl
 raiti	pos:v&root:rʔy&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 rath	pos:v&root:rʔy&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 raw	pos:v&root:rʔy&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
-rb	pos:adj&root:ryb&ptn:CaC&root:rbb&gen:ms&num:sg
+rb	pos:adj&root:rbb&gen:ms&num:sg
 rb	pos:part&root:ryb&ptn:CaCa&gen:fm&num:sg
 rbh	pos:adj&root:ryb&ptn:CaCa&root:rbb&gen:fm&num:sg
 rbh	pos:n&root:ryb&ptn:CiCa&gen:fm&num:sg&stat:free
@@ -9278,7 +9278,7 @@ rmz	pos:n&root:rmz&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 rmzwr	pos:n&gen:ms&num:sg&stat:unsp
 rpt	pos:n&root:rép&ptn:ref&root:ršt&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 rpwah	pos:n&root:rpʔ&ptn:CeCuCa&gen:fm&num:sg&stat:free
-rq	root:ryq&ptn:CaC&pos:adv
+rq	&pos:adv
 rqdnit	pos:n&root:rqd&ptn:CaCCanit&gen:fm&num:sg&stat:unsp
 rqdt	pos:v&root:rqd&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 rqpwt	pos:n&root:rqp&ptn:CaCaCa&gen:fm&num:pl&stat:free
@@ -9341,7 +9341,7 @@ rxcti	pos:v&root:rxc&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 rxwb	pos:n&root:rxb&ptn:CeCoC&gen:ms&num:sg&stat:unsp
 rxwq	pos:adj&root:rxq&ptn:CaCoC&gen:ms&num:sg
 rxwqh	pos:adj&root:rxq&ptn:CaCoC&gen:fm&num:sg
-ry	pos:adj&root:ryʕ&ptn:CaC&root:rʕʕ&gen:ms&num:sg
+ry	pos:adj&root:rʕʕ&gen:ms&num:sg
 rym	pos:n&root:rʕm&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 ryb	pos:part&root:rʕb&ptn:piel&gen:ms&num:sg
 rybh	pos:part&root:rʕb&ptn:CeCeCa&gen:fm&num:sg
@@ -9358,7 +9358,7 @@ ryiwnwt	pos:n&gen:ms&num:pl&pl:fem:mis&stat:unsp
 ryl	pos:n&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 rymh	pos:n&root:rʕm&ptn:CaCaCa&gen:fm&num:sg&stat:free
 rzh	pos:adj&root:rzy&ptn:CaCeC&gen:ms&num:sg&src:deverb
-sp	pos:n&root:syp&ptn:CaC&gen:ms&num:sg&stat:unsp
+sp	pos:n&gen:ms&num:sg&stat:unsp
 sba	pos:n&root:sbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free pos:que&root:sbʔ&ptn:CaCaC
 sbim	pos:n&root:syb&ptn:CaC&gen:ms&num:pl&stat:free
 sbib	pos:prep&root:sbb&ptn:CCiC
@@ -9401,9 +9401,9 @@ sgwr	pos:v&root:sgr&ptn:CCoC&form:imp&pers:2&gen:ms&num:sg
 sgwrh	pos:adj&root:sgr&ptn:CaCuC&gen:fm&num:sg&src:deverb
 sgwrim	pos:adj&root:sgr&ptn:CaCuC&gen:ms&num:pl&src:deverb
 sgwrwt	pos:adj&root:sgr&ptn:CaCuC&gen:fm&num:pl&src:deverb
-si	pos:n&root:sgr&ptn:CiCaC&gen:ms&num:sg&stat:unsp
-si	pos:n&root:snr&ptn:CiCaC&gen:ms&num:sg&stat:unsp
-si	pos:v&root:spr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+si	pos:n&gen:ms&num:sg&stat:unsp
+si	pos:n&gen:ms&num:sg&stat:unsp
+si	pos:v&root:spr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 sibh	pos:n&root:syb&ptn:CiCa&gen:fm&num:sg&stat:free
 sibwb	pos:n&root:sbb&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 sibwt	pos:n&root:syb&ptn:CiCa&gen:fm&num:pl&stat:unsp
@@ -9418,8 +9418,8 @@ sikwi	pos:n&gen:ms&num:sg&stat:unsp
 simn	pos:n&root:sym&ptn:CiCan&gen:ms&num:sg&stat:unsp
 simnim	pos:n&root:sym&ptn:CiCan&gen:ms&num:pl&stat:free
 sini	pos:adj&gen:ms&num:sg&src:foreign
-siprnw	pos:v&root:spr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
-siimnw	pos:v&root:sym&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+siprnw	pos:v&root:spr&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
+siimnw	pos:v&root:sym&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 sinwr	pos:n&root:snr&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 siprh	pos:n&root:spr&ptn:CiCCa&gen:fm&num:sg&stat:free
 siprh	pos:v&root:spr&ptn:piel&tense:past&pers:3&gen:fm&num:sg
@@ -9433,14 +9433,14 @@ sir	pos:n&root:syr&ptn:CiC&gen:ms&num:sg&stat:unsp
 sirh	pos:n&root:syr&ptn:CiCa&gen:fm&num:sg&stat:free
 sirwp	pos:n&root:srp&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 sirwt	pos:n&root:syr&ptn:CiCa&gen:fm&num:pl&stat:unsp
-sit	pos:v&root:sdr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-sit	pos:v&root:spr&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-sit	pos:v&root:sym&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+sit	pos:v&root:sdr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+sit	pos:v&root:spr&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+sit	pos:v&root:sym&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 six	pos:n&root:syx&ptn:CCaC&gen:ms&num:sg&stat:unsp
 skin	root:skn&ptn:CaCiC&pre:we
 skinai	pos:n&gen:ms&num:sg&stat:unsp
 skinim	pos:n&root:skn&ptn:CaCiC&gen:ms&num:pl&stat:free
-sl	pos:n&root:syl&ptn:CaC&gen:ms&num:sg&stat:unsp
+sl	pos:n&gen:ms&num:sg&stat:unsp
 slil	pos:n&root:sll&ptn:CCiC&gen:ms&num:sg&stat:unsp
 slixh	pos:co pos:n&root:slx&ptn:CCiCa&gen:fm&num:sg&stat:free
 slq	pos:n&root:slq&ptn:CeCeC&gen:ms&num:sg&mass:yes&stat:unsp
@@ -9497,13 +9497,13 @@ srv	pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 srvn	pos:n&root:srṭ&ptn:CaCCan&gen:ms&num:sg&stat:unsp
 srvh	pos:v&root:ṣrṭ&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 srvim	pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:pl&stat:free
-sidrt	pos:v&root:sdr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-siprt	pos:v&root:spr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-siimt	pos:v&root:sym&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-stm	pos:v&root:sdr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:pl
+sidrt	pos:v&root:sdr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+siprt	pos:v&root:spr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+siimt	pos:v&root:sym&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+stm	pos:v&root:sdr&ptn:piel&tense:past&pers:2&gen:ms&num:pl
 stm	root:stm&ptn:CCaC&pos:adv
-sidrti	pos:v&root:sdr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-siprti	pos:v&root:spr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+sidrti	pos:v&root:sdr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+siprti	pos:v&root:spr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 stkl	pos:v&root:skl&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
 stmt	pos:v&root:stm&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 stw	pos:n&root:stw&ptn:CCaC&gen:ms&num:sg&stat:unsp
@@ -9743,7 +9743,7 @@ thpki	pos:v&root:hpk&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 thpwk	pre:ke&pos:v&root:hpk&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 thrsi	pos:v&root:hrs&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 ti	pos:n&gen:fm&num:sg&stat:free
-tiqn	pos:v&root:tqn&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+tiqn	pos:v&root:tqn&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 tie	pos:n&root:tyš&ptn:CeCeC&gen:ms&num:sg&stat:free
 tiieri	pos:v&root:yšr&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 tinwqt	pos:n&root:tnq&ptn:CiCoC&gen:fm&num:sg&stat:unsp
@@ -9846,7 +9846,7 @@ tnsh	pos:v&root:nsy&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 tnsi	pos:v&root:nsy&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 tntqi	pos:v&root:ntq&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 tnw	pos:v&root:tqn&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
-tnw	pos:v&root:txx&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+tnw	pos:v&root:txx&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 tnwmi	pos:v&root:nwm&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 tinwq	pos:n&root:tnq&ptn:CiCoC&gen:ms&num:sg&stat:unsp
 tnwqi	dim:yes&root:tnq&ptn:CiCoC&gen:ms&num:sg&stat:free
@@ -9944,7 +9944,7 @@ tr	pos:part&root:twr&ptn:qal&gen:ms&num:sg
 tira	pos:v&root:yrʔ&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 trah	pos:v&root:rʔy&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 trah	pos:v&root:rʔy&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
-trai	 pos:v&root:rʔy&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
+trai	pos:v&root:rʔy&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 trai	que:ma
 traw	pos:v&root:rʔy&ptn:qal&tense:fut&pers:2&gen:unsp&num:pl
 trbic	pos:v&root:rbc&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
@@ -10033,7 +10033,7 @@ ttgle	pos:v&root:glš&ptn:hitpael&tense:fut&pers:23&gen:mf&num:sg
 ttglgl	pos:v&tense:fut&pers:23&gen:mf&num:sg
 ttglgli	pos:v&tense:fut&pers:2&gen:fm&num:sg
 tti	pos:v&root:tqn&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
-ttiibe	pos:v&root:ybš&ptn:CaCeC&tense:fut&pers:23&gen:mf&num:sg
+ttiibe	pos:v&root:ybš&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 ttiiebi	pos:v&root:yšb&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttkwnn	pos:v&root:kwn&ptn:hitpael&tense:fut&pers:23&gen:mf&num:sg
 ttkwpp	pos:v&root:kpp&ptn:hitpael&tense:fut&pers:23&gen:mf&num:sg
@@ -10046,19 +10046,19 @@ ttnhgi	pos:v&root:nhg&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttni	pos:v&root:ntn&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 ttpsi	pos:v&root:tps&ptn:CCeC&tense:fut&pers:2&gen:fm&num:sg
 ttqn	pos:v&root:tqn&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
-ttqer	pos:v&root:qšr&ptn:CaCeC&tense:fut&pers:23&gen:mf&num:sg
+ttqer	pos:v&root:qšr&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 ttqeri	pos:v&root:qšr&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttqlxi	pos:v&root:qlx&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttqni	pos:v&root:tqn&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 ttqrbi	pos:v&root:qrb&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
-ttqrr	pos:v&root:qrr&ptn:CaCeC&tense:fut&pers:23&gen:mf&num:sg
+ttqrr	pos:v&root:qrr&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 ttrgzi	pos:v&root:rgz&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttri	pos:v&root:ntr&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 ttrxci	pos:v&root:rxc&ptn:hitpael&tense:fut&pers:2&gen:fm&num:sg
 ttxil	pos:v&root:txl&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 ttxili	pos:v&root:txl&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
-ttxlq	pos:v&root:xlq&ptn:CaCeC&tense:fut&pers:23&gen:mf&num:sg
-ttxtn	pos:v&root:xtn&ptn:CaCeC&tense:fut&pers:23&gen:mf&num:sg
+ttxlq	pos:v&root:xlq&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
+ttxtn	pos:v&root:xtn&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
 tvbli	pos:v&root:ṭbl&ptn:CCeC&tense:fut&pers:2&gen:fm&num:sg
 tvi	pos:v&root:nṭy&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tvili	pos:v&root:ṭyl&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
@@ -10204,8 +10204,8 @@ vblt	pos:v&root:ṭbl&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 vbwl	pos:adj&root:ṭbl&ptn:CaCuC&gen:ms&num:sg&src:deverb
 vbwlh	pos:adj&root:ṭbl&ptn:CaCuC&gen:fm&num:sg&src:deverb
 vbx	pos:n&root:ṭbx&ptn:CaCaC&gen:ms&num:sg&stat:unsp
-vi	pos:adj&root:ṭps&ptn:piel&gen:ms&num:sg pos:v&root:ṭps&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
-vi	pos:adj&root:ṭpš&ptn:CiCeC&gen:ms&num:sg
+vi	pos:adj&gen:ms&num:sg pos:v&root:ṭps&ptn:piel&tense:past&pers:3&gen:ms&num:sg
+vi	pos:adj&gen:ms&num:sg
 vip	pos:n&root:ṭyp&ptn:CiC&gen:ms&num:sg&stat:unsp
 view	pos:n&gen:ms&num:sg&stat:unsp
 vil	pos:n&root:ṭyl&ptn:CiC&gen:ms&num:sg&stat:unsp
@@ -10218,9 +10218,9 @@ vipsw	pos:v&root:ṭps&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
 vipws	pos:n&root:ṭps&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 vipwt	pos:n&root:ṭyp&ptn:CiCa&gen:fm&num:pl&stat:unsp
 vis	pos:n&root:ṭys&ptn:CaCaC&gen:ms&num:sg&stat:unsp
-viplt	pos:v&root:ṭpl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-vipst	pos:v&root:ṭps&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-viilt	pos:v&root:ṭyl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+viplt	pos:v&root:ṭpl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+vipst	pos:v&root:ṭps&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+viilt	pos:v&root:ṭyl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 vivwl	pos:n&root:ṭṭl&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 vivwli	dim:yes&root:ṭṭl&ptn:CiCuC&gen:ms&num:sg&stat:free
 vivwlim	pos:n&root:ṭṭl&ptn:CiCuC&gen:ms&num:pl&stat:free
@@ -10466,7 +10466,7 @@ wcbyim	pre:we&pos:n&root:cbʕ&ptn:CCaC&root:cvʕ&ptn:CeCeC&gen:ms&num:pl&stat:fr
 wcdpim	pre:we&pos:n&root:cdp&ptn:CCaC&root:bgd&ptn:CeCeC&gen:ms&num:pl&stat:free
 wchwb	pre:we&pos:adj&root:chb&ptn:CaCoC&gen:ms&num:sg
 wchwbwt	pre:we&pos:adj&root:chb&ptn:CaCoC&gen:fm&num:pl
-wci	pre:we&pos:v&root:cyr&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+wci	pre:we&pos:v&root:cyr&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 wcips	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wcipsim	pre:we&pos:n&gen:ms&num:pl&stat:free
 wciwr	pre:we&pos:n&root:cyr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -10492,8 +10492,8 @@ wdli	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wdlt	pre:we&pos:n&root:dél&ptn:del&root:dlt&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 wdpim	pre:we&pos:n&root:dyp&ptn:CaC&gen:ms&num:pl&stat:free
 wdqim	pre:we&pos:adj&root:dyq&ptn:CaC&root:dqq&gen:ms&num:pl
-wdtm	pre:we&pos:v&root:dbr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:pl
-wdti	pre:we&pos:v&root:dbr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+wdtm	pre:we&pos:v&root:dbr&ptn:piel&tense:past&pers:2&gen:ms&num:pl
+wdti	pre:we&pos:v&root:dbr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 wdwbh	pre:we&pos:n&root:dyb&ptn:CuCa&gen:fm&num:sg&stat:free
 wdwbi	pre:we&dim:yes&root:dyb&ptn:CuC&gen:ms&num:sg&stat:free
 wdwd	pre:we&pos:n&root:dyd&ptn:CoCa&gen:fm&num:sg&stat:free
@@ -10551,7 +10551,7 @@ wemynw	pre:we&pos:v&root:šmʕ&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 wemyrbbim	pre:we&pre:sh&pos:part&root:ʕrbb&ptn:piel&gen:ms&num:pl
 weni	pos:num&root:šny&ptn:CeCi&pre:we&gen:ms&stat:cstr
 weni	pre:we&pos:adj&gen:ms&num:sg
-wenw	pre:we&pos:v&root:ṣxq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+wenw	pre:we&pos:v&root:ṣxq&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 wepni	pre:we&dim:yes&root:šyp&ptn:CaCan&gen:ms&num:sg&stat:free
 wertm	pre:we&pos:v&root:šyr&ptn:CaC&tense:past&pers:2&gen:ms&num:pl
 wetdbri	pre:we&pre:sh&pos:v&root:dbr&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
@@ -10885,10 +10885,10 @@ wlbwa	pre:we&pre:le~pre:ha&pos:v&root:bwʔ&ptn:qal&form:inf
 wlcbwy	pre:we&pre:le&pos:v&root:cbʕ&ptn:qal&form:inf
 wlcd	pre:we&pre:le~pre:ha&pos:n&root:cyd&ptn:CaC&gen:ms&num:sg&stat:unsp
 wlcd	pre:we&pre:le&pos:n&root:cyd&ptn:CaC&gen:ms&num:sg&stat:unsp
-wlcir	pre:we&pre:le&pos:v&root:cyr&ptn:CaCeC&form:inf
+wlcir	pre:we&pre:le&pos:v&root:cyr&ptn:piel&form:inf
 wlcwp	pre:we&pre:le~pre:ha&pos:v&root:cwp&ptn:qal&form:inf
 wld	pos:v&root:yld&ptn:nifal&tense:past&pers:3&gen:ms&num:sg pos:part&root:yld&ptn:nifal&gen:ms&num:sg
-wldbr	pre:we&pre:le&pos:v&root:dbr&ptn:CaCeC&form:inf
+wldbr	pre:we&pre:le&pos:v&root:dbr&ptn:piel&form:inf
 wldlqt	pre:we&pre:le~pre:ha&pos:n&root:dlq&ptn:CaCeC&gen:fm&num:sg&stat:unsp
 wldrwk	pre:we&pre:le&pre:ke&pos:v&root:drk&ptn:qal&form:inf
 wldt	pos:v&root:yld&ptn:nifal&tense:past&pers:2&gen:fm&num:sg
@@ -10908,14 +10908,14 @@ wleniih	pre:we&pre:le~pre:ha&pos:n&root:šny&ptn:šniya&gen:fm&num:sg&stat:free
 wlepwk	pre:we&pre:le&pre:ke&pos:v&root:špk&ptn:qal&form:inf
 wletwt	pre:we&pre:le&pos:v&root:šty&ptn:qal&form:inf
 wlewn	pre:we&pos:n&root:lyš&ptn:CaCon&gen:fm&num:sg&stat:free
-wlexq	pre:we&pre:le&pos:v&root:ṣxq&ptn:CaCeC&form:inf
+wlexq	pre:we&pre:le&pos:v&root:ṣxq&ptn:piel&form:inf
 wlgn	pre:we&pre:le~pre:ha&pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:unsp
 wlgmwr	pre:we&pre:le&pos:v&root:gmr&ptn:CCoC&form:inf
 wlhbia	pre:we&pre:le&pos:v&root:bwʔ&ptn:hifil&form:inf
 wlhdbiq	pre:we&pre:le&pos:v&root:dbq&ptn:hifil&form:inf
 wlhdliq	pre:we&pre:le&pos:v&root:dlq&ptn:hifil&form:inf
 wlheqwt	pre:le&pos:v&pre:we&root:šqy&ptn:&form:inf
-wlheyn	pre:we&pos:v&root:šʕn&ptn:CaCeC&form:inf
+wlheyn	pre:we&pos:v&root:šʕn&ptn:piel&form:inf
 wlhgid	pre:le&pos:v&pre:we&root:ngd&ptn:&form:inf
 wlhgid	pre:we&pre:le&pos:v&root:ngd&ptn:hifil&form:inf
 wlhiih	pre:we&pre:le&pos:cop&root:hyy&ptn:CaCa&tense:past&pers:3&gen:ms&num:sg
@@ -10950,15 +10950,15 @@ wlmiim	pre:we&pre:le~pre:ha&pos:n&gen:ms&num:pl&mass:yes&stat:free
 wlmvh	pre:we&pre:le&root:myṭ&ptn:CaCa
 wlmwn	pre:we&pre:le&pos:n&gen:ms&num:sg&stat:unsp
 wlmxwa	pre:we&pre:le&pos:v&root:mxʔ&ptn:CCoC&form:inf
-wlngb	pre:we&pre:le&pos:v&root:ngb&ptn:CaCeC&form:inf
+wlngb	pre:we&pre:le&pos:v&root:ngb&ptn:piel&form:inf
 wlnswt	pre:we&pre:le&pos:v&root:nsy&ptn:piel&form:inf
 wlnw	pre:we&root:lyn&ptn:CaC&pos:prep&pers:1&gen:unsp&num:pl
 wlpi	pre:we&pre:le&pos:prep
 wlpni	pre:we&pre:le
 wlpnim	pre:we&pre:le~pre:ha&pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
 wlpwl	pre:we&pre:le&pos:v&root:npl&ptn:qal&form:inf
-wlqbl	pre:we&pre:le&pos:v&root:qbl&ptn:CaCeC&form:inf
-wlqev	pre:we&pre:le&pos:v&root:qšṭ&ptn:CaCeC&form:inf
+wlqbl	pre:we&pre:le&pos:v&root:qbl&ptn:piel&form:inf
+wlqev	pre:we&pre:le&pos:v&root:qšṭ&ptn:piel&form:inf
 wlqwm	pre:we&pre:le~pre:ha&pos:v&root:qwm&ptn:qal&form:inf
 wlqx	pre:we&pos:v&root:lqx&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 wlqxh	pre:we&pos:v&root:lqx&ptn:qal&tense:past&pers:3&gen:fm&num:sg
@@ -11136,7 +11136,7 @@ wnlbie	pre:we&pos:v&root:lbš&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 wnpl	pre:we&pos:v&root:npl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 wnplw	pre:we&pos:v&root:npl&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 wnpwl	pre:we&pos:v&root:npl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
-wnpx	pre:we&pos:v&root:npx&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+wnpx	pre:we&pos:v&root:npx&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 wnqi	pre:we&pos:adj&root:nqy&ptn:CaCiC&gen:ms&num:sg
 wnqniq	pre:we&pos:n&root:qnq&ptn:CCiC&gen:ms&num:sg&stat:unsp
 wnqniqiih	pre:we&pos:n&gen:fm&num:sg&stat:free
@@ -11204,7 +11204,7 @@ wpym	pre:we&root:pʕm&ptn:CaCaC pre:we&pos:n&root:pʕm&ptn:CeCeC&gen:fm&num:sg&s
 wqm	pre:we&pos:part&root:qwm&ptn:qal&gen:ms&num:sg
 wqcicwt	pre:we&pos:n&root:qcc&ptn:CCiCa&gen:fm&num:pl&stat:unsp
 wqeh	pre:we&pos:adj&root:qšy&ptn:CaCeC&gen:ms&num:sg&src:deverb
-wqi	pre:we&pos:v&root:qbl&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+wqi	pre:we&pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 wqiblh	pre:we&pos:v&root:qbl&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 wqiewvim	pre:we&pos:n&root:qšṭ&ptn:CiCuC&gen:ms&num:pl&stat:free
 wqiimh	pre:we&pos:v&root:qym&ptn:piel&tense:past&pers:3&gen:fm&num:sg
@@ -11225,7 +11225,7 @@ wqre	pre:we&pos:n&root:qrš&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 wqrh	pre:we&pos:v&root:qry&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 wqrwqwdil	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wqry	pre:we&pos:v&root:qrʕ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-wqti	pre:we&pos:v&root:qbl&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+wqti	pre:we&pos:v&root:qbl&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 wqvn	pre:we&pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pre:we&pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
 wqvewp	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wqvnvnh	pre:we&pos:adj&root:qṭn&ptn:CCaCtal&gen:fm&num:sg
@@ -11292,8 +11292,8 @@ wsndlim	pre:we&pos:n&gen:ms&num:pl&stat:free
 wspr	pre:we&pos:n&root:spr&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 wspti	pre:we&dim:yes&root:spt&ptn:CaCC&gen:fm&num:sg&stat:free
 wsrv	pre:we&pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-wst	pre:we&pos:v&root:spr&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-wsti	pre:we&pos:v&root:spr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+wst	pre:we&pos:v&root:spr&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+wsti	pre:we&pos:v&root:spr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 wnstkl	pre:we&pos:v&root:skl&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
 wswgr	pre:we&pos:part&root:sgr&ptn:qal&gen:ms&num:sg
 wswgrim	pre:we&pos:part&root:sgr&ptn:qal&gen:ms&num:pl
@@ -11336,7 +11336,7 @@ wtgidi	pre:we&pos:v&root:ngd&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 wtgiy	pre:we&pos:v&root:ngʕ&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 wtgmri	pre:we&pos:v&root:gmr&ptn:CCeC&tense:fut&pers:2&gen:fm&num:sg
 wtie	pre:we&pos:n&root:tyš&ptn:CeCeC&gen:ms&num:sg&stat:free
-wt	pre:we&pos:v&root:yšr&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
+wt	pre:we&pos:v&tense:fut&pers:2&gen:fm&num:sg
 wtinwqt	pre:we&pos:n&root:tnq&ptn:CiCoC&gen:fm&num:sg&stat:unsp
 wtkp	pre:we&pos:adv&root:tkp&ptn:CeCeC
 wtkbi	pre:we&pos:v&root:kby&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
@@ -11360,7 +11360,7 @@ wtnyl	pre:we&pos:v&root:nʕl&ptn:CCaC&tense:fut&pers:23&gen:mf&num:sg
 wtnyli	pre:we&pos:v&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 wtpli	pre:we&pos:v&root:npl&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 wtptx	pre:we&pos:v&root:ptx&ptn:CCaC&tense:fut&pers:23&gen:mf&num:sg
-wt	pre:we&pos:v&root:npl&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
+wt	pre:we&pos:v&tense:fut&pers:23&gen:mf&num:sg
 wtpwx	pre:we&pos:n&root:tpx&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 wtpwxi	pre:we&pos:n&root:tpx&ptn:CaCuC&gen:ms&num:pl&stat:cstr
 wtpwxim	pre:we&pos:n&root:tpx&ptn:CaCuC&gen:ms&num:pl&stat:free
@@ -11421,7 +11421,7 @@ wtymdi	pre:we&pos:v&root:ʕmd&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 wtymwd	pre:we&pos:v&root:ʕmd&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 wtywp	pre:we&pos:v&root:ʕwp&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 wtzrqi	pre:we&pos:v&root:zrq&ptn:CCeC&tense:fut&pers:2&gen:fm&num:sg
-wvi	pre:we&pos:v&root:ṭps&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+wvi	pre:we&pos:v&root:ṭps&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 wvlh	pre:we&pos:n&gen:ms&num:sg&stat:free
 wvlwwizih	pre:we&pos:n&gen:fm&num:sg&stat:unsp
 wvrax	pre:we&pos:on&root:ṭrʔx&ptn:ṭCaCC&
@@ -11431,7 +11431,7 @@ wvwb	pre:we&root:ṭyb&ptn:CoC
 wvwsiq	pre:we&pos:n&root:ṭsq&ptn:CuCiC&gen:ms&num:sg&stat:unsp
 wvwynt	pre:we&pos:part&root:ṭʕn&ptn:qal&gen:fm&num:sg
 wvyim	pre:we&pos:adj&root:ṭʕm&ptn:CaCiCgen:ms&num:sg
-ww	pos:n&root:wyw&ptn:CaC&gen:ms&num:sg&stat:unsp
+ww	pos:n&gen:ms&num:sg&stat:unsp
 wnwakl	pre:we&pos:v&root:ʔkl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 wwi	pre:we&pos:co
 wwlwn	pre:we&pos:n&root:wyl&ptn:CiCon&gen:ms&num:sg&stat:unsp
@@ -11457,8 +11457,8 @@ wxmwd	pre:we&pos:n&root:xmd&ptn:CaCuC&gen:ms&num:sg&stat:unsp pre:we&pos:adj&roo
 wxmwr	pre:we&pos:n&root:xmr&ptn:CaCoC&gen:ms&num:sg&stat:unsp
 wxrdl	pre:we&pos:adj&gen:unsp&num:unsp&src:denom
 wxrwz	pre:we&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:sg&stat:unsp
-wxt	pre:we&pos:v&root:xbq&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-wxipeti	pre:we&pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+wxt	pre:we&pos:v&root:xbq&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+wxipeti	pre:we&pos:v&root:xpṣ&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 wxtkh	pre:we&pos:v&root:xtk&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 wxtwl	pre:we&pos:n&root:xtl&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 wxtwlim	pre:we&pos:n&root:xtl&ptn:CaCuC&gen:ms&num:pl&pl:masc:bio&stat:free
@@ -11552,7 +11552,7 @@ xcim	pos:n&root:xyc&ptn:CiC&gen:ms&num:pl&stat:free
 xcir	pos:n&root:xcr&ptn:CaCiC&gen:ms&num:sg&mass:yes&stat:unsp
 xcr	pos:n&root:xcr&ptn:CaCeC&gen:gen&num:sg&stat:free
 xcwcrh	pos:n&gen:fm&num:sg&stat:free
-xd	pos:adj&root:xyd&ptn:CaC&root:xdd&gen:ms&num:sg
+xd	pos:adj&root:xdd&gen:ms&num:sg
 xde	pos:adj&root:xdš&ptn:CaCaC&gen:ms&num:sg
 xdeh	pos:adj&root:xdš&ptn:CaCaC&gen:fm&num:sg
 xdeim	pos:adj&root:xdš&ptn:CaCaC&gen:ms&num:pl
@@ -11572,12 +11572,12 @@ xemliim	pos:adj&root:xwb&gen:ms&num:pl&src:denom
 xewk	pre:ke&pos:adj&root:xšk&ptn:CaCuC&gen:ms&num:sg&src:deverb
 xewb	pos:adj&root:xšb&ptn:CaCuC&gen:ms&num:sg&src:deverb
 xewd	pos:v&root:xšd&ptn:CaCoC&form:imp&pers:2&gen:ms&num:sg
-xg	pos:part&root:xwg&ptn:qal&gen:ms&num:sg pos:n&root:xyg&ptn:CaC&gen:ms&num:sg&stat:unsp
+xg	pos:part&root:xwg&ptn:qal&gen:ms&num:sg pos:n&gen:ms&num:sg&stat:unsp
 xgb	pos:n&root:xgb&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 xgigh	pos:n&root:xgg&ptn:CaCiCa&gen:fm&num:sg&stat:free
 xgwrh	pos:n&root:xgr&ptn:CaCoCa&gen:fm&num:sg&stat:free
-xi	pos:adj&root:xyy&ptn:CaC&gen:ms&num:sg pos:part&root:xyy&ptn:CaC&gen:ms&num:sg
-xi	pos:v&root:xpṣ&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
+xi	pos:adj&gen:ms&num:sg pos:part&root:xyy&ptn:CaC&gen:ms&num:sg
+xi	pos:v&root:xpṣ&ptn:piel&tense:past&pers:3&gen:ms&num:sg
 xiib	pos:adj&root:xyb&ptn:CaCaC&gen:ms&num:sg&src:deverb
 xibim	pos:adj&root:xyb&ptn:CaCaC&gen:ms&num:pl&src:deverb
 xibqh	pos:v&root:xbq&ptn:piel&tense:past&pers:3&gen:fm&num:sg
@@ -11657,7 +11657,7 @@ xnikh	pos:n&root:xnk&ptn:CaCiCa&gen:fm&num:sg&stat:free
 xnit	pos:n&root:xnt&ptn:CaCiC&gen:ms&num:sg&stat:unsp
 xniti	pos:v&root:xny&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 xnpnit	pos:adj&root:xnp&ptn:CaCCan&gen:fm&num:sg
-xnw	pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:pl
+xnw	pos:v&root:xpṣ&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 xinwki	pos:adj&root:xyy&gen:ms&num:sg&src:denom pos:adj&root:xnk&ptn:CiCuC&root:xyy&gen:ms&num:sg&src:denom
 xnwkiih	pos:n&root:xnk&ptn:CaCuC&gen:fm&num:sg&stat:free
 xnwt	pos:n&root:xyn&ptn:CaC&gen:fm&num:sg&stat:unsp
@@ -11694,17 +11694,17 @@ xsrh	pos:adj&root:xsr&ptn:CaCeC&gen:fm&num:sg&src:deverb
 xsrim	pos:adj&root:xsr&ptn:CaCeC&gen:ms&num:pl&src:deverb
 xsrt	pos:adj&root:xsr&ptn:CaCeC&gen:fm&num:sg&src:deverb&stat:cstr
 xsrwt	pos:adj&root:xsr&ptn:CaCeC&gen:fm&num:pl&src:deverb
-xt	pos:n&root:xyt&ptn:CaC&gen:ms&num:sg&mass:yes&stat:unsp
-xt	pos:v&root:xlq&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-xt	pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-xt	pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:2&gen:ms&num:sg
-xt	pos:v&root:xsl&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
-xt	pos:v&root:xṭṭ&ptn:CiCaC&tense:past&pers:2&gen:fm&num:sg
+xt	pos:n&gen:ms&num:sg&mass:yes&stat:unsp
+xt	pos:v&root:xlq&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+xt	pos:v&root:xpṣ&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+xt	pos:v&root:xpṣ&ptn:piel&tense:past&pers:2&gen:ms&num:sg
+xt	pos:v&root:xsl&ptn:piel&tense:past&pers:2&gen:fm&num:sg
+xt	pos:v&root:xṭṭ&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 xtk	pre:ke&pos:v&root:xtk&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 xti	pos:n&gen:fm&num:sg&stat:cstr
-xibqti	pos:v&root:xbq&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-xibrti	pos:v&root:xbr&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
-xipeti	pos:v&root:xpṣ&ptn:CiCaC&tense:past&pers:1&gen:unsp&num:sg
+xibqti	pos:v&root:xbq&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+xibrti	pos:v&root:xbr&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
+xipeti	pos:v&root:xpṣ&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 xtkh	pos:adj&root:xtk&ptn:CaCiCgen:fm&num:sg pos:n&root:xtk&ptn:CaCiCa&gen:fm&num:sg&stat:free
 xtkh	pos:v&root:xtk&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 xtkt	pos:v&root:xtk&ptn:qal&tense:past&pers:2&gen:fm&num:sg
@@ -11840,7 +11840,7 @@ ycwbh	pos:adj&root:ʕcb&ptn:CaCuC&gen:fm&num:sg&src:deverb
 ycwbim	pos:adj&root:ʕcb&ptn:CaCuC&gen:ms&num:pl&src:deverb
 ycwbwt	pos:adj&root:ʕcb&ptn:CaCuC&gen:fm&num:pl&src:deverb
 ycwmwt	pos:adj&root:ʕcm&ptn:CaCuC&gen:fm&num:pl&src:deverb
-yd	root:ʕyd&ptn:CaC&
+yd	&
 ydeh	pos:n&root:ʕdš&ptn:CaCaCa&gen:fm&num:sg&stat:free
 ydeim	pos:n&root:ʕdš&ptn:CaCaC&gen:fm&num:pl&pl:masc:mis&stat:free
 ydin	
@@ -11876,7 +11876,7 @@ ygwlh	pos:adj&root:ʕgl&ptn:CaCoC&gen:fm&num:sg
 ygwli	pos:n&root:ʕgl&ptn:CiCuC&gen:ms&num:pl&stat:cstr
 ygwlim	pos:adj&root:ʕgl&ptn:CaCoC&gen:ms&num:pl
 ygwlim	pos:n&root:ʕgl&ptn:CiCuC&gen:ms&num:pl&stat:free
-yi	pos:adj&root:ʕwr&ptn:CiCeC&gen:ms&num:sg
+yi	pos:adj&gen:ms&num:sg
 yim	pos:part&root:ʔkl&ptn:qal&gen:ms&num:sg
 yin	pos:n&root:ʕyn&ptn:CaCiC&root:ʔyn&ptn:CeCeC&gen:fm&num:sg&stat:free pos:n&root:ʕyn&ptn:CaCiC&gen:fm&num:sg&stat:free
 yip	pos:adj&root:ʕyp&ptn:CaCeC&root:ʕyp&ptn:CaCeC&gen:ms&num:sg&src:deverb
@@ -11963,7 +11963,7 @@ yqenit	pos:adj&root:ʕqš&ptn:CaCCan&gen:fm&num:sg
 yqich	pos:n&root:ʕqc&ptn:CaCiCa&gen:fm&num:sg&stat:free
 yqrb	pos:n&gen:ms&num:sg&stat:unsp
 yqwm	pos:adj&root:ʕqm&ptn:CaCuC&gen:ms&num:sg&src:deverb
-yr	pos:n&root:ʕyr&ptn:CiC&gen:ms&num:sg&stat:unsp
+yr	pos:n&gen:ms&num:sg&stat:unsp
 yrb	pos:n&root:ʕrb&ptn:CeCeC&root:ʔvn&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 yrbbt	pos:v&root:ʕrbb&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 yrbbti	pos:v&root:ʕrbb&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
@@ -11975,7 +11975,7 @@ yrwmh	pos:adj&root:ʕrm&ptn:CaCuC&gen:fm&num:sg&src:deverb
 ysq	pos:n&root:ʕsq&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 yswq	pos:adj&root:ʕsq&ptn:CaCuC&gen:ms&num:sg&src:deverb
 yswqh	pos:adj&root:ʕsq&ptn:CaCuC&gen:fm&num:sg&src:deverb
-yt	pos:adj&root:ʕwr&ptn:CiCeC&gen:fm&num:sg
+yt	pos:adj&gen:fm&num:sg
 ytwn	pos:n&root:ʕyt&ptn:CiCon&gen:ms&num:sg&stat:unsp
 ytwnim	pos:n&root:ʕtn&ptn:CiCoC&gen:ms&num:pl&stat:free
 yv	pos:n&gen:ms&num:sg&stat:unsp
@@ -12049,7 +12049,7 @@ yzrw	pos:v&root:ʕzr&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 yzwb	pos:v&root:ʕzb&ptn:CaCoC&form:imp&pers:2&gen:ms&num:sg
 yzwr	pos:v&root:ʕzr&ptn:CaCoC&form:imp&pers:2&gen:ms&num:sg
 z	pos:chi
-z	pos:n&gen:fm&num:sg&stat:free pro:dem&pers:3&gen:ms&num:sg pos:part&root:&ptn:&gen:ms&num:sg pos:cop&tense:past&pers:3&gen:ms&num:sg pos:part&root:&ptn:&gen:ms&num:sg pos:part&root:qrʔ&ptn:qal&gen:ms&num:pl pos:n&root:gzr&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&stat:unsp pos:adj&root:nʕm&ptn:CaCiC&gen:ms&num:sg pro:dem&pers:3&gen:fm&num:sg pos:part&root:&ptn:&gen:ms&num:sg
+z	pos:n&gen:fm&num:sg&stat:free pro:dem&pers:3&gen:ms&num:sg pos:part&root:&ptn:&gen:ms&num:sg pos:cop&tense:past&pers:3&gen:ms&num:sg pos:part&root:&ptn:&gen:ms&num:sg pos:part&root:qrʔ&ptn:qal&gen:ms&num:pl pos:n&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&stat:unsp pos:adj&gen:ms&num:sg pro:dem&pers:3&gen:fm&num:sg pos:part&root:&ptn:&gen:ms&num:sg
 zab	pos:n&root:zʔb&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 zabh	pos:n&root:zʔb&ptn:CeCeCa&gen:fm&num:sg&stat:free
 zbl	pos:n&root:zbl&ptn:CeCeC&gen:ms&num:sg&stat:unsp
@@ -12116,7 +12116,7 @@ zwhi	&pro:dem&pers:3&gen:fm&num:sg
 zwhr	pos:part&root:zhr&ptn:qal&gen:ms&num:sg
 zwkr	pos:part&root:zkr&ptn:qal&gen:ms&num:sg
 zwkrim	pos:part&root:zkr&ptn:qal&gen:ms&num:pl
-zwkrt	pos:part&root:zkr&ptn:qal&gen:fm&num:sg 
+zwkrt	pos:part&root:zkr&ptn:qal&gen:fm&num:sg
 zwlgwt	pos:part&root:zlg&ptn:qal&gen:fm&num:pl
 zwmm	pos:part&root:zmm&ptn:qal&gen:ms&num:sg
 zwrm	pos:part&root:zrm&ptn:qal&gen:ms&num:sg

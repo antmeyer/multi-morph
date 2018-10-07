@@ -188,7 +188,7 @@ def categoryFilter(analysis):
 		genNum = gen + "%" + num
 		persNum = pers + "%" + num
 		persGenNum = pers + "%" + num + "%" + gen
-		
+
 	if pos == "adj" or pos == "n":
 		isNominal = True
 		isVerb = False
@@ -340,7 +340,11 @@ class BL_Analyzer:
 			line = line.replace("mf","u")
 			line = line.replace("fm","u")
 			word,analyses_str = line.split("\t")
-			self.analysisDict[word] = list()
+			self.analysisDict[word] = dict()
+			self.wordsAndClasses = dict()
+			self.clustersAndWords = dict()
+			self.clustersAndClasses = dict()
+			self.numWords = 0
 			#analyses = analyses_str.split()
 			analyses = analysisFilter(analyses_str)
 			#print analyses
@@ -349,16 +353,94 @@ class BL_Analyzer:
 				#cats = analysis.split("&")
 				#cats.sort()
 				new_analysis = categoryFilter(analysis)
-				#cats = new_analysis.split("&")
-				if "fut" in analysis:
-					print new_analysis
+				
+				# if "fut" in analysis:
+				# 	print new_analysis
+				cats = new_analysis.split("&")
+				for cat in cats:
+					self.analysisDict[word][cat] = 1
+			self.clustersAndWords[clusterID].append(word)
 
-				# for cat in cats:
-				# 	self.analysisDict[word] = cats
+	def analyze_words(self, cluster_words, cluster_ID):
+		#wordsAndClasses = dict()
+		#analyzed_words = list()
+		self.clustersAndWords = dict()
+		self.clustersAndClasses = dict()
+		self.wordsAndClasses = dict()
+		self.numWords = len(cluster_words)
+		seen_words = []
+		unseenWord = True
+		for word in cluster_words:
+			if word in seen_words: 
+				unseenWord = True
+			else: 
+				seen_words.append(word)
+				unseenWord = False
 
-def main(fileName):
-	my_bl_analyzer = BL_Analyzer(fileName)
+			self.clustersAndWords[clusterID].append(word)
+			self.clustersAndClasses[clusterID]
+			if self.wordsAndClasses.has_key(word):
+				classes = self.self.analysisDict[word].keys()
+				self.wordsAndClasses[word].extend(classes)
+			else:
+				self.wordsAndClasses[word] = classes
+				#self.wordsAndClasses[word].extend(self.self.analysisDict[word].keys())
+			for feature in classes:
+				if unseenWord:
+					if self.clustersAndClasses[clusterID].has_key(feature):
+						self.clustersAndClasses[clusterID][feature] += 1
+					else:
+						self.clustersAndClasses[clusterID][feature] = 1
+				else:
+					# if unseenWord is False, it means that the current word as already been seen.
+					# in this case, we need to be careful not to increase the counts of previously
+					# seen features (i.e., classes).
+					if self.clustersAndClasses[clusterID].has_key(feature):
+						pass
+					else:
+						self.clustersAndClasses[clusterID][feature] = 1
+				#sys.stderr.write("  freq(" + prevLineWord + " & " + feature
+
+	def getWordsAndClasses(self):
+# 		for word in self.wordsAndClasses:
+# 			if "M%Sg" in self.wordsAndClasses[word]:
+# 				sys.stderr.write(word + ": " + str(self.wordsAndClasses[word]) + "\n")
+		return self.wordsAndClasses
+	
+	def getClustersAndClasses(self):
+		return self.clustersAndClasses
+		
+	def getClusterCardinality(self):
+		return self.numWords
+		
+	def getClustersAndWords(self):
+		return self.clustersAndWords
+
+
+def main(bermanAnalysesFile, clusterWordsFile):
+	my_bl_analyzer = BL_Analyzer(bermanAnalysesFile)
+	fobj = open(clusterWordsFile, 'r')
+	lines = fobj.readlines()
+	for line in lines:
+		if line[0] == "#":
+			#sys.stderr.write(line)
+			clusters.append(clusterLines)
+			clusterLines = []
+		else:
+			if line != "\n":
+				clusterLines.append(line)
+	wordsAndClasses = dict()
+	for k in range(len(clusters)):
+		str_k = "{0:04d}".format(k)
+		#cluster_IDs.append(str_k)
+		#my_bl_analyzer = BL_analyzer(bermanAnalysesFile)
+		my_bl_analyzer.analyze_words(clusters[str_k], str_k)
+		wordsAndClasses.update(my_bl_analyzer.getWordsAndClasses())
+	for word in wordsAndClasses.keys()
+		features = wordsAndClasses[word].keys()
+		sys.stdout.write(word + "\t" + " ".join(features) + "\n")
 
 if __name__ == '__main__':
-	main(sys.argv[1])
+	main(sys.argv[1], sys.argv[2])
+
 
