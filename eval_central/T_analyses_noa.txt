@@ -2503,7 +2503,7 @@ hatuki	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hatut	pre:ha&pos:n&root:tyt&ptn:CuC&gen:ms&num:sg&stat:unsp pre:ha&pos:n&root:tyt&ptn:CuC&gen:ms&num:sg&stat:unsp& pre:ha&pos:n&root:tyt&ptn:CuC&gen:ms&num:sg&stat:cstr
 hatxala	pos:n&gen:fm&num:sg&stat:free
 hatšiʕi	pre:ha&pos:adj&gen:ms&num:sg
-hatḳelet	pre:ha&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+hatḳelet	pre:ha&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 hav	pos:on&root:hyb&ptn:CaC
 hava	pos:co
 havi	pos:v&root:yhb&ptn:qal&form:imp&pers:2&gen:fm&num:sg
@@ -8188,7 +8188,7 @@ tutim	pos:n&root:tyt&ptn:CuC&gen:ms&num:pl&stat:free
 tuḳal	pos:v&root:ykl&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 tuḳli	pos:v&root:ykl&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 tšuva	pos:n&root:tšb&ptn:CCuCa&gen:fm&num:sg&stat:free
-tḳelet	pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+tḳelet	pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 ubamaḳteš	pre:be~pre:ha&pos:n&pre:we&gen:ms&num:sg&stat:unsp
 ubaqayic	pre:be~pre:ha&pos:n&root:qyc&ptn:CaCiC&pre:we&ptn:CeCeC&gen:ms&num:sg&stat:free
 ubayom	pre:be~pre:ha&pos:n&root:yym&ptn:CoC&pre:we&gen:ms&num:sg&stat:unsp
@@ -9114,7 +9114,7 @@ wetrisim	pre:we&pos:n&root:trs&ptn:CCiC&gen:ms&num:pl&stat:free
 wetuki	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wetutim	pre:we&pos:n&root:tyt&ptn:CuC&gen:ms&num:pl&stat:free
 wetuḳli	pre:we&pos:v&root:ykl&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
-wetḳelet	pre:we&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+wetḳelet	pre:we&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 weway	pre:we&pos:co
 wewilon	pre:we&pos:n&root:wyl&ptn:CiCon&gen:ms&num:sg&stat:unsp
 wexalav	pre:we&pos:n&root:xlb&ptn:CaCaC&gen:ms&num:sg&mass:yes&stat:unsp

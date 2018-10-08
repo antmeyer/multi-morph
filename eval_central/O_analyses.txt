@@ -4809,7 +4809,7 @@ htinwqwt	pre:ha&pos:n&root:tnq&ptn:CiCoCa&gen:unsp&num:pl&pl:fem:bio&stat:unsp
 htiq	pre:ha&pos:n&root:tyq&ptn:CiC&gen:ms&num:sg&stat:unsp
 htiz	pos:v&root:nṣg&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 htkeiv	pos:n&root:kšṭ&ptn:hata&pre:ha&gen:ms&num:sg&stat:unsp
-htklt	pre:ha&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+htklt	pre:ha&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 htkwwnt	pos:v&root:kwn&ptn:hitpael&tense:past&pers:2&gen:fm&num:sg
 htkwwnt	pos:v&root:kwn&ptn:hitpael&tense:past&pers:2&gen:ms&num:sg
 htkwnti	pos:v&root:kwn&ptn:hitpael&tense:past&pers:1&gen:unsp&num:sg
@@ -9758,7 +9758,7 @@ tkh	pos:v&root:nky&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 tki	pre:ke&pos:v&root:nky&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tkin	pos:v&root:kwn&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 tkini	pos:v&root:kwn&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
-tklt	pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+tklt	pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 tknis	pos:v&root:kns&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 tknisi	pos:v&root:kns&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tkns	pos:v&root:kns&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
@@ -11341,7 +11341,7 @@ wtinwqt	pre:we&pos:n&root:tnq&ptn:CiCoC&gen:fm&num:sg&stat:unsp
 wtkp	pre:we&pos:adv&root:tkp&ptn:CeCeC
 wtkbi	pre:we&pos:v&root:kby&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 wtkini	pre:we&pos:v&root:kwn&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
-wtklt	pre:we&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+wtklt	pre:we&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 wtksi	pre:we&pos:v&root:ksy&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 wtktbi	pre:we&pos:v&root:ktb&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 wtlh	pre:we&pos:v&root:thy&ptn:qal&tense:past&pers:3&gen:ms&num:sg

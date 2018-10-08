@@ -1,7 +1,16 @@
-import regex as re
-import sys, codecs
-import activeCentroidFeatures as acf
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+
+import regex as re
+import sys, codecs, math
+#import activeCentroidFeatures as acf
+import active_centroid_features as acf
+reload(sys)  
+sys.setdefaultencoding('utf8')
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+sys.stderr = UTF8Writer(sys.stderr)
 
 
 # def read_symbol(raw_input, re_pos_front, re_pos_back, re_bi_elems, re_prec_elems):
@@ -51,11 +60,13 @@ class FeatureLists:
 		self.re_prec_or_bi = re.compile(self.pat_prec_or_bi, re.UNICODE)
 
 		for old_list in lists:
+			print "OL:", " ".join(old_list)
 			new_list = []
 			for feature in old_list:
 				parsed_feature = self.read_symbol(feature)
 				if parsed_feature != None:
 					new_list.append(parsed_feature)
+			print "NL:", new_list
 
 			new_list.sort()
 			#print new_list
@@ -64,6 +75,7 @@ class FeatureLists:
 				#print parsed_feature, self.revert_to_feature(parsed_feature)
 				modified_list.append(self.revert_to_feature(parsed_feature))
 			self.feature_lists.append(modified_list)
+			print "ML:", " ".join(modified_list)
 
 	def read_symbol(self, raw_input):
 		symbol = None
@@ -86,7 +98,7 @@ class FeatureLists:
 			symbol = None
 		return symbol
 
-	def decode_symbol(symbol_parts_tuple):
+	def decode_symbol(self,symbol_parts_tuple):
 		output = ""
 		s = symbol_parts_tuple[0]
 		a = symbol_parts_tuple[1]

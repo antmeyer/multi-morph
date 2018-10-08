@@ -2510,7 +2510,7 @@ hatéqaʕ	pre:ha&pos:n&root:tqʕ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 hatíras	pre:ha&pos:n&root:trs&ptn:CiCaC&gen:ms&num:sg&stat:unsp
 hatúki	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hatšiʕí	pre:ha&pos:adj&gen:ms&num:sg
-hatḳélet	pre:ha&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+hatḳélet	pre:ha&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 hav	pos:on&root:hyb&ptn:CaC
 havinóti	pre:ha&pos:v&root:byn&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
 hawaród	pre:ha&pos:adj&root:wrd&ptn:CaCoC&gen:ms&num:sg
@@ -8232,7 +8232,7 @@ túki	pos:n&gen:ms&num:sg&stat:unsp
 túkim	pos:n&root:tyk&ptn:CuC&gen:ms&num:pl&stat:free
 tútim	pos:n&root:tyt&ptn:CuC&gen:ms&num:pl&stat:free
 tšuvá	pos:n&root:tšb&ptn:CCuCa&gen:fm&num:sg&stat:free
-tḳélet	pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+tḳélet	pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 ubamaḳtéš	pre:be~pre:ha&pos:n&pre:we&gen:ms&num:sg&stat:unsp
 ubaqáyic	pre:be~pre:ha&pos:n&root:qyc&ptn:CaCiC&pre:we&ptn:CeCeC&gen:ms&num:sg&stat:free
 ubayom	pre:be~pre:ha&pos:n&root:yym&ptn:CoC&pre:we&gen:ms&num:sg&stat:unsp
@@ -9153,7 +9153,7 @@ wetéšaʕ	pre:we&pos:num&root:tšʕ&ptn:CeCaC&gen:fm
 wetéḳef	pre:we&pos:adv&root:tḳp&ptn:CeCeC pre:we&root:tḳp&ptn:CeCeC&pos:adv pre:we&pos:adv&root:tḳp&ptn:CeCeC
 wetúki	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wetútim	pre:we&pos:n&root:tyt&ptn:CuC&gen:ms&num:pl&stat:free
-wetḳélet	pre:we&pos:adj&root:tkl&ptn:CCeCetgen:unsp&num:unsp
+wetḳélet	pre:we&pos:adj&root:tkl&ptn:CCeCet&gen:unsp&num:unsp
 weway	pre:we&pos:co
 wewilón	pre:we&pos:n&root:wyl&ptn:CiCon&gen:ms&num:sg&stat:unsp
 wexalonót	pre:we&pos:n&root:xln&ptn:CaCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
@@ -11511,7 +11511,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔayumá	pos:adj&root:ʔym&ptn:CaCoC&gen:fm&num:sg
 ʔayumím	pos:adj&root:ʔym&ptn:CaCoC&gen:ms&num:pl
 ʔayál	pos:n&root:ʔyl&ptn:CaCaC&gen:ms&num:sg&stat:unsp
-ʔayélet	pos:n&root:ʔyl&ptn:CaCeC&gen:fm&num:sg&stat:cstr
+ʔayélet	pos:n&root:ʔyl&ptn:CaCaC&gen:fm&num:sg&stat:cstr
 ʔayóm	pos:adj&root:ʔym&ptn:CaCoC&gen:ms&num:sg
 ʔaz	pos:adv
 ʔazmín	pos:v&root:zmn&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg

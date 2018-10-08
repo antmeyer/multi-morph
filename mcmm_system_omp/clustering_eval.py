@@ -185,7 +185,7 @@ for k in range(len(clusters)):
 	str_k = "{0:04d}".format(k)
 	cluster_IDs.append(str_k)
 	bl_analyzer = BL_analyzer(bermanAnalysesFile)
-	bl_analyzer.analyze_words(clusters[str_k], str_k)
+	bl_analyzer.analyze_words(clusters[k], str_k)
 	# Create an instance of AnalysisParser called 'my_parser';
 	# the input arguments of its constructor in include a cluster (i.e.,
 	# a list of words, a k value (i.e., a sort of cluster ID), and an

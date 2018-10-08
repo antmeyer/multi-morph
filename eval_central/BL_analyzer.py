@@ -13,9 +13,9 @@ sys.stderr = UTF8Writer(sys.stderr)
 def analysisFilter(analyses_str):
 	new_analyses = list()
 	analyses=analyses_str.split()
-	#print "*",analyses
+	##print "*",analyses
 	if "pos:part" in analyses_str:
-		#print "**",analyses_str
+		##print "**",analyses_str
 		for analysis in analyses:
 			if "pos:v" in analysis:
 				continue
@@ -24,7 +24,7 @@ def analysisFilter(analyses_str):
 			elif "pos:n" in analysis:
 				continue
 			else: new_analyses.append(analysis)
-		#print "***", "new_analyses:",new_analyses
+		##print "***", "new_analyses:",new_analyses
 		return new_analyses
 	else:
 		return analyses
@@ -45,13 +45,15 @@ def categoryFilter(analysis):
 	pat=ur"(qal)|(piel)|(hitpael)|(nifal)|(hufal)|(pual)|(hifil)"
 	re_binyan = re.compile(pat, re.UNICODE)
 
-	pat=ur"(pers:)([123][123]*)(&gen:)([mfu])(&num:)([sgplun]+)(&|$)"
+	pat=ur"(pers:)([123][123]*)(&gen:)([mfu])(&num:)([sgplundoma]+)(&|$)"
 	re_getpgn = re.compile(pat, re.UNICODE)
 
 	#pat=ur"(fut)|(past)|(pres)"
 	#pat=ur"(fut)|(past)"
 	#re_tense = re.compile(pat, re.UNICODE)
-	pat=ur"(pos:)([a-z:_]+)(&)"
+	pat = ur"(^.*)(ptn:)([a-z]+)((?:&.*$)|$)"
+	re_getptn = re.compile(pat, re.UNICODE)
+	pat=ur"(^.*)(pos:)([a-z]+)(&)(.*)$"
 	re_getpos = re.compile(pat, re.UNICODE)
 	pat = ur"pos:v"
 	re_verb = re.compile(pat, re.UNICODE)
@@ -59,17 +61,17 @@ def categoryFilter(analysis):
 	re_part = re.compile(pat, re.UNICODE)
 	pat=ur"qal"
 	re_qal = re.compile(pat, re.UNICODE)
-	pat = ur"(pers:)([123][123]?)(&|$)"
-	re_pers = re.compile(pat, re.UNICODE)
-	pat = ur"(gen:)([mf][mf]?)(&|$)"
-	re_gen = re.compile(pat, re.UNICODE)
-	pat = ur"(num:)((?:sg)|(?:pl))(&|$)"
-	re_num = re.compile(pat, re.UNICODE)
-	pat = ur"(tense:)([a-z]+)(&|$)"
-	re_tns = re.compile(pat, re.UNICODE)
-	pat = ur"(root:)([^&]+)(&|$)"
+	pat = ur"(^.*)(pers:)([123][123]?)((?:&.*$)|$)"
+	re_getpers = re.compile(pat, re.UNICODE)
+	pat = ur"(^.*)(gen:)([mfu])(&.*)$"  #(?:&.*$)|$)"
+	re_getgen = re.compile(pat, re.UNICODE)
+	pat = ur"(^.*)(num:)((?:sg)|(?:pl)|(?:duo))((?:&.*$)|$)"
+	re_getnum = re.compile(pat, re.UNICODE)
+	pat = ur"(^.*)(tense:)([a-z]+)((?:&.*$)|$)"
+	re_gettns = re.compile(pat, re.UNICODE)
+	pat = ur"(^.*)(root:)([^&]+)((?:&.*$)|$)"
 	re_getroot = re.compile(pat, re.UNICODE)
-	pat = ur"(pro:)([^&]+)(&|$)"
+	pat = ur"(^.*)(pro:)([^&]+)(&|$)((?:&.*$)|$)"
 	re_protype = re.compile(pat, re.UNICODE)
 	#tense:fut&pers:23&gen:mf&num:sg
 	#"future%(2%M)|(2|3%F)"
@@ -173,24 +175,27 @@ def categoryFilter(analysis):
 	# analysis=re_comp8.sub(ur"\2%\4&\4%1%Pl", analysis)
 
 	# PAST-TENSE FORMS
-
-	tense = re_tns.sub(ur"\2",analysis)
-	pers = re_pers.sub(ur"\2", analysis)
-	gen = re_gen.sub(ur"\2", analysis)
-	num = re_num.sub(ur"\2", analysis)
-	pos = re_getpos.sub(ur"\2", analysis)
-	root = re_getroot.sub(ur"\2", analysis)
-	pro_type = re_protype.sub(ur"\2", analysis)
-	if "pos:pro" in analysis:
-		isFreePronoun = True
-		isNominal = False
-		isVerb = False
-		genNum = gen + "%" + num
-		persNum = pers + "%" + num
-		persGenNum = pers + "%" + num + "%" + gen
+	
+	#re_getptn = re.compile(pat, re.UNICODE)
+	tense = re_gettns.sub(ur"\3",analysis)
+	pers = re_getpers.sub(ur"\3", analysis)
+	gen = re_getgen.sub(ur"\3", analysis)
+	num = re_getnum.sub(ur"\3", analysis)
+	pos = re_getpos.sub(ur"\3", analysis)
+	root = re_getroot.sub(ur"\3", analysis)
+	ptn = re_getptn.sub(ur"\3", analysis)
+	pro_type = re_protype.sub(ur"\3", analysis)
+	# if "pos:pro" in analysis:
+	# 	isFreePronoun = True
+	# 	isNominal = False
+	# 	isVerb = False
+	# 	genNum = gen + "%" + num
+	# 	persNum = pers + "%" + num
+	# 	persGenNum = pers + "%" + num + "%" + gen
 
 	if pos == "adj" or pos == "n":
 		isNominal = True
+		#print "isNominal 0:", isNominal
 		isVerb = False
 		genNum = gen + "%" + num
 		persGenNum = ""
@@ -217,8 +222,7 @@ def categoryFilter(analysis):
 	re_tns0 = re.compile(pat, re.UNICODE)
 	# pat = ur"(pos:)([a-z]+)(&)"
 	# re_pos =  re.compile(pat, re.UNICODE)
-	pat = ur"(ptn:)([a-z]+)(&)"
-	re_ptn = re.compile(pat, re.UNICODE)
+
 	
 	if "tense" in analysis and pos != "part":
 		# FUTURE
@@ -250,19 +254,19 @@ def categoryFilter(analysis):
 
 	elif pos == "part":
 		#pat = ur"(ptn:)([a-zC]+)(&tense:)(past)(&pers:3&gen:f&num:sg)(&|$)"
-		pat = ur"(pos:)(part)(&.*)(&ptn:)([a-zC]+)(&.*)(&gen:)([mf])(&num:)([sgplun]+)(&|$)"
+		pat = ur"(pos:)(part)(&.*)(&ptn:)([a-zC]*)(&.*)(&gen:)([mfu])(&num:)([sgplundoma]+)(&|$)"
 		re_part = re.compile(pat, re.UNICODE)
 		#analysis = re_part.sub(ur"\5%prefix_stem&\8%\10\11\6", analysis)
 		if ptn == "qal":
-			analysis = re_part.sub(ur"\5%participle&\8%\10\11\6", analysis)
+			analysis = re_part.sub(ur"\3\5%participle&\8%\10\11\6", analysis)
 			# stemFeature = binyan + "%participle"
 			# processedFeatures.append(stemFeature)
-		elif binyan == "nifal":
-			analysis = re_part.sub(ur"\5%suffix_stem&\8%\10\11\6", analysis)
+		elif ptn == "nifal":
+			analysis = re_part.sub(ur"\3\5%suffix_stem&\8%\10\11\6", analysis)
 			# stemFeature = binyan + "%suffix_stem"
 			# processedFeatures.append(stemFeature)
 		else:
-			analysis = re_part.sub(ur"\5%prefix_stem&\8%\10\11\6", analysis)
+			analysis = re_part.sub(ur"\3\5%prefix_stem&\8%\10\11\6", analysis)
 			# stemFeature = binyan + "%prefix_stem"
 			# prefixFeature = "participle_prefix"
 			# processedFeatures.extend([stemFeature, prefixFeature])
@@ -290,25 +294,27 @@ def categoryFilter(analysis):
 	# Non-participle nominals
 	## construct forms
 	if isNominal:
+		#print "isNominal"
 		pat = ur"(pos:)(n|(?:adj))([^\s]*)(&gen:)([fmu])(&num:)([spglundo]+)(&stat:)(cstr)"
 		re_cstr = re.compile(pat, re.UNICODE)
 		#if (gen = "m" and num = "sg") or (gen = "f" and num = "pl")
-		if gen = "f" and num = "pl":
+		if gen == "f" and num == "pl":
 			analysis=re_cstr.sub(ur"\2%\5%\7&\3", analysis)
 		else:
 			analysis=re_cstr.sub(ur"\2%\9%\5%\7&\3", analysis)
-
+		#print "Just after re_cstr:", analysis
 		## absolute (or non-construct) forms
-		pat = ur"(pos:)(n|(?:adj))([^\s]*)(&gen:)([fmunsp]+)(&num:)([spglundo]+)"
+		pat = ur"(pos:)(n|(?:adj))([^\s]*)(&gen:)([fmunsp]+)(&num:)([spglundo]+)(&stat:)((?:free)|u)"
 		re_abs = re.compile(pat, re.UNICODE)
 		analysis=re_abs.sub(ur"\2%\5%\7&\3", analysis)
 		### get rid of the masc.sg feature, since masc.sg forms are (usually) unmarked
-		pat = ur"(n|(?:adj))(\%[mu]\%sg)"
-		re_msg = re.compile(pat, re.UNICODE)
-		analysis = re_msg.sub(ur"", analysis)
-
+		# pat = ur"(n|(?:adj))(\%[mu]\%sg)"
+		# re_msg = re.compile(pat, re.UNICODE)
+		# analysis = re_msg.sub(ur"", analysis)
+		print "genNum:", genNum
+		analysis += "&" + genNum
 		analysis = analysis.replace("poss:", "xxxxxxxxxx:")
-		analysis = analysis.replace("suf:," "xxxxxxxxxx:")
+		analysis = analysis.replace("suf:", "xxxxxxxxxx:")
 		analysis = analysis.replace("xxxxxxxxxx:", "pro_suf_state&pro_suf:")
 		if root == "":
 			analysis += "&rootless_nominal"
@@ -333,6 +339,10 @@ class BL_Analyzer:
 		fobj = codecs.open(bermanAnalysesFile,'r',encoding='utf8')
 		self.lines = fobj.readlines()
 		self.analysisDict = {}
+		self.clustersAndWords = {}
+		self.clustersAndClasses = {}
+		self.numWords = 0
+		self.wordsAndClasses = {}
 		for line in self.lines:
 			line = line.replace("gen:ms", "gen:m")
 			line = line.replace("gen:fm", "gen:f")
@@ -340,51 +350,70 @@ class BL_Analyzer:
 			line = line.replace("mf","u")
 			line = line.replace("fm","u")
 			word,analyses_str = line.split("\t")
-			self.analysisDict[word] = dict()
-			self.wordsAndClasses = dict()
-			self.clustersAndWords = dict()
-			self.clustersAndClasses = dict()
-			self.numWords = 0
+			##print "WORD:",word
+			self.analysisDict[word] = {}
+			
+			#self.clustersAndWords = dict()
+			#self.clustersAndClasses = dict()
+			
 			#analyses = analyses_str.split()
 			analyses = analysisFilter(analyses_str)
-			#print analyses
+			##print analyses
 			#tempList = []
+
 			for analysis in analyses:
+				#self.analysisDict[word] = dict()
 				#cats = analysis.split("&")
 				#cats.sort()
 				new_analysis = categoryFilter(analysis)
 				
 				# if "fut" in analysis:
-				# 	print new_analysis
+				# 	#print new_analysis
 				cats = new_analysis.split("&")
+				##print cats
 				for cat in cats:
 					self.analysisDict[word][cat] = 1
-			self.clustersAndWords[clusterID].append(word)
 
-	def analyze_words(self, cluster_words, cluster_ID):
+			#self.clustersAndWords[clusterID].append(word)
+
+	def analyze_words(self, cluster_words, clusterID):
 		#wordsAndClasses = dict()
 		#analyzed_words = list()
-		self.clustersAndWords = dict()
-		self.clustersAndClasses = dict()
-		self.wordsAndClasses = dict()
-		self.numWords = len(cluster_words)
+		#self.clustersAndWords = dict()
+		#self.clustersAndClasses = dict()
+		#self.wordsAndClasses = dict()
+		#self.numWords = len(cluster_words)
 		seen_words = []
 		unseenWord = True
+		self.clustersAndWords[clusterID] = []
+		self.clustersAndClasses[clusterID] = dict()
+		num_passes = 0
 		for word in cluster_words:
+			##print word
+			self.wordsAndClasses[word] = []
 			if word in seen_words: 
 				unseenWord = True
+
 			else: 
 				seen_words.append(word)
 				unseenWord = False
-
-			self.clustersAndWords[clusterID].append(word)
-			self.clustersAndClasses[clusterID]
+			if self.analysisDict.has_key(word):
+				classes = self.analysisDict[word].keys()
+			else:
+				num_passes += 1
+				continue
+			#self.analysisDict = {}
+			##print "&^%", self.analysisDict[word]
 			if self.wordsAndClasses.has_key(word):
-				classes = self.self.analysisDict[word].keys()
+				
 				self.wordsAndClasses[word].extend(classes)
+				##print "wordsAndClasses:", self.wordsAndClasses[word]
 			else:
 				self.wordsAndClasses[word] = classes
+				##print "&&&", self.wordsAndClasses[word]
 				#self.wordsAndClasses[word].extend(self.self.analysisDict[word].keys())
+			##print "wordsAndClasses[", word, "]:", self.wordsAndClasses[word]
+			##print "classes:",classes
 			for feature in classes:
 				if unseenWord:
 					if self.clustersAndClasses[clusterID].has_key(feature):
@@ -395,11 +424,12 @@ class BL_Analyzer:
 					# if unseenWord is False, it means that the current word as already been seen.
 					# in this case, we need to be careful not to increase the counts of previously
 					# seen features (i.e., classes).
-					if self.clustersAndClasses[clusterID].has_key(feature):
-						pass
-					else:
-						self.clustersAndClasses[clusterID][feature] = 1
+					# if self.clustersAndClasses[clusterID].has_key(feature):
+					# 	pass
+					# else:
+					self.clustersAndClasses[clusterID][feature] = 1
 				#sys.stderr.write("  freq(" + prevLineWord + " & " + feature
+			##print "num_passes:", num_passes
 
 	def getWordsAndClasses(self):
 # 		for word in self.wordsAndClasses:
@@ -418,26 +448,41 @@ class BL_Analyzer:
 
 
 def main(bermanAnalysesFile, clusterWordsFile):
+	#sys.stderr.write("+++\n")
 	my_bl_analyzer = BL_Analyzer(bermanAnalysesFile)
-	fobj = open(clusterWordsFile, 'r')
-	lines = fobj.readlines()
-	for line in lines:
-		if line[0] == "#":
-			#sys.stderr.write(line)
-			clusters.append(clusterLines)
-			clusterLines = []
-		else:
-			if line != "\n":
-				clusterLines.append(line)
+	fobj = codecs.open(clusterWordsFile, 'r', encoding='utf8')
+	clusterLines = fobj.readlines()
+	##print lines[0]
+	clusters=[]
+	#clusterLines=[]
+	clusterLines.pop(0)
+	##print "first:",lines[0]
+	for line in clusterLines:
+		##print "clusterLine:",line
+		cluster = line.split()
+		clusters.append(cluster)
+		##print "LINE:", line
+		# if line[0] == "#":
+		# 	#sys.stderr.write(line)
+		# 	clusters.append(clusterLines)
+		# 	clusterLines = []
+		# else:
+		# 	if line != "\n":
+		# 		clusterLines.append(line)
+	##print "clusters:",clusters
 	wordsAndClasses = dict()
 	for k in range(len(clusters)):
 		str_k = "{0:04d}".format(k)
 		#cluster_IDs.append(str_k)
 		#my_bl_analyzer = BL_analyzer(bermanAnalysesFile)
-		my_bl_analyzer.analyze_words(clusters[str_k], str_k)
-		wordsAndClasses.update(my_bl_analyzer.getWordsAndClasses())
-	for word in wordsAndClasses.keys()
-		features = wordsAndClasses[word].keys()
+		my_bl_analyzer.analyze_words(clusters[k], str_k)
+		temp = my_bl_analyzer.getWordsAndClasses()
+		##print "temp:", temp
+		wordsAndClasses.update(temp)
+		##print wordsAndClasses
+	for word in wordsAndClasses.keys():
+		features = wordsAndClasses[word]
+		#sys.stderr.write("***" +  " ".join(features) + "\n")
 		sys.stdout.write(word + "\t" + " ".join(features) + "\n")
 
 if __name__ == '__main__':

@@ -29,6 +29,10 @@ re_qalsh = re.compile(pat, re.UNICODE)
 #pat = ur"(&?)(root:[^&]+&ptn:CoCaC&)(root:[^&]+&.+&ptn:nifal&)"
 pat = ur"(^.*&root:.*&ptn:CoCaC)(.*)(&.*root:.*&ptn:nifal)"
 re_CoCaC = re.compile(pat, re.UNICODE)
+pat=ur"(^.*pos:v&.*&ptn:)(CC[ao]C)(&tense:fut)"
+re_qalfut = re.compile(pat, re.UNICODE)
+pat=ur"(^.*pos:v&.*&ptn:)(CC[ao]C)(&form:imp)"
+re_qalinf = re.compile(pat, re.UNICODE)
 pat = ur"[ieaou\u00E1\u00E9\u00F3\u00FA\u00ED]"
 re_vowel = re.compile(pat, re.UNICODE)
 pat = ur"(&?root:.*&ptn:[Ca-z]+)((?:&.*$)|$)"
@@ -94,6 +98,10 @@ for line in lines:
 			#print"4 new_analysis:\t", new_analysis
 			#sys.stdout.write("**hitpaelinf   " + line)
 			#new_analyses.append(analysis)
+		if re_qalfut.search(temp_line):
+			temp_line = re_qalfut.sub(ur"\1qal\3", temp_line)
+			temp_word,new_analysis = temp_line.split("\t")
+
 		if re_qalsh.search(temp_line):
 			#sys.stdout.write(line)
 			temp_line = re_qalsh.sub(ur"\1qal", temp_line)
