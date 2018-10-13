@@ -40,7 +40,7 @@ class PDA(object):
 		self.tape = list(input_list)
 		self.original_tape = list(input_list)
 		self.remainder = []
-		self.output = ""
+		#self.outputs = [""]
 		self.cursor = 0
 
 	def consec_pos(self, pos1, pos2):
@@ -82,10 +82,10 @@ class PDA(object):
 		try: 
 			x = int(item1)
 			y = int(item2)
-
+			print "**** x, y =", x, ",", y
 		except IndexError: return False
 		else:
-			if x+1 == y: return True
+			if x-1 == y: return True
 			else: return False
 
 	def get_pos_char(self, pos):
@@ -198,7 +198,7 @@ class PDA(object):
 		for pos1 in self.stack:
 			if self.re_pos.search(pos1):
 				if self.consec_pos_suf(pos1, pos2):
-					return True
+					return pos1
 		return False
 
 	def search_consec_pair(self, item2):
@@ -236,6 +236,26 @@ class PDA(object):
 		#self.stack.append(item2)
 		return False
 
+	def can_merge_with_string(self, feature, string):
+		char1,char2 = feature.split("<")
+
+		if len(string) > 0:
+			#if self.output == triple[0]:
+			#print "char1 =", char1, "; chars2and3 =", chars2and3
+
+			if string[-1] == char1:
+				#print "&&&&&&&&&&&&&&&&&&  MERGE!  STRING =", string, "; FEATURE =", feature
+				#string += char2
+				return True
+			else:
+				return False
+				#pass
+			##print "&& STACK =", self.stack
+			#self.cur_state = "q6"
+		else:
+			return False
+
+
 	def consec_pair_action(self, item2):
 		char1 =  ""
 		##print "WILL IT FAIL?"
@@ -260,7 +280,7 @@ class PDA(object):
 					#self.stack.insert(0, item2)
 					##print "  * CPA; CHAR1 =", char1, "; CHARS2AND3=",chars2and3, "; OUTPUT =", self.output
 					# if len(self.output) > 0:
-					# 	if self.output[-1] == char1:
+					# 	if self.output == char1:
 					# 		self.output += char1 + chars2and3
 					# 	else: pass
 					# else:
@@ -275,7 +295,7 @@ class PDA(object):
 					#self.stack.insert(0, item2)
 					##print "  ! CPA; CHAR1 =", char1, "; CHARS2AND3=",chars2and3, "; OUTPUT =", self.output
 					# if len(self.output) > 0:
-					# 	if self.output[-1] == char1:
+					# 	if self.output == char1:
 					# 		self.output += char1 + chars2and3
 					# 	else: pass
 					# else:
@@ -439,19 +459,30 @@ class PDA(object):
 					return True
 		return False
 	
-	def search_para_prec_suf(self, prec2):
+	# def search_para_prec_suf(self, prec2):
+	# 	##print "SPPS;", "prec2 =", prec2
+	# 	if not self.re_prec.search(prec2):
+	# 		return False
+	# 	for prec1 in self.stack:
+	# 		##print "* * * SPPS", "; prec1 =", prec1, "; STACK =", self.stack
+	# 		###print prec1,
+	# 		if self.re_prec.search(prec1):
+	# 			##print "SPPS; ", "prec2", "YES!"
+	# 			if self.para_prec_suf(prec1, prec2):
+	# 				##print "     SPPS * * * * TT RR UU EE"
+	# 				return True
+	# 	return False
+	
+	def search_para_prec_suf(self, prec_feat):
 		##print "SPPS;", "prec2 =", prec2
-		if not self.re_prec.search(prec2):
-			return False
-		for prec1 in self.stack:
-			##print "* * * SPPS", "; prec1 =", prec1, "; STACK =", self.stack
-			###print prec1,
-			if self.re_prec.search(prec1):
-				##print "SPPS; ", "prec2", "YES!"
-				if self.para_prec_suf(prec1, prec2):
-					##print "     SPPS * * * * TT RR UU EE"
-					return True
-		return False
+		prec_chars = prec_feat.split("<")
+		for feature in self.stack:
+			#print "feature in stack:", feature
+			if self.re_pos_suf.search(feature):
+				pos_char = feature.split("@")[0]
+				if pos_char == prec_chars[0]:
+					return pos_char
+		return False		
 
 	def enqueu_suffix_feature(self, input_item):
 		# if the feature is a suffix positional feature, i.e., of the form "a@[-1],"
@@ -480,9 +511,9 @@ class PDA(object):
 
 	def expand_prefix(self, input_item):
 		bigram_items = input_item.split("+")
-		try: last_char = self.output[-1]
+		try: last_char = self.output
 		except IndexError: last_char = ""
-		try: first_char = self.output[-1]
+		try: first_char = self.output
 		except IndexError: first_char = ""
 		if bigram_items[0] == last_char:
 			self.output += bigram_items[1]
@@ -491,9 +522,9 @@ class PDA(object):
 
 	def bigram_reprieve(self, input_item):
 		bigram_items = input_item.split("+")
-		if bigram_items[0] == self.output[-1]:
+		if bigram_items[0] == self.output:
 			return True
-		elif bigram_items[1] == self.output[-1]:
+		elif bigram_items[1] == self.output:
 			return True 
 		else:
 			return False
@@ -528,6 +559,7 @@ class PrefixPDA(PDA):
 		self.cursor = 0
 		self.cur_state = "q0"
 		self.tape = input_list
+		self.output = ""
 		##print self.tape
 
 	def run_prefix_pda(self):
@@ -539,27 +571,29 @@ class PrefixPDA(PDA):
 		Q1                             x@[i]/x@[i]             x@[i]/x@[i]    
 		Q3          	
 		"""
-		##print "\nP R E F I X",
-		##print "** TAPE **", self.tape, "; SELF.OUTPUT =", self.output, "STATE:", self.cur_state,
+		print "\nP R E F I X",
+		#print "** TAPE **", self.tape, "; SELF.OUTPUT =", self.output, "STATE:", self.cur_state, "STACK:", self.stack
 		while len(self.tape) > 0: #and self.cur_state != "q6":
 			
 			input_item = self.tape.pop(0)  #Each iteration removes an element from self.tape.
 			#sys.stderr.write(input_item + "\n")
 			##print u"STATE:", self.cur_state, u"; input_item:", input_item, u"; TAPE:", self.tape, u"; SELF.OUTPUT:", self.output
 			#is_pos = False
+			print "** TAPE **", self.tape, "; SELF.OUTPUT =", self.output, "STATE:", self.cur_state, "STACK:", self.stack
 			if self.re_pos_suf.search(input_item) and self.cur_state != "q6":
 				#self.cur_state = "q7"
+				self.stack.append(input_item)
 				if self.cur_state == "q0":
-					self.stack.append(input_item)
+					
 					self.cur_state = "q6"
 					##print u"I'm HEEEERE!", u"; STACK =", self.stack
 				elif self.cur_state == "q1":
 					#self.remove_pos_pre(input_item)
-					self.stack.append(input_item)
+					#self.stack.append(input_item)
 					self.cur_state = "q6"
 					##print u"I'm HEEEERE!", u"; STACK =", self.stack
 				continue
-			if self.re_pos_pre.search(input_item): #
+			if self.re_pos_pre.search(input_item):
 			# and self.cur_state != "q6":
 				#is_pos = True
 				if self.cur_state == "q0": # and len(self.stack) == 0: #not self.search_consec_pos_pre(input_item):
@@ -613,6 +647,7 @@ class PrefixPDA(PDA):
 				# Here we encounter a precedence feature for the first time.
 				# We thus remove all prefix positional features from the stack.
 				# The era of prefix positional features has passed.
+				#self.stack.append(input_item)
 				self.purge_all_pos_pre()
 				if self.cur_state == "q0": # and len(self.stack) == 0:
 					self.cur_state = "q1"
@@ -634,7 +669,7 @@ class PrefixPDA(PDA):
 				# 	self.stack.append(input_item)
 				# 	##print "STACK =", self.stack
 				elif self.cur_state == "q1":
-					###print "S  T  A  T  E   =   Q  3      *  *  *  *  *"
+					##print "S  T  A  T  E   =   Q  3      *  *  *  *  *"
 					if self.search_para_prec(input_item): 
 						# if True, we know that there currently exists a precedence feature in the stack
 						# that can merge with input_item.
@@ -643,16 +678,19 @@ class PrefixPDA(PDA):
 						#self.stack.append(input_item)
 						self.output += input_item.split("<")[0]
 						self.remove_para_prec(input_item)
-						self.cur_state = "q3"
-						##print "STACK =", self.stack, "; state =", self.cur_state 
+						#self.cur_state = "q3"
+						self.cur_state = "q1"
+						print "Pre ^ STACK =", self.stack, "; state =", self.cur_state, ";", "OUTPUT:", self.output
 					else:
 						#self.stack.insert(0, input_item)
 						#self.output += input_item.split("<")[0]
 						#self.remove_para_prec(input_item)
 						self.stack.append(input_item)
 						self.cur_state = "q3"
-						##print "STACK =", self.stack, "; state =", self.cur_state
-
+						print "Pre ^ STACK =", self.stack, "; state =", self.cur_state
+				elif self.cur_state == "q3":
+					self.stack.append(input_item)
+					self.cur_state = "q1"
 				elif self.cur_state == "q6":
 					self.stack.append(input_item)
 					self.cur_state = "q6"
@@ -670,9 +708,9 @@ class PrefixPDA(PDA):
 						self.expand_prefix(input_item)
 						##print "XXXXXXXXXXX", "OUTPUT =", self.output
 					# bigram_items = input_item.split("+")
-					# try: last_char = self.output[-1]
+					# try: last_char = self.output
 					# except IndexError: last_char = ""
-					# try: first_char = self.output[-1]
+					# try: first_char = self.output
 					# except IndexError: first_char = ""
 					# if bigram_items[0] == last_char:
 					# 	self.output += bigram_items[1]
@@ -680,7 +718,7 @@ class PrefixPDA(PDA):
 					# 	self.output = bigram_items[0] + self.output
 						# try: string = self.output[:-1]
 						# except IndexError: string = ""
-						# last_char = self.output[-1]
+						# last_char = self.output
 						# self.output = bigram_items[0] + last_char
 					###print "AT Q4 SUFFIX. GOING TO Q5",
 					###print "; STACK =", self.stack
@@ -720,16 +758,41 @@ class PrefixPDA(PDA):
 				self.stack.append(input_item)
 
 
-			##print "\n^^ TRANSITION; cur_state =", self.cur_state, "; input_item =", input_item, "; tape:", self.tape, "; stack:", self.stack, "; output:", self.output, "^^\n"
+			##print "\n^^ TRANSITION; cur_state =", self.cur_state, "; input_item =", input_item, "; tape:", self.tape, "; stack:", self.stack, "; self.output:", self.output, "^^\n"
 
+	# def get_morph(self):
+	# 	"""This method just returns whatever has accumulated in self.output"""
+	# 	if len(self.output) > 0:
+	# 		self.output += "+"
+	# 		temp = self.output 
+	# 		self.output = "aa&" + temp
+	# 	return self.output
 	def get_morph(self):
-		"""This method just returns whatever has accumulated in self.output"""
+		"""
+		This method just returns whatever has accumulated in self.output
+		"""
+		#toreturn = []
+		toreturn = ""
 		if len(self.output) > 0:
-			self.output += "+"
-			temp = self.output 
-			self.output = "aa&" + temp
-		return self.output
-				
+			
+			#for self.output in self.outputs:
+			temp = self.output + "+"
+			#toreturn.append("aa&" + temp)
+			toreturn = "aa&" + temp
+		return toreturn
+	# def get_morph(self):
+	# 	"""This method just returns whatever has accumulated in self.output"""
+	# 	toreturn = []
+	# 	for self.output in self.outputs:
+	# 		temp = self.output + "+"
+	# 		toreturn.append("aa&" + temp)
+	# 	return toreturn
+			#toreturn.append(self.output)
+		# if len(self.output) > 0:
+		# 	self.output += "+"
+		# 	temp = self.output 
+		# 	self.output = "aa&" + temp
+		# return self.output		
 
 
 class StemComponentPDA(PDA):
@@ -739,23 +802,28 @@ class StemComponentPDA(PDA):
 		self.cur_state = "q0"
 		self.tape = input_list
 		self.morph_elements = []
+		self.output = ""
 
 	def run_stem_pda(self):
-		##print "run   S  T  E  M   pda"
+		print "run   S  T  E  M   pda"
+		print " T A P E ", ":", self.tape
 		while len(self.tape) > 0:
 			# *****************************************************
 			input_item = self.tape.pop(0)
 			# *****************************************************
 			##print "tape =", self.tape, ";RI =", input_item, "; STACK/STEM:", self.stack, "* STATE =", self.cur_state
-			###print "IN STEM *** TAPE =", self.tape, "; input_item =", input_item
+			print "IN STEM PDA *** TAPE =", self.tape, "; input_item =", input_item
 			if self.re_pos.search(input_item) and self.cur_state != "q6":
 				###print "G O  T O  Q 6   STEM"
 				#self.stack.insert(0,input_item)
 				self.stack.append(input_item)
 				self.cur_state = "q6"
-			#elif not self.re_pos.search(input_item): #and self.cur_state != "q6":
-			elif self.re_pos.search(input_item) == None:
-				##print "RI = ** =", input_item
+			elif self.re_pos.search(input_item): #and self.cur_state != "q6":
+				self.stack.append(input_item)
+				self.cur_stat = "q0"
+			#elif self.re_pos.search(input_item) == None:
+			else:
+				print " NOT A POS FEAT. Raw Input = ", input_item
 				#if self.cur_state == "q6":
 				if self.cur_state == "q0" or self.cur_state == "q6":
 					#self.stack.insert(0, input_item)
@@ -763,42 +831,78 @@ class StemComponentPDA(PDA):
 					self.cur_state = "q1"
 				#elif self.cur_state == "q1": # and 
 				elif self.cur_state == "q1":
-					###print "ELSE, ELSE, ELSE"
-					if self.search_consec_pair(input_item):
-						##print "  % RAW_INPUT =",input_item
-						triple = self.consec_pair_action(input_item)
-						##print "  %% TRIPLE =", triple
-						# if len(self.output) > 0:
-						# 	##print "  TRIPLE =", triple
-						# 	if self.output[-1] == triple[0]: self.output += triple
-						# 	else: pass
-						# else: self.output += triple
-
-						if 0 < len(self.output) < 3:
-							if self.output[-1] == triple[0]:
-								##print "; OUTPUT =", self.output, "; TRIPLE =", triple,
-								self.output += char1 + chars2and3
-							else: pass
-							##print "&& STACK =", self.stack
-							#self.cur_state = "q6"
-						elif len(self.output) == 0:
-							self.output += triple
-							##print "&- STACK =", self.stack
-							#self.cur_state = "q6"
+					# CASE 1: self.output is empty --> check stack
+					    # CASE 1.A: can merge with stack element --> merge, add to output
+					    # CASE 1.B: can't merge --> add feature to stack
+					# CASE 2: self.output is not empty --> 
+						# CASE 2.A: feature merges with output --> MERGE
+						# CASE 2.B: feature and output do not merge --> 
+						   # add feature to stack
+					if len(self.output) == 0:
+						if self.search_consec_pair(input_item): 
+							self.output += self.consec_pair_action(input_item)
+							#self.cur_state = "q1"
 						else:
-							##print "O   H     N   O    !   !   !   !", "  STACK =", self.stack
 							self.stack.append(input_item)
-							##print "   ^   ^   STACK =", self.stack
-							self.cur_state = "q6"
-						##print "CPA; OUTPUT =", self.output
-						##print "; STATE =", self.cur_state, "-->", 
-						self.cur_state = "q1"
-						##print self.cur_state
+							#self.cur_state = "q1"
 					else:
-						#triple = self.consec_pair_action(input_item)
-						###print "  %% TRIPLE =", triple
-						self.cur_state = "q1"
-						self.stack.append(input_item)
+						if self.can_merge_with_string(input_item, self.output):
+							self.output = merge_feature_and_string(feature, self.output)
+
+						else:
+							self.stack.append(input_item)
+							self.cur_state = "q6"
+
+
+					# elif self.search_consec_pair(input_item):  # this searches the stack.
+					#     # however, we must also search self.output
+					# 	# in fact, we must search self.output before self.stack; mergers
+					# 	# output take precedence over mergers with stack elements.
+						
+
+					# 	print "  % RAW_INPUT =",input_item, "STACK =", self.stack
+					# 	if len(self.output) > 0:
+					# 	# 	self.stack.append()
+					# 		# There are two possible cases here to consider:
+					# 		# (1) the new triple unifies with self.output
+					# 	triple = self.consec_pair_action(input_item)
+					# 	print "  %% TRIPLE =", triple
+					# 	# if len(self.output) > 0:
+					# 	# 	##print "  TRIPLE =", triple
+					# 	# 	if self.output == triple[0]: self.output += triple
+					# 	# 	else: pass
+					# 	# else: self.output += triple
+					# 	print "%%%%%%% SELF.OUTPUT =", self.output
+					# 	if len(self.output) > 0:
+					# 		#if self.output == triple[0]:
+					# 		#print "char1 =", char1, "; chars2and3 =", chars2and3
+					# 		if self.output[-1] == triple[0]:
+					# 			print "&&&&&&&&&&&&&&&&&& OUTPUT =", self.output, "; TRIPLE =", triple
+					# 			self.output += triple[1:]
+					# 		else:
+					# 			self.stack.append(input_item)
+					# 			print "&& STACK =", self.stack
+					# 			#pass
+					# 		##print "&& STACK =", self.stack
+					# 		#self.cur_state = "q6"
+					# 	elif len(self.output) == 0:
+					# 		self.output += triple
+					# 		##print "&- STACK =", self.stack
+					# 		#self.cur_state = "q6"
+					# 	else:
+					# 		##print "O   H     N   O    !   !   !   !", "  STACK =", self.stack
+					# 		self.stack.append(input_item)
+					# 		##print "   ^   ^   STACK =", self.stack
+					# 		self.cur_state = "q6"
+					# 	##print "CPA; OUTPUT =", self.output
+					# 	##print "; STATE =", self.cur_state, "-->", 
+					# 	self.cur_state = "q1"
+					# 	##print self.cur_state
+					# else:
+					# 	#triple = self.consec_pair_action(input_item)
+					# 	###print "  %% TRIPLE =", triple
+					# 	self.cur_state = "q1"
+					# 	self.stack.append(input_item)
 					# else:
 					# 	##print "  %% RAW_INPUT =", input_item, "; STATE =", self.cur_state, "-->", 
 					# 	##print "     ", self.stack
@@ -819,12 +923,12 @@ class StemComponentPDA(PDA):
 			# 	##print "  %% TRIPLE =", triple
 			# 	# if len(self.output) > 0:
 			# 	# 	##print "  TRIPLE =", triple
-			# 	# 	if self.output[-1] == triple[0]: self.output += triple
+			# 	# 	if self.output == triple[0]: self.output += triple
 			# 	# 	else: pass
 			# 	# else: self.output += triple
 
 			# 	if 0 < len(self.output) < 3:
-			# 		if self.output[-1] == triple[0]:
+			# 		if self.output == triple[0]:
 			# 			##print "; OUTPUT =", self.output, "; TRIPLE =", triple,
 			# 			self.output += char1 + chars2and3
 			# 		else: pass
@@ -840,33 +944,67 @@ class StemComponentPDA(PDA):
 			# 		##print "   ^   ^   STACK =", self.stack
 			# 		self.cur_state = "q6"
 			# 	self.cur_state = "q6"
-			else:
-				self.stack.append(input_item)
-				self.cur_state = "q6"
-
+			# else:
+			# 	self.stack.append(input_item)
+			# 	self.cur_state = "q6"
+				#self.output.append("")
+	
+	def get_morph(self):
+		"""
+		This method just returns whatever has accumulated in self.output
+		"""
+		#toreturn = []
+		toreturn = ""
+		if len(self.output) > 0:
+			
+			#for self.output in self.outputs:
+			# temp = self.output + "+"
+			# #toreturn.append("aa&" + temp)
+			# toreturn = "aa&" + temp
+			toreturn = self.output 
+		return toreturn
+			#toreturn.append(self.output)
 
 class SuffixPDA(PDA):
 	def __init__(self, input_list):
 		PDA.__init__(self, input_list)
 		self.cur_state = "q0"
-		##print "\n\n", "INIT SUFFIX . . . . ", "  STATE =", self.cur_state
+		print "\n\n", "INIT SUFFIX . . . . ", "  STATE =", self.cur_state
 		self.cursor = 0
-		self.cur_state = "q0"
+		#self.cur_state = "q0"
 		##print "TAPE =", self.tape
 		self.output = ""
 
+	def resolve_prec_pos(self, prec_feat, pos_feat):
+		pos_char = pos_feat.split("@")[0]
+
+		prec_chars = prec_feat.split("<") 
+		# prec_char1 = prec_chars[0]
+		# prec_char2 = prec_chars[1]
+		if pos_char == prec_chars[0]:
+			if self.output[-1] == pos_char:
+				self.output += prec_chars[1]
+		elif pos_char == prec_chars[1]:
+			if self.output[-1] == pos_char:
+				temp = self.output[:-1] + pos_char + self.output[-1]
+				self.output = temp
 
 	def run_suffix_pda(self):
+		print "TAPE:", self.tape
 		while len(self.tape) > 0: #and self.cur_state != "q6":
 			input_item = self.tape.pop(0)
-			##print "input_item =", input_item
+			
+			print "$ Input item:", input_item,
+
+			print "; state =", self.cur_state,
+			print "; SUFFIX stack:", self.stack
 			#is_pos = False
 			if self.re_pos_suf.search(input_item): # and self.cur_state != "q6":
 				#is_pos = True
 				#self.output += self.get_pos_char(input_item)
 				# if self.cur_state == "q0" and len(self.tape) == 0:
 				# 	# in this case, the tape is at its end, and we don't need to anticipate additional chars.
-				# 	# we therefore go to state q6 after appending the current char to the output.
+				# 	# we therefore go to state q6 after appending the current char to the self.output.
 				# 	##print "^ % &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
 				# 	self.cur_state = "q6"
 				# 	##print self.cur_state
@@ -877,26 +1015,37 @@ class SuffixPDA(PDA):
 				# 	self.stack.append(input_item)
 				# 	##print "- - &", "; Output =", self.output, "; State =", self.cur_state
 				# 	self.cur_state = "q1"
-				# 	##print "STACK =", self.stack
-				if self.cur_state == "q0":
-					self.output += self.get_pos_char(input_item) #+ self.output
-					self.enqueu_suffix_feature(input_item)
-					##print "^ % &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
+				print "POS FEAT DETECTED. STACK =", self.stack
+				if self.cur_state == "q0":  # self.output is empty at state q0
+					self.output = self.get_pos_char(input_item)
+					#print "SUF q0 OUTPUT:", self.output,
+					#self.enqueu_suffix_feature(input_item)
+					self.stack.append(input_item)
+					#print "Read", input_item, "at state:", self.cur_state, "; Output:", self.output, "; Stack =", self.stack, "; Trans =", self.cur_state, "-->",
 					self.cur_state = "q1"
-					##print self.cur_state
-				elif self.cur_state == "q1":
-					if self.search_consec_pos_suf(input_item):
-						self.output += self.get_pos_char(input_item)
+					print self.cur_state
+				elif self.cur_state == "q1": 
+					# At state q1, output is NOT empty, and input_item is a suffix-positional feature.
+					#print "input_item = ", input
+					pos1 = self.search_consec_pos_suf(input_item)
+					if pos1: #if match is found in stack...
+						#self.output += self.get_pos_char(input_item)
+						#if pos1 == self.output[-1]
+						self.output = self.get_pos_char(input_item) + self.output
 						# dequeu the feature representing the preceding position
-						self.remove_pos_suf(input_item)
-						##print "> Q1 M >> STACK =", self.stack, "; OUTPUT =", self.output, "; STATE =", self.cur_state, "-->",
+						print "> Q1 M >> STACK =", self.stack, "; INPUT:", input_item, "; OUTPUT =", self.output, "; STATE =", self.cur_state, "-->",
 						self.cur_state = "q1"
+						self.remove_pos_suf(pos1) # pop match from stack
+						self.stack.append(input_item)
 						##print self.cur_state
-					elif not self.search_consec_pos_suf(input_item):
+					#elif not self.search_consec_pos_suf(input_item):
+					elif pos1 == None or pos1 == False:
+						# Current and previously encountered suffix-positional features
+						# are discontiguous.
+						#self.purge_all_pos_suf()
 						#self.enqueu_suffix_feature(input_item)
-						self.purge_all_pos_suf()
-						self.enqueu_suffix_feature(input_item)
-						##print "> Q1 NM >> STACK =", self.stack, "; OUTPUT =", self.output, "; STATE =", self.cur_state, "-->",
+						self.stack.append(input_item)
+						print "> Q1 NM >> STACK =", self.stack, "; OUTPUT =", self.output, "; STATE =", self.cur_state, "-->",
 						#if len(self.tape) == 0:
 						self.cur_state = "q6"
 						#else:
@@ -904,6 +1053,7 @@ class SuffixPDA(PDA):
 						##print self.cur_state
 					# dequeu the feature representing the preceding position
 				else:
+					print "Q6!!!"
 					self.cur_state = "q6"
 					self.enqueu_suffix_feature(input_item)
 				# elif self.cur_state == "q1" and len(self.tape) == 0:
@@ -958,35 +1108,50 @@ class SuffixPDA(PDA):
 				#self.stack.append(input_item)
 				##print "6 7 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state
 				##print "PURGING POS..."
-				self.purge_all_pos_suf()
+				#self.purge_all_pos_suf()
 				##print "^ 7.5 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
 				#self.cur_state = "q6"
 				##print self.cur_state
 				if self.cur_state == "q0":
-					self.enqueu_suffix_feature(input_item)
-					##print "STATE =", self.cur_state, "; STACK =", self.stack
-					self.cur_state = "q1"
-				elif self.cur_state == "q1":
+				    # At q0, utput is empty.
+					# Since we are now in suffix mode,
+				    # we can do nothing if a precedence feature is encountered
+				    # at state q0. We first nead to read a suffix-positional feature.
+				    self.cur_state = "q7"
 					#self.enqueu_suffix_feature(input_item)
-					if self.search_para_prec_suf(input_item):
-						self.output += input_item.split("<")[1] + self.output 
-						self.remove_para_prec_suf(input_item)
+					#self.stack.append(input_item)
+					##print "STATE =", self.cur_state, "; STACK =", self.stack
+					
+				if self.cur_state == "q1": 
+					#self.enqueu_suffix_feature(input_item)
+					pos_feature = self.search_para_prec_suf(input_item)
+					if pos_feature:
+						self.revise_output_suf()
+						#self.output += input_item.split("<")[1] + self.output 
+						#self.remove_para_prec_suf(input_item)
 						##print "^ 7.6 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
-						self.cur_state = "q3"
+						self.cur_state = "q1"
 						##print self.cur_state
-					elif not self.search_para_prec_suf(input_item):
-						self.enqueu_suffix_feature(input_item)
+					#elif not self.search_para_prec_suf(input_item):
+					elif pos_feature == False or pos_feature == None:
+						#self.enqueu_suffix_feature(input_item)
+						self.stack.append(input_item)
 						##print "^ 7.75 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
-						self.cur_state = "q6"
+						self.cur_state = "q7"
 						##print self.cur_state
 				elif self.cur_state == "q6":
-					self.enqueu_suffix_feature(input_item)
+					#self.enqueu_suffix_feature(input_item)
 					##print "^ 7.8 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
 					self.cur_state = "q6"
+				elif self.cur_state == "q7":
+					#self.enqueu_suffix_feature(input_item)
+					##print "^ 7.8 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
+					self.cur_state = "q7"
 					##print self.cur_state 
 				#else:
 					#self.cur_state ==  "q6":
 					#self.enqueu_suffix_feature(input_item)
+
 
 			# elif self.re_prec.search(input_item):
 			# 	if self.cur_state == "q0":
@@ -1012,40 +1177,40 @@ class SuffixPDA(PDA):
 			# 		self.stack.append(input_item)
 			# 		#self.purge_all_pos_suf()
 			# 		##print "STATE =", self.cur_state, "; STACK =", self.stack
-			elif self.re_bi.search(input_item):
-				#self.enqueu_suffix_feature(input_item)
-				#self.stack.append(input_item)
-				##print "6 8 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state
-				##print "PURGING POS..."
-				self.purge_all_pos_suf()
-				##print "^ % &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
-				#self.cur_state = "q6"
-				##print self.cur_state
-				if self.cur_state == "q3":
-					#self.enqueu_suffix_feature(input_item)
-					#if self.search_consec_bigram(input_item):
-					if self.bigram_reprieve(input_item):
-						##print "BI REP = TRUE !!!"
-						self.expand_suffix(input_item)
-						self.cur_state = "q4"
-				elif self.cur_state == "q4":
-					self.enqueu_suffix_feature(input_item)
-					if self.search_consec_bigram(input_item):
-						self.expand_suffix(input_item)
-						self.cur_state = "q4"
-					elif not self.search_consec_bigram(input_item):
-						self.cur_state = "q6"
+			# elif self.re_bi.search(input_item):
+			# 	#self.enqueu_suffix_feature(input_item)
+			# 	#self.stack.append(input_item)
+			# 	##print "6 8 &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state
+			# 	##print "PURGING POS..."
+			# 	self.purge_all_pos_suf()
+			# 	##print "^ % &", "; Output =", self.output, "; Stack =", self.stack, "; State =", self.cur_state, "-->",
+			# 	#self.cur_state = "q6"
+			# 	##print self.cur_state
+			# 	if self.cur_state == "q3":
+			# 		#self.enqueu_suffix_feature(input_item)
+			# 		#if self.search_consec_bigram(input_item):
+			# 		if self.bigram_reprieve(input_item):
+			# 			##print "BI REP = TRUE !!!"
+			# 			self.expand_suffix(input_item)
+			# 			self.cur_state = "q4"
+			# 	elif self.cur_state == "q4":
+			# 		self.enqueu_suffix_feature(input_item)
+			# 		if self.search_consec_bigram(input_item):
+			# 			self.expand_suffix(input_item)
+			# 			self.cur_state = "q4"
+			# 		elif not self.search_consec_bigram(input_item):
+			# 			self.cur_state = "q6"
 
 			# elif self.re_bi.search(input_item): # and self.cur_state != "q6":
 			# 	if self.cur_state == "q4":
 			# 		self.stack.insert(0, input_item)
 			# 		bigram_items = input_item.split("+")
-			# 		if bigram_items[0] == self.output[-1]:
+			# 		if bigram_items[0] == self.output:
 			# 			self.output += bigram_items[1]
-			# 		elif bigram_items[1] == self.output[-1]:
+			# 		elif bigram_items[1] == self.output:
 			# 			try: string = self.output[:-1]
 			# 			except IndexError: string = ""
-			# 			last_char = self.output[-1]
+			# 			last_char = self.output
 			# 			self.output = string + bigram_items[0] + last_char
 			# 		##print "AT Q4 SUFFIX. GOING TO Q5",
 			# 		##print "; STACK =", self.stack
@@ -1074,12 +1239,20 @@ class SuffixPDA(PDA):
 
 			# if len(self.output) > 0:
 			# 	self.output = "-" + self.output
-			##print "\n^^ TRANSITION; cur_state =", self.cur_state, "; input_item =", input_item, "; tape:", self.tape, "; stack:", self.stack, "; output:", self.output, "^^\n"
+			##print "\n^^ TRANSITION; cur_state =", self.cur_state, "; input_item =", input_item, "; tape:", self.tape, "; stack:", self.stack, "; self.output:", self.output, "^^\n"
 	
 	def get_morph(self):
 		if len(self.output) > 0:
 			self.output = "zz&" + self.output
 		return self.output
+
+	# def get_morph(self):
+	# 	"""This method just returns whatever has accumulated in self.output"""
+	# 	toreturn = []
+	# 	for self.output in self.outputs:
+	# 		temp = self.output + "+"
+	# 		toreturn.append("aa&" + temp)
+	# 	return toreturn
 
 
 def main(filename):
@@ -1087,13 +1260,13 @@ def main(filename):
 	morphs = []
 	prefixes = []
 	remaining_input = []
-	active_feature_lists = acf.get_active_features(filename)
-	for i in range(len(active_feature_lists)):
-		print str(i) + ". ", " ".join(active_feature_lists[i])
+	#active_feature_lists = acf.get_active_features(filename)
+	#for i in range(len(active_feature_lists)):
+		#print str(i) + ". ", " ".join(active_feature_lists[i])
 	#print "active_feature_lists:", active_feature_lists
 	#centroids = acf.get_active_features_and_values(filename)
 	#centroids_featuresAndValues = centroids.items()
-	centroids_featuresAndValues = acf.get_active_features_and_values(filename)
+	#centroids_featuresAndValues = acf.get_active_features_and_values(filename)
 
 	temp_feature_list = ["a<d", "a<e", "d<h", "a+b", "b+c", "m@[-1]"]
 	tfl2 = ["d<b", "a<b", "b<c", "b<d", "d<c", "m@[-1]"]
@@ -1115,14 +1288,46 @@ def main(filename):
 	tfl17 = ["b<d", "a<j", "h<d", "a+b", "i+c"]
 	tfl18 = ["b<d", "a<j", "h<d", "a+b", "d+c"]
 	tfl19 = ["b<d", "a<j", "h<d", "a+b", "d+c"]
-	#active_feature_lists = [["b<d", "a<j", "h<d", "a+b", "d+c"], 
-							# ["d@[-4]", "i@[-3]", "i@[-2]", "m@[-1]"], 
-							# ["b<i", "a<i", "i+m", "t@[-1]"]]
+	# active_feature_lists = [["b<d", "a<j", "h<d", "a+b", "d+c"], 
+	# 						["d@[-4]", "i@[-3]", "i@[-2]", "m@[-1]"], 
+	# 						["b<i", "a<i", "i+m", "t@[-1]"]]
 	#active_feature_lists = [["a<j", "h<d", "a+b", "d+c"], 
 							#["d@[-4]", "i@[0]", "i@[-2]", "m@[-1]"], 
 							#["b<i", "a<i", "i+m", "i@[-2]", "t@[-1]"]]
-	myFeatureLists = FeatureLists(active_feature_lists)
+	#active_features = {0: {"b<d":1, "a<j":1, "h<d":1, "a+b":1, "d+c":1},
+							#1: {"d@[-4]":1, "i@[-3]":1, "i@[-2]":1, "m@[-1]":1}, 
+							#2: {"b<i":1, "a<i":1, "i+m":1, "t@[-1]":1}}
+	#centroids_featuresAndValues = {0: {"b<d":1.0, "a<j":1.0, "h<d":1.0, "a+b":1.0, "d+c":1.0}, 1: {"d@[-4]":1.0, "i@[-3]":0.6, "i@[-2]":1.0, "m@[-1]":1.0},
+		#2: {"b<i":0.9, "a<i":0.9, "i+m":0.9, "t@[-1]":0.9}}
+	# active_features = {0: {"a<j":1, "h<d":1, "a+b":1, "d+c":1},
+	# 				1: {"d@[-4]":1, "i@[0]":1, "i@[-2]":1, "m@[-1]":1}, 
+	# 				2: {"b<i":1, "a<i":1, "i+m":1, "i@[-2]":1, "t@[-1]":1}}
+	centroids_featuresAndValues = {0: {"k<t":1.0, "k<a":0.9, "t<b":1, "a<b":0.8},
+		#1 : {"d@[-4]":1, "i@[0]":1, "i@[-2]":1, "m@[-1]":1},
+		1: {"b<i":1, "a<i":1, "i<t":1, "i@[-2]":1}}
+		#3: {"b<i":1, "a<i":1, "i<m":1, "i@[-2]":1}}
+	active_feature_pairs = []
+	for feature,weight in sorted(centroids_featuresAndValues.items()):
+		# if re_pos_pre.search(feature):
+		# 	fwp = FWP_pos_front(feature,weight)
+		# elif re_pos_suf.search(feature):
+		# 	fwp = FWP_pos_back(feature,weight)
+		# elif re_prec.search(feature):
+		# 	fwp = FWP_prec(feature,weight)
+		# cluster_features.append(fwp)
+
+		# fw = FWP_pos_back(feature,weight)
+
+		if len(pair) > 1:
+			cID = pair[0]
+			featValPairs = pair[1]
+			print "featValPairs:", featValPairs
+			#featValPairs = val.items()
+			active_feature_pairs.append(featValPairs.items())
+		#centroids_featuresAndValues.
+	myFeatureLists = FeatureLists(active_feature_pairs)
 	input_lists = myFeatureLists.sorted_features()
+	print "ILs:", input_lists
 	#print "INPUT_LISTS:", input_lists
 	#for input_list in input_lists:
 		#sys.stderr.write(str(input_list) + "\n")
@@ -1145,6 +1350,7 @@ def main(filename):
 		morphs = []
 		avg_feature_values = []
 		remaining = input_lists[i]
+		print "*0 PREFIX * REMAINING: ", ", ".join(remaining)
 		while counter < cycle_max: #len(input_lists[i]):
 
 			##print "\n<<   N  E  W    C  Y  C  L  E   >>\n"
@@ -1152,17 +1358,20 @@ def main(filename):
 			###print"length =", len(new_morph)
 			#prefixPDA = PrefixPDA(input_lists[i])
 			prefixPDA = PrefixPDA(remaining)
-			###print isinstance(prefixPDA, PDA)
-			###print isinstance(prefixPDA, PrefixPDA)
 			prefixPDA.run_prefix_pda()
+			print isinstance(prefixPDA, PDA)
+			print isinstance(prefixPDA, PrefixPDA)
+			 
 			new_morph = prefixPDA.get_morph()
-			#print "NEW_MORPH =", new_morph, "; length =", len(new_morph)
+			if new_morph == None:
+				break
+			print "NEW_MORPH =", new_morph
+			print "length =", len(new_morph)
 			###print "\n  N   E   W\n"
 			#old_input_list = input_lists[i]
 			#input_lists[i] = prefixPDA.get_remaining_input()
 			remaining = prefixPDA.get_remaining_input()
-
-			##print "REMAINING: ", " ".join(remaining)
+			print "* PREFIX * REMAINING: ", " ".join(remaining)
 			#######
 			#used_features = []
 			#used_features_list = []
@@ -1232,6 +1441,9 @@ def main(filename):
 			###print isinstance(stemPDA, PDA)
 			###print isinstance(stemPDA, StemComponentPDA)
 			new_morph = stemPDA.get_morph()
+			print "STEM_PDA NEW_MORPH =", new_morph
+			if new_morph == None:
+				break
 			#print " NEW_MORPH =", new_morph, "; length =", len(new_morph)
 			#if new_morph in morphs: break
 			#input_lists[i] = stemPDA.get_remaining_input()
@@ -1278,6 +1490,7 @@ def main(filename):
 					avg_feature_values.append((avg_val, new_morph))
 					#avg_feature_values.append((sum_value/float(len(used_symbols)), new_morph))
 					morphs.append(new_morph)
+			print "STEM PHASE:", "  ".join(morphs), avg_feature_values
 			###print "> stem >> MORPHS =", morphs
 			#else: pass
 			# if len(new_morph) > 0 and new_morph not in morphs:
@@ -1290,9 +1503,9 @@ def main(filename):
 			# 	##print "> stem >> MORPHS =", morphs
 			# else: pass
 			###print "CTR =", counter, "-->",
-			###print "MORPHS =", morphs
+			print "STEM MORPHS =", morphs
 			counter += 1
-			##print counter
+			print "STEM counter =",counter
 		
 		counter = 0
 		while counter < cycle_max:
@@ -1304,6 +1517,8 @@ def main(filename):
 			###print isinstance(suffixPDA, PDA)
 			###print isinstance(suffixPDA, SuffixPDA)
 			new_morph = suffixPDA.get_morph()
+			if new_morph == None:
+				break
 			#print "new_morph:", new_morph
 			# if new_morph in morphs: break
 			# if len(new_morph) > 0: morphs.append(new_morph)
@@ -1360,10 +1575,12 @@ def main(filename):
 			###print counter
 		
 		counter = 0
-		#print "MORPHS:", " ".join(morphs)
+		print "SEMI-FINAL MORPH LIST:", " ".join(morphs)
 		morph_lists.append(morphs)
-		avg_feature_values.sort()
-		#print "avg_f_vals:", avg_feature_values
+		print "SEMI-FINAL MORPH LISTS:", " ".join(morphs)
+		avg_feature_values.sort(reverse=True)
+
+		print "avg_f_vals:", avg_feature_values
 		##print "morph_lists:", morph_lists
 		if len(avg_feature_values) > 0:
 			morph_with_max_value = avg_feature_values[0][1]
@@ -1467,9 +1684,10 @@ def main(filename):
 if __name__ == "__main__":
 	filename = sys.argv[1]
 	morph_dict = main(filename)
-	#for cluster_ID in morph_dict.keys():
-		#print cluster_ID, morph_dict[cluster_ID]
-	###print "ORIGINAL LISTS =", active_feature_lists
-	##print "MORPH LISTS =", morph_dict
+	print "MORPH_DICT:"
+	for cluster_ID in morph_dict.keys():
+		print cluster_ID, morph_dict[cluster_ID]
+	#print "ORIGINAL LISTS =", active_feature_lists
+	#print "MORPH LISTS =", morph_dict
 
 
