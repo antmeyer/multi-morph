@@ -1,6 +1,5 @@
-import regex as re
 #import sys, codecs
-import sys
+import sys, codecs, re
 #import activeCentroidFeatures as acf
 import active_centroid_features as acf
 from get_active import *
@@ -41,7 +40,7 @@ def main(Cval_filename, outputWeights=False):
 	# 	2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
 	# 	3: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":0.0000, "b@[1]":0.0000, "b@[2]":0.0000, "b@[3]":0.0000, "c@[-2]":0.0000, "c@[-3]":0.0000, "c@[-4]":0.0000, "c@[0]":0.0000},
 	# 	4: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, "r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, "n<\u00F3":0.0660, "e<\u00F3":0.0493}}
-	centroids_featuresAndValues = {0: {"e<t":1.0000, "\u00E9<e":0.9450}}
+	centroids_featuresAndValues = {0: {u"e<t":1.0000, u"\u00E9<e":0.9450}}
 		# 1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721},
 		# 2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
 		# 3: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":0.0000, "b@[1]":0.0000, "b@[2]":0.0000, "b@[3]":0.0000, "c@[-2]":0.0000, "c@[-3]":0.0000, "c@[-4]":0.0000, "c@[0]":0.0000},
@@ -88,6 +87,20 @@ def main(Cval_filename, outputWeights=False):
 		fw_objs_srtd = fw_front_srtd
 		fw_objs_srtd.extend(fw_back_srtd)
 		fw_objs_srtd.extend(fw_prec_srtd)
+		# We put the pos_back features before the prec_features because it would be redundant to attach
+		# a pos_back feature to a chain of prec features, e.g., a<e, e<t, t@[-1]. The t in the pos_back
+		# feature would have to match the t in the feater e<t in order to justify the merger (or attachement),
+		# but if the t's match, no new info is contributed by the merger. On the other hand, a prec feature can
+		# contribute info when attached to a pos_back feature.
+
+		# Similaray, a prec feature can help build a prefix (or front field) morph by attaching to the left
+		# of a pos_front feature, but nothing is achieved by attaching it to the right of a pos_front feature 
+		# (or, equivalently, by attaching the pos_front feature to the lefthand side of a prec-feature chain).
+
+		# We therefore put the pos_features at the very end, behind the prec features.
+
+
+
 		# ##print "fw_objs_srtd:",
 		# for obj in fw_objs_srtd:
 		# 	##print obj.get_feature(), obj.get_weight(), ";",
@@ -154,12 +167,41 @@ def main(Cval_filename, outputWeights=False):
 			print "*************************************************************"
 			print "FWP FEATURE OBJ:", fwp.get_feature()
 			print "*************************************************************"
-			if morph_prefix == None:
+			#if morph_prefix == None:
+			if len(front_morphs) == 0:
 				# if fwp.get_feature_type() == 'pos_front':
 				# 	morph_prefix = MWP_prefix(fwp)
 				try: morph_prefix = MWP_prefix(fwp)
-				except AssertionError: pass
-				else: continue
+				#except AssertionError: pass
+				except AssertionError: continue
+				else: continue	#continue in any case
+			else:
+				print "+++++++++ try: morph_prefix ++++++++++"
+				print "feature:", fwp.get_feature(), "; morph:", morph_prefix.get_morph(), ";",
+				try:
+					morph_prefix.update(fwp)
+					fwp_list = morph_prefix.get_fwp_list()
+					for h in fwp_list:
+						print h.get_feature(),
+					#print "chain:", morph_stem.get
+					print "; final pre:", morph_prefix.get_morph()
+				except AssertionError: continue
+				else: 
+					front_morphs
+					continue  #continue in any case
+
+		for fwp in fw_objs_srtd:
+
+
+
+
+
+
+
+
+
+
+
 			if morph_suffix == None:
 				# if fwp.get_feature_type() == 'pos_back':
 				# 	morph_suffix = MWP_suffix(fwp)

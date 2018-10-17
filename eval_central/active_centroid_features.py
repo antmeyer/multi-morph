@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import math,pprint,random
-import regex as re
+#import regex as re
+import re
 import sys, codecs
 
 reload(sys)  

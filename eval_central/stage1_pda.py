@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import regex as re
-#import sys, codecs
+#import regex as re
+import sys, codecs, re
 import sys
 #import activeCentroidFeatures as acf
 import active_centroid_features as acf
