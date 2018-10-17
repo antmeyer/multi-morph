@@ -19,6 +19,16 @@ cluster_dict = {u"0":[u"klbi"],
 				u"2":[u"klbi"],
 				u"3":[u"klbi"]}
 
+# cluster_dict2 = {u"0":[u"menadn\u00E9det", u"mezay\u00E9fet", u"welar\u00E9det", u"d\u00E9let", u"\u0294om\u00E9ret"],
+# 				u"1":[u"hamenadn\u00E9det", u"had\u00E9let"],
+# 				u"2":[u"bamenadn\u00E9det", u"bad\u00E9let"],
+# 				u"3":[u"bemenadn\u00E9det", u"bed\u00E9let"]}
+
+cluster_dict2 = {u"0":[u"d\u00E9let", u"\u0294om\u00E9ret"],
+				u"1":[u"had\u00E9let"],
+				u"2":[u"bad\u00E9let"],
+				u"3":[u"bed\u00E9let"]}
+
 mapping_ex = {(u"k",0):[u"0",u"1"], (u"l",1):[u"1",u"2"], (u"b",2):[u"1",u"2"], (u"i",3):[u"3"]}
 UTF8Writer = codecs.getwriter('utf8')
 sys.stdout = UTF8Writer(sys.stdout)

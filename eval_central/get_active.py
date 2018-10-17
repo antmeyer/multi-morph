@@ -9,8 +9,8 @@ import active_centroid_features as acf
 reload(sys)  
 sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf8')
-sys.stdout = UTF8Writer(sys.stdout)
-sys.stderr = UTF8Writer(sys.stderr)
+#sys.stdout = UTF8Writer(#sys.stdout)
+#sys.stderr = UTF8Writer(#sys.stderr)
 
 def partition_features(feat_wt_pairs, sort_partitions=True, just_features=True):
 	pos_pre = []
@@ -55,9 +55,9 @@ def partition_feat_objs(feature_objects, sort_partitions=True):
 		weight = fwp.get_weight()
 		if "@" in feature:
 			if "-" in feature:
-				print "found '-':", feature
+				#print "found '-':", feature
 				temp_suf_pairs.append((weight, fwp))
-				print "tsp:", temp_suf_pairs
+				#print "tsp:", temp_suf_pairs
 				#if len(pos_suf) > 0:
 					
 				# 	if weight <= pos_suf[0].get_weight():
@@ -103,27 +103,28 @@ def partition_feat_objs(feature_objects, sort_partitions=True):
 	# 	for pair in prec:
 	# 		prec_features.append(pair[0])
 		# return (pos_pre_features, pos_suf_features, prec_features)
-	all_objects_sorted = new_pre_objs
-	print "aos:", all_objects_sorted
+	all_objects_sorted = list(new_pre_objs)
+	##print "aos:", all_objects_sorted
 	all_objects_sorted.extend(new_suf_objs)
-	print "*aos:", all_objects_sorted
+	##print "*aos:", all_objects_sorted
 	all_objects_sorted.extend(new_stem_objs)
-	print "**aos:", all_objects_sorted
+	##print "**aos:", all_objects_sorted
 
-	return all_objects_sorted
+	#return all_objects_sorted 
+	return (new_pre_objs, new_suf_objs, new_stem_objs)
 
 # def read_symbol(raw_input, re_pos_front, re_pos_back, re_bi_elems, re_prec_elems):
 # 	symbol = None
-# 	#print re_pos_front.sub(ur"\1", raw_input)
+# 	##print re_pos_front.sub(ur"\1", raw_input)
 # 	if re_pos_front.search(raw_input):
-# 		#print "*****", re_pos_front.sub(ur"\2", raw_input)
+# 		##print "*****", re_pos_front.sub(ur"\2", raw_input)
 # 		try: symbol = ("@", re_pos_front.sub(ur"\1", raw_input), int(re_pos_front.sub(ur"\2", raw_input)))
 # 		except ValueError: return None
 # 	elif re_pos_back.search(raw_input):
 # 		try: symbol = ("@", re_pos_back.sub(ur"\1", raw_input), int(re_pos_back.sub(ur"\2", raw_input)))
 # 		except ValueError: return None
 # 	elif re_prec_elems.search(raw_input):
-# 		#print "re_prec_elems", "match"
+# 		##print "re_prec_elems", "match"
 # 		try: symbol = ("<", re_prec_elems.sub(ur"\1", raw_input), re_prec_elems.sub(ur"\3", raw_input))
 # 		except ValueError: return None
 # 	elif re_bi_elems.search(raw_input):
@@ -134,7 +135,7 @@ def partition_feat_objs(feature_objects, sort_partitions=True):
 # 	return symbol
 class MWP(object):
 	# weight = ""
-	def __init__(self, morph_str="", wt=1.0):
+	def __init__(self, morph_str="", wt=0.0):
 		self.morph = morph_str
 		self.weight = wt
 		self.fwp_list = []
@@ -142,24 +143,51 @@ class MWP(object):
 		self.morph = new_str
 	def get_fwp_list(self):
 		return self.fwp_list
-	def update_weight(self,wt2):
-		self.weight = (self.weight + wt2)/2.0
+	# def update_weight(self,wt2):
+	# 	self.weight = (self.weight + wt2)/2.0
+	def set_weight(self):
+		return self.weight
 	def get_morph(self):
 		return self.morph
 	def get_weight(self):
 		return self.weight
 
-class MWP_prefix(MWP):
-	morph_type = "prefix"
-	def __init__(self,init_fwp,morph_str="", wt=0.0):
-		MWP.__init__(self,morph_str="",wt=0.0)
-		if init_fwp.get_feature_type() != "pos_suf":
-			self.first_fwp = init_fwp
-			#print "FF:", self.first_fwp.get_feature()
-			self.weight = self.first_fwp.get_weight()
-			#print "FF weight:", self.weight
-			self.fwp_list = [self.first_fwp]
-			self.morph += self.first_fwp.get_letter()
+class MWP_prefix:
+	#morph_type = "prefix"
+	#def __init__(self,init_fwp,morph_str="", wt=0.0):
+	def __init__(self,init_fwp):
+		#MWP.__init__(self,morph_str="",wt=0.0)
+		#super(MWP_prefix, self).__init__(morph_str, wt)
+		#super(MWP_prefix, self).__init__()
+		# if init_fwp.get_feature_type() == "pos_front":
+		# 	return None
+		assert init_fwp.get_feature_type() == "pos_front"
+		#super(MWP_prefix, self).__init__()
+		self.first_fwp = init_fwp
+		##print "FF:", self.first_fwp.get_feature()
+		self.weight = self.first_fwp.get_weight()
+		##print "FF weight:", self.weight
+		self.fwp_list = [self.first_fwp]
+		self.morph = self.first_fwp.get_letter()
+
+	def set_morph(self,fwp):
+		self.morph = new_str
+	# def update_weight(self,wt2):
+	# 	self.weight = (self.weight + wt2)/2.0
+	def set_weight(self):
+		return self.weight
+
+	def get_fwp_list(self):
+		return self.fwp_list
+	# def update_weight(self,wt2):
+	# 	self.weight = (self.weight + wt2)/2.0
+	def set_weight(self):
+		return self.weight
+	def get_morph(self):
+		return self.morph
+	def get_weight(self):
+		return self.weight
+
 	def update_weight(self):
 		sum_wt = 0.0
 		if len(self.fwp_list) > 1:
@@ -167,7 +195,8 @@ class MWP_prefix(MWP):
 				sum_wt += my_fwp.get_weight()
 			self.weight = sum_wt/float(len(self.fwp_list))
 	def update(self, fwp):
-
+		assert fwp != None
+		assert fwp.get_feature_type() == 'pos_front' or fwp.get_feature_type() == 'prec'
 		# if self.morph == "":
 		# 	self.morph += self.first_fwp.get_letter()
 			#self.fwp_list.append(self.first_fwp)
@@ -176,11 +205,11 @@ class MWP_prefix(MWP):
 		fwp_type = fwp.get_feature_type()
 		if fwp_type == "pos_front":
 			for my_fwp in self.fwp_list:
-				#print "my_fwp:",my_fwp.get_feature()
-				#print "fwp:", fwp.get_feature()
+				##print "my_fwp:",my_fwp.get_feature()
+				##print "fwp:", fwp.get_feature()
 				#if my_fwp.get_feature_type() == "pos_front":
 				if my_fwp.matches(fwp):
-					#print "MATCH!"
+					##print "MATCH!"
 					self.morph += fwp.get_letter()
 					self.fwp_list.append(fwp)
 		elif fwp_type == "prec":
@@ -191,38 +220,101 @@ class MWP_prefix(MWP):
 		self.update_weight()
 
 
-class MWP_stem(MWP):
-	
-	def __init__(self, init_fwp, morph_str="",wt=0.0):
-		MWP.__init__(self,morph_str,wt)
+#class MWP_stem(MWP):
+class MWP_stem:	
+	#def __init__(self, init_fwp, morph_str="",wt=0.0):
+	def __init__(self, init_fwp):
+		#MWP.__init__(self,morph_str,wt)
+		#super(MWP_stem, self).__init__(morph_str, wt)
+		#super(MWP_stem, self).__init__()
 		#self.weight = init_fwp.get_weight()
+		assert init_fwp.get_feature_type() == 'prec'
+		#super(MWP_stem, self).__init__()
 		self.first_fwp = init_fwp
 		self.chain = [self.first_fwp]
+		self.chain_length = len(self.chain)
+		#self.sequence = self.first_fwp.get_letter1()
+		#self.sequence += self.first_fwp.get_letter2()
+		self.morph = self.extract_letter_seq()
+		print "init morph =",self.morph
 		self.morph_type = "stem"
+		#self.morph = ""
+		#self.morph = self.sequence
+		#self.weight = wt
+		self.weight = self.first_fwp.get_weight()
+
+	# def update_weight(self,wt2):
+	# 	self.weight = (self.weight + wt2)/2.0
+	def set_weight(self):
+		return self.weight
+	def get_morph(self):
+		return self.morph
+	def get_weight(self):
+		return self.weight
+	# def get_letter_seq(self):
+	# 	return self.sequence
+
 	def update_chain(self,new_fwp):
+		breakFlag = False
+		old_length = self.chain_length
+		new_candidates = []
 		if (new_fwp.get_letter2() == self.chain[0].get_letter1()):
 			self.chain.insert(0,new_fwp)
-		for i in range(0,len(self.chain)-1):
-			for j in range(1,len(self.chain)):
-				if (new_fwp.get_letter1() == self.chain[i].get_letter2()) and new_fwp.get_letter2() == self.chain[j].get_letter1(): 
+			return True
+		for i in range(0,self.chain_length-1):
+			if breakFlag: break
+			for j in range(self.chain_length):
+				if (new_fwp.get_letter1() == self.chain[i].get_letter2()): # and new_fwp.get_letter2() == self.chain[j].get_letter1(): 
 					self.chain.insert(j,new_fwp)
-		if (new_fwp.get_letter1() == self.chain[-1].get_letter2()):
+					breakFlag = True
+					break
+		if (new_fwp.get_letter1() == self.chain[self.chain_length-1].get_letter2()):
 			self.chain.append(new_fwp)
-	def get_letter_seq(self):
-		if len(self.chain) < 2:
-			return False
-		sequence = ""
-		for i in range(len(self.chain)-1):
-			sequence += self.chain[i].get_letter1()
-		sequence += self.chain[-1].get_letter1()
-		sequence += self.chain[-1].get_letter2()
-		return sequence
+		self.chain_length = len(self.chain)
+		#self.extract_letter_seq()
+
+	def extract_letter_seq(self):
+		# if len(self.chain) < 2:
+		# 	return False
+		temp_seq = ""
+		print "LENGTH:",self.chain_length
+		print "temp_seq:","$", temp_seq
+		temp_seq = self.chain[0].get_letter1()
+		temp_seq += self.chain[0].get_letter2()
+		temp_chain = list(self.chain)
+		#try: sequence += self.chain[1].get_letter2() 
+		#except IndexError:
+			#pass
+		#else:
+		first_link = temp_chain.pop(0)
+		temp_seq = first_link.get_letter1()
+		print "temp_seq:","first_link 0:", temp_seq
+		temp_seq += first_link.get_letter2()
+		print "temp_seq:","first_link 1:", temp_seq
+		while len(temp_chain) > 0:
+		#for i in range(1,self.chain_length):
+			link = temp_chain.pop(0)
+			temp_seq += link.get_letter2()
+			#temp_seq += self.chain[i].get_letter2()
+			print "temp_seq:",link, temp_seq
+		#sequence += self.chain[-1].get_letter1()
+		#sequence += self.chain[-1].get_letter2()
+		#self.sequence = temp_seq
+		return temp_seq
+
 	def get_chain(self):
-		#print "CHAIN:",
+		##print "CHAIN:",
 		return self.chain
-		#for item in self.chain:
-			#print item,
-		#print ""
+	def get_chain_features(self, asString=True):
+		##print "CHAIN:",
+		chain_features = []
+		for item in self.chain:
+			chain_features.append(item.get_feature())
+		if asString:
+			return " ".join(chain_features)
+		return chain_features
+
+		##print ""
 	# def attach_fwp(fwp):
 	# 	if fwp_type = "prec":
 	# 		if self.morph = "":
@@ -243,51 +335,80 @@ class MWP_stem(MWP):
 		self.weight = sum_wt/len(self.chain)
 	
 	def update(self, new_fwp):
-		#print "NEW_FWP:", new_fwp
+		##print "NEW_FWP:", new_fwp
+		assert len(self.chain) > 0
+		assert new_fwp.get_feature_type() == 'prec'
 		self.update_chain(new_fwp)
-		new_morph = self.get_letter_seq()
-		if new_morph == False or new_morph == None:
-			pass
-		else:	
-			self.morph = new_morph
-			self.update_weight()
+		#new_morph = self.get_letter_seq()
+		self.morph = self.extract_letter_seq()
+		print "get_letter_seq =", self.morph
+		#assert new_morph != None
+		# if new_morph == False or new_morph == None:
+		# 	pass
+		#else:	
+		#self.morph = new_morph
+		self.update_weight()
 
-class MWP_suffix(MWP):
-	morph_type = "suffix"
+
+#class MWP_suffix(MWP):
+class MWP_suffix:
+	#morph_type = "suffix"
 	# def __init__(self,morph_str="", wt=0.0):
 	# 	MWP.__init__(self,morph_str="",wt=0.0)
-	def __init__(self,init_fwp,morph_str="", wt=0.0):
-		MWP.__init__(self,morph_str="",wt=0.0)
+	#def __init__(self,init_fwp,morph_str="", wt=0.0):
+	def __init__(self,init_fwp):
+		#MWP.__init__(self,morph_str="",wt=0.0)
+		assert init_fwp.get_feature_type() == 'pos_back' 
+		#super(MWP_suffix, self).__init__()
 		self.first_fwp = init_fwp
 		self.morph_type = "suffix"
-		#print "FF:", self.first_fwp.get_feature()
+		##print "FF:", self.first_fwp.get_feature()
 		self.weight = self.first_fwp.get_weight()
-		#print "FF weight:", self.weight
+		##print "FF weight:", self.weight
 		self.fwp_list = [self.first_fwp]
-		self.morph += self.first_fwp.get_letter()
+		self.morph = self.first_fwp.get_letter()
+
+	def get_fwp_list(self):
+		return self.fwp_list
+	# def update_weight(self,wt2):
+	# 	self.weight = (self.weight + wt2)/2.0
+	def set_weight(self):
+		return self.weight
+	def get_morph(self):
+		return self.morph
+	def get_weight(self):
+		return self.weight
+
 	def update_weight(self):
 		sum_wt = 0.0
 		for my_fwp in self.fwp_list:
 			sum_wt += my_fwp.get_weight()
 		self.weight = sum_wt/len(self.fwp_list)
 	def update(self,fwp):
+		assert fwp != None
+		assert fwp.get_feature_type() != 'pos_front' # or fwp.get_feature_type() == 'prec'
 		# if self.morph == "":
 		# 	self.morph += self.first_fwp.get_letter()
+		print "In UPDATE:", fwp.get_feature(),
 		fwp_type = fwp.get_feature_type()
+		print "TYPE:", fwp_type 
 		if fwp_type == "pos_back":
 			for my_fwp in self.fwp_list:
-				#print "my_fwp:",my_fwp.get_feature()
-				#print "fwp:", fwp.get_feature()
+				##print "my_fwp:",my_fwp.get_feature()
+				##print "fwp:", fwp.get_feature()
 				#if my_fwp.get_feature_type() == "pos_front":
 				if fwp.matches(my_fwp):
-					#print "MATCH!"
+					##print "MATCH!"
 					self.morph += fwp.get_letter()
 					self.fwp_list.append(fwp)
 		elif fwp_type == "prec":
+			print "((((((((((((((((((((( fwp_type:", fwp_type
 			for my_fwp in self.fwp_list:
+				#print my_fwp.get_feature(),
 				if my_fwp.matches(fwp):
 					self.morph += fwp.get_letter2()
 					self.fwp_list.append(fwp)
+			#print ""
 		self.update_weight()
 
 class FWP(object):
@@ -319,35 +440,56 @@ class FWP(object):
 class FWP_pos(FWP):
 	#feature_type = "pos"
 	def __init__(self, feat="", wt=0.0):
-		FWP.__init__(self, feat, wt)
+		#FWP.__init__(self, feat, wt)
+		super(FWP_pos, self).__init__(feat, wt)
 		#self.pos = int(temp)
 		self.feature = feat
 		self.letter = self.feature.split("@")[0]
+
 	def get_letter(self):
 		return self.letter
 	def get_pos(self):
 		return self.pos
+
 	# def get_feature(self):
 	# 	return self.feature
 
-class FWP_pos_front(FWP_pos):
-	
+#class FWP_pos_front(FWP_pos):
+class FWP_pos_front:
 	def __init__(self, feat="", wt=0.0):
-		FWP_pos.__init__(self, feat, wt)
-		#print "HELP",self.feature
-		#print "HELP",self.weight
+		#super(FWP_pos_front, self).__init__(feat, wt)
+		#FWP_pos.__init__(self, feat, wt)
+		##print "HELP",self.feature
+		##print "HELP",self.weight
+		self.feature = feat
 		self.feature_type = 'pos_front'
 		#self.weight = wt
-		sys.stderr.write("feat:" + feat + "\n")
+		#sys.stderr.write("feat:" + feat + "\n")
 		components = self.feature.split("@")
-		#print components
+		##print components
 		self.letter = components[0]
 		temp = components[1]
-		# #print "temp:" temp
+		# ##print "temp:" temp
 		temp = temp.replace("[","")
 		temp = temp.replace("]","")
 		self.pos = int(temp)
-		#print "POS:", self.pos
+		
+		self.letter = self.feature.split("@")[0]
+		self.weight = wt
+
+	def set_feature(self,feat):
+		self.feature = feat
+	def set_weight(self,wt):
+		self.weight = wt
+	def get_feature(self):
+		return self.feature
+	def get_weight(self):
+		return self.weight
+	def get_letter(self):
+		return self.letter
+	def get_pos(self):
+		return self.pos
+		##print "POS:", self.pos
 	def get_feature_type(self):
 		return self.feature_type
 	def matches(self, other_fwp):
@@ -366,24 +508,43 @@ class FWP_pos_front(FWP_pos):
 			if self.letter == other_fwp.get_letter2(): return True
 		return False
 
-class FWP_pos_back(FWP_pos):
+#class FWP_pos_back(FWP_pos):
+class FWP_pos_back:
 	#feature_type = "pos_back"
-	def __init__(self, feat, wt):
-		FWP_pos.__init__(self, feat, wt)
-		#print "HELP",self.feature
-		#print "HELP",self.weight
+	def __init__(self, feat="", wt=0.0):
+		#FWP_pos.__init__(self, feat, wt)
+		#super(FWP_pos_back, self).__init__(feat, wt)
+		##print "HELP",self.feature
+		##print "HELP",self.weight
 		self.feature_type = 'pos_back'
 		#self.weight = wt
-		sys.stderr.write("feat:" + feat + "\n")
+		#sys.stderr.write("feat:" + feat + "\n")
+		self.feature = feat
 		components = self.feature.split("@")
-		#print components
+		##print components
 		self.letter = components[0]
 		temp = components[1]
-		# #print "temp:" temp
+		# ##print "temp:" temp
 		temp = temp.replace("[","")
 		temp = temp.replace("]","")
 		self.pos = int(temp)
-		#print "POS:", self.pos
+		
+		self.letter = self.feature.split("@")[0]
+		self.weight = wt
+
+	def set_feature(self,feat):
+		self.feature = feat
+	def set_weight(self,wt):
+		self.weight = wt
+	def get_feature(self):
+		return self.feature
+	def get_weight(self):
+		return self.weight
+	def get_letter(self):
+		return self.letter
+	def get_pos(self):
+		return self.pos
+		##print "POS:", self.pos
 	def get_feature_type(self):
 		return self.feature_type
 	def matches(self,other_fwp):
@@ -398,19 +559,33 @@ class FWP_pos_back(FWP_pos):
 				#return (self.weight + other_weight)/2.0
 		elif other_type == "prec":
 			other_letter1 = other_fwp.get_letter1()
+			print "((((((((((((((((((((( other_letter1:", other_letter1
 			if self.letter == other_letter1: return True
 		return False
 
-class FWP_prec(FWP):
+#class FWP_prec(FWP):
+class FWP_prec:
 	#feature_type = "pos"
 	def __init__(self, feat="", wt=0.0):
-		FWP.__init__(self, feat, wt)
+		#FWP.__init__(self, feat, wt)
+		#super(FWP_prec, self).__init__(feat, wt)
+		#super(FWP_prec, self).__init__(feat, wt)
 		#self.pos = int(temp)
 		self.feature = feat
 		components = self.feature.split("<")
 		self.letter1 = components[0]
 		self.letter2 = components[1]
 		self.feature_type = 'prec'
+		self.weight = wt
+
+	def set_feature(self,feat):
+		self.feature = feat
+	def set_weight(self,wt):
+		self.weight = wt
+	def get_feature(self):
+		return self.feature
+	def get_weight(self):
+		return self.weight
 	def get_feature_type(self):
 		return self.feature_type
 	def get_letter1(self):
@@ -421,6 +596,7 @@ class FWP_prec(FWP):
 		other_weight = other_fwp.get_weight()
 		other_type = other_fwp.get_feature_type()
 		other_feature = other_fwp.get_feature()
+		#print "other_feature:", other_feature, ";"
 		other_letter1 = ""
 		other_letter2 = ""
 		other_letter = ""
@@ -436,6 +612,7 @@ class FWP_prec(FWP):
 		elif other_type == "prec":
 			other_letter1 = other_fwp.get_letter1()
 			other_letter2 = other_fwp.get_letter2()
+			#print "to_match:",self.feature,self.letter2,  ";", other_fwp.get_feature(), other_letter1
 			if self.letter2 == other_letter1: return True# or self.letter1 == other_letter2: return True
 		return False
 
@@ -443,11 +620,11 @@ class FWP_prec(FWP):
 
 def get_sortedKeys(featVal_pairs):
 	features = []
-	print "sortedKeys from get_sortedKeys:"
+	#print "sortedKeys from get_sortedKeys:"
 	for pair in sorted(featVal_pairs, key=lambda x: x[1], reverse=True):
-		print pair[0], pair[1], ";", 
+		#print pair[0], pair[1], ";", 
 		features.append(pair[0])
-	print ""
+	#print ""
 	return features
 
 def get_sortedKeyValPairs(item_val_pairs):
@@ -461,7 +638,7 @@ class FeatureLists:
 	def __init__(self, feat_wt_lists):
 		self.feature_lists = []
 		#lists = acf.get_active_features(filename)
-		#sys.stderr.write(str(lists))
+		##sys.stderr.write(str(lists))
 		self.pat_pos = ur"@"
 		self.re_pos = re.compile(self.pat_pos, re.UNICODE)
 
@@ -484,29 +661,29 @@ class FeatureLists:
 
 
 		for feat_wt_list in feat_wt_lists:
-			print "OL:",feat_wt_list
+			#print "OL:",feat_wt_list
 			#sorted_features = get_sortedKeys(old_dict)
 			sorted_feats_and_wts = get_sortedKeyValPairs(feat_wt_list)
-			# print "Sorted Features:",
+			# #print "Sorted Features:",
 			# for feature in sorted_features:
-			# 	#print key + " " + str(val),
-			# 	print feature,
-			# print ""
-			#print "Original List:", " ".join(newish_list)
+			# 	##print key + " " + str(val),
+			# 	#print feature,
+			# #print ""
+			##print "Original List:", " ".join(newish_list)
 			#new_list = []
 			# for feature in sorted_features:
 			# 	parsed_feature = self.read_symbol(feature)
 			# 	if parsed_feature[0] = 1
-			# 	print "parsed_feature:", parsed_feature, print "  ",
+			# 	#print "parsed_feature:", parsed_feature, #print "  ",
 			# 	if parsed_feature != None:
 			# 		new_list.append(parsed_feature)
-			# print ""
+			# #print ""
 			#new_list.sort()
 
-			# print "New List:",
+			# #print "New List:",
 			# for tup in newish_list:
-			# 	print " ".join(list(tup)),
-			# print ""
+			# 	#print " ".join(list(tup)),
+			# #print ""
 			pos_front,pos_back,prec = partition_features(sorted_feats_and_wts)
 			features = pos_front
 			features.extend(pos_back)
@@ -514,23 +691,23 @@ class FeatureLists:
 			self.feature_lists.append(features)
 			# back_to_features_list = []
 			# for parsed_feature in new_list:
-			# 	#print parsed_feature, self.revert_to_feature(parsed_feature)
+			# 	##print parsed_feature, self.revert_to_feature(parsed_feature)
 			# 	back_to_features_list.append(self.revert_to_feature(parsed_feature))
 			# self.feature_lists.append(back_to_features_list)
-			# print "Modified List:", " ".join(modified_list)
+			# #print "Modified List:", " ".join(modified_list)
 
 	def read_symbol(self, raw_input):
 		symbol = None
-		#print re_pos_front.sub(ur"\1", raw_input)
+		##print re_pos_front.sub(ur"\1", raw_input)
 		if self.re_pos_front.search(raw_input):
-			#print "*****", re_pos_front.sub(ur"\2", raw_input)
+			##print "*****", re_pos_front.sub(ur"\2", raw_input)
 			try: symbol = (0, "@", self.re_pos_front.sub(ur"\1", raw_input), int(self.re_pos_front.sub(ur"\2", raw_input)))
 			except ValueError: return None
 		elif self.re_pos_back.search(raw_input):
 			try: symbol = (1, "@", self.re_pos_back.sub(ur"\1", raw_input), int(self.re_pos_back.sub(ur"\2", raw_input)))
 			except ValueError: return None
 		elif self.re_prec_elems.search(raw_input):
-			#print "re_prec_elems", "match"
+			##print "re_prec_elems", "match"
 			try: symbol = (2, "<", self.re_prec_elems.sub(ur"\1", raw_input), self.re_prec_elems.sub(ur"\3", raw_input))
 			except ValueError: return None
 		elif self.re_bi_elems.search(raw_input):
@@ -596,13 +773,13 @@ class FeatureLists:
 	# 	return self.feature_lists
 
 	# # def sorted_feature_list(self, old_dict):
-	# # 	print "OL:",old_dict
+	# # 	#print "OL:",old_dict
 	# # 	newish_list = get_sortedKeys(old_dict)
-	# # 	print "Original List:",
+	# # 	#print "Original List:",
 	# # 	for key in newish_list:
-	# # 		#print key + " " + str(val),
-	# # 		print key
-	# # 	#print "Original List:", " ".join(newish_list)
+	# # 		##print key + " " + str(val),
+	# # 		#print key
+	# # 	##print "Original List:", " ".join(newish_list)
 	# # 	new_list = []
 	# # 	parsed_pos_front = []
 	# # 	parsed_pos_back = []
@@ -617,16 +794,16 @@ class FeatureLists:
 	# # 			new_list.append(parsed_feature)
 	# 	#new_list.sort()
 
-	# 	print "New List:",
+	# 	#print "New List:",
 	# 	for tup in newish_list:
-	# 		print " ".join(list(tup)),
-	# 	print ""
+	# 		#print " ".join(list(tup)),
+	# 	#print ""
 	# 	modified_list = []
 	# 	for parsed_feature in new_list:
-	# 		#print parsed_feature, self.revert_to_feature(parsed_feature)
+	# 		##print parsed_feature, self.revert_to_feature(parsed_feature)
 	# 		modified_list.append(self.revert_to_feature(parsed_feature))
 	# 	#self.feature_lists.append(modified_list)
-	# 	print "Modified List:", " ".join(modified_list)
+	# 	#print "Modified List:", " ".join(modified_list)
 	# 	return modified_list
 
 if __name__ == "__main__":
