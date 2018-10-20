@@ -24,9 +24,9 @@ re_bi = re.compile(pat_bi, re.UNICODE)
 pat_seq = ur"[<+]"
 re_seq = re.compile(pat_seq, re.UNICODE)
 
-def main(Cval_filename, outputWeights=False):
+def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 	outputDict = {}
-	#centroids_featuresAndValues = acf.get_active_features_and_values(Cval_filename)
+	#centroids_featuresAndValues = acf.get_active_features_and_values(cvals_filename)
 	
 	# centroids_featuresAndValues = {0: {"k<t":1.0, "k<a":0.9, "t<b":1, "a<b":0.8},
 	# 	1 : {"d@[-4]":1, "i@[0]":1, "i@[-2]":1, "m@[-1]":1},
@@ -35,17 +35,20 @@ def main(Cval_filename, outputWeights=False):
 	# 	3: {"a<n":0.8, "n<u":1, "a@[-3]":1}}
 	## 2
 	#Most Active
-	# centroids_featuresAndValues = {0: {"e<t":1.0000, "z@[0]":1.0000, "x@[0]":1.0000, "\u0294@[3]":0.9477, "\u00E9<e":0.9450, "a<\u00F3":0.1597},
+	#centroids_featuresAndValues = {0: {"e<t":1.0000, "z@[0]":1.0000, "x@[0]":1.0000, "\u0294@[3]":0.9477, "\u00E9<e":0.9450}} # "a<\u00F3":0.1597}}
 	# 	1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721},
 	# 	2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
 	# 	3: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":0.0000, "b@[1]":0.0000, "b@[2]":0.0000, "b@[3]":0.0000, "c@[-2]":0.0000, "c@[-3]":0.0000, "c@[-4]":0.0000, "c@[0]":0.0000},
 	# 	4: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, "r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, "n<\u00F3":0.0660, "e<\u00F3":0.0493}}
-	centroids_featuresAndValues = {0: {u"e<t":1.0000, u"\u00E9<e":0.9450}}
-		# 1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721},
+	centroids_featuresAndValues = {0: {u"e<t":1.0000, u"\u00E9<e":0.9450},
+		#1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721}}
 		# 2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
-		# 3: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":0.0000, "b@[1]":0.0000, "b@[2]":0.0000, "b@[3]":0.0000, "c@[-2]":0.0000, "c@[-3]":0.0000, "c@[-4]":0.0000, "c@[0]":0.0000},
-		# 4: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, "r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, "n<\u00F3":0.0660, "e<\u00F3":0.0493}}
-	print centroids_featuresAndValues
+		1: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":1.0000, "b@[1]":1.0000, "b@[2]":1.0000, "b@[3]":1.0000, "c@[-2]":1.0000, "c@[-3]":1.0000, "c@[-4]":1.0000, "c@[0]":1.0000}}
+		# 2: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, 
+		# 	"r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, 
+		# 	"n<\u00F3":0.0660}} #, "e<\u00F3":0.0493}}
+		#2: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891}}
+	#print centroids_featuresAndValues
 	# centroids_featuresAndValues = {
 	# 	#0: {"i<t":1.0, "i@[-2]":1.0, "t<i":1.0}}
 	# 	#0: {"k<e":1.0, "e@[1]":1.0, "e<k":1.0}}
@@ -113,7 +116,9 @@ def main(Cval_filename, outputWeights=False):
 		# Initialize all three morph objects on the first feature-weight object:
 		###print "FWPs categorized:",
 		morph_prefix = None
+		morph_prefix2 = None
 		morph_suffix = None
+		morph_suffix2 = None
 		morph_stem = None
 		# print "*****%%%%%^^^^^ fwp_objs_srtd:",
 		# for fwp in fw_objs_srtd:
@@ -163,118 +168,260 @@ def main(Cval_filename, outputWeights=False):
 		# try: morph_stem = MWP_stem(fwp)
 		# except AssertionError: pass
 		print "%%%% MORPH_STEM:", morph_stem
-		for fwp in fw_objs_srtd:
+		
+		fw_objs_srtd_copy = list(fw_objs_srtd)
+		i = 0
+		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			fwp = fw_objs_srtd_copy[i]
+		#for fwp in fw_objs_srtd_copy:
 			print "*************************************************************"
 			print "FWP FEATURE OBJ:", fwp.get_feature()
 			print "*************************************************************"
-			#if morph_prefix == None:
-			if len(front_morphs) == 0:
+			if morph_suffix == None:
+			#if len(front_morphs) == 0:
+				# if fwp.get_feature_type() == 'pos_front':
+				# 	morph_suffix = MWP_prefix(fwp)
+				print "+++++++++ try: morph_suffix ++++++++++"
+				try:
+					morph_suffix = MWP_suffix(fwp, max_pos)
+				#except AssertionError: pass
+				except AssertionError:
+					print "$$$ SUFFIX Assertion Error"
+					pass
+				else:
+					fw_objs_srtd_copy.pop(i)
+					print "updated letters:", " ".join(morph_suffix.get_letters())
+					continue	#continue in any case
+			else:
+				letters = []
+				print "+++++++++ try: morph_suffix ++++++++++"
+				print "new feature:", fwp.get_feature() #, "; existing front morph:", morph_suffix.get_morph(), ";"
+				letters = morph_suffix.get_letters()
+				try: morph_suffix.update(fwp)
+				except AssertionError:
+					print "ASSERTION ERROR"
+					pass
+				else:
+					print "existing letters:", " ".join(letters)
+					print "updated letters:", " ".join(morph_suffix.get_letters())
+					fw_objs_srtd_copy.pop(i)
+					continue
+			i += 1
+
+		i = 0
+		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			fwp = fw_objs_srtd_copy[i]
+			print "*************************************************************"
+			print "FWP FEATURE OBJ:", fwp.get_feature()
+			print "*************************************************************"
+			if morph_suffix2 == None:
+			#if len(front_morphs) == 0:
 				# if fwp.get_feature_type() == 'pos_front':
 				# 	morph_prefix = MWP_prefix(fwp)
-				try: morph_prefix = MWP_prefix(fwp)
+				print "+++++++++ try: morph_suffix2 ++++++++++"
+				try: morph_suffix2 = MWP_suffix2(fwp, prec_span)
 				#except AssertionError: pass
-				except AssertionError: continue
-				else: continue	#continue in any case
-			else:
-				print "+++++++++ try: morph_prefix ++++++++++"
-				print "feature:", fwp.get_feature(), "; morph:", morph_prefix.get_morph(), ";",
-				try:
-					morph_prefix.update(fwp)
-					fwp_list = morph_prefix.get_fwp_list()
-					for h in fwp_list:
-						print h.get_feature(),
-					#print "chain:", morph_stem.get
-					print "; final pre:", morph_prefix.get_morph()
-				except AssertionError: continue
-				else: 
-					front_morphs
-					continue  #continue in any case
-
-		for fwp in fw_objs_srtd:
-
-
-
-
-
-
-
-
-
-
-
-			if morph_suffix == None:
-				# if fwp.get_feature_type() == 'pos_back':
-				# 	morph_suffix = MWP_suffix(fwp)
-				try: morph_suffix = MWP_suffix(fwp)
-				except AssertionError: pass
-				else: continue
-			if morph_stem == None:
-				# if fwp.get_feature_type() == 'pos_prec':
-				# 	morph_stem = MWP_stem(fwp)
-				try:
-					print "++++++++ try: init morph_stem ++++++++++"
-					print morph_stem
-					morph_stem = MWP_stem(fwp)
-					#print print "chain new:", morph_stem.get_chain_features()
 				except AssertionError: pass
 				else:
-					print "new_morph:", morph_stem.get_morph()
-					print "chain new:", morph_stem.get_chain_features()
-					continue
-			
-			if morph_prefix != None:
-				print "+++++++++ try: morph_prefix ++++++++++"
-				print "feature:", fwp.get_feature(), "; morph:", morph_prefix.get_morph(), ";",
-				try:
-					morph_prefix.update(fwp)
-					fwp_list = morph_prefix.get_fwp_list()
-					for h in fwp_list:
-						print h.get_feature(),
-					#print "chain:", morph_stem.get
-					print "; final pre:", morph_prefix.get_morph()
-				except AssertionError: pass
+					fw_objs_srtd_copy.pop(i) 
+					continue	#continue in any case
+			else:
+				letters = []
+				print "+++++++++ try: morph_suffix2 ++++++++++"
+				print "new feature:", fwp.get_feature() #"; existing letters:", morph_suffix2.get_morph(), ";"
 				
-			if morph_suffix != None:
-				print "++++++++ try: morph_suffix ++++++++++"
-				print "feature:", fwp.get_feature(), "; morph:", morph_suffix.get_morph()
-				try:
-					print "f list old:",
-					fwp_list = morph_suffix.get_fwp_list()
-					for f in fwp_list:
-						print fwp.get_feature(),
-					morph_suffix.update(fwp)
-					fwp_list = morph_suffix.get_fwp_list()
-					print ""
-					print "f list new:",
-					for g in fwp_list:
-						print g.get_feature(),
-					print ""
-					#print "suf:", morph_suffix.get_morph()
-					#morph_suffix.update(fwp)
-					print "final suf:", morph_suffix.get_morph()
-				except AssertionError: pass
-				
-			if morph_stem != None:
-				print "++++++++ try: morph_stem ++++++++++"
-				print "feature:", fwp.get_feature(), "; morph:", morph_stem.get_morph() #, "; chain:",
-				try:
-					chain = morph_stem.get_chain()
-					print "chain old:", morph_stem.get_chain_features()
-					# for j in chain:
-					# 	print j.get_feature(),
-					# print ""
-					morph_stem.update(fwp)
-					
-					# print "chain new:",
-					# for j in chain:
-					# 	print j.get_feature(),
-					# print ""
-					#print "chain:", morph_stem.get_chain()
-					print "chain new:", morph_stem.get_chain_features()
-					print "final stem:", morph_stem.get_morph()
+				try: 
+					morph_suffix2.update(fwp)
+					letters = morph_suffix2.get_letters()
 				except AssertionError:
-					print "AssertionError"
+					print "ASSERTION ERROR"
 					pass
+				else:
+					#fw_objs_srtd_copy.pop(i)
+					print "existing letters:", " ".join(letters)
+					print "updated letters:", " ".join(morph_suffix2.get_letters())
+					fw_objs_srtd_copy.pop(i)
+					continue
+			i += 1
+
+		i = 0
+		fw_objs_srtd_copy = list(fw_objs_srtd)
+		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			fwp = fw_objs_srtd_copy[i]
+			print "*************************************************************"
+			print "FWP FEATURE OBJ:", fwp.get_feature()
+			print "*************************************************************"
+			if morph_stem == None:
+			#if len(front_morphs) == 0:
+				# if fwp.get_feature_type() == 'pos_front':
+				# 	morph_prefix = MWP_prefix(fwp)
+				print "+++++++++ try: morph_stem ++++++++++"
+				try: morph_stem = MWP_stem(fwp, prec_span)
+				#except AssertionError: pass
+				except AssertionError: pass
+				else:
+					fw_objs_srtd_copy.pop(i) 
+					continue	#continue in any case
+			else:
+				letters = []
+				print "+++++++++ try: morph_stem ++++++++++"
+				print "new feature:", fwp.get_feature() #"; existing letters:", morph_suffix2.get_morph(), ";"
+				
+
+				try:
+					letters = morph_stem.get_letters()
+					morph_stem.update(fwp)
+				except AssertionError:
+					print "ASSERTION ERROR"
+					pass
+				else:
+					print "existing letters:", " ".join(letters)
+					print "updated letters:", " ".join(morph_stem.get_letters())
+					fw_objs_srtd_copy.pop(i)
+					continue
+			i += 1
+
+		i = 0
+		fw_objs_srtd_copy = list(fw_objs_srtd)
+		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			fwp = fw_objs_srtd_copy[i]
+		#for fwp in fw_objs_srtd_copy:
+			if morph_prefix == None:
+				print "+++++++++ try: morph_prefix ++++++++++"
+				try: morph_prefix = MWP_prefix(fwp, max_pos)
+					#except AssertionError: pass
+				except AssertionError: pass
+				else:
+					fw_objs_srtd_copy.pop(i)
+					print "updated letters:", " ".join(morph_prefix.get_letters())
+					continue
+			else:
+				letters = []
+				print "+++++++++ try: morph_prefix ++++++++++"
+				print "new feature:", fwp.get_feature(), "; existing front morph:", morph_prefix.get_morph(), ";"
+				#letters = []
+				try: 
+					letters = morph_prefix.get_letters()
+					morph_prefix.update(fwp)
+				except AssertionError:
+					print "ASSERTION ERROR"
+					pass
+				else:
+					print "existing letters:", " ".join(letters)
+					print "updated letters:", " ".join(morph_prefix.get_letters())
+					fw_objs_srtd_copy.pop(i)
+					continue
+			i += 1
+
+		i = 0
+		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			fwp = fw_objs_srtd_copy[i]
+			print "*************************************************************"
+			print "FWP FEATURE OBJ:", fwp.get_feature()
+			print "*************************************************************"
+			if morph_prefix2 == None:
+				print "+++++++++ try: morph_prefix2 ++++++++++"
+			#if len(front_morphs) == 0:
+				# if fwp.get_feature_type() == 'pos_front':
+				# 	morph_prefix = MWP_prefix(fwp)
+				try: morph_prefix2 = MWP_prefix2(fwp, prec_span)
+				#except AssertionError: pass
+				except AssertionError: pass
+				else:
+					fw_objs_srtd_copy.pop(i)
+					continue	#continue in any case
+			else:
+				letters = []
+				print "+++++++++ try: morph_prefix2 ++++++++++"
+				print "new feature:", fwp.get_feature() #"; existing letters:", morph_suffix2.get_morph(), ";"
+				#try: letters = morph_prefix2.get_letters()
+				#except AssertionError: pass
+
+				try:
+					morph_prefix2.update(fwp)
+					letters = morph_prefix2.get_letters()
+				except AssertionError:
+					print "ASSERTION ERROR *"
+					pass
+				else:
+					print "existing letters:", " ".join(letters)
+					print "updated letters:", " ".join(morph_prefix2.get_letters())
+					fw_objs_srtd_copy.pop(i)
+					continue
+			i += 1
+			# if morph_suffix == None:
+			# 	# if fwp.get_feature_type() == 'pos_back':
+			# 	# 	morph_suffix = MWP_suffix(fwp)
+			# 	try: morph_suffix = MWP_suffix(fwp)
+			# 	except AssertionError: pass
+			# 	else: continue
+			# if morph_stem == None:
+			# 	# if fwp.get_feature_type() == 'pos_prec':
+			# 	# 	morph_stem = MWP_stem(fwp)
+			# 	try:
+			# 		print "++++++++ try: init morph_stem ++++++++++"
+			# 		print morph_stem
+			# 		morph_stem = MWP_stem(fwp)
+			# 		#print print "chain new:", morph_stem.get_chain_features()
+			# 	except AssertionError: pass
+			# 	else:
+			# 		print "new_morph:", morph_stem.get_morph()
+			# 		print "chain new:", morph_stem.get_chain_features()
+			# 		continue
+			
+			# if morph_prefix != None:
+			# 	print "+++++++++ try: morph_prefix ++++++++++"
+			# 	print "feature:", fwp.get_feature(), "; morph:", morph_prefix.get_morph(), ";",
+			# 	try:
+			# 		morph_prefix.update(fwp)
+			# 		fwp_list = morph_prefix.get_fwp_list()
+			# 		for h in fwp_list:
+			# 			print h.get_feature(),
+			# 		#print "chain:", morph_stem.get
+			# 		print "; final pre:", morph_prefix.get_morph()
+			# 	except AssertionError: pass
+				
+			# if morph_suffix != None:
+			# 	print "++++++++ try: morph_suffix ++++++++++"
+			# 	print "feature:", fwp.get_feature(), "; morph:", morph_suffix.get_morph()
+			# 	try:
+			# 		print "f list old:",
+			# 		fwp_list = morph_suffix.get_fwp_list()
+			# 		for f in fwp_list:
+			# 			print fwp.get_feature(),
+			# 		morph_suffix.update(fwp)
+			# 		fwp_list = morph_suffix.get_fwp_list()
+			# 		print ""
+			# 		print "f list new:",
+			# 		for g in fwp_list:
+			# 			print g.get_feature(),
+			# 		print ""
+			# 		#print "suf:", morph_suffix.get_morph()
+			# 		#morph_suffix.update(fwp)
+			# 		print "final suf:", morph_suffix.get_morph()
+			# 	except AssertionError: pass
+				
+			# if morph_stem != None:
+			# 	print "++++++++ try: morph_stem ++++++++++"
+			# 	print "feature:", fwp.get_feature(), "; morph:", morph_stem.get_morph() #, "; chain:",
+			# 	try:
+			# 		chain = morph_stem.get_chain()
+			# 		print "chain old:", morph_stem.get_chain_features()
+			# 		# for j in chain:
+			# 		# 	print j.get_feature(),
+			# 		# print ""
+			# 		morph_stem.update(fwp)
+					
+			# 		# print "chain new:",
+			# 		# for j in chain:
+			# 		# 	print j.get_feature(),
+			# 		# print ""
+			# 		#print "chain:", morph_stem.get_chain()
+			# 		print "chain new:", morph_stem.get_chain_features()
+			# 		print "final stem:", morph_stem.get_morph()
+			# 	except AssertionError:
+			# 		print "AssertionError"
+			# 		pass
 				
 
 
@@ -309,28 +456,130 @@ def main(Cval_filename, outputWeights=False):
 		# candidate_morphs.append((morph_prefix.get_weight(), "aa&" + morph_prefix.get_morph()))
 		# candidate_morphs.append((morph_stem.get_weight(), morph_stem.get_morph()))
 		# candidate_morphs.append((morph_suffix.get_weight(), "zz&" + morph_suffix.get_morph()))
+		prefix_ptn = ""
+		suffix_ptn = ""
+		patterns = []
+		overall_ptn = ""
+		overall_weight = 0.0
+		all_letters = []
+		# front_morphs = []
+		# middle_morphs = []
+		# back_morphs = []
+		max_back_index = 1
+		min_front_index = -2
 		if morph_prefix != None:
-			candidate_morphs.append((morph_prefix.get_weight(), "aa&" + morph_prefix.get_morph()))
-			##print "morph_prefix:", morph_prefix.get_morph()
-		if morph_suffix != None:
-			candidate_morphs.append((morph_suffix.get_weight(), "zz&" + morph_suffix.get_morph()))
-			##print "morph_suffix:", morph_suffix.get_morph()
-		if morph_stem != None:
-			candidate_morphs.append((morph_stem.get_weight(), morph_stem.get_morph()))
-			##print "morph_stem:", morph_stem.get_morph()
-		candidate_morphs.sort(reverse=True)		
+			#candidate_morphs.append((morph_prefix.get_weight(),  morph_prefix))
+			#max_pos = morph_prefix.get_max_pos()
+			print "morph_prefix:", morph_prefix.get_letters()
+			print "Index range:", morph_prefix.get_min_index(), morph_prefix.get_max_index()
+			all_letters.extend(morph_prefix.get_letters())
+			prefix_ptn += morph_prefix.get_pattern()
+			patterns.append(morph_prefix.get_pattern())
+			min_front_index = morph_prefix.get_min_index()
+		if morph_prefix2 != None:
+			#candidate_morphs.append((morph_prefix2.get_weight(), morph_prefix2))
+			letters = []
+			try: 
+				letters = morph_prefix2.get_letters()
+				all_letters.extend(morph_prefix2.get_letters())
+			except AssertionError: pass
+			else:
+				prefix_ptn = patterns.pop()
+				patterns.append(ur"(?:(?:" + prefix_ptn + ur")|(?:" + morph_prefix2.get_pattern() + ur"))")
+			print "morph_prefix2:", letters
 		
-		#Assign highest-weighted morph to cluster
-		##print "cluster_ID:", cluster_ID
-		if outputWeights:
-			outputDict[cluster_ID] = candidate_morphs.pop(0)
-		else:
-			outputDict[cluster_ID] = candidate_morphs.pop(0)[1]
+		if morph_stem != None:
+			#prec_span = morph_prefix.get_prec_span()
+			#candidate_morphs.append((morph_stem.get_weight(), morph_stem))
+			all_letters.extend(morph_stem.get_letters())
+			print "morph_stem:", "*" + " ".join(morph_stem.get_letters()) + "*"
+			#stem_ptn += ".*".join(patterns)
+			patterns.append(morph_stem.get_pattern())
+		
+		if morph_suffix != None:
+			#candidate_morphs.append((morph_suffix.get_weight(), morph_suffix))
+			max_back_index = morph_suffix.get_max_index()
+			print "morph_suffix:", morph_suffix.get_letters()
+			print "SUF_WT:", morph_suffix.get_weight()
+			if morph_stem != None:
+				print "STEM_WT:", morph_stem.get_weight(), "; SUF_WT:", morph_suffix.get_weight()
+				print "SUF MAX INDEX:", morph_suffix.get_max_index()
+				if morph_suffix.get_max_index() < -1:
+					if morph_stem.get_weight() < morph_suffix.get_weight():
+					#stem_ptn = morph_stem.get_pattern()
+						stem_ptn = patterns.pop()
+						patterns.append(morph_suffix.get_pattern())
+						all_letters.extend(morph_suffix.get_letters())
+						#max_back_index = -2
+					#morph_length = morph_suffix.get_num_letters()	
+					else: pass
+						#patterns.append(morph_suffix.get_pattern())
+						#all_letters.extend(morph_suffix.get_letters())
+						#max_back_index = morph_suffix.get_max_index()
+				#patterns.append(ur"(?:(?:" + stem_ptn + ur")|(?:" + morph_suffix.get_pattern() + ur"))")
+				else:
+					patterns.append(morph_suffix.get_pattern())
+					all_letters.extend(morph_suffix.get_letters())
+					#max_back_index = morph_suffix.get_max_index()
+			else:
+				patterns.append(morph_suffix.get_pattern())
+				all_letters.extend(morph_suffix.get_letters())
+				#max_back_index = morph_suffix.get_max_index()
+
+		if morph_suffix2 != None and len(morph_suffix2.get_pattern()) > 0:
+			#candidate_morphs.append((morph_suffix2.get_weight(), morph_suffix2))
+			#print "morph_suffix2:", morph_suffix2.get_letters()
+			#suffix_ptn = morph_suffix2
+			all_letters.extend(morph_suffix2.get_letters())
+			suffix_ptn = patterns.pop()
+			print "morph_suffix2:", "*" + " ".join(morph_suffix2.get_pattern()) + "*"
+			patterns.append(ur"(?:(?:" + suffix_ptn + ur")|(?:" + morph_suffix2.get_pattern() + ur"))")
+			# letters = []
+			# try: letters = morph_suffix2.get_letters()
+			# except AssertionError: pass
+			# else:
+				
+			#print "morph_suffix2:", letters
+		#print "HERE!" #print "morph_suffix2:", morph_suffix2.get_letters()
+
+		overall_ptn = ur".*".join(patterns)
+		if min_front_index != None and min_front_index > 0:
+		#if min_front_index > 0:
+			overall_ptn = ur".*" + overall_ptn
+		if max_back_index  != None and max_back_index  < -1:
+			overall_ptn += ur".*"
+		print overall_ptn
+		morph_obj = MWP(overall_ptn)
+		morph_obj.set_weight(overall_weight)
+		morph_obj.set_letters(all_letters)
+		print morph_obj.get_letters()
+		#stem_ptn + suffix_ptn + ".*"
+				##print "morph_stem:", morph_stem.get_morph()		
+			# if morph_prefix != None:
+			# 	candidate_morphs.append((morph_prefixget_weight(), "aa&" + morph_prefix.get_morph()))
+			# 	##print "morph_prefix:", morph_prefix.get_morph()
+			# if morph_suffix != None:
+			# 	candidate_morphs.append((morph_suffix.get_weight(), "zz&" + morph_suffix.get_morph()))
+			# 	##print "morph_suffix:", morph_suffix.get_morph()
+			# if morph_stem != None:
+			# 	candidate_morphs.append((morph_stem.get_weight(), morph_stem.get_morph()))
+
+		# 	candidate_morphs.sort(reverse=True)
+		# 	#Assign highest-weighted morph to cluster
+		# 	##print "cluster_ID:", cluster_ID
+		# 	if outputWeights:
+		# 		outputDict[cluster_ID] = candidate_morphs.pop(0)
+		# 	else:
+		# 		outputDict[cluster_ID] = candidate_morphs.pop(0)[1]
+		outputDict[cluster_ID] = (weight, overall_ptn)
 	return outputDict
 
 if __name__ == "__main__":
-	filename = sys.argv[1]
-	morph_dict = main(filename, outputWeights=True)
+	cvals_filename = sys.argv[1]
+	max_pos = int(sys.argv[2])
+	prec_span = int(sys.argv[3])
+	morph_dict = main(cvals_filename, max_pos, prec_span, outputWeights=True)
 	##print "MORPH_DICT:"
-	for cluster_ID in morph_dict.keys():
-		print cluster_ID, morph_dict[cluster_ID]
+	
+	# for cluster_ID in morph_dict.keys():
+	# 	print cluster_ID, morph_dict[cluster_ID]

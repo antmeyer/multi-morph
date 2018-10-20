@@ -27,7 +27,7 @@ word_segmentations_dict = stage2.main(morph_dict, cluster_membership_filename)
 chinese_char_mapping = {}
 encoded_segmentations = {}
 for ID in morph_dict.keys():
-	chinese_char_mapping[ID] = get_chinese_char(int(ID)
+	chinese_char_mapping[ID] = get_chinese_char(int(ID))
 
 io = morfessor.MorfessorIO()
 train_data = list(io.read_corpus_file(training_filename))

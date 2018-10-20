@@ -1,5 +1,5 @@
 import sys, codecs, unicodedata, regex as re
-
+from get_active import *
 # Goal: Assemble words_and_morphs dictionary
 # Required:
 	# clusterIDs_and_words file  -> clusterIDs_and_words dict
@@ -235,15 +235,15 @@ def process_clustering_file(cluster_file):
 
 class Stage2:
 
-	#def __init__(self, output_from_stage1, cluster_file):
-	def __init__(self, output_from_stage1, cluster_dict):
-		# output_from_stage1 is a dict: Keys are clusterIDs. Values are morphs.
+	#def __init__(self, output_of_stage1, cluster_file):
+	def __init__(self, output_of_stage1, cluster_dict):
+		# output_of_stage1 is a dict: Keys are clusterIDs. Values are morphs.
 		# In this dict, each clusterID should correspond to one and only one morph.
-		# We will set the attribute 'self.morphs' equal to output_from_stage1.
-		self.morphs = output_from_stage1
+		# We will set the attribute 'self.morph_dict' equal to output_of_stage1.
+		self.morph_dict = output_of_stage1
 		#self.clusters = {}
 		self.clusters = cluster_dict
-		self.segDice = {}
+		self.seg_dict = {}
 		# 'self.clusters' will be a dict; keys = cluster_IDs,
 		# and values = lists of words. It will thus say, for each cluster, which
 		# words are members of that cluster.
@@ -329,45 +329,107 @@ class Stage2:
 		mapping = {}
 		morphs_by_type = [[], [], []]
 		morph_tuples = []
-		# Get the current word's morphs from the dictionary obtained from stage 1.
-		morphIDs = self.words_and_morphIDs[word]
-		for morphID in morphIDs:
-			morph_tuples.append((morphID, self.morphs[morphID]))
+		# Get the current word's morphs from 'self.morph_dict', which is the dictionary 
+		# of morphs obtained from stage 1.
+		#morphIDs = self.words_and_morphIDs[word]
+		for morphID in self.words_and_morphIDs[word]:
+			morph_object = self.morph_dict[morphID]
+			morph_tuples.append((morphID, morph_object))
 		print "morph_tuples:", morph_tuples
 		# The 'morph_types' are prefix, stem, and suffix.
 		## They are the three subgroups in 'morphs_by_type'.
 		## They have a certain order: 'n' below is the variable
 		## that corresponds to this ordering.
-		for morphID, morph in morph_tuples:
-			if re_prefixTag.search(morph):
-				morphs_by_type[0].append((re_prefixTag.sub(ur"", morph), morphID))
-			elif re_suffixTag .search(morph):
-				morphs_by_type[2].append((re_suffixTag.sub(ur"", morph), morphID))
-			else: # the morph is of the stem type.
-				morphs_by_type[1].append((morph, morphID))
-		print "morphs_by_type:", morphs_by_type
+		# for morphID, morph in morph_tuples:
+		# 	if re_prefixTag.search(morph):
+		# 		morphs_by_type[0].append((re_prefixTag.sub(ur"", morph), morphID))
+		# 	elif re_suffixTag.search(morph):
+		# 		morphs_by_type[2].append((re_suffixTag.sub(ur"", morph), morphID))
+		# 	else: # the morph is of the stem type.
+		# 		morphs_by_type[1].append((morph, morphID))
+		
+		# for morphID, morph_object in morph_tuples:
+		# 	if morph_object.get_morph_type() == "prefix":
+		# 		morphs_by_type[0].append((morph_object, morphID))
+		# 	elif morph_object.get_morph_type() == "stem":
+		# 		morphs_by_type[1].append((morph_object, morphID))
+		# 	# elif morph_object.get_morph_type() == "suffix2":
+		# 	# 	morphs_by_type[2].append((morph_object, morphID))
+		# 	elif morph_object.get_morph_type() == "suffix":
+		# 		morphs_by_type[3].append((morph_object, morphID))
+			# if re_prefixTag.search(morph):
+			# 	morphs_by_type[0].append((re_prefixTag.sub(ur"", morph), morphID))
+			# elif re_suffixTag .search(morph):
+			# 	morphs_by_type[2].append((re_suffixTag.sub(ur"", morph), morphID))
+			# else: # the morph is of the stem type.
+			# 	morphs_by_type[1].append((morph, morphID))
+		#print "morphs_by_type:", morphs_by_type
 		# klbi = (1) "my dog", (2) "as my heart"
 		# In (1), the 'k' is a prefix, and will be marked as such in the morphs dict,
 		# whereas in (2), the 'k' is part of the stem (in particular, the root).
 		# The ambiguity consists mainly in this: a letter near the beginning
 		# of the may be a prefix or a stem letter.
-		for n in range(len(morphs_by_type)):
-			for morph, morphID in morphs_by_type[n]:
-				for i in range(len(morph)): # Iterate over the letters of the morph
-					for j in range(len(word)): # For each morph letter, visit all word letters.
-						if morph[i] == word[j]:
-							# This is a pair containing a letter and its index in the word.
-							# wordChar_wordIndex_pair = (word[j],j)
-							wordChar_wordIndex_pair = (j, word[j])
-							# For a given word, 'mapping' dict maps each such pair to a list of morphs (morph IDs).
-							# The reason the values are lists instead of single morph IDs is that there could 
-							# be ambiguity.
-							# But would the ambiguity be real or the result of erroneous processing?
-							# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
-							if mapping.has_key(wordChar_wordIndex_pair):
-								mapping[wordChar_wordIndex_pair].append(morphID)
-							else:
-								mapping[wordChar_wordIndex_pair] = [morphID]
+		for morphID, morph_object in morph_tuples:
+			re_morph = re.compile(morph_object.get_pattern(), re.UNICODE)
+			groups = re_morph.search(word)
+			#num_letters = morph_object.get_num_letters()
+			if groups != None:
+				for i in range(1,len(groups)):
+					letter = groups[i]
+					try: idx_in_word = word.index(letter)
+					except IndexError:
+						print "!!! INDEX ERROR !!!" 
+						continue
+					else:
+						wordChar_wordIndex_pair = (idx_in_word, word[idx_in_word]) # This is a pair containing a letter and its index in the word,
+						# but with the index coming first (before the letter) in the pair.
+						# For a given word, the 'mapping' dict maps each such pair (essentially each letter in the
+						# target word) to a list of morphs (morph IDs).
+						# The reason the values are lists instead of single morph IDs is that there could 
+						# be ambiguity.
+						# But would the ambiguity be real or the result of erroneous processing?
+						# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
+						if mapping.has_key(wordChar_wordIndex_pair):
+							mapping[wordChar_wordIndex_pair].append(morphID)
+						else:
+							mapping[wordChar_wordIndex_pair] = [morphID]	
+		# for n in range(len(morphs_by_type)):
+		# 	for morph_object, morphID in self.words_and_morphIDs[word]:
+		# 		# #re_morph = morph_object.get_regex()
+		# 		# groups = re_morph.search(word)
+		# 		# num_letters = morph_object.get_num_letters()
+		# 		# if groups != None:
+		# 		for i in range(len(morph)):
+		# 			for j in range(len(word)): # For each morph letter, visit all word letters.
+		# 				if morph[i] == word[j]:
+		# 					wordChar_wordIndex_pair = (j, word[j]) # This is a pair containing a letter and its index in the word,
+		# 					# but with the index coming first (before the letter) in the pair.
+		# 					# For a given word, the 'mapping' dict maps each such pair (essentially each letter in the
+		# 					# target word) to a list of morphs (morph IDs).
+		# 					# The reason the values are lists instead of single morph IDs is that there could 
+		# 					# be ambiguity.
+		# 					# But would the ambiguity be real or the result of erroneous processing?
+		# 					# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
+		# 					if mapping.has_key(wordChar_wordIndex_pair):
+		# 						mapping[wordChar_wordIndex_pair].append(morphID)
+		# 					else:
+		# 						mapping[wordChar_wordIndex_pair] = [morphID]			
+			# for morph, morphID in morphs_by_type[n]:
+			# 	for i in range(len(morph)): # Iterate over the letters of the morph
+			# 		for j in range(len(word)): # For each morph letter, visit all word letters.
+			# 			if morph[i] == word[j]:
+			# 				# This is a pair containing a letter and its index in the word.
+			# 				# wordChar_wordIndex_pair = (word[j],j)
+			# 				wordChar_wordIndex_pair = (j, word[j])
+			# 				# For a given word, 'mapping' dict maps each such pair to a list of morphs (morph IDs).
+			# 				# The reason the values are lists instead of single morph IDs is that there could 
+			# 				# be ambiguity.
+			# 				# But would the ambiguity be real or the result of erroneous processing?
+			# 				# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
+			# 				if mapping.has_key(wordChar_wordIndex_pair):
+			# 					mapping[wordChar_wordIndex_pair].append(morphID)
+			# 				else:
+			# 					mapping[wordChar_wordIndex_pair] = [morphID]
 		print "MAPPING:"
 		for pair,lst in mapping.items():
 			print pair, ": ", ", ".join(lst) 
@@ -397,7 +459,7 @@ class Stage2:
 		(and their letters) are exhausted. Keys: Morph-IDs. Values: Lists of characters
 		"""
 		new_morph_dict = {}
-		for morphID,morph in self.morphs.items():
+		for morphID,morph in self.morph_dict.items():
 			new_morph = re_prefixTag.sub(ur"", morph)
 			new_morph = re_suffixTag.sub(ur"", new_morph)
 			new_morph_dict[morphID] = new_morph
@@ -417,7 +479,7 @@ class Stage2:
 		# 			letter_freqs[letter] = 0
 		# 		new_segmentations = []
 		# 		for morphID in mapping[key]:
-		# 			morph = self.morphs[morphID]
+		# 			morph = self.morph_dict[morphID]
 		# 			for n in range(len(working_segmentations)):
 		# 				seg_str = working_segmentations[n]
 		# 				if (seg_str[-1] == morph[0] and word[n] != morph[0]) or re.search(unicode(morph) + ur"$", unicode(seg_str)):
@@ -535,7 +597,7 @@ class Stage2:
 		# 	self.segmentations[word] = working_segmentations
 		##print "final segmentations =", working_segmentations
 		#return working_segmentations
-		self.segDict = {}
+		self.seg_dict = {}
 		for word in self.words_and_morphIDs.keys():
 			# word_chars = list(word)
 			# sys.stderr.write("word = " + word + "\n\n")
@@ -635,25 +697,26 @@ class Stage2:
 					segs_with_morphs[n].append(new_morph_dict[morphID])
 					print "&&", new_morph_dict[morphID]
 					print "&&&", "segs_with_morphs[n]:", segs_with_morphs[n]
-			self.segDict[word] = segs_with_morphs
+			self.seg_dict[word] = segs_with_morphs
 			#segs_with_morphs = {}
 			# for seg in segmentations:
 			# 	print seg
 		#return segmentations
-
+		#return self.seg_dict
 
 	def get_segmentations(self):
 		self.segment()
-		return self.segDict
+		return self.seg_dict
 
 
-def main(output_of_stage1, cluster_file):
+def main(output_of_stage1, clustersAndWords_file):
 	"""returns a dictionary comprising words as keys and segmentations 
-	(one per word) as values. Basically, this function returns segmentation."""
+	(one per word) as values. Basically, this--the "main"--function returns segmentations."""
 	#clusterIDs_and_words = get_clusterIDs_and_words(cluster_file)
 	#words_and_morphs = get_words_and_morphs(output_of_stage1, clusterIDs_and_words)
 	#return words_and_morphs
-	my_stage2 = Stage2(output_of_stage1, cluster_file)
+	clustersAndWords_dict = process_clustering_file(clustersAndWords_file)
+	my_stage2 = Stage2(output_of_stage1, clustersAndWords_dict)
 	my_stage2.segment()
 	word_segmentations = dict()
 	word_segmentations = my_stage2.get_segmentations()
@@ -661,7 +724,7 @@ def main(output_of_stage1, cluster_file):
 	print word_segmentations
 	# for word,segmentation_list in word_segmentations.items():
 	# 	print word, ":", segmentation_list
-	# return word_segmentations
+	return word_segmentations
 
 if __name__=="__main__":
 	#cluster_file = sys.argv[1]
