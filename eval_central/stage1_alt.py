@@ -24,10 +24,17 @@ re_bi = re.compile(pat_bi, re.UNICODE)
 pat_seq = ur"[<+]"
 re_seq = re.compile(pat_seq, re.UNICODE)
 
-def main(cvals_filename, max_pos, prec_span, outputWeights=False):
+#def main(cvals_filename, max_pos, prec_span, outputWeights=False):
+def main(cvals_filename, outputWeights=False):
+	name_components = cvals_filename.split("_")
+	# max_pos = int(name_components[0])
+	# prec_span = int(name_components[1])
+	max_pos = 2
+	prec_span = 2
+	print "MAX_POS:", max_pos, "; PREC_SPAN:", prec_span
 	outputDict = {}
-	#centroids_featuresAndValues = acf.get_active_features_and_values(cvals_filename)
-	
+	centroids_featuresAndValues = acf.get_active_features_and_values(cvals_filename)
+	#centroids_featuresAndValues = {0: {u"\u0294<\u0294":1.0, u"\u0294<a":0.95, u"a<\u0294":0.95}}
 	# centroids_featuresAndValues = {0: {"k<t":1.0, "k<a":0.9, "t<b":1, "a<b":0.8},
 	# 	1 : {"d@[-4]":1, "i@[0]":1, "i@[-2]":1, "m@[-1]":1},
 	# 	#1: {"a<i":1, "i<t":1, "i@[-2]":1}}
@@ -40,10 +47,10 @@ def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 	# 	2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
 	# 	3: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":0.0000, "b@[1]":0.0000, "b@[2]":0.0000, "b@[3]":0.0000, "c@[-2]":0.0000, "c@[-3]":0.0000, "c@[-4]":0.0000, "c@[0]":0.0000},
 	# 	4: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, "r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, "n<\u00F3":0.0660, "e<\u00F3":0.0493}}
-	centroids_featuresAndValues = {0: {u"e<t":1.0000, u"\u00E9<e":0.9450},
-		#1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721}}
-		# 2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
-		1: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":1.0000, "b@[1]":1.0000, "b@[2]":1.0000, "b@[3]":1.0000, "c@[-2]":1.0000, "c@[-3]":1.0000, "c@[-4]":1.0000, "c@[0]":1.0000}}
+	# centroids_featuresAndValues = {0: {u"e<t":1.0000, u"\u00E9<e":0.9450},
+	# 	#1: {"e<a":1.0000, "f@[-1]":1.0000, "p@[1]":0.9721}}
+	# 	# 2: {"\u00E1<y":1.0000, "\u00E1<i":1.0000, "y<i":1.0000, "\u0294@[2]":1.0000, "\u017E@[2]":1.0000, "z@[1]":1.0000, "y<m":(0.8178), "i<m":(0.8034), "w@[2]":0.6886, "n<y":0.1512},
+	# 	1: {"b@[-3]":0.0000, "b@[-4]":0.0000, "b@[0]":1.0000, "b@[1]":1.0000, "b@[2]":1.0000, "b@[3]":1.0000, "c@[-2]":1.0000, "c@[-3]":1.0000, "c@[-4]":1.0000, "c@[0]":1.0000}}
 		# 2: {"\u00F3<t":1.0000, "x@[0]":1.0000, "\u00E1@[-4]":0.9891, "u<\u00F3":0.0895, 
 		# 	"r<t":0.0832, "i<\u00F3":0.0828, "o<\u00F3":0.0749, "r<\u00F3":0.0739, 
 		# 	"n<\u00F3":0.0660}} #, "e<\u00F3":0.0493}}
@@ -246,7 +253,12 @@ def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 
 		i = 0
 		fw_objs_srtd_copy = list(fw_objs_srtd)
+
 		while len(fw_objs_srtd_copy) > 0 and i < len(fw_objs_srtd_copy):
+			print "FW OBJS:",
+			for fwp_temp in fw_objs_srtd_copy:
+				print fwp_temp.get_feature(),
+			print ""
 			fwp = fw_objs_srtd_copy[i]
 			print "*************************************************************"
 			print "FWP FEATURE OBJ:", fwp.get_feature()
@@ -548,6 +560,8 @@ def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 			overall_ptn = ur".*" + overall_ptn
 		if max_back_index  != None and max_back_index  < -1:
 			overall_ptn += ur".*"
+		overall_ptn = overall_ptn.replace(".*.*.*", ".*")
+		overall_ptn = overall_ptn.replace(".*.*", ".*")
 		print overall_ptn
 		morph_obj = MWP(overall_ptn)
 		morph_obj.set_weight(overall_weight)
@@ -576,10 +590,14 @@ def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 
 if __name__ == "__main__":
 	cvals_filename = sys.argv[1]
-	max_pos = int(sys.argv[2])
-	prec_span = int(sys.argv[3])
-	morph_dict = main(cvals_filename, max_pos, prec_span, outputWeights=True)
-	##print "MORPH_DICT:"
-	
-	# for cluster_ID in morph_dict.keys():
-	# 	print cluster_ID, morph_dict[cluster_ID]
+	# max_pos = int(sys.argv[2])
+	# prec_span = int(sys.argv[3])
+	# name_components = cvals_filename.split("_")
+	# max_pos = int(name_components[0])
+	# prec_span = int(name_components[1])
+	#morph_dict = main(cvals_filename, max_pos, prec_span, outputWeights=True)
+	morph_dict = main(cvals_filename, outputWeights=True)
+	print "MORPH_DICT:"
+	for cluster_ID in morph_dict.keys():
+		pair = morph_dict[cluster_ID]
+		print cluster_ID, ";", pair[0], pair[1] 

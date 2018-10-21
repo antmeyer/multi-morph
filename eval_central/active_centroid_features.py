@@ -44,6 +44,7 @@ def get_active_features(filename):
 	#return features_and_values
 
 def get_active_features_and_values(filename):
+	threshold = 0.9
 	fobj = codecs.open(filename, "r",encoding='utf8')
 	lines = fobj.readlines()
 	feature_labels = list()
@@ -68,7 +69,7 @@ def get_active_features_and_values(filename):
 		for k in range(K):
 			#print items[k],
 			active_features[k] = {}
-			if float(items[k]) > 0.7:
+			if float(items[k]) > threshold:
 				#active_feature_lists[k].append(feature_label)
 				#active_features[k] = {}
 				active_features[k][feature_label] = 1.0
