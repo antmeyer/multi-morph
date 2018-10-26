@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os,sys,re,math,pprint,random
+import os,sys,re,math,andom
 
 def getRootsDatabase(path):
 	roots = dict()

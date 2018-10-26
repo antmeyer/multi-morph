@@ -1,4 +1,4 @@
-import sys, codecs, unicodedata, regex as re
+import sys, codecs, unicodedata, re
 from get_active import *
 # Goal: Assemble words_and_morphs dictionary
 # Required:
@@ -11,18 +11,13 @@ from get_active import *
 # Read in morphs, i.e., a file mapping cluster IDs to morphs (clusters_and_morphs?)
 # Iterate over cluster indices, and then over words, appending 
 	# unseen words to the value of words_and_morphs[word], which is a list.
-morphs_ex = {u"0":u"aa&k", u"1":u"klb", u"2":u"lb", u"3":u"zz&i"}
+morphs_ex = {u"0":u"k", u"1":u"klb", u"2":u"lb", u"3":u"i"}
 words_and_morphIDs_ex = {u"klbi":[u"0",u"1",u"2",u"3"]}
 
 cluster_dict = {u"0":[u"klbi"],
 				u"1":[u"klbi"],
 				u"2":[u"klbi"],
 				u"3":[u"klbi"]}
-
-# cluster_dict2 = {u"0":[u"menadn\u00E9det", u"mezay\u00E9fet", u"welar\u00E9det", u"d\u00E9let", u"\u0294om\u00E9ret"],
-# 				u"1":[u"hamenadn\u00E9det", u"had\u00E9let"],
-# 				u"2":[u"bamenadn\u00E9det", u"bad\u00E9let"],
-# 				u"3":[u"bemenadn\u00E9det", u"bed\u00E9let"]}
 
 cluster_dict2 = {u"0":[u"d\u00E9let", u"\u0294om\u00E9ret"],
 				u"1":[u"had\u00E9let"],
@@ -93,16 +88,57 @@ re_suffixTag  = re.compile(pat2, re.UNICODE)
 # 			return False
 # 	return True
 
-def morph_is_good(morph,avail_chars):
-	for morph_char in list(morph):
-		if morph_char not in avail_chars: 
+# def morph_is_good(morph, avail_chars):
+# 	for morph_char in list(morph):
+# 		if morph_char not in avail_chars: 
+# 			return False
+# 	return True
+
+def morph_is_good(regex_match_obj, avail_chars):
+	#for morph_char in list(morph):
+	# The equivalent to morph (a string) and its characters is 
+	# the morph object and its regex attribute, which contains characters.
+	# However, if the regex has a disjunction, its characters can vary.
+	# Consider, e.g., the regex "(d|h).?(i)". It would match both s1 = "diber" and s2 = "hiqtil".
+	# The former yields groups (d, i), while the latter yields groups (h,i).
+	# What about something like "dahir"? The word "dahir" matches, but it yields
+	# groups (h,i). The "d" is not a matching character because it does not
+	# precede the "i" by one or fewer intervening characters and thuse fails to
+	# meet the requirement imposed by the ".?" part of the regex "(d|h).?(i)".
+	# if the 'd' feature is "d@[0]", then d should precede h in every word belonging
+	# to the cluster in question. But this is usually not true. Whenever positional
+	# and precedence features are both active for a given word, the two types of 
+	# features often--maybe even usually--contradict each other. Perhaps we should
+	# always prefer one type to another when both are present. Perhaps we should
+	# as a rule prefer the precedence type. 
+	# The following words come from a cluster among whose features the precedence
+	# feature "t<a" (delta = 2) was most active:
+	# Aakalta (0.9817), webakta (0.9816), Aitah (0.9815), tagiYi (0.9815), 
+	# racita (0.9815), lehabayta (0.9815), heknasta (0.9815), hafakta (0.9815), 
+	# bakta (0.9815)
+	# These words are highly typical of this cluster's members. Notice the tendency
+	# for the "t<a" precedence relation to correspond to suffixes and prefixes.
+	# Clearly, precedence features are flexible; they can encode prefixal and suffixal
+	# morphs as well as (components of) nonconcatenative morphs.
+	# Precedence features arguably convey more information that positional features 
+	# (or perhaps better information). 
+	#pat = morph_object.get_pattern()
+	#re_morph = re.compile(pat, re.UNICODE)
+	#regex_match_obj = re_morph.search(word)
+	for group in regex_match_obj.groups():
+		if group not in avail_chars: 
 			return False
 	return True
 
-def make_chars_unavailable(morph, avail_chars):
-	char_list = list(morph)
-	for letter in char_list:
-		avail_chars.remove(letter)
+# def make_chars_unavailable(morph, avail_chars):
+# 	char_list = list(morph)
+# 	for letter in char_list:
+# 		avail_chars.remove(letter)
+# 	return avail_chars
+
+def make_chars_unavailable(regex_match_obj, avail_chars):
+	for group in regex_match_obj.groups():
+		avail_chars.remove(group)
 	return avail_chars
 
 def morph_validity_test(word_chars_available, morph):
@@ -201,49 +237,67 @@ def remove_chars(word_chars_available, valid_morph):
 # 	return mapping
 
 def process_clustering_file(cluster_file):
-	cfobj = codecs.open(cluster_file, encoding='utf-8')
-	pat = ur"\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
+	cfobj = codecs.open(cluster_file, encoding='utf8')
+	pat = ur"\s\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
 	re_activity = re.compile(pat, re.UNICODE)
 	pat = ur"\#{2}\s"
 	re_ID_marker = re.compile(pat2, re.UNICODE)
 	pat = ur"\%{2}"
-	re_end_arker= re.compile(pat, re.UNICODE)
+	re_end_marker= re.compile(pat, re.UNICODE)
 	WORDS = False
 	clusters = dict()
-	for line in cfobj.readlines():
+	lines = cfobj.readlines()[1:]
+	n = 0
+	prev_line = ""
+	for line in lines:
 		string = line.replace("\n", "")
-		if re_ID_marker.match(string): #if line[0] == u"#":
+		#print string
+		if string == "": pass
+		elif "##" in string:
 			WORDS = True
-			clusterID = unicode(int(re_delimeter1.sub(u"", string)))
+			print string
+			#clusterID = unicode(int(re_delimeter1.sub(u"", string)))
+			#clusterID = int(string.split()[-1])
 			#print clusterID, string
-			continue
-		if re_end_marker.match(string):
+			#continue
+			clusterID = n
+		#elif re_end_marker.match(string):
+		elif "%%" in string:
 			WORDS = False
 			#print string
-		if WORDS == True:		
-			#WORDS = False
+		elif WORDS == True:		
+			WORDS = False
 			# Split first by the comma delimiter, then 
 			# Replace paranthses-enclosed values with empty string
 			#string = line.replace("\n", "")
-			string = re_activity.sub(u"", string) # Removes activity. But what about the parentheses?
-			words = string.split(u",")
+			#print string
+			#string = re_activity.sub(u"", string) # Removes activity. But what about the parentheses?
+			#words = string.split(u",")
+			items = string.split(",")
+			words = []
+			for item in items:
+				words.append(item.split()[0])
 			# if self.clusters.has_key(clusterID):
 			# 	self.clusters[clusterID].append(words)
 			# else: self.clusters[clusterID] = words
 			clusters[clusterID] = words
+		n += 1
 	return clusters
 
 class Stage2:
 
 	#def __init__(self, output_of_stage1, cluster_file):
-	def __init__(self, output_of_stage1, cluster_dict):
+	def __init__(self, output_of_stage1, clusters_and_words_dict):
 		# output_of_stage1 is a dict: Keys are clusterIDs. Values are morphs.
 		# In this dict, each clusterID should correspond to one and only one morph.
 		# We will set the attribute 'self.morph_dict' equal to output_of_stage1.
 		self.morph_dict = output_of_stage1
 		#self.clusters = {}
-		self.clusters = cluster_dict
+		self.clusters = clusters_and_words_dict
 		self.seg_dict = {}
+		self.seg_dict_morphIDs = {}
+		self.alignments = dict()
+
 		# 'self.clusters' will be a dict; keys = cluster_IDs,
 		# and values = lists of words. It will thus say, for each cluster, which
 		# words are members of that cluster.
@@ -252,7 +306,8 @@ class Stage2:
 		# In others words, self.words_and_morphIDs will be the same as a dict named
 		## self.words_and_clusterIDs, or even self.words_and_clusters.
 		self.words_and_morphIDs = {}
-		self.segmentations = {}
+		#self.segmentations = {}
+		self.exception_words = []
 		# cfobj = codecs.open(cluster_file, encoding='utf-8')
 		# pat = ur"\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
 		# re_activity = re.compile(pat, re.UNICODE)
@@ -286,15 +341,18 @@ class Stage2:
 
 		# Invert clusters dict to obtain words_and_morphIDs dict. Remember that
 		# morphIDs are equivalent to clusterIDs.
+		# How "active" are these clusters?
 		for clusterID, word_list in self.clusters.items():
+			print clusterID, ",".join(word_list[0:10])
 			for word in word_list:
+				#print word, word_list[0:2]
 				# clusterID = morphID
+				self.alignments[word] = {}
 				if self.words_and_morphIDs.has_key(word):
 					self.words_and_morphIDs[word].append(clusterID)
 				else:
 					self.words_and_morphIDs[word] = [clusterID]
-
-
+				print 
 	# def assign_words_to_morphs(self, clusterIDs_and_morphs):
 	# 	"""Returns a dictionary wherein each unique word is a key, the value of which
 	# 	is the list of morphs associated with the word in question."""
@@ -311,7 +369,7 @@ class Stage2:
 	# 	return words_and_morphs
 
 	def map_morphChars_to_wordChars(self, word):
-		# What is 'morph_dict'? Should it in fact be a dict? Or will a list suffice,
+		# What is 'morph_dict'? Should it in fact be a dict? Or would a list suffice,
 		## i.e., a list of mophID-morph pairs for a given word?
 		## The morphs, of course, are clusters in which the word in question belongs.
 		# Now, the list of clusters (= morphs), are interpreted as likely "causes" of
@@ -325,7 +383,11 @@ class Stage2:
 		# re_prefixTag = re.compile(pat1, re.UNICODE)
 		# pat2 = ur"^zz&"
 		# re_suffixTag  = re.compile(pat2, re.UNICODE)
-		
+		self.alignments[word] = {}
+		print "*********************************", "\n", word, 
+		for item in self.words_and_morphIDs[word]:
+			print str(item) + " "
+		print "*********************************"
 		mapping = {}
 		morphs_by_type = [[], [], []]
 		morph_tuples = []
@@ -333,9 +395,14 @@ class Stage2:
 		# of morphs obtained from stage 1.
 		#morphIDs = self.words_and_morphIDs[word]
 		for morphID in self.words_and_morphIDs[word]:
-			morph_object = self.morph_dict[morphID]
+			sys.stderr.write(str(morphID) + "\n")
+			try: morph_weight_pair = self.morph_dict[morphID]
+			except KeyError:
+				self.exception_words.append(word)
+				continue
+			morph_object = morph_weight_pair[1]
 			morph_tuples.append((morphID, morph_object))
-		print "morph_tuples:", morph_tuples
+		#print "morph_tuples:", morph_tuples
 		# The 'morph_types' are prefix, stem, and suffix.
 		## They are the three subgroups in 'morphs_by_type'.
 		## They have a certain order: 'n' below is the variable
@@ -370,18 +437,37 @@ class Stage2:
 		# The ambiguity consists mainly in this: a letter near the beginning
 		# of the may be a prefix or a stem letter.
 		for morphID, morph_object in morph_tuples:
+			print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word
 			re_morph = re.compile(morph_object.get_pattern(), re.UNICODE)
-			groups = re_morph.search(word)
+			try: match_obj = re_morph.search(word)
+			except AtrributeError: continue
 			#num_letters = morph_object.get_num_letters()
-			if groups != None:
-				for i in range(1,len(groups)):
-					letter = groups[i]
-					try: idx_in_word = word.index(letter)
-					except IndexError:
-						print "!!! INDEX ERROR !!!" 
-						continue
-					else:
-						wordChar_wordIndex_pair = (idx_in_word, word[idx_in_word]) # This is a pair containing a letter and its index in the word,
+			#if match_obj.groups() != None:
+			try: 
+				my_groups = match_obj.groups()
+				my_span = match_obj.span()
+			except AttributeError: continue
+			else:
+				for i in range(len(match_obj.groups())):
+					letter = my_groups[i]
+					index_range = match_obj.span(i)
+					start_idx = index_range[0]
+					end_idx = index_range[1]
+					#if end_idx - start_idx < 2:
+					# if self.alignments[word].has_key(start_idx):
+					# 	self.alignments[word][start_idx].append(morph_ID)
+					# self.alignments[word][start_idx] = [morph_ID]
+					if mapping[word].has_key(start_idx):
+						mapping[word][start_idx].append(morph_ID)
+					mapping[word][start_idx] = [morph_ID]
+				# for i in range(len(match_obj.groups())):
+				# 	letter = my_groups([i])
+				# 	try: idx_in_word = word.index(letter)
+				# 	except IndexError:
+				# 		print "!!! INDEX ERROR !!!" 
+				# 		continue
+				# 	else:
+						#wordChar_index_pair = (idx_in_word, word[idx_in_word]) # This is a pair containing a letter and its index in the word,
 						# but with the index coming first (before the letter) in the pair.
 						# For a given word, the 'mapping' dict maps each such pair (essentially each letter in the
 						# target word) to a list of morphs (morph IDs).
@@ -389,10 +475,10 @@ class Stage2:
 						# be ambiguity.
 						# But would the ambiguity be real or the result of erroneous processing?
 						# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
-						if mapping.has_key(wordChar_wordIndex_pair):
-							mapping[wordChar_wordIndex_pair].append(morphID)
-						else:
-							mapping[wordChar_wordIndex_pair] = [morphID]	
+					# if mapping.has_key(wordChar_index_pair):
+					# 	mapping[wordChar_index_pair].append(morphID)
+					# else:
+					# 	mapping[wordChar_index_pair] = [morphID]	
 		# for n in range(len(morphs_by_type)):
 		# 	for morph_object, morphID in self.words_and_morphIDs[word]:
 		# 		# #re_morph = morph_object.get_regex()
@@ -402,7 +488,7 @@ class Stage2:
 		# 		for i in range(len(morph)):
 		# 			for j in range(len(word)): # For each morph letter, visit all word letters.
 		# 				if morph[i] == word[j]:
-		# 					wordChar_wordIndex_pair = (j, word[j]) # This is a pair containing a letter and its index in the word,
+		# 					wordChar_index_pair = (j, word[j]) # This is a pair containing a letter and its index in the word,
 		# 					# but with the index coming first (before the letter) in the pair.
 		# 					# For a given word, the 'mapping' dict maps each such pair (essentially each letter in the
 		# 					# target word) to a list of morphs (morph IDs).
@@ -410,29 +496,30 @@ class Stage2:
 		# 					# be ambiguity.
 		# 					# But would the ambiguity be real or the result of erroneous processing?
 		# 					# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
-		# 					if mapping.has_key(wordChar_wordIndex_pair):
-		# 						mapping[wordChar_wordIndex_pair].append(morphID)
+		# 					if mapping.has_key(wordChar_index_pair):
+		# 						mapping[wordChar_index_pair].append(morphID)
 		# 					else:
-		# 						mapping[wordChar_wordIndex_pair] = [morphID]			
+		# 						mapping[wordChar_index_pair] = [morphID]			
 			# for morph, morphID in morphs_by_type[n]:
 			# 	for i in range(len(morph)): # Iterate over the letters of the morph
 			# 		for j in range(len(word)): # For each morph letter, visit all word letters.
 			# 			if morph[i] == word[j]:
 			# 				# This is a pair containing a letter and its index in the word.
-			# 				# wordChar_wordIndex_pair = (word[j],j)
-			# 				wordChar_wordIndex_pair = (j, word[j])
+			# 				# wordChar_index_pair = (word[j],j)
+			# 				wordChar_index_pair = (j, word[j])
 			# 				# For a given word, 'mapping' dict maps each such pair to a list of morphs (morph IDs).
 			# 				# The reason the values are lists instead of single morph IDs is that there could 
 			# 				# be ambiguity.
 			# 				# But would the ambiguity be real or the result of erroneous processing?
 			# 				# The mapping dict is constructed on a word-by-word basis in the function 'segment'.
-			# 				if mapping.has_key(wordChar_wordIndex_pair):
-			# 					mapping[wordChar_wordIndex_pair].append(morphID)
+			# 				if mapping.has_key(wordChar_index_pair):
+			# 					mapping[wordChar_index_pair].append(morphID)
 			# 				else:
-			# 					mapping[wordChar_wordIndex_pair] = [morphID]
+			# 					mapping[wordChar_index_pair] = [morphID]
 		print "MAPPING:"
 		for pair,lst in mapping.items():
-			print pair, ": ", ", ".join(lst) 
+			#print pair, ": ", ", ".join(lst) 
+			print pair, lst
 		
 		return mapping
 
@@ -458,11 +545,14 @@ class Stage2:
 		to a morph-ID until either the word runs out of letters or the morph(s) 
 		(and their letters) are exhausted. Keys: Morph-IDs. Values: Lists of characters
 		"""
+		self.seg_dict = {}
 		new_morph_dict = {}
-		for morphID,morph in self.morph_dict.items():
-			new_morph = re_prefixTag.sub(ur"", morph)
-			new_morph = re_suffixTag.sub(ur"", new_morph)
-			new_morph_dict[morphID] = new_morph
+		# for morphID,morph in self.morph_dict.items():
+		# 	new_morph = re_prefixTag.sub(ur"", morph)
+		# 	new_morph = re_suffixTag.sub(ur"", new_morph)
+		# 	new_morph_dict[morphID] = new_morph
+		#for morphID, morph_object in self.morph_dict.items():
+
 		# segments = []
 		# mapping = {}
 		# letter_freqs = dict{}
@@ -597,8 +687,17 @@ class Stage2:
 		# 	self.segmentations[word] = working_segmentations
 		##print "final segmentations =", working_segmentations
 		#return working_segmentations
-		self.seg_dict = {}
+
+
+
+		# For our purposes, a segmentation is a mapping from word characters (or indices) to morph IDs.
+		# We need to "distangle" (potentially nonconcatenative) morphs associated with a given word and 
+		# present them as though they were strictly concatenative. The Chinese chars are each going to be (for
+		# our purposes) monotholithic.
+
+		
 		for word in self.words_and_morphIDs.keys():
+			print "$$$$$$$$$$$$$$&$%^^^ words_and_morphID[", word, "]:", self.words_and_morphIDs[word]
 			# word_chars = list(word)
 			# sys.stderr.write("word = " + word + "\n\n")
 			# working_segmentations = []
@@ -618,62 +717,117 @@ class Stage2:
 
 			# prestars = "*"
 
-			# for m in range(len(morphID_list)):
-			# 	print prestars, morphID_list[m]
-			# 	word_chars_available[m] = list(word_chars)
-			# 	print prestars, "WCA:", word_chars_available
-			# 	morphID = morphID_list[m]
-			# 	morph = new_morph_dict[morphID]
-			# 	#print "00", morph, "m =", m
-			# 	# morph = re_prefixTag.sub(ur"", morph)
-			# 	# morph = re_suffixTag.sub(ur"", morph)
-			# 	working_segmentations.append([morph])
-			word_chars = list(word)
-			sys.stderr.write("word = " + word + "\n\n")
-			#working_segmentations = []
+		# for m in range(len(morphID_list)):
+		# 	print prestars, morphID_list[m]
+		# 	word_chars_available[m] = list(word_chars)
+		# 	print prestars, "WCA:", word_chars_available
+		# 	morphID = morphID_list[m]
+		# 	morph = new_morph_dict[morphID]
+		# 	#print "00", morph, "m =", m
+		# 	# morph = re_prefixTag.sub(ur"", morph)
+		# 	# morph = re_suffixTag.sub(ur"", morph)
+		# 	working_segmentations.append([morph])
+	# 	word_chars = list(word)
+	# 	sys.stderr.write("word = " + word + "\n\n")
+	# 	#working_segmentations = []
+			# charToMorphAlignment = self.map_morphChars_to_wordChars(word)
+			# alignedCharMorphPairs = sorted(charToMorphAlignment.items())
+		# 	print "Sorted alignedCharMorphPairs:", alignedCharMorphPairs
+			# char_index_pair,initMorphIDList = alignedCharMorphPairs[0]
+			# segmentations = [[morphID] for morphID in initMorphIDList]
+			# numSegmentations = len(segmentations)
+		# 	avail_chars = [list(word) for n in range(numSegmentations)]
+		# 	print "avail_chars (source):", avail_chars
+		# 	# for n in range(numSegmentations):
+		# 	# 	morph = segmentations[n][0] 
+		# 	# 	for morph_char in list(morph):
+		# 	# 		avail_chars[n].remove(morph_char)
+		# 	for n in range(numSegmentations):
+		# 		morphID = segmentations[n][0]
+		# 		#morph = new_morph_dict[morphID]
+		# 		morph_letters = morph_object.get_letters()
+		# 		print "0:", morph
+		# 		print "segs[n]:", segmentations[n]
+		# 		#for morph_char in list(morph): 
+		# 		for morph_char in morph_letters:
+		# 			try: 
+		# 				avail_chars[n].remove(morph_char)
+		# 			#except ValueError: continue
+		# 				print "avail_chars-- (n:" + str(n) + ") :",avail_chars
+		# 			except ValueError: continue		
+		# 	print "\n"
+			# We now expand each segmentation in parallel.
+			#numSegmentations = len(segmentations)
 			charToMorphAlignment = self.map_morphChars_to_wordChars(word)
+			print "charToMorphAlignment:", charToMorphAlignment
+
+			if len(charToMorphAlignment) == 0:
+				if word not in self.exception_words.append(word)
+				continue
+			
 			alignedCharMorphPairs = sorted(charToMorphAlignment.items())
-			print "Sorted alignedCharMorphPairs:", alignedCharMorphPairs
-			char_index_pair,initMorphIDList = alignedCharMorphPairs[0]
-			segmentations = [[morphID] for morphID in initMorphIDList]
+			print "ACMPs:",
+			# for pair in alignedCharMorphPairs.items():
+			# 	print pair[0], pair[1], ";"
+			# print ""
+			sys.stderr.write("***" + str(alignedCharMorphPairs) + "\n")
+			print "+++===", alignedCharMorphPairs[0], len(alignedCharMorphPairs[0])
+			schar_index_pair,initMorphIDList = alignedCharMorphPairs[0]
+			print initMorphIDList
+			segmentations = [[morph_ID] for morph_ID in initMorphIDList]
 			numSegmentations = len(segmentations)
 			avail_chars = [list(word) for n in range(numSegmentations)]
-			print "avail_chars (source):", avail_chars
-			# for n in range(numSegmentations):
-			# 	morph = segmentations[n][0] 
-			# 	for morph_char in list(morph):
-			# 		avail_chars[n].remove(morph_char)
-			for n in range(numSegmentations):
-				morphID = segmentations[n][0]
-				morph = new_morph_dict[morphID]
-				print "0:", morph
-				print "segs[n]:", segmentations[n]
-				for morph_char in list(morph): 
-					try: 
-						avail_chars[n].remove(morph_char)
-					#except ValueError: continue
-						print "avail_chars-- (n:" + str(n) + ") :",avail_chars
-					except ValueError: continue		
-			print "\n"
-			# We now expand each segmentation in parallel.		
+			#alignedCharMorphPairs.sort()
+			print "length ACMPs:", len(alignedCharMorphPairs)
 			for m in range(1,len(alignedCharMorphPairs)):
-				alignedCharMorphPairs.sort()
-				char_index_pair,morphIDList = alignedCharMorphPairs[m]
+				#alignedCharMorphPairs.sort()
+				#char_index_pair,morphIDList = alignedCharMorphPairs[m]
+				char_index_pair,morph_ID_list = alignedCharMorphPairs[m]
 				print "********** aligned[1:]:", alignedCharMorphPairs[1:]
-				morphIDList = alignedCharMorphPairs[m][1]
+				#morphIDList = alignedCharMorphPairs[m][1]
+				print "char_index_pair:", char_index_pair
+				print "morph_ID LIST:", alignedCharMorphPairs[m][1]
+				morph_ID_list = alignedCharMorphPairs[m][1]
 				for n in range(numSegmentations):
-					for morphID in morphIDList:
-						morph = new_morph_dict[morphID]
+					#for morphID in morphIDList:
+						#morph = new_morph_dict[morphID]
+					for morph_ID in morph_ID_list:
+						#morph_object = wt_morph_pair[1]
+						print "MORPH_DICT[ID]:", self.morph_dict[morph_ID]
+						morph_object = self.morph_dict[morph_ID][1]
+						#print "morph_object features:", morph_object.get_fwp_list()
+						print "morph_object pattern:", morph_object.get_pattern()
+						print "self.morph_dict[morph_ID]:", self.morph_dict[morph_ID]
+						print "self.morph_dict[morph_ID][1]:", self.morph_dict[morph_ID][1]
+						morph_object = self.morph_dict[morph_ID][1]
+						#morph_object = self.morph_dict[morph_ID]
+						print "LETTERS:", morph_object.get_letters(),
+						pat = morph_object.get_pattern()
+						print "; PATTERN:", pat
+						re_morph = re.compile(pat, re.UNICODE)
+						match_obj = re_morph.search(word)
 						print "avail_chars+ (n:" + str(n) + "):",avail_chars
-						if morph_is_good(morph, avail_chars[n]):
+						if morph_is_good(match_obj, avail_chars[n]):
 							print "segmentations[n]:",segmentations[n]
-							segmentations[n].append(morphID)
+							segmentations[n].append(morph_ID)
 							print "segmentations*[n]:",segmentations[n]
+							print "all segmentations:", segmentations, "; all avail_chars:", avail_chars
 							print "avail_chars[n]:", avail_chars[n]
-							avail_chars[n] = make_chars_unavailable(morph, avail_chars[n])
-							print "avail_chars[n]:", avail_chars[n]
-						else: continue
+							avail_chars[n] = make_chars_unavailable(match_obj, avail_chars[n])
+							print "avail_chars*[n]:", avail_chars[n]
+						else:
+							print "MORPH IS BAD!"
+							continue
 
+						# print "avail_chars+ (n:" + str(n) + "):",avail_chars
+						# if morph_is_good(morph, avail_chars[n]):
+						# 	print "segmentations[n]:",segmentations[n]
+						# 	segmentations[n].append(morphID)
+						# 	print "segmentations*[n]:",segmentations[n]
+						# 	print "avail_chars[n]:", avail_chars[n]
+						# 	avail_chars[n] = make_chars_unavailable(morph, avail_chars[n])
+						# 	print "avail_chars[n]:", avail_chars[n]
+						# else: continue
 						# for morph_char in list(morph):
 						# 	if morph_char not in avail_chars[n]: 
 						# 		continue
@@ -694,10 +848,12 @@ class Stage2:
 			for n in range(len(segmentations)):
 				#segs_with_morphs.append([])
 				for morphID in segmentations[n]:
-					segs_with_morphs[n].append(new_morph_dict[morphID])
-					print "&&", new_morph_dict[morphID]
+					#segs_with_morphs[n].append(new_morph_dict[morphID])
+					segs_with_morphs.append(morphID)
+					#print "&&", new_morph_dict[morphID]
 					print "&&&", "segs_with_morphs[n]:", segs_with_morphs[n]
 			self.seg_dict[word] = segs_with_morphs
+			self.seg_dict_morphIDs[word] = segmentations
 			#segs_with_morphs = {}
 			# for seg in segmentations:
 			# 	print seg
@@ -706,7 +862,8 @@ class Stage2:
 
 	def get_segmentations(self):
 		self.segment()
-		return self.seg_dict
+		#return self.seg_dict
+		return self.seg_dict_morphIDs
 
 
 def main(output_of_stage1, clustersAndWords_file):
@@ -715,7 +872,9 @@ def main(output_of_stage1, clustersAndWords_file):
 	#clusterIDs_and_words = get_clusterIDs_and_words(cluster_file)
 	#words_and_morphs = get_words_and_morphs(output_of_stage1, clusterIDs_and_words)
 	#return words_and_morphs
+	print "IN_MAIN!"
 	clustersAndWords_dict = process_clustering_file(clustersAndWords_file)
+	print clustersAndWords_dict
 	my_stage2 = Stage2(output_of_stage1, clustersAndWords_dict)
 	my_stage2.segment()
 	word_segmentations = dict()

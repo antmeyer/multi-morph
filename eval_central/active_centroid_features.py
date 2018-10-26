@@ -11,8 +11,8 @@ sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf8')
 sys.stdout = UTF8Writer(sys.stdout)
 sys.stderr = UTF8Writer(sys.stderr)
-
-def get_active_features(filename):
+#threshold = 0.5
+def get_active_features(filename, threshold):
 	fobj = codecs.open(filename, "r", encoding='utf8')
 	lines = fobj.readlines()
 	feature_labels = list()
@@ -33,7 +33,7 @@ def get_active_features(filename):
 		#print feature_label, len(items), K
 		for k in range(K):
 			#print items[k],
-			if float(items[k]) > 0.7:
+			if float(items[k]) > threshold:
 				active_feature_lists[k].append(feature_label)
 				#features_and_values[k].append((feature_label + "//" + items[k]))
 		feature_labels.append(feature_label)
@@ -43,8 +43,8 @@ def get_active_features(filename):
 	return active_feature_lists
 	#return features_and_values
 
-def get_active_features_and_values(filename):
-	threshold = 0.9
+def get_active_features_and_values(filename, threshold):
+	#threshold = 0.5
 	fobj = codecs.open(filename, "r",encoding='utf8')
 	lines = fobj.readlines()
 	feature_labels = list()
