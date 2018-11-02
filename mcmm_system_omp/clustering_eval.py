@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os,sys,re, math, bisect
-from analysisParser import *
+import os,sys,re,math,codecs,bisect
+#from analysisParser import *
+from BL_analyzer import * 
 from transliterate import heb2eng
 from bcubed_eval import bcubed_prec, bcubed_rec
 import numpy as np
 
-analysesFile = sys.argv[1]
-inputFile = sys.argv[2]
+
+# bermanFile = sys.argv[1]
+# clustersFile = sys.argv[2]
+#inputFile = sys.argv[2]
 
 bermanAnalysesFile = sys.argv[1]
 clustersFile = sys.argv[2]
@@ -93,27 +96,36 @@ def keywithmaxval(d):
 ## [6] time
 ## The K evaluation checkpoint is preceded and followed by a dot (period).
 #FILE FORMAT: /Users/anthonymeyer/Documents/qual_paper_2/code/mcmm-cython/mcmm_results/mcmm-out_N-6888_ETA-default_K-3_2015-10-16_23-17/3_3_0_K-3_N-6888_ETA-default_2015-10-16_23-17.K@3.transoutput
-
-sys.stderr.write("%%%" + str(analysesFile) + "\n")
+# New File Format: /Users/anthonymeyer/Development/multimorph/results/.../2_2_K6000_N12272_basic_180621_21-24_k-1000.clusters_justWords
+sys.stderr.write("%%%" + str(clustersFile) + "\n")
 sys.stderr.write("*****************************\n")
-items = analysesFile.split('/')
+items = clustersFile.split('/')
 filename = items[-1]
 name_chunks = filename.split('.')
 mainFileName = name_chunks[0]
-Ktag = name_chunks[1]
-standard = name_chunks[2]
+# Ktag = name_chunks[1]
+name_pieces = mainFileName.split("_")
+#standard = name_chunks[2]
+Ktag = name_pieces[-1]
 sys.stderr.write("%%% Ktag = " + str(Ktag) + "\n")
-Kstr = Ktag.split("@")[-1]
-Knum = int(Kstr.lstrip("0"))
+#Kstr = Ktag.split("@")[-1]
+if Ktag[0:2] == "k-":
+	Ktag = Ktag[2:]
+Knum = int(Ktag)
+Kval = str(Knum)
+#Knum = int(Kstr.lstrip("0"))
 sys.stderr.write("%%% Knum = " + str(Knum) + "\n")
-Kval = "{0:04d}".format(Knum)
-nameComponents = mainFileName.split("_")
-affixlen = nameComponents[0]
-delta = nameComponents[1]
-bigrams = nameComponents[2]
-bigK = nameComponents[3].split("-")[-1]
-Ntag = nameComponents[4]
-eta = nameComponents[5].split("-")[-1]
+#Kval = "{0:04d}".format(Knum)
+#nameComponents = mainFileName.split("_")
+affixlen = name_pieces[0]
+delta = name_pieces[1]
+#bigK = nameComponents[3].split("-")[-1]
+Ntag = name_pieces[4]
+if "N" in Ntag:
+	Ntag = Ntag[1:]
+
+#sys.stderr.write("mainFileName: " + mainFileName + "\n")
+#eta = nameComponents[5].split("-")[-1]
 # mainFile = analysesFile.split(".")[2]
 # Ktag = analysesFile.split(".")[3]
 # sys.stderr.write("%%% Ktag = " + str(Ktag) + "\n")
@@ -146,7 +158,7 @@ delta = delta.replace("star", "*")
 # 	delta = deltaSpec.split("-")[1]
 # delta = delta.replace("star", "*")
 	
-fileobj = open(analysesFile, 'r')
+fileobj = open(clustersFile, 'r')
 clusters = []
 clusterLines = []
 lines = fileobj.readlines()
@@ -156,16 +168,30 @@ sys.stderr.write("\n\n")
 # the UNIX 'ls' command puts the clusters in ascending order by file name.
 # the file names include cluster ID.
 
-for line in lines:
-	if line[0] == "#":
-		#sys.stderr.write(line)
-		clusters.append(clusterLines)
-		clusterLines = []
-	else:
-		if line != "\n":
-			clusterLines.append(line)
-	
+# for line in lines:
+# 	if line[0] == "#":
+# 		#sys.stderr.write(line)
+# 		clusters.append(clusterLines)
+# 		clusterLines = []
+# 	else:
+# 		if line != "\n":
+# 			clusterLines.append(line)
+
+#my_bl_analyzer = BL_Analyzer(bermanAnalysesFile)
+fobj = codecs.open(clustersFile, 'r', encoding='utf8')
+clusterLines = fobj.readlines()
+##print lines[0]
+clusters=[]
+#clusterLines=[]
+clusterLines.pop(0)
+##print "first:",lines[0]
+for line in clusterLines:
+	##print "clusterLine:",line
+	cluster = line.split()
+	clusters.append(cluster)
+
 fileobj.close()
+
 
 wordsAndClassFreqs = dict() # Dict of dicts. The inner keys are classes,
 							# and their values are the
@@ -180,12 +206,24 @@ wordsAndClusters = dict()
 words = list()
 allClasses = list()
 
+
+k = 0
+str_k = "{0:04d}".format(k)
+cluster_IDs.append(str_k)
+my_bl_analyzer = BL_Analyzer(bermanAnalysesFile)
+my_bl_analyzer.analyze_words(clusters[k], str_k)
+wordsAndClassFreqs = my_bl_analyzer.getWordsAndClasses()
+#print wordsAndClassFreqs
+clustersAndClasses = my_bl_analyzer.getClustersAndClasses()
+clusterFreqs[str_k] = my_bl_analyzer.getClusterCardinality()
+clustersAndWords = my_bl_analyzer.getClustersAndWords()
 #sys.stderr.write("\n\nlen(clusters): " + str(len(clusters)) + "\n\n")
-for k in range(len(clusters)):
+for k in range(1, len(clusters)):
+#for k in range(1, 3):
 	str_k = "{0:04d}".format(k)
 	cluster_IDs.append(str_k)
-	bl_analyzer = BL_analyzer(bermanAnalysesFile)
-	bl_analyzer.analyze_words(clusters[k], str_k)
+	#bl_analyzer = BL_Analyzer(bermanAnalysesFile)
+	my_bl_analyzer.analyze_words(clusters[k], str_k)
 	# Create an instance of AnalysisParser called 'my_parser';
 	# the input arguments of its constructor in include a cluster (i.e.,
 	# a list of words, a k value (i.e., a sort of cluster ID), and an
@@ -193,11 +231,19 @@ for k in range(len(clusters)):
 	#my_parser = AnalysisParser(clusters[k], str_k, inputFile)
 	# The inputFile argument is actually a file of root annotations, which
 	# we no longer need.
-	my_parser = AnalysisParser(clusters[k], str_k)
-	wordsAndClassFreqs.update(my_parser.getWordsAndClasses())
-	clustersAndClasses.update(my_parser.getClustersAndClasses())
-	clusterFreqs[str_k] = my_parser.getClusterCardinality()
-	clustersAndWords.update(my_parser.getClustersAndWords())
+	#my_parser = AnalysisParser(clusters[k], str_k)
+	# wordsAndClassFreqs = my_parser.getWordsAndClasses()
+	# print wordsAndClassFreqs
+	# wordsAndClassFreqs.update(my_parser.getWordsAndClasses())
+	# clustersAndClasses.update(my_parser.getClustersAndClasses())
+	# clusterFreqs[str_k] = my_parser.getClusterCardinality()
+	# clustersAndWords.update(my_parser.getClustersAndWords())
+	#wordsAndClassFreqs = my_bl_analyzer.getWordsAndClasses()
+	#print wordsAndClassFreqs
+	wordsAndClassFreqs.update(my_bl_analyzer.getWordsAndClasses())
+	clustersAndClasses.update(my_bl_analyzer.getClustersAndClasses())
+	clusterFreqs[str_k] = my_bl_analyzer.getClusterCardinality()
+	clustersAndWords.update(my_bl_analyzer.getClustersAndWords())
 	#sys.stderr.write("cluster " + str_k + " : " + str(clusterFreqs[str_k]) + "\n")
 #print "words:", len(wordsAndClassFreqs)
 #print "c and c:", len(clustersAndClasses)
@@ -406,7 +452,8 @@ if  BR_out == "0.000":
 cov_out = str(N)
 
 # write results to stdout
-output = "#" + mainFileName + "." + Ktag + "." + standard + "\n"
+#output = "#" + mainFileName + "." + Ktag + "." + standard + "\n"
+output = "#" + mainFileName + "\n" #+ "." + Ktag + "\n"
 #output += "# $K$ & $\eta$ & $s$ & $\delta$ & purity & BP & BR & cov. \\\\\n"
 #output += "#" + str(Kval) + " & " + eta + " & " + affixlen + " & " + delta + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + cov_out + " & " + str(totalClusters) \\\\"
 output += "#" + str(Kval) + " & " + affixlen + " & " + delta + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + cov_out + " & " + str(totalClusters) + " \\\\"

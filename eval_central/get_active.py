@@ -1256,6 +1256,7 @@ class FWP_pos(FWP):
 #class FWP_pos_front(FWP_pos):
 class FWP_pos_front:
 	def __init__(self, feat="", wt=0.0):
+		assert "@" in feat
 		#super(FWP_pos_front, self).__init__(feat, wt)
 		#FWP_pos.__init__(self, feat, wt)
 		####print "HELP",self.feature
@@ -1330,6 +1331,7 @@ class FWP_pos_front:
 class FWP_pos_back:
 	#feature_type = "pos_back"
 	def __init__(self, feat="", wt=0.0):
+		assert "@" in feat
 		#FWP_pos.__init__(self, feat, wt)
 		#super(FWP_pos_back, self).__init__(feat, wt)
 		####print "HELP",self.feature
@@ -1406,6 +1408,7 @@ class FWP_prec:
 		#super(FWP_prec, self).__init__(feat, wt)
 		#super(FWP_prec, self).__init__(feat, wt)
 		#self.pos = int(temp)
+		assert "<" in feat
 		self.feature = feat
 		components = self.feature.split("<")
 		self.letter1 = components[0]

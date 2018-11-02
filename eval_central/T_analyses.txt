@@ -80,9 +80,9 @@ baharkavót	pre:be~pre:ha&pos:n&gen:fm&num:pl&stat:unsp
 bahatxalá	pre:be~pre:ha&pos:n&gen:fm&num:sg&stat:free
 bahawrudá	pre:be~pre:ha&pre:ha&pos:adj&root:wrd&ptn:CaCoC&gen:fm&num:sg
 bahayá	pre:be~pre:ha&pos:cop&root:hyy&ptn:CaCa&tense:past&pers:3&gen:ms&num:sg
-bahem	pre:be~pre:ha&pro:person&pers:3&gen:ms&num:pl
+bahem	pre:be~pre:ha&pos:pro_person&pers:3&gen:ms&num:pl
 bahemšéḳ	pre:be~pre:ha&pos:n&num:sg&stat:unsp
-bahen	pre:be~pre:ha&pro:person&pers:3&gen:fm&num:pl
+bahen	pre:be~pre:ha&pos:pro_person&pers:3&gen:fm&num:pl
 bahége	pre:be~pre:ha&pos:n&root:hgy&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 bahém	pre:be&pos:prep:pro&pers:3&gen:ms&num:pl
 bahír	pos:adj&root:bhr&ptn:CaCiC&gen:ms&num:sg
@@ -171,7 +171,7 @@ bamegirá	pre:be~pre:ha&pre:mi&pos:n&root:gyr&ptn:meCiCa&gen:fm&num:sg&stat:free
 bamegirót	pre:be~pre:ha&pre:mi&pos:n&root:gyr&ptn:meCiCa&gen:fm&num:pl&stat:unsp
 bameluná	pre:be~pre:ha&pre:mi&pos:n&root:lyn&ptn:meCuCa&gen:fm&num:sg&stat:free
 bamenorá	pre:be~pre:ha&pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:sg&stat:free
-bameqarér	pre:be~pre:ha&pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg pre:be~pre:ha&pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
+bameqarér	pre:be~pre:ha&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg pre:be~pre:ha&pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
 bamerkáz	pre:be~pre:ha&pre:mi&pos:n&root:rkz&ptn:meCCaC&gen:ms&num:sg&stat:unsp
 bamesibá	pre:be~pre:ha&pre:mi&pos:n&root:syb&ptn:meCiCa&gen:fm&num:sg&stat:free
 bamesilá	pre:be~pre:ha&pre:mi&pos:n&root:syl&ptn:meCiCa&gen:fm&num:sg&stat:free
@@ -243,7 +243,7 @@ baníti	pos:v&root:bny&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 banót	pos:n&root:byn&ptn:CaCa&gen:fm&num:pl&pl:fem:bio&stat:free
 banú	pos:v&root:bny&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 bapanasím	pre:be~pre:ha&pos:n&root:pns&ptn:CaCaC&gen:ms&num:pl&stat:free
-bapaním	pre:be~pre:ha&pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
+bapaním	pre:be~pre:ha&pos:n&root:pny&ptn:CaCaC&gen:ms&num:pl&mass:yes&stat:free
 baparcúf	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 baparq	pre:be~pre:ha&pos:n&root:prq&ptn:CaCC&gen:ms&num:sg&stat:unsp
 bapará	pre:be~pre:ha&pos:n&root:pyr&ptn:CaCa&gen:fm&num:sg&stat:free
@@ -281,7 +281,7 @@ baqaséṭa	pre:be~pre:ha&pos:n&root:qsṭ&ptn:CaCeCa&gen:fm&num:sg&stat:unsp
 baqašatáh	pos:n&root:bqš&ptn:CaCaC&gen:fm&num:sg&poss:3femSG pos:n&root:bqš&ptn:CaCaC&gen:fm&num:sg&poss:3femSG
 baqašá	pos:n&root:bqš&ptn:CaCaCa&gen:fm&num:sg&stat:free
 baqaṭalóg	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-baqaṭán	pre:be~pre:ha&pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
+baqaṭán	pre:be~pre:ha&pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:sg
 baqbuqéy	pos:n&gen:ms&num:pl&stat:cstr
 baqbuqím	pos:n&gen:ms&num:pl&stat:free
 baqbúq	pos:n&gen:ms&num:sg&stat:unsp
@@ -427,7 +427,7 @@ baxuṭ	pre:be~pre:ha&pos:n&root:xyṭ&ptn:CuC&gen:ms&num:sg&stat:unsp
 baxán	pos:v&root:bxn&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 baxárta	pos:v&root:bxr&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 baxéci	pre:be~pre:ha&pos:num&num:sg&stat:unsp
-baxéder	pre:be~pre:ha&pos:n&root:xdr&ptn:CeCeC&gen:ms&num:sg&stat:unsp pre:be~pre:ha&root:xdr&ptn:CeCeCgen:fm&num:sg&stat:free
+baxéder	pre:be~pre:ha&pos:n&root:xdr&ptn:CeCeC&gen:ms&num:sg&stat:unsp pre:be~pre:ha&root:xdr&ptn:CeCeC&gen:fm&num:sg&stat:free
 baxódeš	pre:be~pre:ha&pos:n&root:xdš&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
 baxófeš	pre:be~pre:ha&pos:n&root:xpš&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
 baxóref	pre:be~pre:ha&pos:n&root:xrp&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
@@ -486,7 +486,7 @@ baʔalbóm	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 baʔambáṭ	pre:be~pre:ha&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 baʔambáṭya	pre:be~pre:ha&pos:n&gen:fm&num:sg&stat:unsp
 baʔambáṭyot	pre:be~pre:ha&pos:n&gen:fm&num:pl&stat:unsp
-baʔaní	pre:be~pre:ha&pro:person&pers:1&num:sg
+baʔaní	pre:be~pre:ha&pos:pro_person&pers:1&num:sg
 baʔaqordiyón	pos:n&pre:be~pre:ha&gen:ms&num:sg&stat:unsp
 baʔargáz	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 baʔarizá	pre:be~pre:ha&pos:n&root:ʔrz&ptn:CaCiCa&gen:fm&num:sg&stat:free
@@ -518,7 +518,7 @@ baʔécbaʕ	pre:be~pre:ha&pos:n&gen:fm&num:sg&stat:unsp
 baʔélu	pre:be~pre:ha&pro:dem&pers:3&num:pl
 baʔémcaʕ	pre:be~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 baʔéyfo	pre:be~pre:ha
-baʔím	pos:adj&root:xdš&ptn:CaCaCgen:ms&num:pl pos:part&root:bwʔ&ptn:qal&gen:ms&num:pl
+baʔím	pos:adj&root:xdš&ptn:CaCaC&gen:ms&num:pl pos:part&root:bwʔ&ptn:qal&gen:ms&num:pl
 baʔóqer	pre:be~pre:ha&pos:adj&root:ʔqr&ptn:CoCeC&gen:unsp&num:unsp&src:foreign
 baʔórez	pre:be~pre:ha&pos:n&root:ʔrz&ptn:CóCeeC&gen:ms&num:sg&mass:yes&stat:unsp
 baʔózen	pre:be~pre:ha&pos:n&root:ʔzn&ptn:CóCeeC&gen:fm&num:sg&stat:unsp
@@ -657,13 +657,13 @@ behanaʔá	pre:be&pos:n&root:hnʔ&ptn:CaCaCa&gen:fm&num:sg&stat:free
 beharbé	pre:be&pos:qn
 behaytá	pre:be&pos:cop&root:hyy&ptn:CaC&tense:past&pers:3&gen:fm&num:sg
 behayá	pre:be&pos:cop&root:hyy&ptn:CaCa&tense:past&pers:3&gen:ms&num:sg
-behem	pre:be&pro:person&pers:3&gen:ms&num:pl
+behem	pre:be&pos:pro_person&pers:3&gen:ms&num:pl
 behexléṭ	pre:be&pos:adv&root:xlṭ&ptn:heCCeC
 behidláqtem	pos:v&pre:be&root:dlq&ptn:&tense:past&pers:2&gen:ms&num:pl
 behitxašév	pos:v&pre:be&root:xšb&ptn:&tense:past&pers:3&gen:ms&num:sg
 behizdamnút	pos:n&root:bhd&ptn:zCaCC&pre:be&gen:fm&num:sg&stat:unsp
 behištolelút	pos:n&root:bht&ptn:šCoCeC&pre:be&gen:fm&num:sg&stat:unsp
-behiʔ	pre:be&pro:person&pers:3&gen:fm&num:sg
+behiʔ	pre:be&pos:pro_person&pers:3&gen:fm&num:sg
 behop	pre:be&pos:co
 bekadursál	pre:be&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 bekadurégel	pre:be&pos:n&gen:ms&num:sg&mass:yes&stat:unsp
@@ -687,9 +687,9 @@ bekley	pre:be&pos:n&gen:ms&num:pl&stat:cstr
 bekol	pre:be&pos:qn&root:kyl&ptn:CoC
 bekos	pre:be&pos:n&root:kys&ptn:CoC&gen:fm&num:sg&stat:unsp
 bektav	pre:be&pos:n&root:ktb&ptn:CCaC&gen:ms&num:sg&stat:unsp
-bekulám	pre:be&root:klm&ptn:CuCaC&pro:person&pers:3&gen:ms&num:pl
+bekulám	pre:be&root:klm&ptn:CuCaC&pos:pro_person&pers:3&gen:ms&num:pl
 bekóax	pre:be&pos:n&gen:ms&num:sg&stat:unsp
-belaván	pre:be&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+belaván	pre:be&pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 belaxaláv	pre:be&pre:le~pre:ha&pos:n&root:xlb&ptn:CaCaC&gen:ms&num:sg&mass:yes&stat:unsp
 belehadbíq	pre:be&pre:le&pos:v&root:dbq&ptn:hifil&form:inf
 belehitraxéc	pre:be&pos:v&root:rxc&ptn:hitpael&form:inf
@@ -714,7 +714,7 @@ bemaʕadér	pre:be&pos:n&gen:ms&num:sg&stat:unsp
 bemaʕaréḳet	pre:be&pos:n&gen:fm&num:sg&stat:unsp
 bemaʕaṣáyiḳ	pre:be&pos:n&gen:ms&num:pl&poss:2femSG
 bemeluná	pre:be&pre:mi&pos:n&root:lyn&ptn:meCuCa&gen:fm&num:sg&stat:free
-bemeyabévet	pre:be&pre:mi&pos:part&root:ybb&ptn:meCaCeC&gen:fm&num:sg
+bemeyabévet	pre:be&pos:part&root:ybb&ptn:meCaCeC&gen:fm&num:sg
 bemeḳoniyót	pre:be&pre:mi&pos:n&gen:fm&num:pl&stat:unsp
 bemeḳonít	pre:be&pre:mi&pos:n&root:ḳnt&ptn:meCoCiC&gen:fm&num:sg&stat:unsp
 bemi	pre:be&pre:mi
@@ -1123,7 +1123,7 @@ bšelá	pos:adj&root:bšl&ptn:CaCeC&gen:fm&num:sg&src:deverb
 cad	pos:n&root:cyd&ptn:CaC&gen:ms&num:sg&stat:unsp pos:part&root:cwd&ptn:qal&gen:ms&num:sg
 cadáqt	pos:v&root:cdq&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 cadíq	pos:adj&root:cdq&ptn:CaCiC&gen:ms&num:sg
-cahóv	&pos:prep pos:adj&root:gdl&ptn:CaCoC&gen:ms&num:sg pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:sg pos:adj&root:chb&ptn:CaCoC&gen:ms&num:sg
+cahóv	pos:prep pos:adj&root:gdl&ptn:CaCoC&gen:ms&num:sg pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:sg pos:adj&root:chb&ptn:CaCoC&gen:ms&num:sg
 calaxót	pos:n&root:clx&ptn:CaCaCa&gen:fm&num:pl&stat:free
 caláxat	pos:n&gen:fm&num:sg&stat:unsp
 calúy	pos:adj&root:cly&ptn:CaCuC&gen:ms&num:sg&src:deverb
@@ -1218,7 +1218,7 @@ colél	pos:part&root:cll&ptn:qal&gen:ms&num:sg
 comxót	pos:part&root:cmx&ptn:qal&gen:fm&num:pl
 corxím	pos:part&root:crx&ptn:qal&gen:ms&num:pl
 coréax	pos:part&root:crx&ptn:qal&gen:ms&num:sg
-corév	pos:adj&root:crv&ptn:CoCeCgen:ms&num:sg&src:deverb
+corév	pos:adj&root:crv&ptn:CoCeC&gen:ms&num:sg&src:deverb
 covéaʕ	pos:part&root:cbʕ&ptn:qal&gen:ms&num:sg
 covʕím	pos:part&root:cbʕ&ptn:qal&gen:ms&num:pl
 coxaqím	pos:part&root:cxq&ptn:CoCaC&gen:ms&num:pl
@@ -1246,7 +1246,7 @@ cémer	pos:n&root:cmr&ptn:CeCeC&gen:ms&num:sg&stat:cstr pos:n&root:cmr&ptn:CeCeC
 cévaʕ	pos:n&root:cbʕ&ptn:CeCaC&root:cvʕ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 cíci	pos:n&gen:ms&num:sg&stat:unsp
 cícim	pos:n&gen:ms&num:pl&stat:free
-córeḳ	pre:ke&pos:n&root:crḳ&ptn:CeCeC&gen:ms&num:sg&stat:unsp &pro:person&pers:2&gen:fm&num:sg
+córeḳ	pre:ke&pos:n&root:crḳ&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:pro_person&pers:2&gen:fm&num:sg
 cʔi	pos:v&root:ycʔ&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 dabrí	pos:v&root:dbr&ptn:piel&form:imp&pers:2&gen:fm&num:sg
 dabér	pos:v&root:dbr&ptn:CaCeC&form:imp&pers:2&gen:ms&num:sg
@@ -1290,7 +1290,7 @@ dayéynu	pos:adv
 daš	pos:n&root:dyš&ptn:CaC&gen:ms&num:sg&stat:unsp
 daʕatéḳ	pos:n&root:dʕt&ptn:CaCaC&gen:ms&num:sg&mass:yes&poss:2femSG
 daʕatí	pos:n&root:dʕt&ptn:CaCaC&gen:ms&num:sg&mass:yes&poss:1SG
-dey	&pos:adv
+dey	pos:adv
 dfoq	pos:v&root:dpq&ptn:CCoC&form:imp&pers:2&gen:ms&num:sg
 dgalím	pos:n&root:dgl&ptn:CeCeC&gen:ms&num:pl&stat:free
 dibrú	pos:v&root:dbr&ptn:piel&tense:past&pers:3&gen:unsp&num:pl
@@ -1802,7 +1802,7 @@ hahitpatxút	pos:n&root:ptx&ptn:tQaTL&pre:ha&gen:fm&num:sg&stat:unsp
 hahitxayvút	pos:n&root:xyb&ptn:tQaTL&pre:ha&gen:fm&num:sg&stat:unsp
 hahitʕamlút	pos:n&root:ʕml&ptn:tQaTL&pre:ha&gen:ms&num:sg&mass:yes&stat:unsp
 hahištolelút	pos:n&root:šll&ptn:hitQoTeL&pre:ha&gen:fm&num:sg&stat:unsp
-hahiʔ	pre:ha&pro:person&pers:3&gen:fm&num:sg
+hahiʔ	pre:ha&pos:pro_person&pers:3&gen:fm&num:sg
 hahorím	pre:ha&pos:n&root:hyr&ptn:CoC&gen:ms&num:pl&pl:masc:bio&stat:free
 hahége	pre:ha&pos:n&root:hgy&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 hahíne	pre:ha&pos:co
@@ -1882,11 +1882,11 @@ hakéveṣ	pre:ha&pos:n&root:kbṣ&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 hakól	pre:ha&root:kyl&ptn:CoC&pro:indef
 hakóvaʕ	pre:ha&pos:n&root:kbʕ&ptn:CoCaC&gen:ms&num:sg&stat:unsp
 halanúax	pre:ha&pre:le~pre:ha&pos:v&root:nwx&ptn:qal&form:inf
-halaván	pre:ha&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+halaván	pre:ha&pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 halašón	pre:ha&pos:n&root:lyš&ptn:CaCon&gen:fm&num:sg&stat:free
 halev	pre:ha&pre:le&pos:n&gen:ms&num:sg&stat:unsp
-halevaná	pre:ha&pre:le&pos:adj&root:lbn&ptn:CaCaCgen:fm&num:sg
-halevanót	pre:ha&pre:le&pos:adj&root:lbn&ptn:CaCaCgen:fm&num:pl
+halevaná	pre:ha&pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:sg
+halevanót	pre:ha&pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:pl
 halewʔáy	pos:co
 halexayáyim	pre:ha&pre:le&pos:n&root:xyy&ptn:CaC&gen:fm&num:pl&num:duo&stat:free
 haleycaním	pre:ha&pre:le&pos:n&gen:ms&num:pl&pl:masc:bio&stat:free
@@ -1896,7 +1896,7 @@ haleycáni	pre:ha&pre:le&dim:yes&gen:ms&num:sg&stat:free
 haleycánuš	pre:ha&pre:le&dim:yes&gen:ms&num:sg&stat:unsp
 haleylót	pre:ha&pre:le&pos:n&gen:ms&num:pl&pl:fem:mis&stat:unsp
 haleyád	pre:ha&pre:le&pos:prep
-haleʕisá	pre:ha&pre:le&pos:adj&root:lʕs&ptn:CaCiCgen:fm&num:sg
+haleʕisá	pre:ha&pre:le&pos:adj&root:lʕs&ptn:CaCiC&gen:fm&num:sg
 halibá	pre:ha&pre:le&pos:n&gen:fm&num:sg&stat:free
 halimón	pre:ha&pre:le&pos:n&gen:ms&num:sg&stat:unsp
 haliḳlúḳ	pre:ha&pre:le&pos:n&gen:ms&num:sg&stat:unsp
@@ -1922,7 +1922,7 @@ ham	pos:co
 hamacaʕím	pre:ha&pos:n&root:mcʕ&ptn:CaCaC&gen:ms&num:pl&stat:free
 hamacxíq	pos:adj&pre:ha&root:cxq&ptn:&gen:ms&num:sg&src:deverb
 hamacáv	pre:ha&pos:n&root:mcb&ptn:CaCaC&gen:ms&num:sg&stat:cstr
-hamacíl	&pos:adv pos:part&pre:ha&root:ncl&ptn:&gen:ms&num:sg &pos:adv pos:adv
+hamacíl	pos:adv pos:part&pre:ha&root:ncl&ptn:&gen:ms&num:sg pos:adv pos:adv
 hamad	pre:ha&pos:n&root:myd&ptn:CaC&gen:ms&num:sg&stat:cstr
 hamadbeqá	pre:ha&pos:n&gen:fm&num:sg&stat:free
 hamadbiqá	pos:part&pre:ha&root:dbq&ptn:&gen:fm&num:sg
@@ -2009,26 +2009,26 @@ hamelicá	pre:ha&pre:mi&pos:n&root:lyc&ptn:meCiCa&gen:fm&num:sg&stat:free
 hamelumád	pre:ha&pre:mi&pos:adj&root:lmd&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 hameluḳláḳ	pre:ha&pre:mi&pos:adj&root:lkl&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 hamelón	pre:ha&pre:mi&pos:n&gen:ms&num:sg&stat:unsp
-hamenagénet	pre:ha&pre:mi&pos:part&root:ngn&ptn:meCaCeC&gen:fm&num:sg
-hamenagévet	pre:ha&pre:mi&pos:part&root:ngb&ptn:meCaCeC&gen:fm&num:sg
+hamenagénet	pre:ha&pos:part&root:ngn&ptn:meCaCeC&gen:fm&num:sg
+hamenagévet	pre:ha&pos:part&root:ngb&ptn:meCaCeC&gen:fm&num:sg
 hamenaqá	pre:ha&pre:mi&pos:part&root:nqy&ptn:piel&gen:fm&num:sg
 hamenorá	pre:ha&pos:n&gen:fm&num:sg&stat:free& pre:ha&pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:sg&stat:free pre:ha&pos:n&gen:fm&num:sg&stat:free
 hamenorót	pre:ha&pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:pl&stat:unsp
-hameqarér	pre:ha&pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp pre:ha&pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
+hameqarér	pre:ha&pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp pre:ha&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
 hamericá	pre:ha&pre:mi&pos:part&root:rwc&ptn:hifil&gen:fm&num:sg
 hamerkáz	pre:ha&pre:mi&pos:n&root:rkz&ptn:meCCaC&gen:ms&num:sg&stat:unsp
 hamerubáʕ	pre:ha&pre:mi&pos:adj&root:rbʕ&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 hameruqanót	pre:ha&pre:mi&pos:adj&root:rqn&ptn:&gen:fm&num:pl&src:deverb
-hamesapér	pre:ha&pre:mi&pos:part&root:spr&ptn:meCaCeC&gen:ms&num:sg
+hamesapér	pre:ha&pos:part&root:spr&ptn:meCaCeC&gen:ms&num:sg
 hamesibá	pre:ha&pre:mi&pos:n&root:syb&ptn:meCiCa&gen:fm&num:sg&stat:free
 hamesilá	pre:ha&pre:mi&pos:n&root:syl&ptn:meCiCa&gen:fm&num:sg&stat:free
 hamesukán	pre:ha&pre:mi&pos:adj&root:skn&ptn:&gen:ms&num:sg&src:deverb
 hamesukénet	pre:ha&pre:mi&pos:adj&root:skn&ptn:meCuCeC&gen:fm&num:sg&src:deverb
 hamet	pre:ha&pre:mi&pos:part&root:mwt&ptn:qal&gen:ms&num:sg
 hametím	pre:ha&pre:mi&pos:adj&root:mwt&ptn:tbd&gen:ms&num:pl
-hamexadéd	pre:ha&pre:mi&pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:sg
+hamexadéd	pre:ha&pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:sg
 hamexilá	pre:ha&pre:mi&pos:part&root:xll&ptn:hifil&gen:fm&num:sg
-hameyalél	pre:ha&pre:mi&pos:part&root:yll&ptn:meCaCeC&gen:ms&num:sg
+hameyalél	pre:ha&pos:part&root:yll&ptn:meCaCeC&gen:ms&num:sg
 hameyḳál	pre:ha&pre:mi&pos:n&root:yḳl&ptn:meCCaC&gen:ms&num:sg&stat:unsp
 hamešulaším	pre:ha&pre:mi&pos:adj&root:šlš&ptn:meCuCaC&gen:ms&num:pl&src:deverb
 hamešuláš	pre:ha&pre:mi&pos:adj&root:šlš&ptn:meCuCaC&gen:ms&num:sg&src:deverb
@@ -2047,7 +2047,7 @@ hameḳonít	pre:ha&pre:mi&pos:n&gen:fm&num:sg&stat:unsp pre:ha&pre:mi&pos:n&roo
 hameḳoʕár	pre:ha&pre:mi&pos:adj&root:kʕr&ptn:&gen:ms&num:sg&src:deverb
 hameḳuná	pre:ha&pre:mi&pos:adj&root:kny&ptn:&gen:fm&num:sg&src:deverb
 hameṣuḳót	pre:ha&pre:mi&pos:n&root:ṣyḳ&ptn:meCuCa&gen:fm&num:pl&stat:unsp
-hameṭapélet	pre:ha&pre:mi&pos:part&root:ṭpl&ptn:meCaCeC&gen:fm&num:sg
+hameṭapélet	pre:ha&pos:part&root:ṭpl&ptn:meCaCeC&gen:fm&num:sg
 hamic	pre:ha&pre:mi&pos:n&gen:ms&num:sg&stat:unsp pre:ha&pre:mi&pos:n&gen:ms&num:sg&stat:cstr
 hamicnáx	pos:n&root:cnx&ptn:hami&pre:ha&gen:ms&num:sg&stat:unsp
 hamidraḳá	pos:n&root:drk&ptn:miCCaCa&pre:ha&gen:fm&num:sg&stat:free
@@ -2140,7 +2140,7 @@ hanaʕaláy	pre:ha&pos:n&root:nʕl&ptn:CeCeC&gen:fm&num:pl&poss:1SG
 hanaʕaláyim	pre:ha&pos:n&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
 hanaʕaléy	pre:ha&gen:fm&num:pl&stat:cstr
 hanaʕím	pos:adj&root:hana&ptn:hana&pre:ha&root:nʕm&ptn:CaCiC&gen:ms&num:sg
-hanaḳón	pre:ha&pos:adv&root:nyḳ&ptn:CaCon pre:ha&pos:adj&root:nkn&ptn:CaCoCgen:ms&num:sg
+hanaḳón	pre:ha&pos:adv&root:nyḳ&ptn:CaCon pre:ha&pos:adj&root:nkn&ptn:CaCoC&gen:ms&num:sg
 hanaṣím	pre:ha&pos:v&root:ṣym&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 hanemalá	pre:ha&pos:n&gen:fm&num:sg&stat:free
 hanemalím	pre:ha&pos:n&root:myl&ptn:CaC&gen:fm&num:pl&pl:masc:mis&stat:free
@@ -2157,7 +2157,7 @@ haneyár	pre:ha&pos:n&root:nyr&ptn:CeCaC&gen:fm&num:sg&stat:cstr pre:ha&pos:n&ro
 hanešimá	pre:ha&pos:n&root:nšm&ptn:CeCiCa&gen:fm&num:sg&stat:free
 hanešiqót	pre:ha&pos:n&root:nšq&ptn:CeCiCa&gen:fm&num:pl&stat:unsp
 haneḳoná	pre:ha&pos:adj&root:nkn&ptn:CaCoC&gen:fm&num:sg
-haneḳoním	pre:ha&pos:adj&root:nkn&ptn:CaCoCgen:ms&num:pl
+haneḳoním	pre:ha&pos:adj&root:nkn&ptn:CaCoC&gen:ms&num:pl
 hanicxí	pre:ha&pos:adj&root:ncx&gen:ms&num:sg&src:denom
 hanigudím	pre:ha&pos:n&root:ngd&ptn:CiCuC&gen:ms&num:pl&stat:free
 hanigúv	pre:ha&pos:n&root:ngb&ptn:CiCuC&gen:ms&num:sg&stat:unsp
@@ -2175,7 +2175,7 @@ hanáʕal	pre:ha&pos:n&ptn:CeCeC&gen:fm&num:sg&stat:unsp pre:ha&pos:n&gen:fm&num
 hanúmi	pre:ha&pos:v&root:nwm&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 hapanasím	pre:ha&pos:n&root:pns&ptn:CaCaC&gen:ms&num:pl&stat:free
 hapantér	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-hapaním	pre:ha&pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
+hapaním	pre:ha&pos:n&root:pny&ptn:CaCaC&gen:ms&num:pl&mass:yes&stat:free
 haparcufáh	pre:ha&pos:n&gen:ms&num:sg&poss:3femSG
 haparcúf	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 haparcúfi	pre:ha&dim:yes&gen:fm&num:sg&stat:free
@@ -2260,7 +2260,7 @@ haqaš	pre:ha&pos:n&root:qyš&ptn:CaC&gen:ms&num:sg&stat:unsp
 haqašá	pre:ha&pos:adj&root:qšy&ptn:CaCeC&gen:fm&num:sg&src:deverb
 haqaṭ	pre:ha&pos:adj&root:qyṭ&ptn:CaC&root:qṭn&gen:ms&num:sg
 haqaṭalóg	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-haqaṭán	pre:ha&pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg pre:ha&pos:part&root:qṭn&ptn:qal&gen:ms&num:sg
+haqaṭán	pre:ha&pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:sg pre:ha&pos:part&root:qṭn&ptn:qal&gen:ms&num:sg
 haqaṭáni	pre:ha&root:qyṭ&ptn:CaCan&a:dim&gen:ms&num:sg
 haqaṭár	pre:ha&pos:n&root:qṭr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 haqaṭón	pre:ha&pos:v&root:qṭn&ptn:qal&tense:past&pers:3&gen:ms&num:sg
@@ -2517,7 +2517,7 @@ hawaród	pre:ha&pos:adj&root:wrd&ptn:CaCoC&gen:ms&num:sg
 hawaw	pre:ha&pos:n&root:wyw&ptn:CaC&gen:ms&num:sg&stat:unsp
 hawehop	pos:co&pre:ha&pre:we
 hawexéci	pos:num&pre:ha&pre:we&num:sg&stat:unsp
-haweʕal	&pre:ha&pre:we&pos:prep
+haweʕal	pre:ha&pre:we&pos:prep
 hawilonót	pre:ha&pos:n&root:wln&ptn:CiCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
 hawilón	pre:ha&pos:n&root:wyl&ptn:CiCon&gen:ms&num:sg&stat:unsp
 hawiṭamínim	pre:ha&pos:n&gen:ms&num:pl&stat:free
@@ -2561,7 +2561,7 @@ haxarucá	pre:ha&pos:adj&root:xrc&ptn:CaCuC&gen:fm&num:sg&src:deverb
 haxaruzím	pre:ha&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:pl&stat:free
 haxarúz	pre:ha&pos:n&root:xrz&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 haxasidá	pre:ha&pos:n&root:xsd&ptn:CaCiCa&gen:fm&num:sg&stat:free
-haxatiḳá	pre:ha&pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:sg&stat:free pre:ha&pos:adj&root:xtk&ptn:CaCiCgen:fm&num:sg
+haxatiḳá	pre:ha&pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:sg&stat:free pre:ha&pos:adj&root:xtk&ptn:CaCiC&gen:fm&num:sg
 haxatiḳót	pre:ha&pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:pl&stat:unsp
 haxatulá	pre:ha&pos:n&root:xtl&ptn:CaCuCa&gen:fm&num:sg&stat:free
 haxatulím	pre:ha&pos:n&root:xtl&ptn:CaCuC&gen:ms&num:pl&pl:masc:bio&stat:free
@@ -2641,7 +2641,7 @@ hayehudít	pre:ha&pos:adj&root:yhd&ptn:CCuCi&gen:fm&num:sg&src:denom
 hayeladím	pre:ha&pos:n&root:lyd&ptn:CaC&root:yld&ptn:CeCeC&gen:ms&num:pl&pl:masc:bio&stat:free
 hayeladót	pre:ha&pos:n&root:ldt&ptn:CaCoC&root:yld&ptn:CeCeC&gen:fm&num:pl&pl:fem:bio&stat:free
 hayemaní	pre:ha&pos:adj&root:ymn&ptn:yemani&gen:ms&num:sg&src:denom
-hayeqarím	pre:ha&pos:adj&root:yqr&ptn:CaCaCgen:ms&num:pl
+hayeqarím	pre:ha&pos:adj&root:yqr&ptn:CaCaC&gen:ms&num:pl
 hayeraqót	pre:ha&pos:n&root:rqt&ptn:CaCoC&root:yrq&ptn:CeCeC&gen:ms&num:pl&pl:fem:mis&stat:free
 hayeruqá	pre:ha&pos:adj&root:yrq&ptn:CaCoC&gen:fm&num:sg
 hayeruqím	pre:ha&pos:adj&root:yrq&ptn:CaCoC&gen:ms&num:pl
@@ -2786,7 +2786,7 @@ hašóqo	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hašóqolad	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 hašʔar	pre:ha&pos:n&root:šʔr&ptn:CCaC&gen:ms&num:sg&stat:unsp
 hašḳená	pre:ha&pos:n&root:šḳn&ptn:CCeCa&gen:fm&num:sg&stat:free
-hašḳením	pre:ha&pos:part&root:ʕmd&ptn:qal&gen:ms&num:pl-ím pre:ha&pos:n&root:šḳn&ptn:CCeC&gen:ms&num:pl&pl:masc:bio&stat:free
+hašḳením	pre:ha&pos:part&root:ʕmd&ptn:qal&gen:ms&num:pl pre:ha&pos:n&root:šḳn&ptn:CCeC&gen:ms&num:pl&pl:masc:bio&stat:free
 hašṭuyót	pre:ha&pos:n&root:šṭy&ptn:šṭuya&gen:fm&num:pl&stat:unsp
 haʔadamá	pre:ha&pos:n&root:ʔdm&ptn:CaCaCa&gen:fm&num:sg&stat:free
 haʔadumá	pre:ha&pos:adj&root:ʔdm&ptn:CaCoC&gen:fm&num:sg
@@ -2810,8 +2810,8 @@ haʔamíc	pre:ha&pos:adj&root:ʔmc&ptn:CaCiC&gen:ms&num:sg
 haʔanaším	pre:ha&pos:n&root:ʔnš&ptn:CaCaC&gen:ms&num:pl&pl:masc:bio&stat:free
 haʔanpilaʔá	pre:ha&pos:n&gen:fm&num:sg&stat:free
 haʔanpilaʔót	pre:ha&pos:n&gen:fm&num:pl&stat:unsp
-haʔanáxnu	pre:ha&root:ʔnx&ptn:CaCaC&pro:person&pers:1&num:pl
-haʔaní	pre:ha&pro:person&pers:1&num:sg
+haʔanáxnu	pre:ha&root:ʔnx&ptn:CaCaC&pos:pro_person&pers:1&num:pl
+haʔaní	pre:ha&pos:pro_person&pers:1&num:sg
 haʔanṭéna	pre:ha&pos:n&gen:fm&num:sg&stat:unsp
 haʔapropó	pre:ha&pos:co
 haʔaqordiyón	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
@@ -2832,7 +2832,7 @@ haʔarón	pre:ha&pos:n&root:ʔyr&ptn:CaCon&gen:ms&num:sg&stat:unsp
 haʔaróḳ	pre:ha&pos:adj&root:ʔrk&ptn:CaCoC&gen:ms&num:sg
 haʔaslá	pre:ha&pos:n&root:ʔsl&ptn:CaCCa&gen:fm&num:sg&stat:free
 haʔasúr	pre:ha&root:ʔsr&ptn:CaCuC
-haʔatá	pre:ha&root:ʔyt&ptn:CaCa&pro:person&pers:2&gen:ms&num:sg
+haʔatá	pre:ha&root:ʔyt&ptn:CaCa&pos:pro_person&pers:2&gen:ms&num:sg
 haʔavaním	pre:ha&pos:n&root:ʔyb&ptn:CaCan&root:ʔbn&ptn:CeCeC&gen:fm&num:pl&pl:masc:mis&stat:free
 haʔavoqádo	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 haʔawirón	pre:ha&pos:n&root:ʔwr&ptn:CaCiCon&gen:ms&num:sg&stat:unsp
@@ -2926,7 +2926,7 @@ haʕavodá	pre:ha&pos:n&root:ʕbd&ptn:CaCoCa&gen:fm&num:sg&stat:free
 haʕaḳbár	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 haʕaḳšáyw	pre:ha&pos:adv&root:ʕkš&ptn:CaCC&
 haʕaṭifá	pre:ha&pos:n&root:ʕṭp&ptn:CaCiCa&gen:fm&num:sg&stat:free
-haʕec	pre:ha&pos:n&gen:ms&num:sg&stat:unsp pre:ha&pro:person&pers:2&gen:fm&num:sg
+haʕec	pre:ha&pos:n&gen:ms&num:sg&stat:unsp pre:ha&pos:pro_person&pers:2&gen:fm&num:sg
 haʕecím	pre:ha&pos:n&gen:ms&num:pl&stat:free
 haʕefronót	pre:ha&pos:n&gen:ms&num:pl&pl:fem:mis&stat:unsp
 haʕeglót	pre:ha&pos:n&root:ʕel&ptn:CaCaCa&gen:fm&num:pl&stat:cstr
@@ -2996,7 +2996,7 @@ haṣíax	pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 haṭalé	pre:ha&pos:n&gen:ms&num:sg&stat:free
 haṭanq	pre:ha&pos:n&root:ṭnq&ptn:CaCC&gen:ms&num:sg&stat:unsp
 haṭas	pre:ha&pos:part&root:ṭws&ptn:qal&gen:ms&num:sg
-haṭaʕím	pre:ha&pos:adj&root:ṭʕm&ptn:CaCiCgen:ms&num:sg
+haṭaʕím	pre:ha&pos:adj&root:ṭʕm&ptn:CaCiC&gen:ms&num:sg
 haṭelewízya	pre:ha&pos:n&gen:fm&num:sg&stat:unsp
 haṭeyp	pre:ha&pos:n&gen:ms&num:sg&stat:unsp pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 haṭeʕimá	pre:ha&pos:adj&root:ṭʕm&ptn:CaCiC&gen:fm&num:sg
@@ -3036,9 +3036,9 @@ hegášti	pos:v&root:ngš&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
 hegíʕa	pos:v&root:ngʕ&ptn:hifil&tense:past&pers:3&gen:fm&num:sg
 hekárta	pos:v&root:nkr&ptn:hifil&tense:past&pers:2&gen:ms&num:sg
 hekárti	pos:v&root:nkr&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
-hem	pos:cop&tense:present&pers:3&gen:ms&num:pl &pro:person&pers:1&num:sg &pro:person&pers:3&gen:ms&num:pl pos:part&root:rcy&ptn:qal&gen:ms&num:pl
+hem	pos:cop&tense:present&pers:3&gen:ms&num:pl pos:pro_person&pers:1&num:sg pos:pro_person&pers:3&gen:ms&num:pl pos:part&root:rcy&ptn:qal&gen:ms&num:pl
 hemšéḳ	pos:n&num:sg&stat:unsp
-hen	pos:cop&tense:present&pers:3&gen:fm&num:pl &pro:person&pers:3&gen:fm&num:pl
+hen	pos:cop&tense:present&pers:3&gen:fm&num:pl pos:pro_person&pers:3&gen:fm&num:pl
 henáxt	pos:v&root:nwx&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 hepált	pos:v&root:npl&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 hepálta	pos:v&root:npl&ptn:hifil&tense:past&pers:2&gen:ms&num:sg
@@ -3402,7 +3402,7 @@ hovíl	pos:v&root:ybl&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 hošávt	pos:v&root:yšb&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 hošíṭa	pos:v&root:yšṭ&ptn:hifil&tense:past&pers:3&gen:fm&num:sg
 hušláḳ	pos:v&root:šlk&ptn:&tense:past&pers:3&gen:ms&num:sg
-huʔ	pos:adj&root:hwʔ&ptn:CuC&root:gbh&ptn:CaCoC&gen:ms&num:sg pos:adj&root:hwʔ&ptn:CuC&root:ktm&ptn:CaCoC&gen:ms&num:sg pos:cop&root:hwʔ&ptn:CuC&tense:present&pers:3&gen:ms&num:sg pos:chi&root:hwʔ&ptn:CuC pos:part&root:glx&ptn:hitpael&gen:ms&num:sg pos:n&root:hwʔ&ptn:CuC&gen:ms&num:sg&stat:unsp root:hwʔ&ptn:CuC&pro:person&pers:3&gen:ms&num:sg pos:part&root:rʔy&ptn:qal&gen:ms&num:sg
+huʔ	pos:adj&root:hwʔ&ptn:CuC&root:gbh&ptn:CaCoC&gen:ms&num:sg pos:adj&root:hwʔ&ptn:CuC&root:ktm&ptn:CaCoC&gen:ms&num:sg pos:cop&root:hwʔ&ptn:CuC&tense:present&pers:3&gen:ms&num:sg pos:chi&root:hwʔ&ptn:CuC pos:part&root:glx&ptn:hitpael&gen:ms&num:sg pos:n&root:hwʔ&ptn:CuC&gen:ms&num:sg&stat:unsp root:hwʔ&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg pos:part&root:rʔy&ptn:qal&gen:ms&num:sg
 hálʔa	root:háʔ&ptn:CaCCa&pos:adv pos:adv&root:hlʔ&ptn:CaCCa&
 hámburger	pos:n&gen:ms&num:sg&stat:unsp
 háva	pos:co
@@ -3410,7 +3410,7 @@ hávi	pos:v&root:yhb&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 hávu	pos:v&root:yhb&ptn:qal&form:imp&pers:2&gen:unsp&num:pl
 háʔlo	pos:co
 hége	pos:n&root:hgy&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-héna	pos:adv &pos:adv
+héna	pos:adv pos:adv
 híne	pos:n&gen:ms&num:sg&stat:unsp pos:n&gen:fm&num:sg&stat:free pos:co pos:n&gen:fm&num:pl&pl:fem:bio&stat:free
 hópa	pos:co
 hóra	pos:n&root:hyr&ptn:CoCa&gen:fm&num:sg&stat:unsp
@@ -3454,7 +3454,7 @@ katvú	pos:v&root:ktb&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 katáv	pos:v&root:ktb&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 katávt	pos:v&root:ktb&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 katávti	pos:v&root:ktb&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-katóm	root:ktm&ptn:CaCoC&pro:dem&pers:3&gen:ms&num:sg pos:adj&root:ktm&ptn:CaCoC&gen:ms&num:sg root:ktm&ptn:CaCoC&pro:person&pers:2&gen:ms&num:sg
+katóm	root:ktm&ptn:CaCoC&pro:dem&pers:3&gen:ms&num:sg pos:adj&root:ktm&ptn:CaCoC&gen:ms&num:sg root:ktm&ptn:CaCoC&pos:pro_person&pers:2&gen:ms&num:sg
 katúv	pos:adj&root:ktb&ptn:CaCuC&gen:ms&num:sg&src:deverb
 kavtá	pos:v&root:kby&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 kavá	pos:v&root:kby&ptn:qal&tense:past&pers:3&gen:ms&num:sg
@@ -3484,7 +3484,7 @@ kedáʔy	root:dáʔy&ptn:daʔy&pos:adv
 kedéy	pos:adv
 kehé	pre:ke&pos:adj&root:khy&ptn:tbd&gen:ms&num:sg
 kelím	pos:n&gen:ms&num:pl&stat:free
-ken	pre:ke&pos:adj&root:kwn&gen:ms&num:sg pre:ke&pos:adv pre:ke&pos:co& pre:ke&pro:person&pers:1&num:sg pos:adj&root:xmm&ptn:CaCiC&gen:ms&num:sg
+ken	pre:ke&pos:adj&root:kwn&gen:ms&num:sg pre:ke&pos:adv pre:ke&pos:co& pre:ke&pos:pro_person&pers:1&num:sg pos:adj&root:xmm&ptn:CaCiC&gen:ms&num:sg
 kenéged	root:ngd&ptn:CeCeC&pos:prep
 keyf	pos:n&gen:ms&num:sg&mass:yes&stat:unsp
 keʔevím	pos:n&gen:ms&num:pl&stat:free
@@ -3494,7 +3494,7 @@ keʕáḳ	pre:ke&pos:n&gen:ms&num:sg&stat:unsp
 keṣmiḳá	pos:n&root:ṣmḳ&ptn:CCiCa&gen:fm&num:sg&stat:free
 kfafá	pos:n&root:kpp&ptn:CCaCa&gen:fm&num:sg&stat:free
 kfafót	pos:n&root:kpp&ptn:CCaCa&gen:fm&num:pl&stat:unsp
-ki	pre:ke&conj:subor&pro:person&pers:2&gen:fm&num:sg
+ki	pre:ke&conj:subor&pos:pro_person&pers:2&gen:fm&num:sg
 kibádet	pos:v&root:kbd&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 kibít	pos:v&root:kby&ptn:piel&tense:past&pers:2&gen:fm&num:sg
 kibíta	pos:v&root:kby&ptn:piel&tense:past&pers:2&gen:ms&num:sg
@@ -3509,7 +3509,7 @@ kirkará	pos:n&root:rkr&ptn:CCaCa&root:mtn&ptn:CaCaCa&gen:fm&num:sg&stat:free
 kis	pos:n&gen:ms&num:sg&stat:unsp
 kisaʔót	pos:n&root:syʔ&ptn:CaCa&gen:ms&num:pl&pl:fem:mis&stat:free
 kisuyéy	pos:n&root:syy&ptn:CuC&gen:ms&num:pl&stat:cstr
-kiséʔ	pre:ke&pos:n&gen:ms&num:sg&stat:unsp pre:ke&pre:ke&pos:prep:pro&pers:2&gen:fm&num:sg pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
+kiséʔ	pre:ke&pos:n&gen:ms&num:sg&stat:unsp pre:ke&pre:ke&pos:prep:pro&pers:2&gen:fm&num:sg pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:sg
 kisím	pos:n&rot:kys&ptn:CiC&gen:ms&num:pl&stat:free
 kisínu	pos:v&root:ksy&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 kisíti	pos:v&root:ksy&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
@@ -3540,7 +3540,7 @@ kotévet	pos:part&root:ktb&ptn:qal&gen:fm&num:sg
 kotéšet	pos:part&root:ktš&ptn:qal&gen:fm&num:sg
 koʔavót	pos:part&root:kʔv&ptn:qal&gen:fm&num:pl
 koʔév	pos:part&root:kʔv&ptn:qal&gen:ms&num:sg pos:adj&root:kʔb&ptn:qal&gen:ms&num:sg
-koʔévet	pos:adj&root:kʔb&ptn:qal&gen:fm&num:sg pos:part&root:kʔv&ptn:qal&gen:fm&num:sg pos:conj:subor&
+koʔévet	pos:adj&root:kʔb&ptn:qal&gen:fm&num:sg pos:part&root:kʔv&ptn:qal&gen:fm&num:sg pos:conj_subor&
 koʔévlaḳ	pre:le~pre:ha&pos:n&root:kʔb&ptn:CoCeC&pre:be~pre:ha&gen:ms&num:sg&stat:unsp
 koʕasím	pos:part&root:kʕs&ptn:CoCaC&gen:ms&num:pl
 koʕés	pos:adj&root:kʕs&ptn:qal&gen:ms&num:sg pos:part&root:kʕs&ptn:qal&gen:ms&num:sg
@@ -3557,10 +3557,10 @@ ktiv	pos:n&root:ktb&ptn:CCiC&gen:ms&num:sg&mass:yes&stat:unsp
 ktumá	pos:adj&root:ktm&ptn:CaCoC&gen:fm&num:sg
 ktumót	pos:adj&root:ktm&ptn:CaCoC&gen:fm&num:pl
 ktuvót	pos:adj&root:ktb&ptn:CaCuC&gen:fm&num:pl&src:deverb
-kulám	root:klm&ptn:CuCaC&pro:person&pers:3&gen:ms&num:pl
-kulán	root:kyl&ptn:CuCan&pro:person&pers:3&gen:fm&num:pl
-kulánu	root:kyl&ptn:CuCan&pro:person&pers:1&gen:unsp&num:pl
-kuló	root:kyl&ptn:CuC&pro:person&pers:3&gen:ms&num:sg
+kulám	root:klm&ptn:CuCaC&pos:pro_person&pers:3&gen:ms&num:pl
+kulán	root:kyl&ptn:CuCan&pos:pro_person&pers:3&gen:fm&num:pl
+kulánu	root:kyl&ptn:CuCan&pos:pro_person&pers:1&gen:unsp&num:pl
+kuló	root:kyl&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg
 kursá	pos:n&root:krs&ptn:CuCCa&gen:fm&num:sg&stat:free
 kvar	pos:adv&root:kbr&ptn:CCaC root:kbr&ptn:CCaC&pos:adv root:kbr&ptn:CCaC&pos:adv root:kbr&ptn:CCaC&pos:adv
 kvedá	pos:adj&root:kbd&ptn:CaCeC&gen:fm&num:sg&src:deverb
@@ -3599,12 +3599,12 @@ kšehayít	pre:ke&pre:sh&pos:cop&root:hyy&ptn:qal&tense:past&pers:2&gen:fm&num:s
 kšehayítem	pre:ke&pre:sh&pos:cop&root:hyy&ptn:qal&tense:past&pers:2&gen:ms&num:pl
 kšehayíti	pre:ke&pre:sh&pos:cop&root:hyy&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 kšehaṭuš	pre:ke&pre:sh&pre:ha&pos:n&root:ṭyš&ptn:CuC&gen:ms&num:sg&stat:unsp
-kšehem	pre:ke&pre:sh&pro:person&pers:3&gen:ms&num:pl
+kšehem	pre:ke&pre:sh&pos:pro_person&pers:3&gen:ms&num:pl
 kšehigáʕnu	pre:ke&pre:sh&pos:v&root:ngʕ&ptn:hifil&tense:past&pers:1&gen:unsp&num:pl
 kšehizmánt	pos:v&root:šehi&ptn:šehi&pos:prep&pre:sh&root:zmn&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
-kšehiʔ	pre:ke&pre:sh&pro:person&pers:3&gen:fm&num:sg
+kšehiʔ	pre:ke&pre:sh&pos:pro_person&pers:3&gen:fm&num:sg
 kšeholḳím	pre:ke&pre:sh&pos:part&root:hlk&ptn:qal&gen:ms&num:pl
-kšehuʔ	pre:ke&pre:sh&root:hwʔ&ptn:CuC&pro:person&pers:3&gen:ms&num:sg
+kšehuʔ	pre:ke&pre:sh&root:hwʔ&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg
 kšekmo	pre:sh&pos:prep&pos:prep&pre:sh
 kšekol	pre:ke&root:kyl&ptn:CoC&pos:prep&pre:sh
 kšeloʔ	pre:ke&pre:sh&pos:co&pos:prep&pre:sh root:lyʔ&ptn:CoC&pos:prep&pre:sh
@@ -3653,10 +3653,10 @@ kšeyoréd	pre:ke&pre:sh&pos:part&root:yrd&ptn:qal&ptn:qal&gen:ms&num:sg
 kšeze	pre:ke&pre:sh&pro:dem&pers:3&gen:ms&num:sg
 kšezorqím	pre:ke&pre:sh&pos:part&root:zrq&ptn:qal&gen:ms&num:pl
 kšeʔanaším	pre:ke&pre:sh&pos:n&root:ʔnš&ptn:CaCaC&gen:ms&num:pl&pl:masc:bio&stat:free
-kšeʔanáxnu	pre:ke&pre:sh&root:ʔnx&ptn:CaCaC&pro:person&pers:1&num:pl
-kšeʔaní	pre:ke&pre:sh&pro:person&pers:1&num:sg
-kšeʔatá	pre:ke&pre:sh&root:ʔyt&ptn:CaCa&pro:person&pers:2&gen:ms&num:sg
-kšeʔatém	pre:ke&pre:sh&root:ʔty&ptn:CaCy&pro:person&pers:2&gen:ms&num:pl
+kšeʔanáxnu	pre:ke&pre:sh&root:ʔnx&ptn:CaCaC&pos:pro_person&pers:1&num:pl
+kšeʔaní	pre:ke&pre:sh&pos:pro_person&pers:1&num:sg
+kšeʔatá	pre:ke&pre:sh&root:ʔyt&ptn:CaCa&pos:pro_person&pers:2&gen:ms&num:sg
+kšeʔatém	pre:ke&pre:sh&root:ʔty&ptn:CaCy&pos:pro_person&pers:2&gen:ms&num:pl
 kšeʔaḳált	pre:ke&pre:sh&pos:v&root:ʔkl&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 kšeʔeyn	pre:sh&pos:exs&pos:prep&pre:sh
 kšeʔim	pre:ke&pre:sh&pos:conj_subor
@@ -3781,7 +3781,7 @@ lakursá	pre:le~pre:ha&pos:n&root:krs&ptn:CuCCa&gen:fm&num:sg&stat:free
 lakviš	pre:le~pre:ha&pos:n&root:kbš&ptn:CCiC&gen:ms&num:sg&stat:unsp
 lakélev	pre:le~pre:ha&pos:n&root:klb&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 lakúši	pre:le~pre:ha&pos:adj&gen:ms&num:sg
-lalaván	pre:le~pre:ha&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+lalaván	pre:le~pre:ha&pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 lalegan	pre:le~pre:ha&pre:le&pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:cstr
 lalevaqér	pre:le~pre:ha&pre:le&pos:v&root:bqr&ptn:CaCeC&form:inf
 laleycanít	pre:le~pre:ha&pre:le&pos:n&gen:fm&num:sg&stat:unsp
@@ -3818,8 +3818,8 @@ lamedurá	pre:le~pre:ha&pre:mi&pos:n&root:dyr&ptn:meCuCa&gen:fm&num:sg&stat:free
 lamegirá	pre:le~pre:ha&pre:mi&pos:n&root:gyr&ptn:meCiCa&gen:fm&num:sg&stat:free
 lamelafefoním	pre:le~pre:ha&pre:mi&pos:n&gen:ms&num:pl&stat:free
 lamenorá	pre:le~pre:ha&pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:sg&stat:free
-lameqarér	pre:le~pre:ha&pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
-lamerixót	pre:le~pre:ha&pre:mi&pos:part&root:ryx&ptn:meCiCa&gen:fm&num:pl
+lameqarér	pre:le~pre:ha&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
+lamerixót	pre:le~pre:ha&pos:part&root:ryx&ptn:meCiCa&gen:fm&num:pl
 lamesibá	pre:le~pre:ha&pre:mi&pos:n&root:syb&ptn:meCiCa&gen:fm&num:sg&stat:free
 lameʔawrér	pre:le~pre:ha&pre:mi&pos:n&gen:ms&num:sg&stat:unsp
 lameʔaxoréy	pre:le~pre:ha&pre:mi&pre:ha
@@ -3911,7 +3911,7 @@ laqáxnu	pos:v&root:lqx&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 laqáxt	pos:v&root:lqx&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 laqáxta	pos:v&root:lqx&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 laqáxti	pos:v&root:lqx&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-laqúm	pre:le~pre:ha&pos:v&root:qwm&ptn:qal&form:inf root:lqm&ptn:CaCuC&pro:person&pers:1&num:sg
+laqúm	pre:le~pre:ha&pos:v&root:qwm&ptn:qal&form:inf root:lqm&ptn:CaCuC&pos:pro_person&pers:1&num:sg
 laqṭaním	pre:le~pre:ha&pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:pl
 larakévet	pre:le~pre:ha&pos:n&root:rkb&ptn:CaCeC&gen:fm&num:sg&stat:unsp
 larexóv	pre:le~pre:ha&pos:n&root:rxb&ptn:CeCoC&gen:ms&num:sg&stat:unsp
@@ -3970,7 +3970,7 @@ latáyiš	pre:le~pre:ha&pos:n&root:tyš&ptn:CeCeC&gen:ms&num:sg&stat:free
 latét	pre:le~pre:ha&pos:v&root:ntn&ptn:qal&form:inf
 latúki	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 latšiʕí	pre:le~pre:ha&pos:adj&gen:ms&num:sg
-laván	pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+laván	pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 lavášt	pos:v&root:lbš&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 lavášti	pos:v&root:lbš&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 lavóʔ	pos:n&root:lbʔ&ptn:CaCoCa&gen:fm&num:pl&stat:unsp pre:le~pre:ha&pos:v&root:bwʔ&ptn:qal&form:inf
@@ -4157,7 +4157,7 @@ laʕáyin	pre:le~pre:ha&pos:n&root:ʕyn&ptn:CaCiC&root:ʔyn&ptn:CeCeC&gen:fm&num
 laʕúf	pre:le~pre:ha&pos:v&root:ʕwp&ptn:qal&form:inf
 laʕús	pos:adj&root:lʕs&ptn:CaCuC&gen:ms&num:sg&src:deverb
 laʝímbori	pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
-laḳ	pre:le~pre:ha&pre:ke&pos:que&gen:ms pre:ke&pre:le&pos:prep&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pos:n&gen:fm&num:sg&stat:free pre:le~pre:ha&pre:ke&pos:n&root:byt&ptn:CeCeC&gen:ms&num:sg&stat:free pre:ke&pos:prep:pro&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pro:person&pers:2&gen:fm&num:sg pre:le&pos:prep:pro&pers:1&num:sg
+laḳ	pre:le~pre:ha&pre:ke&pos:que&gen:ms pre:ke&pre:le&pos:prep&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pos:n&gen:fm&num:sg&stat:free pre:le~pre:ha&pre:ke&pos:n&root:byt&ptn:CeCeC&gen:ms&num:sg&stat:free pre:ke&pos:prep:pro&pers:2&gen:fm&num:sg pre:le~pre:ha&pre:ke&pos:pro_person&pers:2&gen:fm&num:sg pre:le&pos:prep:pro&pers:1&num:sg
 laḳém	pre:le&pos:prep:pro&pers:2&gen:ms&num:pl
 laḳén	root:lḳn&ptn:CaCeC&pos:adv
 laṣaqít	pre:le~pre:ha&pos:n&root:ṣqt&ptn:CaCiC&gen:fm&num:sg&stat:unsp
@@ -4223,7 +4223,7 @@ ledóda	pre:le&pos:n&root:dyd&ptn:CoCa&gen:fm&num:sg&stat:free
 ledóqṭor	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 ledúbi	pre:le&dim:yes&root:dyb&ptn:CuC&gen:ms&num:sg&stat:free
 lefanéyha	pre:le&root:pyn&ptn:CaC&pos:prep&pers:3&gen:fm&num:sg
-lefaním	pre:le&pos:adv&root:pyn&ptn:CaC& pre:le&pos:n&root:pyn&ptn:CaC&gen:fm&num:pl&stat:free
+lefaním	pre:le&pos:adv&root:pyn&ptn:CaC& pre:le&pos:n&root:pny&ptn:CaCaC&gen:fm&num:pl&stat:free
 lefaréq	pre:le&pos:v&root:prq&ptn:CaCeC&form:inf
 lefaxót	pre:le&pos:adv&root:pyx&ptn:CaCa& pre:le&pos:adv&root:pyx&ptn:CaCa
 lefazér	pre:le&pos:vpiel&form:inf
@@ -4394,7 +4394,7 @@ lehištatéf	pos:v&root:štp&ptn:hitpael&form:inf
 lehištaʕél	pos:v&pre:le&root:šʕl&ptn:&form:inf pos:v&root:šʕl&ptn:hitpael&form:inf
 lehištolél	pos:v&root:šll&ptn:hitpael&form:inf
 lehištovév	pos:v&root:šbb&ptn:hitpael&form:inf
-lehiʔ	pre:le&pro:person&pers:3&gen:fm&num:sg
+lehiʔ	pre:le&pos:pro_person&pers:3&gen:fm&num:sg
 lehocíʔ	pre:le&pos:v&root:ycʔ&ptn:hifil&form:inf
 leholíd	pre:le&pos:v&root:yld&ptn:hifil&form:inf
 lehoríd	pre:le&pos:v&root:yrd&ptn:hifil&form:inf
@@ -4402,7 +4402,7 @@ lehoríq	pre:le&pos:v&root:yrq&ptn:hifil&form:inf
 lehovíl	pre:le&pos:v&root:ybl&ptn:hifil&form:inf
 lehošív	pre:le&pos:v&root:yšb&ptn:hifil&form:inf
 lehošíṭ	pre:le&pos:v&root:yšṭ&ptn:hifil&form:inf
-lehuʔ	pre:le&root:hwʔ&ptn:CuC&pro:person&pers:3&gen:ms&num:sg
+lehuʔ	pre:le&root:hwʔ&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg
 lehéfeḳ	pre:le&pre:ke&pos:adv& pre:le&pos:adv
 lehéna	pre:le&pos:adv& pre:le&pos:adv
 lekaséax	pre:le&pos:v&root:ksx&ptn:CaCeC&form:inf
@@ -4413,7 +4413,7 @@ lekiséʔ	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 lekmo	pre:le&pos:prep
 lekoféf	pre:le&pos:v&root:kpp&ptn:CoCeC&form:inf
 lekol	pre:le&pos:qn&root:kyl&ptn:CoC
-lekulám	pre:le&root:klm&ptn:CuCaC&pro:person&pers:3&gen:ms&num:pl
+lekulám	pre:le&root:klm&ptn:CuCaC&pos:pro_person&pers:3&gen:ms&num:pl
 lekán	pre:le&root:kyn&ptn:CaC&pos:adv
 lekáʔn	pre:le&pos:adv&root:kʔn&ptn:CaCC& pre:le&pos:adv&root:kʔn&ptn:CaCC&
 lekélev	pre:le&pos:n&root:klb&ptn:CeCeC&gen:ms&num:sg&stat:unsp
@@ -4427,7 +4427,7 @@ lelaléḳet	pre:le&pre:le~pre:ha&pos:v&root:hlk&ptn:qal&form:inf
 lelaméd	pre:le&pos:v&root:lmd&ptn:CaCeC&form:inf
 lelaparpár	pre:le&pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 lelaqéq	pre:le&pos:v&root:lqq&ptn:CaCeC&form:inf
-lelaván	pre:le&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+lelaván	pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 lelawót	pre:le&pos:v&root:lwy&ptn:piel&form:inf
 lelaʕalót	pre:le&pre:le~pre:ha&pos:v&root:ʕly&ptn:qal&form:inf
 lelaḳléḳ	pre:le&pos:v&root:lkl&ptn:piel&form:inf
@@ -4451,7 +4451,7 @@ lemaléʔ	pre:le&pos:v&root:mlʔ&ptn:CaCeC&form:inf
 lemapiyót	pos:n&pre:le&gen:fm&num:pl&stat:unsp
 lemaqóm	pre:le&pos:n&root:mqm&ptn:CaCoC&gen:ms&num:sg&stat:free
 lemar	pre:le&pos:adj&root:myr&ptn:CaC&root:mrr&gen:ms&num:sg
-lemarbít	&pos:adv pre:le&pos:adv&root:mrb&ptn:CaCC&
+lemarbít	pos:adv pre:le&pos:adv&root:mrb&ptn:CaCC&
 lematáy	pre:le&pos:que&root:myt&ptn:CaC
 lemaxalót	pre:le&pos:n&root:mxl&ptn:CaCaCa&gen:fm&num:pl&stat:unsp
 lemaxár	pre:le&pos:adv&root:mxr&ptn:CaCaC
@@ -4543,7 +4543,7 @@ lesayém	pre:le&pos:v&root:sym&ptn:CaCeC&form:inf
 lesegól	pre:le&pos:adj&root:sgl&ptn:CaCoC&gen:ms&num:sg
 lesidurím	pre:le&pos:n&root:sdr&ptn:CiCuC&gen:ms&num:pl&stat:free
 lesipúr	pre:le&pos:n&root:spr&ptn:CiCuC&gen:ms&num:sg&stat:unsp
-lesovév	pre:le&pos:v&root:sbb&ptn:CoCeC&form:inf pre:le&pos:v&root:sbb&ptn:CoCeC&form:inf pre:le&root:sbb&ptn:CoCeC&pro:person&pers:2&gen:ms&num:sg
+lesovév	pre:le&pos:v&root:sbb&ptn:CoCeC&form:inf pre:le&pos:v&root:sbb&ptn:CoCeC&form:inf pre:le&root:sbb&ptn:CoCeC&pos:pro_person&pers:2&gen:ms&num:sg
 lesus	pre:le&pos:n&root:sys&ptn:CuC&gen:ms&num:sg&stat:unsp
 lesábaʔ	pre:le&pos:n&root:sbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
 lesáfti	pre:le&dim:yes&root:spt&ptn:CaCC&gen:fm&num:sg&stat:free
@@ -4570,9 +4570,9 @@ lev	pre:le&pos:n&gen:ms&num:sg&stat:unsp
 levacéaʕ	pre:le&pos:v&root:bcʕ&ptn:CaCeC&form:inf
 levadó	pre:le&pos:adv&root:byd&ptn:CaC&pers:3&gen:ms&num:sg
 levalbél	pre:le&pos:v&root:blbl&ptn:piel&form:inf
-levaná	pre:le&pos:adj&root:lbn&ptn:CaCaCgen:fm&num:sg
+levaná	pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:sg
 levaním	pre:le&pos:n&root:byn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
-levanót	pre:le&pos:adj&root:lbn&ptn:CaCaCgen:fm&num:pl
+levanót	pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:pl
 levaqér	pre:le&pos:v&root:bqr&ptn:CaCeC&form:inf
 levaqéš	pre:le&pos:v&root:bqš&ptn:CaCeC&form:inf
 levaréḳ	pre:le&pos:v&root:brk&ptn:piel&form:inf
@@ -4587,7 +4587,7 @@ lewaród	pre:le&pos:adj&root:wrd&ptn:CaCoC&gen:ms&num:sg
 lewatér	pre:le&pos:v&root:dlg&ptn:piel&form:inf
 lewayá	pre:le&pos:n&root:wyy&ptn:CaCa&gen:fm&num:sg&stat:free
 lewehaláḳ	pos:v&root:lewe&ptn:lewe&pre:le&pre:we&root:hlk&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-leweli	&pre:le&pre:we&pos:prep&pers:1&gen:unsp&num:sg
+leweli	pre:le&pre:we&pos:prep&pers:1&gen:unsp&num:sg
 lewetenagní	pos:v&root:lewe&ptn:lewe&pre:le&pre:we&root:ngn&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 lewetesaprí	pos:v&root:lewe&ptn:lewe&pre:le&pre:we&root:spr&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
 lexabéq	pre:le&pos:v&root:xbq&ptn:CaCeC&form:inf
@@ -4706,7 +4706,7 @@ leʔuláy	pre:le&root:ʔyl&ptn:CuC
 leʔumaní	pre:le&pos:adj&root:ʔym&ptn:CuCani&root:lʔm&gen:ms&num:sg&src:denom
 leʔurwá	pre:le&pos:n&root:ʔrw&ptn:CuCCa&gen:fm&num:sg&stat:free
 leʔábaʔ	pre:le&pos:n&root:ʔbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
-leʔán	pre:le&root:ʔyn&ptn:CaC&pro:person&pers:1&num:pl pre:le&root:ʔyn&ptn:CaC&pre:ha pre:le&pos:que&root:ʔyn&ptn:CaC& pre:le&pos:v&root:npl&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
+leʔán	pre:le&root:ʔyn&ptn:CaC&pos:pro_person&pers:1&num:pl pre:le&root:ʔyn&ptn:CaC&pre:ha pre:le&pos:que&root:ʔyn&ptn:CaC& pre:le&pos:v&root:npl&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 leʔánšehu	pre:le&pos:adv& pre:le&pos:adv
 leʔáyin	pre:le&pos:que&root:ʔyn&ptn:CaCiC
 leʔáṭ	pre:le&pos:adv&root:ʔyṭ&ptn:CaC& pre:le&root:ʔyṭ&ptn:CaC&pos:adv
@@ -4916,7 +4916,7 @@ loʔmár	pos:v&root:ʔmr&ptn:CCaC&form:inf
 loʔ^naʕím	pos:n&pre:be~pre:ha&gen:fm&num:sg&stat:free
 loʕasím	pos:part&root:lʕs&ptn:CoCaC&gen:ms&num:pl
 loʕés	pos:part&root:lʕs&ptn:qal&gen:ms&num:sg
-lu	pos:conj:subor
+lu	pos:conj_subor
 lul	pos:n&root:lyl&ptn:CuC&gen:ms&num:sg&stat:unsp
 lulaʔá	pos:n&root:llʔ&ptn:CuCaCa&gen:fm&num:sg&stat:free
 lábane	pos:n&root:lyb&ptn:CaCane&gen:ms&num:sg&mass:yes&stat:unsp
@@ -4988,7 +4988,7 @@ maglešá	pos:n&gen:fm&num:sg&stat:free
 maglešót	pos:n&gen:fm&num:pl&stat:unsp
 magnéṭ	pos:n&gen:ms&num:sg&stat:unsp
 magáʕ	pos:n&root:mgʕ&ptn:magaʕCaCaC&gen:ms&num:sg&stat:unsp
-magén	pos:n&root:mgn&ptn:magenCaCeC&gen:ms&num:sg&stat:unsp
+magén	pos:n&root:mgn&ptn:CaCeC&gen:ms&num:sg&stat:unsp
 magévet	pos:n&root:mgb&ptn:CaCeC&gen:fm&num:sg&stat:unsp pos:adj&root:chb&ptn:CaCoC&gen:fm&num:sg
 magíaʕ	pos:part&root:ngʕ&ptn:hifil&gen:ms&num:sg
 magíd	pos:part&root:ngd&ptn:hifil&gen:ms&num:sg
@@ -5225,15 +5225,15 @@ mecalcelím	pre:mi&pos:part&root:clcl&ptn:piel&gen:ms&num:pl
 mecalcél	pre:mi&pos:part&root:clcl&ptn:piel&gen:ms&num:sg
 mecalcélet	pre:mi&pos:part&root:clcl&ptn:piel&gen:fm&num:sg
 mecalmím	pre:mi&pos:part&root:clm&ptn:piel&gen:ms&num:pl
-mecalém	pre:mi&pos:part&root:clm&ptn:meCaCeC&gen:ms&num:sg
-mecalémet	pre:mi&pos:part&root:clm&ptn:meCaCeC&gen:fm&num:sg
+mecalém	pos:part&root:clm&ptn:meCaCeC&gen:ms&num:sg
+mecalémet	pos:part&root:clm&ptn:meCaCeC&gen:fm&num:sg
 mecapá	pre:mi&pos:part&root:cpy&ptn:piel&gen:fm&num:sg
 mecaxcéax	pre:mi&pos:part&root:cxcx&ptn:piel&gen:ms&num:sg
 mecayrím	pre:mi&pos:part&root:cyr&ptn:piel&gen:ms&num:pl
-mecayér	pre:mi&pos:part&root:cyr&ptn:meCaCeC&gen:ms&num:sg
-mecayéret	pre:mi&pos:part&root:cyr&ptn:meCaCeC&gen:fm&num:sg
-mecicá	pre:mi&pos:part&root:cyc&ptn:meCiCa&gen:fm&num:sg
-mecicót	pre:mi&pos:part&root:cyc&ptn:meCiCa&gen:fm&num:pl
+mecayér	pos:part&root:cyr&ptn:meCaCeC&gen:ms&num:sg
+mecayéret	pos:part&root:cyr&ptn:meCaCeC&gen:fm&num:sg
+mecicá	pos:part&root:cyc&ptn:meCiCa&gen:fm&num:sg
+mecicót	pos:part&root:cyc&ptn:meCiCa&gen:fm&num:pl
 mecidéḳ	pre:mi&pos:n&root:cyd&ptn:meCiC&gen:ms&num:sg&poss:2femSG
 mecigá	pre:mi&pos:part&root:ycg&ptn:hifil&gen:fm&num:sg
 meciʕá	pre:mi&pos:part&root:ycʕ&ptn:hifil&gen:fm&num:sg
@@ -5251,8 +5251,8 @@ mecíc	pre:mi&pos:part&root:cyc&ptn:hifil&gen:ms&num:sg
 mecíq	pre:mi&pos:part&root:cwq&ptn:hifil&gen:ms&num:sg
 medabrím	pre:mi&pos:part&root:dbr&ptn:piel&gen:ms&num:pl
 medabrót	pre:mi&pos:part&root:dbr&ptn:piel&gen:fm&num:pl
-medabér	pre:mi&pos:part&root:dbr&ptn:meCaCeC&gen:ms&num:sg pre:mi&root:dbr&ptn:meCaCeC&pos:adv
-medabéret	pre:mi&pos:part&root:dbr&ptn:meCaCeC&gen:fm&num:sg
+medabér	pos:part&root:dbr&ptn:meCaCeC&gen:ms&num:sg pre:mi&root:dbr&ptn:meCaCeC&pos:adv
+medabéret	pos:part&root:dbr&ptn:meCaCeC&gen:fm&num:sg
 medafdefím	pre:mi&pos:part&root:dpdp&ptn:piel&gen:ms&num:pl
 medafdéf	pre:mi&pos:part&root:dpdp&ptn:piel&gen:ms&num:sg
 medafdéfet	pre:mi&pos:part&root:dpdp&ptn:piel&gen:fm&num:sg
@@ -5267,30 +5267,30 @@ medod	pre:mi&pos:n&root:dyd&ptn:meCoC&gen:ms&num:sg&stat:unsp
 medurá	pre:mi&pos:n&root:dyr&ptn:meCuCa&gen:fm&num:sg&stat:free
 medurót	pre:mi&pos:n&root:dyr&ptn:meCuCa&gen:fm&num:pl&stat:unsp
 medvaš	pre:mi&pos:n&root:dbš&ptn:meCCaC&gen:ms&num:sg&mass:yes&stat:unsp
-mefacéax	pre:mi&pos:part&root:pcx&ptn:meCaCeC&gen:ms&num:sg
+mefacéax	pos:part&root:pcx&ptn:meCaCeC&gen:ms&num:sg
 mefahéq	pre:mi&pos:part&root:phq&ptn:piel&gen:ms&num:sg
 mefahéqet	pre:mi&pos:part&root:phq&ptn:piel&gen:fm&num:sg
 mefaná	pre:mi&pos:part&root:pny&ptn:piel&gen:fm&num:sg
-mefaréq	pre:mi&pos:part&root:prq&ptn:meCaCeC&gen:ms&num:sg
-mefaréqet	pre:mi&pos:part&root:prq&ptn:meCaCeC&gen:fm&num:sg
-mefaxadím	pre:mi&pos:part&root:pxd&ptn:meCaCaC&gen:ms&num:pl
-mefaxéd	pre:mi&pos:part&root:pxd&ptn:meCaCeC&gen:ms&num:sg
-mefaxédet	pre:mi&pos:part&root:pxd&ptn:meCaCeC&gen:fm&num:sg
-mefazéret	pre:mi&pos:part&root:pzr&ptn:meCaCeC&gen:fm&num:sg
-mefaṣéq	pre:mi&pos:part&root:pṣq&ptn:meCaCeC&gen:ms&num:sg
+mefaréq	pos:part&root:prq&ptn:meCaCeC&gen:ms&num:sg
+mefaréqet	pos:part&root:prq&ptn:meCaCeC&gen:fm&num:sg
+mefaxadím	pos:part&root:pxd&ptn:meCaCaC&gen:ms&num:pl
+mefaxéd	pos:part&root:pxd&ptn:meCaCeC&gen:ms&num:sg
+mefaxédet	pos:part&root:pxd&ptn:meCaCeC&gen:fm&num:sg
+mefazéret	pos:part&root:pzr&ptn:meCaCeC&gen:fm&num:sg
+mefaṣéq	pos:part&root:pṣq&ptn:meCaCeC&gen:ms&num:sg
 mefiqá	pre:mi&pos:part&root:pwq&ptn:hifil&gen:fm&num:sg
 mefuzarím	pre:mi&pos:adj&root:pzr&ptn:meCuCaC&gen:ms&num:pl&src:deverb
-megadélet	pre:mi&pos:part&root:gdl&ptn:meCaCeC&gen:fm&num:sg
+megadélet	pos:part&root:gdl&ptn:meCaCeC&gen:fm&num:sg
 megahéc	pre:mi&pos:part&root:ghc&ptn:piel&gen:ms&num:sg
 megahécet	pre:mi&pos:part&root:ghc&ptn:piel&gen:fm&num:sg
 megalgél	pre:mi&pos:part&root:glgl&ptn:piel&gen:ms&num:sg
 megalgélet	pre:mi&pos:part&root:glgl&ptn:piel&gen:fm&num:sg
-megaléax	pre:mi&pos:part&root:glx&ptn:meCaCeC&gen:ms&num:sg
+megaléax	pos:part&root:glx&ptn:meCaCeC&gen:ms&num:sg
 megardím	pre:mi&pos:part&root:grd&ptn:piel&gen:ms&num:pl
 megardót	pre:mi&pos:adj&root:grd&ptn:meCaCCa&gen:fm&num:pl
-megaréd	pre:mi&pos:part&root:grd&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:adj&root:grd&ptn:meCaCeC&gen:ms&num:sg
-megarédet	pre:mi&pos:part&root:grd&ptn:meCaCeC&gen:fm&num:sg pre:mi&pos:adj&root:grd&ptn:meCaCeC&gen:fm&num:sg
-megaréšet	pre:mi&pos:part&root:grš&ptn:meCaCeC&gen:fm&num:sg
+megaréd	pos:part&root:grd&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:adj&root:grd&ptn:meCaCeC&gen:ms&num:sg
+megarédet	pos:part&root:grd&ptn:meCaCeC&gen:fm&num:sg pre:mi&pos:adj&root:grd&ptn:meCaCeC&gen:fm&num:sg
+megaréšet	pos:part&root:grš&ptn:meCaCeC&gen:fm&num:sg
 megeyrá	pre:mi&pos:n&gen:fm&num:sg&stat:free
 megeyrót	pre:mi&pos:n&gen:fm&num:pl&stat:unsp
 megirá	pre:mi&pos:n&root:gyr&ptn:meCiCa&gen:fm&num:sg&stat:free
@@ -5524,7 +5524,7 @@ mehaṭelewízya	pre:mi&pre:ha&pos:n&gen:fm&num:sg&stat:unsp
 mehaṭeyp	pre:mi&pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 mehaṭiyúl	pre:mi&pre:ha&pos:n&root:ṭyl&ptn:CiCuC&gen:ms&num:sg&stat:unsp
 mehaṭúšim	pre:mi&pre:ha&pos:n&root:ṭyš&ptn:CuC&gen:ms&num:pl&stat:free
-mehem	pre:mi&pro:person&pers:3&gen:ms&num:pl
+mehem	pre:mi&pos:pro_person&pers:3&gen:ms&num:pl
 mehipopoṭám	pre:mi&pos:n&gen:ms&num:sg&stat:unsp
 mehudár	pre:mi&pos:adj&root:hdr&ptn:meCuCaC&gen:ms&num:sg
 mekaxól	pre:mi&pos:adj&root:kxl&ptn:CaCoC&gen:ms&num:sg
@@ -5532,21 +5532,21 @@ mekaʔn	pre:mi&pos:adv
 mekirá	pre:mi&pos:part&root:nkr&ptn:hifil&gen:fm&num:sg
 mekirím	pre:mi&pos:part&root:nkr&ptn:hifil&gen:ms&num:pl
 mekišronót	pre:mi&pos:n&root:šrn&ptn:CCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
-mekoféf	pre:mi&pos:part&root:kpp&ptn:meCoCeC&gen:ms&num:sg
+mekoféf	pos:part&root:kpp&ptn:meCoCeC&gen:ms&num:sg
 mekol	pre:mi&root:kyl&ptn:meCoC&qn:kol
 mekosót	pre:mi&pos:n&root:kys&ptn:meCoCa&gen:fm&num:pl&stat:unsp
-mekulám	pre:mi&root:klm&ptn:meCuCaC&pro:person&pers:3&gen:ms&num:pl
-mekuló	pre:mi&root:kyl&ptn:meCuC&pro:person&pers:3&gen:ms&num:sg
+mekulám	pre:mi&root:klm&ptn:meCuCaC&pos:pro_person&pers:3&gen:ms&num:pl
+mekuló	pre:mi&root:kyl&ptn:meCuC&pos:pro_person&pers:3&gen:ms&num:sg
 mekvar	pre:mi&root:kbr&ptn:meCCaC
 mekésef	pre:mi&pos:n&root:ksp&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 mekír	pre:mi&pos:part&root:nkr&ptn:hifil&gen:ms&num:sg
 melafefoním	pre:mi&pos:n&gen:ms&num:pl&stat:free
 melafefón	pre:mi&pos:n&root:lpp&ptn:meCaCeCon&gen:ms&num:sg&stat:unsp
-melaméd	pre:mi&pos:part&root:lmd&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:n&root:lmd&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
-melamédet	pre:mi&pos:part&root:lmd&ptn:meCaCeC&gen:fm&num:sg
-melaqeqím	pre:mi&pos:part&root:lqq&ptn:meCaCeC&gen:ms&num:pl
-melaqéq	pre:mi&pos:part&root:lqq&ptn:meCaCeC&gen:ms&num:sg
-melaqéqet	pre:mi&pos:part&root:lqq&ptn:meCaCeC&gen:fm&num:sg
+melaméd	pos:part&root:lmd&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:n&root:lmd&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
+melamédet	pos:part&root:lmd&ptn:meCaCeC&gen:fm&num:sg
+melaqeqím	pos:part&root:lqq&ptn:meCaCeC&gen:ms&num:pl
+melaqéq	pos:part&root:lqq&ptn:meCaCeC&gen:ms&num:sg
+melaqéqet	pos:part&root:lqq&ptn:meCaCeC&gen:fm&num:sg
 melawót	pre:mi&pos:part&root:lwy&ptn:piel&gen:fm&num:pl
 melaxút	pre:mi&pos:n&root:lyx&ptn:meCaC&gen:fm&num:sg&stat:unsp
 melaʕaṣót	pre:mi&pre:le~pre:ha&pos:v&root:ʕṣy&ptn:qal&form:inf
@@ -5585,25 +5585,25 @@ menadnédet	pre:mi&pos:adj&gen:fm&num:sg pre:mi&pos:part&root:ndnd&ptn:piel&gen:
 menafnéf	pre:mi&pos:part&root:npnp&ptn:piel&gen:ms&num:sg
 menagním	pre:mi&pos:part&root:ngn&ptn:piel&gen:ms&num:pl
 menagvím	pre:mi&pos:part&root:ngb&ptn:piel&gen:ms&num:pl
-menagén	pre:mi&pos:part&root:ngn&ptn:meCaCeC&gen:ms&num:sg
-menagénet	pre:mi&pos:part&root:ngn&ptn:meCaCeC&gen:fm&num:sg
-menagév	pre:mi&pos:part&root:ngb&ptn:meCaCeC&gen:ms&num:sg
-menagévet	pre:mi&pos:part&root:ngb&ptn:meCaCeC&gen:fm&num:sg
+menagén	pos:part&root:ngn&ptn:meCaCeC&gen:ms&num:sg
+menagénet	pos:part&root:ngn&ptn:meCaCeC&gen:fm&num:sg
+menagév	pos:part&root:ngb&ptn:meCaCeC&gen:ms&num:sg
+menagévet	pos:part&root:ngb&ptn:meCaCeC&gen:fm&num:sg
 menapxím	pre:mi&pos:part&root:npx&ptn:piel&gen:ms&num:pl
-menapéax	pre:mi&pos:part&root:npx&ptn:meCaCeC&gen:ms&num:sg
+menapéax	pos:part&root:npx&ptn:meCaCeC&gen:ms&num:sg
 menaqá	pre:mi&pos:part&root:nqy&ptn:piel&gen:fm&num:sg
 menaqé	pre:mi&pos:part&root:nqy&ptn:piel&gen:ms&num:sg
 menaqím	pre:mi&pos:part&root:nqy&ptn:piel&gen:ms&num:pl
 menasá	pre:mi&pos:part&root:nsy&ptn:piel&gen:fm&num:sg
 menasé	pre:mi&pos:part&root:nsy&ptn:piel&gen:ms&num:sg
 menasím	pre:mi&pos:part&root:nsy&ptn:piel&gen:ms&num:pl
-menaxéšet	pre:mi&pos:part&root:nxš&ptn:meCaCeC&gen:fm&num:sg
-menašéqet	pre:mi&pos:part&root:nšq&ptn:meCaCeC&gen:fm&num:sg
+menaxéšet	pos:part&root:nxš&ptn:meCaCeC&gen:fm&num:sg
+menašéqet	pos:part&root:nšq&ptn:meCaCeC&gen:fm&num:sg
 meneyár	pre:mi&pos:n&root:nyr&ptn:meCeCaC&gen:ms&num:sg&stat:unsp
 menixá	pre:mi&pos:part&root:nwx&ptn:hifil&gen:fm&num:sg
 menixím	pos:part&root:nwx&ptn:hifil&gen:ms&num:pl
 meniyár	pre:mi&pos:n&root:nyr&ptn:meCiCaC&gen:ms&num:sg&stat:unsp
-menoféf	pre:mi&pos:part&root:npp&ptn:meCoCeC&gen:ms&num:sg
+menoféf	pos:part&root:npp&ptn:meCoCeC&gen:ms&num:sg
 menorá	pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:sg&stat:free
 menorót	pre:mi&pos:n&root:nyr&ptn:meCoCa&gen:fm&num:pl&stat:unsp
 menugáv	pre:mi&pos:adj&root:ngb&ptn:meCuCaC&gen:ms&num:sg&src:deverb
@@ -5620,33 +5620,33 @@ mepázel	pre:mi&pos:n&root:pzl&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
 mepíl	pre:mi&pos:part&root:npl&ptn:hifil&gen:ms&num:sg
 mepípi	pre:mi&pos:on
 meqablím	pre:mi&pos:part&root:qbl&ptn:piel&gen:ms&num:pl
-meqabél	pre:mi&pos:part&root:qbl&ptn:meCaCeC&gen:ms&num:sg
-meqabélet	pre:mi&pos:part&root:qbl&ptn:meCaCeC&gen:fm&num:sg
+meqabél	pos:part&root:qbl&ptn:meCaCeC&gen:ms&num:sg
+meqabélet	pos:part&root:qbl&ptn:meCaCeC&gen:fm&num:sg
 meqacrím	pre:mi&pos:part&root:qcr&ptn:piel&gen:ms&num:pl
 meqalfím	pre:mi&pos:part&root:qlp&ptn:piel&gen:ms&num:pl
 meqalqelót	pre:mi&pos:part&root:qlql&ptn:piel&gen:fm&num:pl
 meqalqél	pre:mi&pos:part&root:qlql&ptn:piel&gen:ms&num:sg
 meqalqélet	pre:mi&pos:part&root:qlql&ptn:piel&gen:fm&num:sg
-meqaléf	pre:mi&pos:part&root:qlp&ptn:meCaCeC&gen:ms&num:sg
-meqaléfet	pre:mi&pos:part&root:qlp&ptn:meCaCeC&gen:fm&num:sg
-meqaméṭ	pre:mi&pos:part&root:qmṭ&ptn:meCaCeC&gen:ms&num:sg
-meqaméṭet	pre:mi&pos:part&root:qmṭ&ptn:meCaCeC&gen:fm&num:sg
+meqaléf	pos:part&root:qlp&ptn:meCaCeC&gen:ms&num:sg
+meqaléfet	pos:part&root:qlp&ptn:meCaCeC&gen:fm&num:sg
+meqaméṭ	pos:part&root:qmṭ&ptn:meCaCeC&gen:ms&num:sg
+meqaméṭet	pos:part&root:qmṭ&ptn:meCaCeC&gen:fm&num:sg
 meqaplím	pre:mi&pos:part&root:qpl&ptn:piel&gen:ms&num:pl
-meqapéc	pre:mi&pos:part&root:qpc&ptn:meCaCeC&gen:ms&num:sg
-meqapélet	pre:mi&pos:part&root:qpl&ptn:meCaCeC&gen:fm&num:sg
+meqapéc	pos:part&root:qpc&ptn:meCaCeC&gen:ms&num:sg
+meqapélet	pos:part&root:qpl&ptn:meCaCeC&gen:fm&num:sg
 meqarvím	pre:mi&pos:part&root:qrb&ptn:piel&gen:ms&num:pl
-meqarér	pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
-meqaréret	pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:fm&num:sg
+meqarér	pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg pre:mi&pos:n&root:qrr&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
+meqaréret	pos:part&root:qrr&ptn:meCaCeC&gen:fm&num:sg
 meqaróv	pre:mi&pos:adj&root:qrb&ptn:CaCoC&gen:ms&num:sg
 meqarṭón	pre:mi&pos:n&root:qrṭ&ptn:meCaCCon&gen:ms&num:sg&stat:unsp
 meqawá	pre:mi&pos:part&root:qwy&ptn:piel&gen:fm&num:sg
 meqawé	pre:mi&pos:part&root:qwy&ptn:piel&gen:ms&num:sg
-meqayém	pre:mi&pos:part&root:qym&ptn:meCaCeC&gen:ms&num:sg
+meqayém	pos:part&root:qym&ptn:meCaCeC&gen:ms&num:sg
 meqaš	pre:mi&pos:n&root:qyš&ptn:meCaC&gen:ms&num:sg&stat:unsp
 meqašqešót	pre:mi&pos:part&root:qšqš&ptn:piel&gen:fm&num:pl
 meqašqéš	pre:mi&pos:part&root:qšqš&ptn:piel&gen:ms&num:sg
 meqašqéšet	pre:mi&pos:part&root:qšqš&ptn:piel&gen:fm&num:sg
-meqašéret	pre:mi&pos:part&root:qšr&ptn:meCaCeC&gen:fm&num:sg
+meqašéret	pos:part&root:qšr&ptn:meCaCeC&gen:fm&num:sg
 meqifá	pre:mi&pos:part&root:nqp&ptn:hifil&gen:fm&num:sg
 meqomót	pre:mi&pos:n&root:qym&ptn:meCoCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
 meqor	pre:mi&pos:n&root:qyr&ptn:meCoC&gen:ms&num:sg&mass:yes&stat:unsp
@@ -5660,7 +5660,7 @@ mequláf	pre:mi&pos:adj&root:qlp&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mequléfet	pre:mi&pos:adj&root:qlp&ptn:meCuCeC&gen:fm&num:sg&src:deverb
 mequpál	pre:mi&pos:adj&root:qpl&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 meqódem	pre:mi&root:qdm&ptn:meCoCeC pre:mi&root:qdm&ptn:meCoCeC
-meragéš	pre:mi&pos:part&root:rgš&ptn:meCaCeC&gen:ms&num:sg
+meragéš	pos:part&root:rgš&ptn:meCaCeC&gen:ms&num:sg
 merakéḳet	pre:mi&pos:part&root:rkk&ptn:piel&gen:fm&num:sg
 merapéʔt	pre:mi&pos:n&gen:fm&num:sg&stat:unsp pre:mi&pos:part&root:rpʔ&ptn:piel&gen:fm&num:sg
 merasqím	pre:mi&pos:part&root:rsq&ptn:piel&gen:ms&num:pl
@@ -5671,8 +5671,8 @@ merexóv	pre:mi&pos:n&root:rxb&ptn:meCeCoC&gen:ms&num:sg&stat:unsp
 mericá	pre:mi&pos:part&root:rwc&ptn:hifil&gen:fm&num:sg
 merimá	pre:mi&pos:part&root:rwm&ptn:hifil&gen:fm&num:sg
 merimím	pre:mi&pos:part&root:rwm&ptn:hifil&gen:ms&num:pl
-merixá	pre:mi&pos:part&root:ryx&ptn:meCiCa&gen:fm&num:sg
-merixím	pre:mi&pos:part&root:ryx&ptn:meCiC&gen:ms&num:pl
+merixá	pos:part&root:ryx&ptn:meCiCa&gen:fm&num:sg
+merixím	pos:part&root:ryx&ptn:meCiC&gen:ms&num:pl
 merubaʕím	pre:mi&pos:adj&root:rbʕ&ptn:meCuCaC&gen:ms&num:pl&src:deverb
 merubáʕ	pre:mi&pos:adj&root:rbʕ&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 merucá	pre:mi&pos:n&root:ryc&ptn:meCuCa&gen:fm&num:sg&stat:free pre:mi&pos:adj&root:rcy&ptn:&gen:fm&num:sg&src:deverb
@@ -5688,23 +5688,23 @@ merím	pre:mi&pos:part&root:rwm&ptn:hifil&gen:ms&num:sg
 merúc	pre:mi&pos:n&root:ryc&ptn:meCuC&gen:ms&num:sg&stat:unsp
 mesabón	pre:mi&pos:n&root:syb&ptn:meCaCon&gen:ms&num:sg&stat:unsp
 mesadrím	pre:mi&pos:part&root:sdr&ptn:piel&gen:ms&num:pl
-mesadér	pre:mi&pos:part&root:sdr&ptn:meCaCeC&gen:ms&num:sg
-mesadéret	pre:mi&pos:part&root:sdr&ptn:meCaCeC&gen:fm&num:sg
-mesamén	pre:mi&pos:part&root:smn&ptn:meCaCeC&gen:ms&num:sg
+mesadér	pos:part&root:sdr&ptn:meCaCeC&gen:ms&num:sg
+mesadéret	pos:part&root:sdr&ptn:meCaCeC&gen:fm&num:sg
+mesamén	pos:part&root:smn&ptn:meCaCeC&gen:ms&num:sg
 mesaprím	pre:mi&pos:part&root:spr&ptn:piel&gen:ms&num:pl
-mesapér	pre:mi&pos:part&root:spr&ptn:meCaCeC&gen:ms&num:sg
-mesapéret	pre:mi&pos:part&root:spr&ptn:meCaCeC&gen:fm&num:sg
-mesaréq	pre:mi&pos:part&root:srq&ptn:meCaCeC&gen:ms&num:sg
-mesaréqet	pre:mi&pos:part&root:srq&ptn:meCaCeC&gen:fm&num:sg
+mesapér	pos:part&root:spr&ptn:meCaCeC&gen:ms&num:sg
+mesapéret	pos:part&root:spr&ptn:meCaCeC&gen:fm&num:sg
+mesaréq	pos:part&root:srq&ptn:meCaCeC&gen:ms&num:sg
+mesaréqet	pos:part&root:srq&ptn:meCaCeC&gen:fm&num:sg
 mesavív	pre:mi&root:sbb&ptn:meCaCiC
 mesfog	pre:mi&pos:n&root:spg&ptn:meCCoC&gen:ms&num:sg&stat:unsp
 mesibá	pre:mi&pos:n&root:syb&ptn:meCiCa&gen:fm&num:sg&stat:free
 mesibát	pre:mi&pos:n&root:sb&ptn:meCiCaC&gen:fm&num:sg&stat:cstr
 mesiʕá	pre:mi&pos:part&root:nsʕ&ptn:hifil&gen:fm&num:sg
 mesiṭá	pre:mi&pos:part&root:swṭ&ptn:hifil&gen:fm&num:sg
-mesovevím	pre:mi&pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:pl
-mesovév	pre:mi&pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:sg
-mesovévet	pre:mi&pos:part&root:sbb&ptn:meCoCeC&gen:fm&num:sg
+mesovevím	pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:pl
+mesovév	pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:sg
+mesovévet	pos:part&root:sbb&ptn:meCoCeC&gen:fm&num:sg
 mesraṭím	pre:mi&pos:n&root:srṭ&ptn:CeCeC&gen:ms&num:pl&stat:free
 mesubáḳ	pre:mi&pos:adj&root:sbk&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mesudarím	pre:mi&pos:adj&root:sdr&ptn:meCuCaC&gen:ms&num:pl&src:deverb
@@ -5725,24 +5725,24 @@ mesíaʕ	pre:mi&pos:part&root:nsʕ&ptn:hifil&gen:ms&num:sg
 met	pre:mi&pos:part&root:mwt&ptn:qal&gen:ms&num:sg pre:mi&pos:adj&root:mwt&ptn:tbd&gen:ms&num:sg
 metaqním	pre:mi&pos:part&root:tqn&ptn:piel&gen:ms&num:pl
 metaqtéq	pre:mi&pos:part&root:tqtq&ptn:piel&gen:ms&num:sg
-metaqénet	pre:mi&pos:part&root:tqn&ptn:meCaCeC&gen:fm&num:sg
-metaʔéret	pre:mi&pos:part&root:tʔr&ptn:meCaCeC&gen:fm&num:sg
-metoféfet	pre:mi&pos:part&root:tpp&ptn:meCoCeC&gen:fm&num:sg
+metaqénet	pos:part&root:tqn&ptn:meCaCeC&gen:fm&num:sg
+metaʔéret	pos:part&root:tʔr&ptn:meCaCeC&gen:fm&num:sg
+metoféfet	pos:part&root:tpp&ptn:meCoCeC&gen:fm&num:sg
 metuqá	pre:mi&pos:adj&root:tyq&ptn:meCuCa&root:mtq&ptn:CaCoC&gen:fm&num:sg
 metuqán	pos:adj&root:tqn&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 meturgamím	pre:mi&pos:adj&root:trgm&ptn:meCuCaC&gen:ms&num:pl&src:deverb
 metíz	pre:mi&pos:part&root:nṣg&ptn:hifil&gen:ms&num:sg
 mevalbél	pre:mi&pos:part&root:blbl&ptn:piel&gen:ms&num:sg
 mevalbélet	pre:mi&pos:part&root:blbl&ptn:piel&gen:fm&num:sg
-mevaqéš	pre:mi&pos:part&root:bqš&ptn:meCaCeC&gen:ms&num:sg
-mevaqéšet	pre:mi&pos:part&root:bqš&ptn:meCaCeC&gen:fm&num:sg
+mevaqéš	pos:part&root:bqš&ptn:meCaCeC&gen:ms&num:sg
+mevaqéšet	pos:part&root:bqš&ptn:meCaCeC&gen:fm&num:sg
 mevaqším	pre:mi&pos:part&root:bqš&ptn:piel&gen:ms&num:pl
 mevaréḳet	pre:mi&pos:part&root:brk&ptn:piel&gen:fm&num:sg
 mevarḳím	pre:mi&pos:part&root:brk&ptn:piel&gen:ms&num:pl
 mevašlím	pre:mi&pos:part&root:bšl&ptn:piel&gen:ms&num:pl
-mevašélet	pre:mi&pos:part&root:bšl&ptn:meCaCeC&gen:fm&num:sg
-meviná	pre:mi&pos:part&root:byn&ptn:meCiCa&gen:fm&num:sg pre:mi&pos:adj&root:byn&ptn:meCiCa&gen:fm&num:sg
-meviním	pre:mi&pos:adj&root:byn&ptn:meCiC&gen:ms&num:pl pre:mi&pos:part&root:byn&ptn:meCiC&gen:ms&num:pl
+mevašélet	pos:part&root:bšl&ptn:meCaCeC&gen:fm&num:sg
+meviná	pos:part&root:byn&ptn:meCiCa&gen:fm&num:sg pre:mi&pos:adj&root:byn&ptn:meCiCa&gen:fm&num:sg
+meviním	pre:mi&pos:adj&root:byn&ptn:meCiC&gen:ms&num:pl pos:part&root:byn&ptn:meCiC&gen:ms&num:pl
 meviʔá	pre:mi&pos:part&root:bwʔ&ptn:hifil&gen:fm&num:sg
 meviʔím	pre:mi&pos:part&root:bwʔ&ptn:hifil&gen:ms&num:pl
 mevoréḳet	pre:mi&pos:n&root:brḳ&ptn:meCoCeC&gen:fm&num:sg&stat:unsp
@@ -5754,27 +5754,27 @@ mevušál	pre:mi&pos:adj&root:bšl&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mevín	pre:mi&pos:part&root:byn&ptn:hifil&gen:ms&num:sg
 mevíʔ	pre:mi&pos:part&root:bwʔ&ptn:hifil&gen:ms&num:sg
 mexabrím	pre:mi&pos:part&root:xbr&ptn:piel&gen:ms&num:pl
-mexabéq	pre:mi&pos:part&root:xbq&ptn:meCaCeC&gen:ms&num:sg
-mexabéqet	pre:mi&pos:part&root:xbq&ptn:meCaCeC&gen:fm&num:sg
-mexabéret	pre:mi&pos:part&root:xbr&ptn:meCaCeC&gen:fm&num:sg
+mexabéq	pos:part&root:xbq&ptn:meCaCeC&gen:ms&num:sg
+mexabéqet	pos:part&root:xbq&ptn:meCaCeC&gen:fm&num:sg
+mexabéret	pos:part&root:xbr&ptn:meCaCeC&gen:fm&num:sg
 mexací	pre:mi&pos:num&num:sg&stat:cstr
-mexadedím	pre:mi&pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:pl
+mexadedím	pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:pl
 mexadáš	pre:mi&pos:adv&root:xdš&ptn:meCaCaC& pre:mi&pos:adv&root:xdš&ptn:meCaCaC
-mexadéd	pre:mi&pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:sg
+mexadéd	pos:part&root:xdd&ptn:meCaCeC&gen:ms&num:sg
 mexaká	pre:mi&pos:part&root:xky&ptn:piel&gen:fm&num:sg
 mexaké	pre:mi&pos:part&root:xky&ptn:piel&gen:ms&num:sg
 mexakím	pre:mi&pos:part&root:xky&ptn:piel&gen:ms&num:pl
-mexalél	pre:mi&pos:part&root:xll&ptn:meCaCeC&gen:ms&num:sg
-mexaléq	pre:mi&pos:part&root:xlq&ptn:meCaCeC&gen:ms&num:sg
-mexamemím	pre:mi&pos:part&root:xmm&ptn:meCaCeC&gen:ms&num:pl
-mexamémet	pre:mi&pos:adj&root:xmm&ptn:meCaCeC&gen:fm&num:sg pre:mi&pos:part&root:xmm&ptn:meCaCeC&gen:fm&num:sg
+mexalél	pos:part&root:xll&ptn:meCaCeC&gen:ms&num:sg
+mexaléq	pos:part&root:xlq&ptn:meCaCeC&gen:ms&num:sg
+mexamemím	pos:part&root:xmm&ptn:meCaCeC&gen:ms&num:pl
+mexamémet	pre:mi&pos:adj&root:xmm&ptn:meCaCeC&gen:fm&num:sg pos:part&root:xmm&ptn:meCaCeC&gen:fm&num:sg
 mexaméš	pre:mi&pos:num&root:xmš&ptn:meCaCeC&gen:fm
-mexapéṣ	pre:mi&pos:part&root:xpṣ&ptn:meCaCeC&gen:ms&num:sg
-mexapéṣet	pre:mi&pos:part&root:xpṣ&ptn:meCaCeC&gen:fm&num:sg
+mexapéṣ	pos:part&root:xpṣ&ptn:meCaCeC&gen:ms&num:sg
+mexapéṣet	pos:part&root:xpṣ&ptn:meCaCeC&gen:fm&num:sg
 mexapṣím	pre:mi&pos:part&root:xpṣ&ptn:piel&gen:ms&num:pl
 mexaqá	pre:mi&pos:part&root:xqy&ptn:piel&gen:fm&num:sg
 mexaqé	pre:mi&pos:part&root:xqy&ptn:piel&gen:ms&num:sg
-mexayév	pre:mi&pos:part&root:xyb&ptn:meCaCeC&gen:ms&num:sg
+mexayév	pos:part&root:xyb&ptn:meCaCeC&gen:ms&num:sg
 mexayéḳ	pre:mi&pos:part&root:xyk&ptn:piel&gen:ms&num:sg
 mexayéḳet	pre:mi&pos:part&root:xyk&ptn:piel&gen:fm&num:sg
 mexaʔá	pre:mi&pos:n&root:xyʔ&ptn:meCaCa&gen:fm&num:sg&stat:free
@@ -5792,13 +5792,13 @@ mexumáš	pre:mi&pos:adj&root:xmš&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 mexupéṣet	pre:mi&pos:adj&root:xpṣ&ptn:meCuCeC&gen:fm&num:sg&src:deverb
 mexáq	pre:mi&pos:v&root:mxq&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 mey	pos:n&gen:ms&num:pl&mass:yes&stat:cstr
-meyabévet	pre:mi&pos:part&root:ybb&ptn:meCaCeC&gen:fm&num:sg
-meyabéšet	pre:mi&pos:part&root:ybš&ptn:meCaCeC&gen:fm&num:sg
-meyacév	pre:mi&pos:part&root:ycb&ptn:meCaCeC&gen:ms&num:sg
+meyabévet	pos:part&root:ybb&ptn:meCaCeC&gen:fm&num:sg
+meyabéšet	pos:part&root:ybš&ptn:meCaCeC&gen:fm&num:sg
+meyacév	pos:part&root:ycb&ptn:meCaCeC&gen:ms&num:sg
 meyaldá	pre:mi&pos:n&root:yld&ptn:CeCeC&gen:fm&num:sg&stat:free
-meyalél	pre:mi&pos:part&root:yll&ptn:meCaCeC&gen:ms&num:sg
-meyašér	pre:mi&pos:part&root:yšr&ptn:meCaCeC&gen:ms&num:sg
-meyaʔéš	pre:mi&pos:part&root:yʔš&ptn:meCaCeC&gen:ms&num:sg
+meyalél	pos:part&root:yll&ptn:meCaCeC&gen:ms&num:sg
+meyašér	pos:part&root:yšr&ptn:meCaCeC&gen:ms&num:sg
+meyaʔéš	pos:part&root:yʔš&ptn:meCaCeC&gen:ms&num:sg
 meymiyá	pre:mi&pos:n&root:ymy&ptn:meymiya&gen:fm&num:sg&stat:free
 meyutár	pre:mi&pos:adj&root:ytr&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 meyutéret	pre:mi&pos:adj&root:ytr&ptn:meCuCeC&gen:fm&num:sg&src:deverb
@@ -5808,20 +5808,20 @@ meyuxédet	pre:mi&pos:adj&root:yxd&ptn:meCuCeC&gen:fm&num:sg&src:deverb
 meyḳál	pre:mi&pos:n&root:yḳl&ptn:meCCaC&gen:ms&num:sg&stat:unsp
 mezahá	pre:mi&pos:part&root:zhy&ptn:piel&gen:fm&num:sg
 mezaháv	pre:mi&pos:n&root:zhb&ptn:ahav&gen:ms&num:sg&stat:free
-mezayéfet	pre:mi&pos:part&root:zyp&ptn:meCaCeC&gen:fm&num:sg
+mezayéfet	pos:part&root:zyp&ptn:meCaCeC&gen:fm&num:sg
 meze	pre:mi&pro:dem&pers:3&gen:ms&num:sg
 mezumanót	pre:mi&pos:adj&root:zmn&ptn:&gen:fm&num:pl&src:deverb
 mezíaʕ	pre:mi&pos:part&root:yzʕ&ptn:hifil&gen:ms&num:sg
 mezín	pre:mi&pos:part&root:zwn&ptn:hifil&gen:ms&num:sg pre:mi&pos:adj&gen:ms&num:sg
 mezíz	pre:mi&pos:part&root:zwz&ptn:hifil&gen:ms&num:sg
 mezḳuḳít	pre:mi&pos:n&root:zkk&ptn:mezCuCiC&gen:fm&num:sg&stat:unsp
-mešabéš	pre:mi&pos:part&root:šbš&ptn:meCaCeC&gen:ms&num:sg
+mešabéš	pos:part&root:šbš&ptn:meCaCeC&gen:ms&num:sg
 mešafšéf	pre:mi&pos:part&root:špšp&ptn:piel&gen:ms&num:sg
 mešafšéfet	pre:mi&pos:adj&gen:fm&num:sg
-mešalémet	pre:mi&pos:part&root:šlm&ptn:meCaCeC&gen:fm&num:sg
+mešalémet	pos:part&root:šlm&ptn:meCaCeC&gen:fm&num:sg
 mešam	pre:mi&root:šym&ptn:meCaC
 mešané	pre:mi&pos:part&root:šny&ptn:piel&gen:ms&num:sg
-mešaqér	pre:mi&pos:part&root:šqr&ptn:meCaCeC&gen:ms&num:sg
+mešaqér	pos:part&root:šqr&ptn:meCaCeC&gen:ms&num:sg
 mešaʕamém	pre:mi&pos:adj&root:šʕmm&ptn:me^qat&gen:ms&num:sg&src:deverb
 mešel	pre:mi&pos:prep
 mešeláḳ	pre:mi&pos:prep&pers:2&gen:fm&num:sg
@@ -5841,9 +5841,9 @@ mešuxréret	pre:mi&pos:adj&root:šxrr&ptn:meCuCaC&gen:fm&num:sg&src:deverb
 mešušé	pre:mi&pos:n&gen:ms&num:sg&stat:unsp
 mešéqel	pre:mi&pos:n&root:šql&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 meʔambáṭya	pre:mi&pos:n&gen:fm&num:sg&stat:unsp
-meʔatá	pre:mi&root:ʔyt&ptn:meCaCa&pro:person&pers:2&gen:ms&num:sg
+meʔatá	pre:mi&root:ʔyt&ptn:meCaCa&pos:pro_person&pers:2&gen:ms&num:sg
 meʔawrér	pre:mi&pos:n&gen:ms&num:sg&stat:unsp
-meʔaxarót	pre:mi&pos:part&root:ʔxr&ptn:meCaCaCa&gen:fm&num:pl
+meʔaxarót	pos:part&root:ʔxr&ptn:meCaCaCa&gen:fm&num:pl
 meʔaxoranít	pre:mi&pos:adv&root:ʔxr&ptn:meCaCoCan& pre:mi&root:ʔxr&ptn:meCaCoCanitpre:mi pre:mi&pos:adv&root:ʔxr&ptn:meCaCoCanit
 meʔaxoráy	pre:mi&root:ʔxr&ptn:meCaCoC&pos:prep&pers:1&gen:unsp&num:sg
 meʔaxoráyiḳ	pre:mi&pos:prep&pers:2&gen:fm&num:sg
@@ -5854,7 +5854,7 @@ meʔaxóra	pre:mi&pos:adv&root:ʔxr&ptn:meCaCoCa& pre:mi&pos:adv&root:ʔxr&ptn:m
 meʔaymím	pre:mi&pos:part&root:ʔym&ptn:piel&gen:ms&num:pl
 meʔayéd	pre:mi&pos:n&root:ʔyd&ptn:meCaCeC&gen:ms&num:sg&stat:unsp
 meʔaz	pre:mi&pos:adv
-meʔašér	pre:mi&pos:part&root:ʔšr&ptn:meCaCeC&gen:ms&num:sg
+meʔašér	pos:part&root:ʔšr&ptn:meCaCeC&gen:ms&num:sg
 meʔetmól	pre:mi&pos:adv
 meʔexád	pre:mi&pos:num&root:ʔxd&ptn:meCeCaC&gen:ms&num:sg&stat:unsp
 meʔiš	pre:mi&pos:n&root:ʔyš&ptn:meCiC&gen:ms&num:sg&stat:unsp
@@ -5865,7 +5865,7 @@ meʔuxéret	pre:mi&pos:adj&root:ʔxr&ptn:meCuCeC&gen:fm&num:sg&src:deverb
 meʔuḳzáv	pre:mi&pos:adj&root:ʔkzb&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 meʔábaʔ	pre:mi&pos:n&root:ʔbʔ&ptn:meCaCaC&gen:ms&num:sg&stat:free
 meʔáyin	pre:mi&pos:que
-meʔéyfo	pre:mi&pro:person&pers:3&gen:ms&num:sg pre:mi&pos:que
+meʔéyfo	pre:mi&pos:pro_person&pers:3&gen:ms&num:sg pre:mi&pos:que
 meʔéyze	pre:mi&pos:que&gen:ms
 meʔímaʔ	pre:mi&pos:n&root:ʔmʔ&ptn:meCiCaC&gen:fm&num:sg&stat:free
 meʔír	pre:mi&pos:part&root:ʔwr&ptn:hifil&gen:ms&num:sg
@@ -5912,13 +5912,13 @@ meḳonát	pre:mi&pos:n&root:ḳn&ptn:meCoCaC&gen:fm&num:sg&stat:cstr pre:mi&pos
 meḳonít	pre:mi&pos:n&root:ḳnt&ptn:meCoCiC&gen:fm&num:sg&stat:unsp
 meḳusé	pre:mi&pos:adj&root:ksy&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 meḳín	pre:mi&pos:part&root:kwn&ptn:hifil&gen:ms&num:sg pre:mi&pre:le
-meṣaméax	pre:mi&pos:part&root:ṣmx&ptn:meCaCeC&gen:ms&num:sg
+meṣaméax	pos:part&root:ṣmx&ptn:meCaCeC&gen:ms&num:sg
 meṣarṭéṭet	pre:mi&pos:part&root:ṣrṭṭ&ptn:piel&gen:fm&num:sg
-meṣaxaqót	pre:mi&pos:part&root:ṣxq&ptn:meCaCaCa&gen:fm&num:pl
-meṣaxqím	pre:mi&root:ṣxq&ptn:meCaCC&pro:person&pers:3&gen:ms&num:pl pre:mi&pos:part&root:ṣxq&ptn:piel&gen:ms&num:pl
+meṣaxaqót	pos:part&root:ṣxq&ptn:meCaCaCa&gen:fm&num:pl
+meṣaxqím	pre:mi&root:ṣxq&ptn:meCaCC&pos:pro_person&pers:3&gen:ms&num:pl pre:mi&pos:part&root:ṣxq&ptn:piel&gen:ms&num:pl
 meṣaxqót	pre:mi&pos:part&root:ṣxq&ptn:piel&gen:fm&num:pl
-meṣaxéq	pre:mi&pos:part&root:ṣxq&ptn:meCaCeC&gen:ms&num:sg
-meṣaxéqet	pre:mi&pos:part&root:ṣxq&ptn:meCaCeC&gen:fm&num:sg
+meṣaxéq	pos:part&root:ṣxq&ptn:meCaCeC&gen:ms&num:sg
+meṣaxéqet	pos:part&root:ṣxq&ptn:meCaCeC&gen:fm&num:sg
 meṣde	pre:mi&pos:n&gen:fm&num:sg&stat:cstr
 meṣmóʔl	pre:mi&pos:n&root:ṣmʔl&ptn:meṣCoCC&gen:ms&num:sg&mass:yes&stat:unsp
 meṣoxaxót	pre:mi&pos:part&root:ṣwx&ptn:piel&gen:fm&num:pl
@@ -5930,12 +5930,12 @@ meṭalfén	pre:mi&pos:part&root:ṭlpn&ptn:piel&gen:ms&num:sg
 meṭalpénet	pre:mi&pos:part&root:ṭlpn&ptn:piel&gen:fm&num:sg
 meṭamṭém	pre:mi&pos:part&root:ṭmṭm&ptn:piel&gen:ms&num:sg
 meṭapsím	pre:mi&pos:part&root:ṭps&ptn:piel&gen:ms&num:pl
-meṭapél	pre:mi&pos:part&root:ṭpl&ptn:meCaCeC&gen:ms&num:sg
-meṭapélet	pre:mi&pos:part&root:ṭpl&ptn:meCaCeC&gen:fm&num:sg
-meṭapés	pre:mi&pos:part&root:ṭps&ptn:meCaCeC&gen:ms&num:sg
-meṭapéset	pre:mi&pos:part&root:ṭps&ptn:meCaCeC&gen:fm&num:sg
-meṭayél	pre:mi&pos:part&root:ṭyl&ptn:meCaCeC&gen:ms&num:sg
-meṭayélet	pre:mi&pos:part&root:ṭyl&ptn:meCaCeC&gen:fm&num:sg
+meṭapél	pos:part&root:ṭpl&ptn:meCaCeC&gen:ms&num:sg
+meṭapélet	pos:part&root:ṭpl&ptn:meCaCeC&gen:fm&num:sg
+meṭapés	pos:part&root:ṭps&ptn:meCaCeC&gen:ms&num:sg
+meṭapéset	pos:part&root:ṭps&ptn:meCaCeC&gen:fm&num:sg
+meṭayél	pos:part&root:ṭyl&ptn:meCaCeC&gen:ms&num:sg
+meṭayélet	pos:part&root:ṭyl&ptn:meCaCeC&gen:fm&num:sg
 meṭaʔṭéʔ	pre:mi&pos:part&root:ṭʔṭʔ&ptn:piel&gen:ms&num:sg
 meṭaʔṭʔá	pre:mi&pos:part&root:ṭʔṭʔ&ptn:piel&gen:fm&num:sg
 meṭiyúl	pre:mi&pos:n&root:ṭyl&ptn:meCiCuC&gen:ms&num:sg&stat:unsp
@@ -5983,7 +5983,7 @@ milúy	pre:mi&pos:n&root:lyy&ptn:miCuC&gen:ms&num:sg&stat:unsp
 mimaqóm	pre:mi&pos:n&root:mqm&ptn:miCaCoC&gen:ms&num:sg&stat:free
 mimatáy	pre:mi&pos:que&root:myt&ptn:miCaC
 mimaṣaʔít	pre:mi&pos:n&gen:fm&num:sg&stat:unsp
-mimeqarér	pre:mi&pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
+mimeqarér	pre:mi&pos:part&root:qrr&ptn:meCaCeC&gen:ms&num:sg
 mimi	pre:mi&pre:mi&pos:que
 mimizmán	pre:mi&pre:mi&pos:adv pre:mi&pre:mi&pos:adv
 mimxaṭá	pre:mi&pos:n&root:mxṭ&ptn:miCCaCa&gen:fm&num:sg&stat:free
@@ -6003,7 +6003,7 @@ mináylon	pre:mi&pos:n&gen:ms&num:sg&stat:unsp
 minéy	pre:mi&pos:n&gen:ms&num:pl&stat:cstr
 miplásṭiq	pre:mi&pos:n&gen:ms&num:sg&stat:unsp
 mipnéy	pre:mi&pos:prep
-mipo	pre:mi&pos:adv pre:mi&pro:person&pers:2&gen:ms&num:sg
+mipo	pre:mi&pos:adv pre:mi&pos:pro_person&pers:2&gen:ms&num:sg
 mipó	pre:mi&pos:adv& pre:mi&pos:adv
 miqaróv	pre:mi&pos:adv&root:qrb&ptn:miCaCoC& pre:mi&pos:adv&root:qrb&ptn:miCaCoC
 miqarṭón	pre:mi&pos:n&root:qrṭ&ptn:miCaCCon&gen:ms&num:sg&stat:unsp
@@ -6435,11 +6435,11 @@ naʕál	pos:v&root:nʕl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 naʕált	pos:v&root:nʕl&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 naʕálta	pos:v&root:nʕl&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 naʕíf	pos:v&root:ʕwp&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
-naʕím	&pos:prep:pro&pers:2&gen:fm&num:sg pos:adj&root:nʕm&ptn:CaCiC&gen:ms&num:sg
+naʕím	pos:prep:pro&pers:2&gen:fm&num:sg pos:adj&root:nʕm&ptn:CaCiC&gen:ms&num:sg
 naʕúl	pos:adj&root:nʕl&ptn:CaCuC&gen:ms&num:sg
 naḳnís	pos:v&root:kns&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
 naḳín	pos:v&root:kwn&ptn:hifil&tense:fut&pers:1&gen:unsp&num:pl
-naḳón	root:nyḳ&ptn:CaCon&pro:dem&pers:3&gen:fm&num:sg root:nyḳ&ptn:CaCon&pre:we pos:adj&root:nkn&ptn:CaCoCgen:ms&num:sg root:nyḳ&ptn:CaCon&pro:person&pers:2&gen:fm&num:sg pos:co root:nyḳ&ptn:CaCon&pos:adv root:nyḳ&ptn:CaCon&pro:person&pers:3&gen:ms&num:sg
+naḳón	root:nyḳ&ptn:CaCon&pro:dem&pers:3&gen:fm&num:sg root:nyḳ&ptn:CaCon&pre:we pos:adj&root:nkn&ptn:CaCoC&gen:ms&num:sg root:nyḳ&ptn:CaCon&pos:pro_person&pers:2&gen:fm&num:sg pos:co root:nyḳ&ptn:CaCon&pos:adv root:nyḳ&ptn:CaCon&pos:pro_person&pers:3&gen:ms&num:sg
 naṣím	pos:v&root:ṣym&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 naṭá	pos:v&root:nṭy&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 necalcél	pos:v&root:clcl&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
@@ -6835,8 +6835,8 @@ pamóṭ	pos:n&root:pmṭ&ptn:CaCoC&gen:ms&num:sg&stat:unsp
 panasím	pos:n&root:pns&ptn:CaCaC&gen:ms&num:pl&stat:free
 pantér	pos:n&gen:ms&num:sg&stat:unsp
 panás	pos:n&root:pns&ptn:CaCaC&gen:ms&num:sg&stat:unsp
-panéynu	pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&poss:1PL
-paním	pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
+panéynu	pos:n&root:pny&ptn:CaCaC&gen:ms&num:pl&mass:yes&poss:1PL
+paním	pos:n&root:pyn&ptn:CaCaC&gen:ms&num:pl&mass:yes&stat:free
 panú	pos:v&root:pny&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 par	pos:n&root:pyr&ptn:CaC&gen:ms&num:sg&stat:unsp
 parciflóḳ	pos:adj&gen:ms&num:sg
@@ -6881,7 +6881,7 @@ paṭíš	pos:n&root:pṭš&ptn:CaCiC&gen:ms&num:sg&stat:unsp pos:on&root:pṭš
 pcaʕím	pos:n&root:pcʕ&ptn:CCaC&root:nzq&ptn:CeCeC&gen:ms&num:pl&stat:free
 pcirá	pos:n&root:pcr&ptn:CCiCa&gen:fm&num:sg&stat:free
 pe	pos:n&gen:ms&num:sg&stat:unsp
-pen	&conj:pen
+pen	conj:pen
 pepíṭa	pos:n&root:ppṭ&ptn:CeCiCa&gen:fm&num:sg&stat:unsp
 perqá	pos:v&root:prq&ptn:piel&tense:past&pers:3&gen:fm&num:sg
 peráqt	pos:v&root:prq&ptn:CeCaC&tense:past&pers:2&gen:fm&num:sg
@@ -7088,13 +7088,13 @@ qaṭ	pos:adj&root:qyṭ&ptn:CaC&root:qṭn&gen:ms&num:sg
 qaṭalóg	pos:n&gen:ms&num:sg&stat:unsp
 qaṭfú	pos:v&root:qṭp&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 qaṭáf	pos:v&root:qṭp&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-qaṭán	pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
+qaṭán	pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:sg
 qaṭáni	root:qyṭ&ptn:CaCan&a:dim&gen:ms&num:sg
 qaṭánçiq	root:qyṭ&ptn:CaCan&a:dim&gen:ms&num:sg
 qaṭár	pos:n&root:qṭr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 qcará	pos:adj&root:qcr&ptn:CaCaC&gen:fm&num:sg
 qcarím	pos:n&root:qcr&ptn:CeCeC&gen:ms&num:pl&stat:free
-qcat	pos:adj&root:qct&ptn:CCaC&root:dmy&ptn:CoCeC&gen:ms&num:sg&src:deverb pos:adj&root:xly&ptn:CoCeCgen:fm&num:sg&src:deverb
+qcat	pos:adj&root:qct&ptn:CCaC&root:dmy&ptn:CoCeC&gen:ms&num:sg&src:deverb pos:adj&root:xly&ptn:CoCeC&gen:fm&num:sg&src:deverb
 qcawót	pos:n&root:qcw&ptn:CCaCa&gen:ms&num:pl&pl:fem:mis&stat:free
 qce	pos:n&gen:ms&num:sg&stat:cstr
 qcicá	pos:n&root:qcc&ptn:CCiCa&gen:fm&num:sg&stat:free
@@ -7377,7 +7377,7 @@ roʕéš	pos:part&root:rʕš&ptn:qal&gen:ms&num:sg
 roḳvím	pos:part&root:rkb&ptn:qal&gen:ms&num:pl
 roḳév	pos:part&root:rkb&ptn:qal&gen:ms&num:sg
 roḳévet	pos:part&root:rkb&ptn:qal&gen:fm&num:sg
-rubám	root:rbm&ptn:CuCaC&pro:person&pers:3&gen:ms&num:pl
+rubám	root:rbm&ptn:CuCaC&pos:pro_person&pers:3&gen:ms&num:pl
 ruc	pos:v&root:rwc&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 ráca	pos:v&root:rwc&ptn:qal&tense:past&pers:3&gen:fm&num:sg pos:part&root:rwc&ptn:qal&gen:fm&num:sg
 rácnu	pos:v&root:rwc&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
@@ -7649,7 +7649,7 @@ talúl	pos:adj&root:tll&ptn:CaCuC&gen:ms&num:sg
 talúy	pos:adj&root:tly&ptn:CaCuC&gen:ms&num:sg&src:deverb
 talšá	pos:v&root:tlš&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 tamrurím	pos:n&gen:ms&num:pl&stat:free
-tamíd	&pos:adv
+tamíd	pos:adv
 tamšíḳ	pos:v&root:mšk&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 tamšíḳi	pos:v&root:mšk&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tan	pos:n&root:tyn&ptn:tanQaL&gen:ms&num:sg&stat:unsp
@@ -7763,7 +7763,7 @@ tašir	root:šyr&ptn:taQiL&acc:det&
 taškívi	pos:v&root:škb&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tašlími	pos:v&root:šlm&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 tašxíli	pos:v&root:šxl&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
-tašír	&n:prop|Númi_númi pos:v&root:šyr&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
+tašír	n:prop|Númi_númi pos:v&root:šyr&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 tašíri	pos:v&root:šyr&ptn:qal&tense:fut&pers:2&gen:fm&num:sg
 tašʔír	pos:v&root:šʔr&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
 tašʔíri	pos:v&root:šʔr&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
@@ -8244,7 +8244,7 @@ ulešalóm	pre:le&pos:n&root:šlm&ptn:CaCoC&pre:we&gen:ms&num:sg&stat:free
 umargišá	pos:part&root:rgš&ptn:CCiCa&pre:we&ptn:hifil&gen:fm&num:sg
 umelaḳléḳet	pre:mi&pos:part&pre:we&root:lklk&ptn:piel&gen:fm&num:sg
 umexaká	pre:mi&pos:part&pre:we&root:xky&ptn:&gen:fm&num:sg
-umeʔayémet	pre:mi&pos:part&root:ʔym&ptn:meCaCeC&pre:we&ptn:piel&gen:fm&num:sg
+umeʔayémet	pos:part&root:ʔym&ptn:meCaCeC&pre:we&ptn:piel&gen:fm&num:sg
 umeʕarbevím	pre:mi&pos:part&pre:we&root:ʕrbb&ptn:piel&gen:ms&num:pl
 umeḳiním	pre:mi&pos:part&pre:we&root:kwn&ptn:&gen:ms&num:pl
 umityapé	pos:part&pre:we&root:ypy&ptn:hitpael&gen:ms&num:sg
@@ -8261,7 +8261,7 @@ watranít	pos:n&root:wtr&ptn:CaCCan&gen:fm&num:sg&stat:unsp
 waw	pos:n&root:wyw&ptn:CaC&gen:ms&num:sg&stat:unsp
 waxéci	pos:num&pre:we&num:sg&stat:unsp
 wayéled	pos:n&root:yld&ptn:CeCeC&pre:we&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-waʔaní	&pre:we&pro:person&pers:1&num:sg
+waʔaní	pre:we&pos:pro_person&pers:1&num:sg
 waʔeš	pos:n&pre:we&gen:fm&num:sg&mass:yes&stat:unsp
 waʔóšer	pos:n&root:ʔšr&ptn:CóCeeC&pre:we&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 webabaloním	pre:we&pre:be~pre:ha&pos:n&root:bln&ptn:CaCoC&gen:ms&num:pl&stat:free
@@ -8530,8 +8530,8 @@ wehaṭeyp	pre:we&pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 wehaṭová	pre:we&pre:ha&pos:n&root:ṭwb&ptn:CoCa&gen:fm&num:sg&stat:free pre:we&pre:ha&pos:adj&root:ṭwb&ptn:CoCa&root:ṭwb&gen:fm&num:sg
 wehaṭúsiq	pre:we&pre:ha&pos:n&root:ṭsq&ptn:CuCiC&gen:ms&num:sg&stat:unsp
 wehegíš	pre:we&pos:v&root:ngš&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
-wehem	pre:we&pro:person&pers:3&gen:ms&num:pl pre:we&pos:cop&tense:present&pers:3&gen:ms&num:pl
-wehen	pre:we&pro:person&pers:3&gen:fm&num:pl
+wehem	pre:we&pos:pro_person&pers:3&gen:ms&num:pl pre:we&pos:cop&tense:present&pers:3&gen:ms&num:pl
+wehen	pre:we&pos:pro_person&pers:3&gen:fm&num:pl
 wehetíz	pre:we&pos:v&root:nṣg&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 wehevíʔ	pre:we&pos:v&root:bwʔ&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 wehevíʔa	pre:we&pos:v&root:bwʔ&ptn:hifil&tense:past&pers:3&gen:fm&num:sg
@@ -8567,7 +8567,7 @@ wehitʕaṭášt	pre:we&pos:v&root:ʕṭš&ptn:hitpael&tense:past&pers:2&gen:fm&
 wehizríqu	pre:we&pos:v&root:zrq&ptn:hifil&tense:past&pers:3&gen:unsp&num:pl
 wehišqét	pre:we&pos:v&root:šqy&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 wehišqéti	pre:we&pos:v&root:šqy&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
-wehiʔ	pre:we&pro:person&pers:3&gen:fm&num:sg pre:we&pro:person&pers:3&gen:fm&num:sg pre:we&pro:person&pers:3&gen:fm&num:sg
+wehiʔ	pre:we&pos:pro_person&pers:3&gen:fm&num:sg pre:we&pos:pro_person&pers:3&gen:fm&num:sg pre:we&pos:pro_person&pers:3&gen:fm&num:sg
 wehocíʔ	pre:we&pos:v&root:ycʔ&ptn:hifil&tense:past&pers:3&gen:ms&num:sg
 weholéḳ	pre:we&pos:part&root:hlk&ptn:qal&gen:ms&num:sg pre:we&pos:part&root:hlk&ptn:qal&gen:ms&num:sg
 weholéḳet	pre:we&pos:part&root:hlk&ptn:qal&gen:fm&num:sg pre:we&pos:part&root:hlk&ptn:qal&gen:fm&num:sg
@@ -8577,8 +8577,8 @@ wehop	pre:we&pos:co
 wehops	pre:we&pos:co&
 wehorádet	pre:we&pos:v&root:yrd&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 wehorés	pre:we&pos:part&root:hrs&ptn:qal&gen:ms&num:sg
-wehuʔ	pre:we&root:hwʔ&ptn:CuC&pro:person&pers:3&gen:ms&num:sg pre:we&root:hwʔ&ptn:CuC&pro:person&pers:3&gen:ms&num:sg
-wehíne	pre:we&pos:part&root:bwʔ&ptn:qal&gen:ms&num:pl-ím pre:we&pos:n&pre:ha&gen:fm&num:sg&stat:free pre:we&pos:co
+wehuʔ	pre:we&root:hwʔ&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg pre:we&root:hwʔ&ptn:CuC&pos:pro_person&pers:3&gen:ms&num:sg
+wehíne	pre:we&pos:part&root:bwʔ&ptn:qal&gen:ms&num:pl pre:we&pos:n&pre:ha&gen:fm&num:sg&stat:free pre:we&pos:co
 wekadúr	pre:we&pos:n&root:kdr&ptn:CaCuC&gen:ms&num:sg&stat:unsp
 wekapít	pre:we&pos:n&root:kpt&ptn:CaCiC&gen:fm&num:sg&stat:unsp
 wekarṭís	pre:we&pos:n&gen:ms&num:sg&stat:unsp
@@ -8598,8 +8598,8 @@ weklum	pre:we&root:klm&ptn:CCuC&n:indef&
 wekol	pre:we&root:kyl&ptn:CoC
 wekos	pre:we&pos:n&root:kys&ptn:CoC&gen:fm&num:sg&stat:unsp
 wekoʔév	pre:we&pos:part&root:kʔv&ptn:qal&gen:ms&num:sg
-wekulám	pre:we&root:klm&ptn:CuCaC&pro:person&pers:3&gen:ms&num:pl
-wekulánu	pre:we&root:kyl&ptn:CuCan&pro:person&pers:1&gen:unsp&num:pl
+wekulám	pre:we&root:klm&ptn:CuCaC&pos:pro_person&pers:3&gen:ms&num:pl
+wekulánu	pre:we&root:kyl&ptn:CuCan&pos:pro_person&pers:1&gen:unsp&num:pl
 wekvar	pre:we&root:kbr&ptn:CCaC
 wekáḳa	pre:we&root:kyḳ&ptn:CaCa&pos:adv pre:we&pos:adv&root:kyḳ&ptn:CaCa
 wekélev	pre:we&pos:n&root:klb&ptn:CeCeC&gen:ms&num:sg&stat:unsp
@@ -8617,7 +8617,7 @@ weladúbi	pre:we&pre:le~pre:ha&dim:yes&root:dyb&ptn:CuC&gen:ms&num:sg&stat:free
 welagan	pre:we&pre:le~pre:ha&pos:n&root:gyn&ptn:CaC&gen:ms&num:sg&stat:unsp
 welaléḳet	pre:we&pre:le~pre:ha&pos:v&root:hlk&ptn:qal&form:inf
 welamáyim	pre:we&pre:le~pre:ha&pos:n&gen:ms&num:pl&mass:yes&stat:free
-welapaním	pre:we&pre:le~pre:ha&pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
+welapaním	pre:we&pre:le~pre:ha&pos:n&root:pny&ptn:CaCaC&gen:ms&num:pl&mass:yes&stat:free
 welaqxá	pre:we&pos:v&root:lqx&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 welaqáx	pre:we&pos:v&root:lqx&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 welaqúm	pre:we&pre:le~pre:ha&pos:v&root:qwm&ptn:qal&form:inf
@@ -8625,7 +8625,7 @@ welarédet	pre:we&pre:le~pre:ha&pos:v&root:yrd&ptn:qal&form:inf
 welasafáʔri	pre:we&pre:le~pre:ha&pos:n&gen:ms&num:sg&stat:unsp
 welasusá	pre:we&pre:le~pre:ha&pos:n&root:sys&ptn:CuCa&gen:fm&num:sg&stat:free
 welatét	pre:we&pre:le~pre:ha&pos:v&root:ntn&ptn:qal&form:inf
-welaván	pre:we&pos:adj&root:lbn&ptn:CaCaCgen:ms&num:sg
+welaván	pre:we&pos:adj&root:lbn&ptn:CaCaC&gen:ms&num:sg
 welavóʔ	pre:we&pre:le~pre:ha&pos:v&root:bwʔ&ptn:qal&form:inf
 welaxatulím	pre:we&pre:le~pre:ha&pos:n&root:xtl&ptn:CaCuC&gen:ms&num:pl&pl:masc:bio&stat:free
 welaxfóf	pre:we&pre:le~pre:ha&pos:v&root:xpp&ptn:CCoC&form:inf
@@ -8682,7 +8682,7 @@ welesábaʔ	pre:we&pre:le&pos:n&root:sbʔ&ptn:CaCaC&gen:ms&num:sg&stat:free
 welesáfti	pre:we&pre:le&dim:yes&root:spt&ptn:CaCC&gen:fm&num:sg&stat:free
 welesávtaʔ	pre:we&pre:le&pos:n&gen:fm&num:sg&stat:free
 weletóḳ	pre:we&pre:le
-welevaná	pre:we&pre:le&pos:adj&root:lbn&ptn:CaCaCgen:fm&num:sg
+welevaná	pre:we&pre:le&pos:adj&root:lbn&ptn:CaCaC&gen:fm&num:sg
 welevaním	pre:we&pre:le&pos:n&root:byn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
 weleycán	pre:we&pre:le&pos:n&gen:ms&num:sg&stat:unsp
 weleycáni	pre:we&pre:le&dim:yes&gen:ms&num:sg&stat:free
@@ -8772,26 +8772,26 @@ wemaṭós	pre:we&pos:n&root:mṭs&ptn:CaCoC&gen:ms&num:sg&stat:free
 wemebeyt	pre:we&pre:mi&pre:be&pos:n&gen:ms&num:sg&stat:cstr
 wemecaxcéax	pre:we&pre:mi&pos:part&root:cxcx&ptn:piel&gen:ms&num:sg
 wemeciʕá	pre:we&pre:mi&pos:n&root:cyʕ&ptn:meCiCa&gen:fm&num:sg&stat:free
-wemedabéret	pre:we&pre:mi&pos:part&root:dbr&ptn:meCaCeC&gen:fm&num:sg
+wemedabéret	pre:we&pos:part&root:dbr&ptn:meCaCeC&gen:fm&num:sg
 wemefoʔár	pre:we&pre:mi&pos:adj&root:pʔr&ptn:meCoCaC&gen:ms&num:sg&src:deverb
 wemegardím	pre:we&pre:mi&pos:part&root:grd&ptn:piel&gen:ms&num:pl
 wemelafefoním	pre:we&pre:mi&pos:n&gen:ms&num:pl&stat:free
 wemelafefón	pre:we&pre:mi&pos:n&root:lpp&ptn:meCaCeCon&gen:ms&num:sg&stat:unsp
 wemenagvím	pre:we&pre:mi&pos:part&root:ngb&ptn:piel&gen:ms&num:pl
 wemenasá	pre:we&pre:mi&pos:part&root:nsy&ptn:piel&gen:fm&num:sg
-wemeqabél	pre:we&pre:mi&pos:part&root:qbl&ptn:meCaCeC&gen:ms&num:sg
+wemeqabél	pre:we&pos:part&root:qbl&ptn:meCaCeC&gen:ms&num:sg
 wemeqarqér	pre:we&pre:mi&pos:part&root:qrqr&ptn:piel&gen:ms&num:sg
 wemeqarṭón	pre:we&pre:mi&pos:n&root:qrṭ&ptn:meCaCCon&gen:ms&num:sg&stat:unsp
 wemerapéʔt	pre:we&pre:mi&pos:n&gen:fm&num:sg&stat:unsp
 wemerubaʕím	pre:we&pre:mi&pos:adj&root:rbʕ&ptn:meCuCaC&gen:ms&num:pl&src:deverb
-wemesadéret	pre:we&pre:mi&pos:part&root:sdr&ptn:meCaCeC&gen:fm&num:sg
-wemesapéret	pre:we&pre:mi&pos:part&root:spr&ptn:meCaCeC&gen:fm&num:sg
-wemesovév	pre:we&pre:mi&pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:sg
+wemesadéret	pre:we&pos:part&root:sdr&ptn:meCaCeC&gen:fm&num:sg
+wemesapéret	pre:we&pos:part&root:spr&ptn:meCaCeC&gen:fm&num:sg
+wemesovév	pre:we&pos:part&root:sbb&ptn:meCoCeC&gen:ms&num:sg
 wemesudár	pre:we&pre:mi&pos:adj&root:sdr&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 wemetuqá	pre:we&pre:mi&pos:adj&root:tyq&ptn:meCuCa&root:mtq&ptn:CaCoC&gen:fm&num:sg
-wemevaqéšet	pre:we&pre:mi&pos:part&root:bqš&ptn:meCaCeC&gen:fm&num:sg
+wemevaqéšet	pre:we&pos:part&root:bqš&ptn:meCaCeC&gen:fm&num:sg
 wemeviʔá	pre:we&pre:mi&pos:part&root:bwʔ&ptn:hifil&gen:fm&num:sg
-wemexabéqet	pre:we&pre:mi&pos:part&root:xbq&ptn:meCaCeC&gen:fm&num:sg
+wemexabéqet	pre:we&pos:part&root:xbq&ptn:meCaCeC&gen:fm&num:sg
 wemexaké	pre:we&pre:mi&pos:part&root:xky&ptn:piel&gen:ms&num:sg
 wemeyuxád	pre:we&pre:mi&pos:adj&root:yxd&ptn:meCuCaC&gen:ms&num:sg&src:deverb
 wemeze	pre:we&pre:mi&pro:dem&pers:3&gen:ms&num:sg
@@ -8807,8 +8807,8 @@ wemeʕarbevím	pre:we&pre:mi&pos:part&root:ʕrbb&ptn:piel&gen:ms&num:pl
 wemeʕál	pre:we&pre:mi&pos:prep&root:ʕyl&ptn:meCaC
 wemeḳasá	pre:we&pre:mi&pos:part&root:ksy&ptn:piel&gen:fm&num:sg
 wemeṣaxqím	pre:we&pre:mi&pos:part&root:ṣxq&ptn:piel&gen:ms&num:pl
-wemeṣaxéq	pre:we&pre:mi&pos:part&root:ṣxq&ptn:meCaCeC&gen:ms&num:sg
-wemeṣaxéqet	pre:we&pre:mi&pos:part&root:ṣxq&ptn:meCaCeC&gen:fm&num:sg
+wemeṣaxéq	pre:we&pos:part&root:ṣxq&ptn:meCaCeC&gen:ms&num:sg
+wemeṣaxéqet	pre:we&pos:part&root:ṣxq&ptn:meCaCeC&gen:fm&num:sg
 wemikol	pre:we&pre:mi&pos:qn&root:kyl&ptn:miCoC
 wemin	pre:we&pre:mi&pos:prep
 wemiskená	pre:we&pre:mi&pos:adj&root:skn&ptn:miCCeCa&root:skň&gen:fm&num:sg
@@ -8906,7 +8906,7 @@ weniyarót	pre:we&pos:n&root:yyr&ptn:CaCa&gen:ms&num:pl&pl:fem:mis&stat:unsp
 weniyár	pre:we&pos:n&root:nyr&ptn:CiCaC&gen:ms&num:sg&stat:unsp
 wenizróq	pre:we&pos:v&root:zrq&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 wenišberá	pre:we&pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
-wenišbár	pre:we&pos:adjniqtal&gen:ms&num:sg pre:we&pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
+wenišbár	pre:we&pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
 weniškáv	pre:we&pos:v&root:škb&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 wenišmáʕ	pre:we&pos:v&root:šmʕ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 wenišuqím	pre:we&pos:n&root:nšq&ptn:CiCuC&gen:ms&num:pl&stat:free
@@ -8925,7 +8925,7 @@ wenu	pre:we&pos:co
 wenuḳál	pre:we&pos:v&root:ykl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 wenáʕal	pre:we&pos:n&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 wepagáš	pre:we&pos:v&root:pgš&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-wepaním	pre:we&pos:n&root:pyn&ptn:CaC&gen:ms&num:pl&mass:yes&stat:free
+wepaním	pre:we&pos:n&root:pny&ptn:CaCaC&gen:ms&num:pl&mass:yes&stat:free
 wepar	pre:we&pos:n&root:pyr&ptn:CaC&gen:ms&num:sg&stat:unsp
 weparcúf	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 wepatáxta	pre:we&pos:v&root:ptx&ptn:qal&tense:past&pers:2&gen:ms&num:sg
@@ -8962,7 +8962,7 @@ weqarʔú	pre:we&pos:v&root:qrʔ&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 weqaw	pre:we&pos:n&root:qyw&ptn:CaC&gen:ms&num:sg&stat:unsp
 weqax	pre:we&pos:v&root:lqx&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 weqašé	pre:we&pos:adj&root:qšy&ptn:CaCeC&gen:ms&num:sg&src:deverb
-weqaṭán	pre:we&pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pre:we&pos:adj&root:qtn&ptn:CaCaCgen:ms&num:sg
+weqaṭán	pre:we&pos:part&root:qṭn&ptn:qal&gen:ms&num:sg pre:we&pos:adj&root:qtn&ptn:CaCaC&gen:ms&num:sg
 weqaṭár	pre:we&pos:n&root:qṭr&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 weqcicót	pre:we&pos:n&root:qcc&ptn:CCiCa&gen:fm&num:pl&stat:unsp
 weqfic	pre:we&pos:n&root:qpc&ptn:CCiC&gen:ms&num:sg&stat:unsp
@@ -9192,7 +9192,7 @@ wexéleq	pre:we&pos:n&root:xlq&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 wexóṭem	pre:we&pos:n&root:xṭm&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
 wexúmus	pre:we&pos:n&root:xms&ptn:CuCuC&gen:ms&num:sg&stat:unsp
 weyacáʔ	pre:we&pos:v&root:ycʔ&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-weyacív	pre:we&pos:adj&root:ycv&ptn:CaCiCgen:ms&num:sg
+weyacív	pre:we&pos:adj&root:ycv&ptn:CaCiC&gen:ms&num:sg
 weyadáyim	pre:we&pos:n&gen:fm&num:pl&num:duo&stat:free
 weyafé	pre:we&pos:adj&root:ypy&ptn:CaCeC&gen:ms&num:sg&src:deverb
 weyagíd	pre:we&pos:v&root:ngd&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
@@ -9205,7 +9205,7 @@ weyarʔé	pre:we&pos:v&root:rʔy&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
 weyatúš	pre:we&pos:n&root:ytš&ptn:CaCuC&gen:ms&num:sg&stat:free
 weyavíʔ	pre:we&pos:v&root:bwʔ&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
 weyašvú	pre:we&pos:v&root:yšb&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
-weyašán	pre:we&pos:v&root:yšn&ptn:qal&tense:past&pers:3&gen:ms&num:sg pre:we&pos:adj&root:yšn&ptn:CaCaCgen:ms&num:sg
+weyašán	pre:we&pos:v&root:yšn&ptn:qal&tense:past&pers:3&gen:ms&num:sg pre:we&pos:adj&root:yšn&ptn:CaCaC&gen:ms&num:sg
 weyašánta	pre:we&pos:v&root:yšn&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 weyašánti	pre:we&pos:v&root:yšn&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 weyašár	pre:we&pos:adj&root:yšr&ptn:CaCaC&gen:ms&num:sg
@@ -9218,7 +9218,7 @@ weyeladót	pre:we&pos:n&root:ldt&ptn:CaCoC&root:yld&ptn:CeCeC&gen:fm&num:pl&pl:f
 weyeléḳ	pre:we&pos:v&root:hlk&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 weyenacxú	pre:we&pos:v&root:ncx&ptn:piel&tense:fut&pers:3&gen:unsp&num:pl
 weyenagén	pre:we&pos:v&root:ngn&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
-weyera	pre:we&pos:adv&pro:person&pers:3&gen:ms&num:sg
+weyera	pre:we&pos:adv&pos:pro_person&pers:3&gen:ms&num:sg
 weyeraqót	pre:we&pos:n&root:rqt&ptn:CaCoC&root:yrq&ptn:CeCeC&gen:ms&num:pl&pl:fem:mis&stat:free
 weyeruqá	pre:we&pos:adj&root:yrq&ptn:CaCoC&gen:fm&num:sg
 weyetaqén	pre:we&pos:v&root:tqn&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
@@ -9275,8 +9275,8 @@ wešaʔalú	pre:we&pos:v&root:šʔl&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 wešaʔál	pre:we&pos:v&root:šʔl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 wešaʔálti	pre:we&pos:v&root:šʔl&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 wešehayá	pre:we&pre:sh&pos:cop&root:hyy&ptn:CaCa&pre:sh&ptn:qal&tense:past&pers:3&gen:ms&num:sg
-wešehiʔ	pre:we&pre:sh&pre:sh&pro:person&pers:3&gen:fm&num:sg
-wešehuʔ	pre:we&pre:sh&root:hwʔ&ptn:CuC&pre:sh&pro:person&pers:3&gen:ms&num:sg
+wešehiʔ	pre:we&pre:sh&pre:sh&pos:pro_person&pers:3&gen:fm&num:sg
+wešehuʔ	pre:we&pre:sh&root:hwʔ&ptn:CuC&pre:sh&pos:pro_person&pers:3&gen:ms&num:sg
 wešel	pre:we
 wešeletinoqót	pre:we&pre:sh&pre:le&pos:n&root:tnq&ptn:CiCoCa&pre:wegen:unsp&num:pl&pl:fem:bio&stat:unsp
 wešeloʔ	pre:we&root:lyʔ&ptn:CoC&pre:sh
@@ -9286,7 +9286,7 @@ wešemeʕarbevím	pre:we&pre:sh&pre:mi&pos:part&pre:sh&root:ʕrbb&ptn:piel&gen:m
 wešení	pre:we&pos:adj&gen:ms&num:sg
 wešetedabrí	pre:we&pre:sh&pos:v&pre:sh&root:dbr&ptn:&tense:fut&pers:2&gen:fm&num:sg
 wešeyadbíq	pre:we&pre:sh&pos:v&root:dbq&ptn:hifil&pre:sh&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
-wešeʔaní	pre:we&pre:sh&pre:sh&pro:person&pers:1&num:sg
+wešeʔaní	pre:we&pre:sh&pre:sh&pos:pro_person&pers:1&num:sg
 wešeʔoḳlím	pre:we&pre:sh&pos:part&pre:sh&root:ʔkl&ptn:&gen:ms&num:pl
 wešeʔábaʔ	pre:we&pre:sh&pos:n&root:ʔbʔ&ptn:CaCaC&pre:sh&gen:ms&num:sg&stat:free
 wešeʔímaʔ	pre:we&pre:sh&pos:n&root:ʔmʔ&ptn:CiCaC&pre:sh&gen:fm&num:sg&stat:free
@@ -9331,8 +9331,8 @@ weʔamárta	pre:we&pos:v&root:ʔmr&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 weʔamárti	pre:we&pos:v&root:ʔmr&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 weʔanagév	pre:we&pos:v&root:ngb&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 weʔanaším	pre:we&pos:n&root:ʔnš&ptn:CaCaC&gen:ms&num:pl&pl:masc:bio&stat:free
-weʔanáxnu	pre:we&root:ʔnx&ptn:CaCaC&pro:person&pers:1&num:pl
-weʔaní	pre:we&pro:person&pers:1&num:sg pre:we&pos:part&root:ʔmr&ptn:qal&gen:ms&num:pl-ím
+weʔanáxnu	pre:we&root:ʔnx&ptn:CaCaC&pos:pro_person&pers:1&num:pl
+weʔaní	pre:we&pos:pro_person&pers:1&num:sg pre:we&pos:part&root:ʔmr&ptn:qal&gen:ms&num:pl
 weʔanʕíl	pre:we&pos:v&root:nʕl&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 weʔarnáv	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 weʔarubá	pre:we&pos:n&root:ʔrb&ptn:CaCuCa&gen:fm&num:sg&stat:free
@@ -9340,8 +9340,8 @@ weʔaryé	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 weʔasapér	pre:we&pos:v&root:spr&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 weʔasfá	pre:we&pos:v&root:ʔsp&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 weʔasúr	pre:we&root:ʔsr&ptn:CaCuC
-weʔatá	pre:we&root:ʔyt&ptn:CaCa&pro:person&pers:2&gen:ms&num:sg
-weʔatém	pre:we&root:ʔty&ptn:CaCy&pro:person&pers:2&gen:ms&num:pl
+weʔatá	pre:we&root:ʔyt&ptn:CaCa&pos:pro_person&pers:2&gen:ms&num:sg
+weʔatém	pre:we&root:ʔty&ptn:CaCy&pos:pro_person&pers:2&gen:ms&num:pl
 weʔavoqádo	pre:we&pos:n&gen:ms&num:sg&stat:unsp
 weʔavál	pre:we&root:ʔbl&ptn:CaCaC
 weʔavóy	pre:we&pos:co
@@ -9356,7 +9356,7 @@ weʔaxóra	pre:we&root:ʔxr&ptn:CaCoCa
 weʔaxót	pre:we&pos:n&root:ʔyx&ptn:CaCa&gen:fm&num:sg&stat:unsp
 weʔay	pre:we&pos:co
 weʔayóm	pre:we&pos:adj&root:ʔym&ptn:CaCoC&gen:ms&num:sg
-weʔaz	pre:we&pos:v&pos:adv&root:clm&ptn:&tense:past&pers:3&gen:unsp&num:pl pre:we&pos:adv&pro:dem&pers:3&gen:ms&num:sg pre:we&pos:v&pos:adv&root:ngd&ptn:&tense:fut&pers:2&gen:fm&num:sg pre:we pre:we&pos:adv&pro:person&pers:2&gen:fm&num:sg
+weʔaz	pre:we&pos:v&pos:adv&root:clm&ptn:&tense:past&pers:3&gen:unsp&num:pl pre:we&pos:adv&pro:dem&pers:3&gen:ms&num:sg pre:we&pos:v&pos:adv&root:ngd&ptn:&tense:fut&pers:2&gen:fm&num:sg pre:we pre:we&pos:adv&pos:pro_person&pers:2&gen:fm&num:sg
 weʔaḳlú	pre:we&pos:v&root:ʔkl&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 weʔaḳál	pre:we&pos:v&root:ʔkl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 weʔaḳált	pre:we&pos:v&root:ʔkl&ptn:qal&tense:past&pers:2&gen:fm&num:sg
@@ -9428,7 +9428,7 @@ weʕamél	pre:we&pos:part&root:ʕml&ptn:piel&gen:ms&num:sg
 weʕamít	pre:we&pos:n&root:ʕmt&ptn:CaCiC&gen:ms&num:sg&stat:unsp
 weʕanféy	pre:we&pos:n&root:ʕnp&ptn:CaCC&gen:ms&num:pl&stat:cstr
 weʕavrú	pre:we&pos:v&root:ʕbr&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
-weʕavót	pre:we&pos:adj&root:ʕbt&ptn:CaCoCgen:ms&num:sg
+weʕavót	pre:we&pos:adj&root:ʕbt&ptn:CaCoC&gen:ms&num:sg
 weʕaḳbaréyha	pre:we&pos:n&gen:ms&num:pl&poss:3femSG
 weʕaḳšáyw	pre:we&root:ʕaš&ptn:piel&pos:part&pos:adv&root:ʔkl&ptn:qal&gen:fm&num:sg
 weʕaṣará	pre:we&pos:num&root:ʕṣr&ptn:CaCaCa&gen:ms
@@ -9467,7 +9467,7 @@ weṣámu	pre:we&pos:v&root:ṣym&ptn:CaC&tense:past&pers:3&gen:unsp&num:pl
 weṣími	pre:we&pos:v&root:ṣym&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 weṭalé	pre:we&pos:n&gen:ms&num:sg&stat:free
 weṭas	pre:we&pos:part&root:ṭws&ptn:qal&gen:ms&num:sg
-weṭaʕím	pre:we&pos:adj&root:ṭʕm&ptn:CaCiCgen:ms&num:sg
+weṭaʕím	pre:we&pos:adj&root:ṭʕm&ptn:CaCiC&gen:ms&num:sg
 weṭelewízya	pre:we&pos:n&gen:fm&num:sg&stat:unsp
 weṭipés	pre:we&pos:v&root:ṭps&ptn:CiCeC&tense:past&pers:3&gen:ms&num:sg
 weṭov	pre:we&root:ṭwb&ptn:CoC
@@ -9554,7 +9554,7 @@ xamudónet	dim:yes&gen:fm&num:sg&stat:unsp
 xamá	pos:adj&root:xym&ptn:CaCa&root:xmm&gen:fm&num:sg
 xaméc	pos:adj&root:xmc&ptn:CaCeC&gen:unsp&num:unsp
 xaméš	pos:num&root:xmš&ptn:CaCeC&gen:fm
-xamím	pos:adj&root:xmm&ptn:CaCiCgen:ms&num:sg pos:adj&root:xym&ptn:CaC&root:xmm&gen:ms&num:pl
+xamím	pos:adj&root:xmm&ptn:CaCiC&gen:ms&num:sg pos:adj&root:xym&ptn:CaC&root:xmm&gen:ms&num:pl
 xamór	pos:n&root:xmr&ptn:CaCoC&gen:ms&num:sg&stat:unsp
 xamúc	pos:adj&root:xmc&ptn:CaCuC&gen:ms&num:sg&src:deverb
 xamúd	pos:n&root:xmd&ptn:CaCuC&gen:ms&num:sg&stat:unsp pos:adj&root:xmd&ptn:CaCuC&gen:ms&num:sg
@@ -9587,7 +9587,7 @@ xasidá	pos:n&root:xsd&ptn:CaCiCa&gen:fm&num:sg&stat:free
 xasrát	pos:adj&root:xsr&ptn:CaCeC&gen:fm&num:sg&src:deverb&stat:cstr
 xasér	pos:adj&root:xsr&ptn:CaCeC&gen:ms&num:sg&src:deverb&stat:free root:xsr&ptn:CaCeC&qn:ʕod
 xat	pos:n&root:xyt&ptn:CaC&gen:ms&num:sg&mass:yes&stat:unsp
-xatiḳá	pos:adj&root:xtk&ptn:CaCiCgen:fm&num:sg pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:sg&stat:free
+xatiḳá	pos:adj&root:xtk&ptn:CaCiC&gen:fm&num:sg pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:sg&stat:free
 xatiḳát	pos:n&gen:fm&num:sg&stat:cstr
 xatiḳót	pos:n&root:xtḳ&ptn:CaCiCa&gen:fm&num:pl&stat:unsp
 xatulá	pos:n&root:xtl&ptn:CaCuCa&gen:fm&num:sg&stat:free pos:co
@@ -9645,9 +9645,9 @@ xašávti	pos:v&root:xšb&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 xašód	pos:v&root:xšd&ptn:CaCoC&form:imp&pers:2&gen:ms&num:sg
 xašúv	pos:adj&root:xšb&ptn:CaCuC&gen:ms&num:sg&src:deverb
 xašúḳ	pos:adj&root:xšk&ptn:CaCuC&gen:ms&num:sg&src:deverb
-xaḳamá	pos:adj&root:xkm&ptn:CaCaCgen:fm&num:sg
+xaḳamá	pos:adj&root:xkm&ptn:CaCaC&gen:fm&num:sg
 xaḳamím	pos:n&root:xḳm&ptn:CaCaC&gen:ms&num:pl&stat:free
-xaḳám	pos:adj&root:xkm&ptn:CaCaCgen:ms&num:sg pos:n&root:xḳm&ptn:CaCaC&gen:ms&num:sg&stat:unsp
+xaḳám	pos:adj&root:xkm&ptn:CaCaC&gen:ms&num:sg pos:n&root:xḳm&ptn:CaCaC&gen:ms&num:sg&stat:unsp
 xaṭfá	pos:v&root:xṭp&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 xaṭáf	pos:v&root:xṭp&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 xaṭáft	pos:v&root:xṭp&ptn:qal&tense:past&pers:2&gen:fm&num:sg
@@ -9764,7 +9764,7 @@ yacáʔ	pos:v&root:yšb&ptn:qal&form:imp&pers:2&gen:fm&num:sg pos:v&root:ycʔ&pt
 yacáʔnu	pos:v&root:ycʔ&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 yacáʔt	pos:v&root:ycʔ&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 yacáʔti	pos:v&root:ycʔ&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-yacív	pos:adj&root:ycv&ptn:CaCiCgen:ms&num:sg
+yacív	pos:adj&root:ycv&ptn:CaCiC&gen:ms&num:sg
 yacʔá	pos:v&root:ycʔ&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 yacʔú	pos:v&root:ycʔ&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 yad	pro:person&pers:1&num:pl pos:n&gen:fm&num:sg&stat:unsp
@@ -9851,7 +9851,7 @@ yaxtóḳ	pos:v&root:xtk&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 yaxzíq	pos:v&root:xzq&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
 yaxzór	pos:v&root:xzr&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 yaxéf	pos:adj&root:yxp&ptn:CaCeC&root:yxp&ptn:CaCeC&gen:ms&num:sg
-yaxíd	pos:adj&root:yxd&ptn:CaCiCgen:ms&num:sg
+yaxíd	pos:adj&root:yxd&ptn:CaCiC&gen:ms&num:sg
 yaxševú	pos:v&root:xšb&ptn:CCeC&tense:fut&pers:3&gen:unsp&num:pl
 yazíz	pos:v&root:zwz&ptn:hifil&tense:fut&pers:3&gen:ms&num:sg
 yazúz	pos:v&root:zwz&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
@@ -9859,7 +9859,7 @@ yazúzu	pos:v&root:zwz&ptn:qal&tense:fut&pers:3&gen:unsp&num:pl
 yašnú	pos:v&root:yšn&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 yašvá	pos:v&root:yšb&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 yašvú	pos:v&root:yšb&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
-yašán	pos:v&root:yšn&ptn:qal&tense:past&pers:3&gen:ms&num:sg pos:adj&root:yšn&ptn:CaCaCgen:ms&num:sg
+yašán	pos:v&root:yšn&ptn:qal&tense:past&pers:3&gen:ms&num:sg pos:adj&root:yšn&ptn:CaCaC&gen:ms&num:sg
 yašánt	pos:v&root:yšn&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 yašánta	pos:v&root:yšn&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 yašántem	pos:v&root:yšn&ptn:qal&tense:past&pers:2&gen:ms&num:pl
@@ -9897,7 +9897,7 @@ yaṣím	pos:v&root:ṣym&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 yecafcéf	pos:v&root:cpcp&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yecalcél	pos:v&root:clcl&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yecayér	pos:v&root:cyr&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
-yecivím	pos:adj&root:ycv&ptn:CaCiCgen:ms&num:pl
+yecivím	pos:adj&root:ycv&ptn:CaCiC&gen:ms&num:pl
 yecéʔ	pos:v&root:ycʔ&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
 yecúr	pos:n&root:ycr&ptn:CeCuC&gen:ms&num:sg&stat:unsp
 yecʔú	pos:v&root:ycʔ&ptn:qal&tense:fut&pers:3&gen:unsp&num:pl
@@ -9929,7 +9929,7 @@ yeqabél	pos:v&root:qbl&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yeqalqelú	pos:v&root:qlql&ptn:piel&tense:fut&pers:3&gen:unsp&num:pl
 yeqalqél	pos:v&root:qlql&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yeqará	pos:adj&root:yqr&ptn:CaCaC&gen:fm&num:sg
-yeqarím	pos:adj&root:yqr&ptn:CaCaCgen:ms&num:pl
+yeqarím	pos:adj&root:yqr&ptn:CaCaC&gen:ms&num:pl
 yeradém	pos:v&root:rdm&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yeraqót	pos:n&root:rqt&ptn:CaCoC&root:yrq&ptn:CeCeC&gen:ms&num:pl&pl:fem:mis&stat:free
 yeraṭvú	pos:v&root:rṭb&ptn:nifal&tense:fut&pers:3&gen:unsp&num:pl
@@ -9960,7 +9960,7 @@ yexefá	pos:adj&root:yxp&ptn:CeCeCa&root:yxp&ptn:CaCeC&gen:fm&num:sg
 yexefím	pos:adj&root:yxp&ptn:CeCeC&root:yxp&ptn:CaCeC&gen:ms&num:pl
 yexidá	pos:adj&root:yxd&ptn:CaCiC&gen:fm&num:sg
 yexidót	pos:adj&root:yxd&ptn:CaCiC&gen:fm&num:pl
-yeš	pos:n&gen:ms&num:sg&stat:unsp &pos:adv pos:exs pos:n&gen:fm&num:sg&stat:free &qn:ʕod
+yeš	pos:n&gen:ms&num:sg&stat:unsp pos:adv pos:exs pos:n&gen:fm&num:sg&stat:free qn:ʕod
 yešalém	pos:v&root:šlm&ptn:piel&tense:fut&pers:3&gen:ms&num:sg
 yešaná	pos:adj&root:yšn&ptn:CaCaC&gen:fm&num:sg
 yešaním	pos:adj&root:yšn&ptn:CaCaC&gen:ms&num:pl
@@ -10134,7 +10134,7 @@ yáḳneʕ	pos:adj&gen:unsp&num:sg
 yéled	pos:n&root:yld&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 yéleduš	dim:yes&root:yld&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 yéreq	pos:n&root:yrq&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-yófi	&pos:adv pos:adv pos:n&root:ypy&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:co
+yófi	pos:adv pos:adv pos:n&root:ypy&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:co
 yógurṭ	pos:n&gen:ms&num:sg&stat:unsp
 yóyo	pos:n&gen:ms&num:sg&stat:unsp
 z	pos:chi
@@ -10215,7 +10215,7 @@ zébrot	pos:n&root:zbr&ptn:CeCC&gen:fm&num:pl&stat:unsp
 zéhu	pos:co
 zéret	pos:n&root:zrt&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 zével	pos:n&root:zbl&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-zóhi	&pro:dem&pers:3&gen:fm&num:sg
+zóhi	pro:dem&pers:3&gen:fm&num:sg
 zóʔti	pro:dem&pers:3&gen:fm&num:sg
 zúzi	pos:v&root:zwz&ptn:qal&form:imp&pers:2&gen:fm&num:sg
 zḳutí	pos:n&root:zḳt&ptn:CCuC&gen:fm&num:sg&poss:1SG
@@ -10286,9 +10286,9 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šawé	pos:adj&root:šwy&ptn:CaCeC&gen:ms&num:sg&src:deverb
 šawót	pos:adj&root:šwy&ptn:CaCeC&gen:fm&num:pl&src:deverb
 šaxór	pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:sg pos:prep&root:šxr&ptn:CaCoC
-šayaḳím	pos:adj&root:šyk&ptn:CaCaCgen:ms&num:pl&src:deverb
+šayaḳím	pos:adj&root:šyk&ptn:CaCaC&gen:ms&num:pl&src:deverb
 šayáḳ	pos:adj&root:šyk&ptn:CaCaC&gen:ms&num:sg&src:deverb
-šayéḳet	pos:adj&root:šyk&ptn:CaCaCgen:fm&num:sg&src:deverb
+šayéḳet	pos:adj&root:šyk&ptn:CaCaC&gen:fm&num:sg&src:deverb
 šaʔalá	pos:v&root:šʔl&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 šaʔál	pos:v&root:šʔl&ptn:qal&tense:past&pers:3&gen:ms&num:sg
 šaʔált	pos:v&root:šʔl&ptn:qal&tense:past&pers:2&gen:fm&num:sg
@@ -10327,7 +10327,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šebarégel	pre:sh&pre:be~pre:ha&pos:n&root:rgl&ptn:CeCeC&pre:sh&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 šebasof	pre:sh&pre:be~pre:ha&pos:n&root:syp&ptn:CoC&pre:sh&gen:ms&num:sg&stat:unsp
 šebatmuná	pre:sh&pre:be~pre:ha&pos:n&root:tmn&ptn:CCuCa&pre:sh&gen:fm&num:sg&stat:free
-šebaweʔaní	&pos:conj_subor
+šebaweʔaní	pos:conj_subor
 šebaxayím	pre:sh&pre:be~pre:ha&pos:n&root:xyy&ptn:CaC&pre:sh&gen:ms&num:pl&mass:yes&stat:free
 šebaxúc	pre:sh&root:bxc&ptn:CaCuC&pre:sh
 šebaʔ	pre:sh&pos:part&pre:sh&root:bwʔ&ptn:&gen:ms&num:sg pre:sh&pos:v&pre:sh&root:bwʔ&ptn:&tense:past&pers:3&gen:ms&num:sg
@@ -10494,8 +10494,8 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šehaṭeyp	pre:sh&pre:ha&pos:n&pre:sh&gen:ms&num:sg&stat:unsp
 šehaṭipót	pre:sh&pre:ha&pos:n&root:ṭyp&ptn:CiCa&pre:sh&gen:fm&num:pl&stat:unsp
 šehaṭélefon	pre:sh&pre:ha&pos:n&pre:sh&gen:ms&num:sg&stat:unsp
-šehem	pre:sh&pre:sh&pro:person&pers:3&gen:ms&num:pl pre:sh&pro:person&pers:3&gen:ms&num:pl
-šehen	pre:sh&pre:sh&pro:person&pers:3&gen:fm&num:pl
+šehem	pre:sh&pre:sh&pos:pro_person&pers:3&gen:ms&num:pl pre:sh&pos:pro_person&pers:3&gen:ms&num:pl
+šehen	pre:sh&pre:sh&pos:pro_person&pers:3&gen:fm&num:pl
 šeherámt	pre:sh&pos:v&pre:sh&root:rwm&ptn:&tense:past&pers:2&gen:fm&num:sg
 šeherʔét	pre:sh&pos:v&pre:sh&root:rʔy&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 šehevéʔnu	pre:sh&pos:v&pre:sh&root:bwʔ&ptn:hifil&tense:past&pers:1&gen:unsp&num:pl
@@ -10523,12 +10523,12 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šehištaʕálti	pos:v&pre:sh&root:šʕl&ptn:&tense:past&pers:1&gen:unsp&num:sg
 šehištolált	pos:v&pre:sh&root:šll&ptn:&tense:past&pers:2&gen:fm&num:sg
 šehišʔárt	pos:v&pre:sh&root:šʔr&ptn:&tense:past&pers:2&gen:fm&num:sg
-šehiʔ	pre:sh&pre:sh&pro:person&pers:3&gen:fm&num:sg
+šehiʔ	pre:sh&pre:sh&pos:pro_person&pers:3&gen:fm&num:sg
 šehocéʔt	pre:sh&pos:v&pre:sh&root:ycʔ&ptn:hifil&tense:past&pers:2&gen:fm&num:sg
 šehocéʔti	pre:sh&pos:v&pre:sh&root:ycʔ&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg
 šeholéḳ	pre:sh&pos:part&pre:sh&root:hlk&ptn:&gen:ms&num:sg
 šeholḳím	pre:sh&pos:part&pre:sh&root:hlk&ptn:&gen:ms&num:pl
-šehuʔ	pre:sh&root:hwʔ&ptn:CuC&pre:sh&pro:person&pers:3&gen:ms&num:sg
+šehuʔ	pre:sh&root:hwʔ&ptn:CuC&pre:sh&pos:pro_person&pers:3&gen:ms&num:sg
 šekaf	pre:sh&pos:n&root:kyp&ptn:CaC&pre:sh&gen:fm&num:sg&stat:unsp
 šekatóm	pre:sh&pos:adj&root:ktm&ptn:CaCoC&gen:ms&num:sg
 šekatúv	pre:sh&pos:adj&root:ktb&ptn:CaCuC&pre:sh&ptn:CaCuC&gen:ms&num:sg&src:deverb
@@ -10544,17 +10544,17 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šekotév	pre:sh&pos:part&root:ktb&ptn:qal&pre:sh&ptn:qal&gen:ms&num:sg
 šekoʔév	pre:sh&pos:part&pre:sh&root:kʔv&ptn:&gen:ms&num:sg
 šekoḳáv	pre:sh&pos:n&root:kḳb&ptn:CoCaC&pre:sh&gen:ms&num:sg&stat:unsp
-šekulám	pre:sh&root:klm&ptn:CuCaC&pre:sh&pro:person&pers:3&gen:ms&num:pl
+šekulám	pre:sh&root:klm&ptn:CuCaC&pre:sh&pos:pro_person&pers:3&gen:ms&num:pl
 šekvar	pre:sh&root:kbr&ptn:CCaC&pre:sh
 šekáḳa	pre:sh&pos:adv&root:kyḳ&ptn:CaCa&pre:sh pre:sh&root:kyḳ&ptn:CaCa&pre:sh&pos:adv
 šekšeboḳím	pre:sh&pre:sh&pos:part&root:byḳ&ptn:CoC&pre:sh&pos:prep&root:bky&ptn:qal&gen:ms&num:pl pos:part&pre:sh&pos:prep&root:bky&ptn:qal&gen:ms&num:pl
 šekšehayíti	pos:cop&pre:sh&pos:prep&root:hyy&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-šekšehuʔ	pre:sh&pos:prep&pro:person&pers:3&gen:ms&num:sg
-šel	pos:n&gen:fm&num:sg&stat:free &pos:prep pos:adj&root:ʔxr&ptn:CaCeC&gen:ms&num:sg pos:n&gen:fm&num:sg&stat:free &pers:3&gen:fm&num:sg pos:n&gen:ms&num:sg&stat:unsp pos:prep pos:n&gen:fm&num:sg&stat:free
+šekšehuʔ	pre:sh&pos:prep&pos:pro_person&pers:3&gen:ms&num:sg
+šel	pos:n&gen:fm&num:sg&stat:free pos:prep pos:adj&root:ʔxr&ptn:CaCeC&gen:ms&num:sg pos:n&gen:fm&num:sg&stat:free pers:3&gen:fm&num:sg pos:n&gen:ms&num:sg&stat:unsp pos:prep pos:n&gen:fm&num:sg&stat:free
 šelabubá	pre:sh&pre:le~pre:ha&pos:n&root:byb&ptn:CuCa&pre:sh&gen:fm&num:sg&stat:free
 šelahorím	pre:sh&pre:le~pre:ha&pos:n&root:hyr&ptn:CoC&pre:sh&gen:ms&num:pl&pl:masc:bio&stat:free
-šelahém	&pos:prep:pro&pers:3&gen:ms&num:pl
-šelahén	&pos:prep:pro&pers:3&gen:fm&num:pl
+šelahém	pos:prep:pro&pers:3&gen:ms&num:pl
+šelahén	pos:prep:pro&pers:3&gen:fm&num:pl
 šelaléḳet	pre:sh&pre:le~pre:ha&pos:v&pre:sh&root:hlk&ptn:&form:inf
 šelamádet	pre:sh&pos:v&root:lmd&ptn:qal&pre:sh&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 šelaním	pre:sh&pos:part&pre:sh&root:lwn&ptn:&gen:ms&num:pl
@@ -10566,7 +10566,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šelaʔasóf	pre:sh&pre:le~pre:ha&pos:v&pre:sh&root:ʔsp&ptn:&form:inf
 šelaʕalót	pre:sh&pre:le~pre:ha&pos:v&pre:sh&form:inf
 šelaḳ	pre:sh&pre:sh&pos:prep&pers:2&gen:fm&num:sg
-šelaḳém	&pos:prep:pro&pers:2&gen:ms&num:pl
+šelaḳém	pos:prep:pro&pers:2&gen:ms&num:pl
 šelehaʔaḳíl	pre:sh&pos:v&pre:sh&root:ʔkl&ptn:&form:inf
 šelemáṭa	pre:sh&pre:le&pos:adv&root:myṭ&ptn:CaCa&pre:sh
 šelenaqót	pre:sh&pre:le&pos:v&pre:sh&root:nqy&ptn:&form:inf
@@ -10588,12 +10588,12 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šelovším	pre:sh&pos:part&pre:sh&root:lbš&ptn:&gen:ms&num:pl
 šeloxcím	pre:sh&pos:part&pre:sh&root:lxc&ptn:&gen:ms&num:pl
 šeloʔ	pre:sh&pos:neg&root:lyʔ&ptn:CoC&pre:sh
-šeláh	&pos:prep:pro&pers:3&gen:fm&num:sg
-šelánu	&pos:prep:pro&pers:1&gen:unsp&num:pl
+šeláh	pos:prep:pro&pers:3&gen:fm&num:sg
+šelánu	pos:prep:pro&pers:1&gen:unsp&num:pl
 šeláḳ	pre:ke&pos:prep:pro&pers:2&gen:fm&num:sg pre:ke&pre:we pos:part&root:xsm&ptn:qal&gen:ms&num:sg
-šelí	pos:n&root:ʔzn&ptn:CeCeC&gen:fm&num:sg&stat:unsp &pos:prep&pers:1&gen:unsp&num:sg &pos:prep:pro&pers:1&gen:unsp&num:sg
-šeló	&pos:prep:pro&pers:3&gen:ms&num:sg
-šelḳá	&pos:prep:pro&pers:2&gen:ms&num:sg
+šelí	pos:n&root:ʔzn&ptn:CeCeC&gen:fm&num:sg&stat:unsp pos:prep&pers:1&gen:unsp&num:sg pos:prep:pro&pers:1&gen:unsp&num:sg
+šeló	pos:prep:pro&pers:3&gen:ms&num:sg
+šelḳá	pos:prep:pro&pers:2&gen:ms&num:sg
 šem	pos:n&gen:ms&num:sg&stat:unsp
 šemabiṭím	pos:part&pre:sh&root:nbṭ&ptn:&gen:ms&num:pl
 šemacáʔt	pre:sh&pos:v&pre:sh&root:mcʔ&ptn:qal&tense:past&pers:2&gen:fm&num:sg
@@ -10623,21 +10623,21 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šemecafcéfet	pre:sh&pre:mi&pos:part&pre:sh&root:cpcp&ptn:piel&gen:fm&num:sg
 šemecapím	pre:sh&pre:mi&pos:part&pre:sh&root:cpy&ptn:&gen:ms&num:pl
 šemecuyár	pre:sh&pre:mi&pos:adj&root:cyr&ptn:meCuCaC&pre:sh&ptn:meCuCaC&gen:ms&num:sg&src:deverb
-šemedabéret	pre:sh&pre:mi&pos:part&root:dbr&ptn:meCaCeC&pre:sh&ptn:piel&gen:fm&num:sg
-šemefaréq	pre:sh&pre:mi&pos:part&root:prq&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
+šemedabéret	pre:sh&pos:part&root:dbr&ptn:meCaCeC&pre:sh&ptn:piel&gen:fm&num:sg
+šemefaréq	pre:sh&pos:part&root:prq&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
 šemefuzarím	pre:sh&pre:mi&pos:adj&root:pzr&ptn:meCuCaC&pre:sh&ptn:meCuCaC&gen:ms&num:pl&src:deverb
 šemefuzarót	pre:sh&pre:mi&pos:adj&root:pzr&ptn:meCuCaCa&pre:sh&ptn:meCuCaC&gen:fm&num:pl&src:deverb
 šemehabreyḳá	pre:sh&pre:mi&pre:ha&root:brk&ptn:bCeCCa&pos:conj_subor
 šemehaʕor	pre:sh&pre:mi&pre:ha&root:ʕyr&ptn:CoC&pos:conj_subor
 šemelafefón	pre:sh&pre:mi&pos:n&root:lpp&ptn:meCaCeCon&pre:sh&gen:ms&num:sg&stat:unsp
 šemelaṭfím	pre:sh&pre:mi&pos:part&pre:sh&root:lṭp&ptn:&gen:ms&num:pl
-šemenagén	pre:sh&pre:mi&pos:part&root:ngn&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
+šemenagén	pre:sh&pos:part&root:ngn&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
 šemenapxím	pre:sh&pre:mi&pos:part&pre:sh&root:npx&ptn:&gen:ms&num:pl
 šemenaqé	pre:sh&pre:mi&pos:part&pre:sh&root:nqy&ptn:&gen:ms&num:sg
 šemenaqím	pre:sh&pre:mi&pos:part&pre:sh&root:nqy&ptn:piel&gen:ms&num:pl
 šemenasé	pre:sh&pre:mi&pos:part&pre:sh&root:nsy&ptn:&gen:ms&num:sg
 šemeqanxím	pre:sh&pre:mi&pos:part&pre:sh&root:qnx&ptn:&gen:ms&num:pl
-šemeqašéṭ	pre:sh&pre:mi&pos:part&root:qšṭ&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
+šemeqašéṭ	pre:sh&pos:part&root:qšṭ&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
 šemerimá	pre:sh&pre:mi&pos:part&pre:sh&root:rwm&ptn:&gen:fm&num:sg
 šemexabrím	pre:sh&pre:mi&pos:part&pre:sh&root:xbr&ptn:&gen:ms&num:pl
 šemexaké	pre:sh&pre:mi&pos:part&pre:sh&root:xky&ptn:&gen:ms&num:sg
@@ -10649,8 +10649,8 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šemeḳiním	pre:sh&pre:mi&pos:part&pre:sh&root:kwn&ptn:&gen:ms&num:pl
 šemeḳín	pre:sh&pre:mi&pos:part&pre:sh&root:kwn&ptn:&gen:ms&num:sg
 šemeṣaxqím	pre:sh&pre:mi&pos:part&pre:sh&root:ṣxq&ptn:&gen:ms&num:pl
-šemeṣaxéq	pre:sh&pre:mi&pos:part&root:ṣxq&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
-šemeṭapés	pre:sh&pre:mi&pos:part&root:ṭps&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
+šemeṣaxéq	pre:sh&pos:part&root:ṣxq&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
+šemeṭapés	pre:sh&pos:part&root:ṭps&ptn:meCaCeC&pre:sh&ptn:piel&gen:ms&num:sg
 šemi	pre:sh&pre:mi&pos:que&pre:sh
 šemiqódem	pre:sh&pre:mi&pos:adv&root:qdm&ptn:miCoCeC&pre:sh pre:sh&pre:mi&pos:adv&root:qdm&ptn:miCoCeC&pre:sh pre:sh&pre:mi&pos:n&root:qdm&ptn:miCoCeC&pre:sh
 šemisavív	root:sbb&ptn:CaCiC&pre:sh
@@ -10831,7 +10831,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šetaníxi	pos:v&pre:sh&root:nwx&ptn:&tense:fut&pers:2&gen:fm&num:sg
 šetaqlíṭi	pre:sh&pos:v&root:qlṭ&ptn:hifil&pre:sh&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 šetarbíci	pre:sh&pos:v&root:rbc&ptn:hifil&pre:sh&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
-šetarkívi	pos:ta&v&root:rkb&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg-i
+šetarkívi	pos:ta&pos:v&root:rkb&ptn:hifil&tense:fut&pers:2&gen:fm&num:sg
 šetarím	pos:part&pre:sh&root:twr&ptn:&gen:ms&num:pl
 šetarími	pos:v&pre:sh&root:rwm&ptn:&tense:fut&pers:2&gen:fm&num:sg
 šetastír	pre:sh&pos:v&root:str&ptn:hifil&pre:sh&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
@@ -10854,7 +10854,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šetaṣím	pre:sh&pos:v&pre:sh&root:ṣym&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 šetaṣími	pos:v&pre:sh&root:ṣym&ptn:&tense:fut&pers:2&gen:fm&num:sg
 šetebalbelí	pre:sh&pos:v&pre:sh&root:blbl&ptn:piel&tense:fut&pers:2&gen:fm&num:sg
-šetecayrí	pre:sh&pos:prep&pers:1&gen:unsp&num:sg-i pre:sh&pos:v&pre:sh&root:cyr&ptn:&tense:fut&pers:2&gen:fm&num:sg
+šetecayrí	pre:sh&pos:prep&pers:1&gen:unsp&num:sg pre:sh&pos:v&pre:sh&root:cyr&ptn:&tense:fut&pers:2&gen:fm&num:sg
 šetecéʔ	pre:sh&pos:v&pre:sh&root:ycʔ&ptn:&tense:fut&pers:23&gen:mf&num:sg
 šetedabrí	pre:sh&pos:v&pre:sh&root:dbr&ptn:&tense:fut&pers:2&gen:fm&num:sg
 šetedabér	pre:sh&pos:v&root:dbr&ptn:piel&pre:sh&ptn:piel&tense:fut&pers:23&gen:mf&num:sg
@@ -10920,9 +10920,9 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šetuḳál	pos:v&pre:sh&root:ykl&ptn:&tense:fut&pers:23&gen:mf&num:sg
 šev	pos:v&root:yšb&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 šewadáʔy	pre:sh&pre:sh
-šewehiʔ	&pre:sh&pre:we&pro:person&pers:3&gen:fm&num:sg
+šewehiʔ	pre:sh&pre:we&pos:pro_person&pers:3&gen:fm&num:sg
 šewetagíd	pos:v&root:šewe&ptn:šewe&pre:sh&pre:we&root:ngd&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg
-šeweʔaní	&pre:sh&pre:we&pro:person&pers:1&num:sg
+šeweʔaní	pre:sh&pre:we&pos:pro_person&pers:1&num:sg
 šexafáfti	pre:sh&pos:v&root:xpp&ptn:qal&pre:sh&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 šexam	pre:sh&pos:adj&root:xym&ptn:CaC&pre:sh&root:xmm&gen:ms&num:sg
 šexaserá	pre:sh&pos:adj&root:xsr&ptn:CaCeCa&pre:sh&ptn:CaCeC&gen:fm&num:sg&src:deverb
@@ -11045,7 +11045,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šešilámnu	pre:sh&pos:v&root:šlm&ptn:CiCaC&pre:sh&ptn:piel&tense:past&pers:1&gen:unsp&num:pl
 šešir	pre:sh&pos:n&root:šyr&ptn:CiC&pre:sh&gen:ms&num:sg&stat:unsp
 šešmo	pre:sh&pos:n&pre:sh&gen:ms&num:sg&poss:3mascSG
-šešnéynu	pre:sh&pre:sh&pro:person&pers:1&gen:ms&num:pl
+šešnéynu	pre:sh&pre:sh&pos:pro_person&pers:1&gen:ms&num:pl
 šešoné	pre:sh&pos:adj&root:šeh&ptn:CeCC&pre:sh&root:šny&ptn:CoCeC&gen:ms&num:sg&src:deverb
 šešotím	pre:sh&pos:part&pre:sh&root:šty&ptn:&gen:ms&num:pl
 šešoḳév	pre:sh&pos:part&pre:sh&root:škb&ptn:&gen:ms&num:sg
@@ -11060,12 +11060,12 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šeʔamárti	pre:sh&pos:v&root:ʔmr&ptn:qal&pre:sh&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 šeʔanadnéd	pre:sh&pos:v&pre:sh&root:ndnd&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 šeʔanaším	pre:sh&pos:n&root:ʔnš&ptn:CaCaC&pre:sh&gen:ms&num:pl&pl:masc:bio&stat:free
-šeʔanáxnu	pre:sh&root:ʔnx&ptn:CaCaC&pre:sh&pro:person&pers:1&num:pl
-šeʔaní	pre:sh&pro:person&pers:1&num:sg pre:sh&pro:person&pers:1&num:sg pre:sh&pro:person&pers:1&num:sg pre:sh&pre:sh&pro:person&pers:1&num:sg
+šeʔanáxnu	pre:sh&root:ʔnx&ptn:CaCaC&pre:sh&pos:pro_person&pers:1&num:pl
+šeʔaní	pre:sh&pos:pro_person&pers:1&num:sg pre:sh&pos:pro_person&pers:1&num:sg pre:sh&pos:pro_person&pers:1&num:sg pre:sh&pre:sh&pos:pro_person&pers:1&num:sg
 šeʔaqarév	pre:sh&pos:v&root:qrb&ptn:piel&pre:sh&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 šeʔasúr	pre:sh&root:ʔsr&ptn:CaCuC&pre:sh
-šeʔatá	pre:sh&root:ʔyt&ptn:CaCa&pre:sh&pro:person&pers:2&gen:ms&num:sg
-šeʔatém	pre:sh&root:ʔty&ptn:CaCy&pre:sh&pro:person&pers:2&gen:ms&num:pl
+šeʔatá	pre:sh&root:ʔyt&ptn:CaCa&pre:sh&pos:pro_person&pers:2&gen:ms&num:sg
+šeʔatém	pre:sh&root:ʔty&ptn:CaCy&pre:sh&pos:pro_person&pers:2&gen:ms&num:pl
 šeʔavál	pre:sh&root:ʔbl&ptn:CaCaC&pre:sh
 šeʔavíʔ	pre:sh&pos:v&pre:sh&root:bwʔ&ptn:&tense:fut&pers:1&gen:unsp&num:sg
 šeʔaxaréy	pre:sh
@@ -11212,12 +11212,12 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šnat	pos:n&gen:fm&num:sg&stat:cstr
 šnatáyim	pos:n&root:šnt&ptn:CCaC&gen:fm&num:duo&num:duo&stat:free
 šney	pos:num&gen:ms&stat:cstr pos:n&gen:ms&num:pl&stat:free
-šneyhém	&pro:person&pers:3&gen:ms&num:pl
-šneyḳém	&pro:person&pers:2&gen:ms&num:pl
+šneyhém	pos:pro_person&pers:3&gen:ms&num:pl
+šneyḳém	pos:pro_person&pers:2&gen:ms&num:pl
 šniyá	pos:adj&root:šny&ptn:šniya&gen:fm&num:sg pos:n&root:šny&ptn:šniya&gen:fm&num:sg&stat:free
 šniyím	pos:adj&root:šny&ptn:šniy&gen:ms&num:pl
 šnáyim	pos:num&gen:ms
-šnéynu	&pro:person&pers:1&gen:ms&num:pl
+šnéynu	pos:pro_person&pers:1&gen:ms&num:pl
 šnícel	pos:n&root:šncl&ptn:šCiCeC&gen:ms&num:sg&stat:unsp
 šofár	pos:n&root:špr&ptn:CoCaC&gen:ms&num:sg&stat:unsp
 šoféḳ	pos:part&root:špḳ&ptn:qal&gen:ms&num:sg
@@ -11264,11 +11264,11 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 šrafráf	pos:n&gen:ms&num:sg&stat:unsp
 šte	pos:v&root:šty&ptn:qal&form:imp&pers:2&gen:ms&num:sg
 štey	pos:num&gen:fm&stat:cstr
-šteyhén	&pro:person&pers:3&gen:fm&num:pl
+šteyhén	pos:pro_person&pers:3&gen:fm&num:pl
 štiyá	pos:n&root:šty&ptn:štiya&gen:fm&num:sg&stat:free
 štoq	pos:v&root:štq&ptn:CCoC&form:imp&pers:2&gen:ms&num:sg
 štáyim	pos:num&gen:fm pro:person&pers:2&gen:fm&num:sg
-štéynu	&pro:person&pers:1&gen:fm&num:pl
+štéynu	pos:pro_person&pers:1&gen:fm&num:pl
 šulxán	pos:n&root:šlx&ptn:CuCCan&gen:ms&num:sg&stat:unsp
 šum	pos:n&gen:ms&num:sg&stat:unsp root:šym&ptn:CuC&n:prop
 šumán	pos:n&root:šym&ptn:CuCan&gen:ms&num:sg&stat:unsp
@@ -11284,7 +11284,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 švuʕáyim	pos:n&root:šbʕ&ptn:CCuC&gen:ms&num:duo&num:duo&stat:free
 šxor	pos:n&root:šxr&ptn:CCoC&gen:ms&num:sg&stat:unsp
 šxorá	pos:adj&root:šxr&ptn:CaCoC&gen:fm&num:sg
-šxorát	pos:adj&root:šxr&ptn:CaCoCgen:fm&num:sg
+šxorát	pos:adj&root:šxr&ptn:CaCoC&gen:fm&num:sg
 šxorím	pos:adj&root:šxr&ptn:CaCoC&gen:ms&num:pl pos:n&root:šxr&ptn:CCoC&gen:ms&num:pl&stat:free
 šxorót	pos:adj&root:šxr&ptn:CaCoC&gen:fm&num:pl
 šára	pos:part&root:šyr&ptn:CaCa&gen:fm&num:sg
@@ -11381,15 +11381,15 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔamárnu	pos:v&root:ʔmr&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 ʔamárt	pos:v&root:ʔmr&ptn:qal&tense:past&pers:2&gen:fm&num:sg
 ʔamárta	pos:v&root:ʔmr&ptn:qal&tense:past&pers:2&gen:ms&num:sg
-ʔamárti	prep:pro&pers:2&gen:ms&num:sg pos:v&root:ʔmr&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
+ʔamárti	pos:v&root:ʔmr&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
 ʔanagév	pos:v&root:ngb&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔanapéax	pos:v&root:npx&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔanasé	pos:v&root:nsy&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔanaším	pos:n&root:ʔnš&ptn:CaCaC&gen:ms&num:pl&pl:masc:bio&stat:free
 ʔanglít	pos:adj&gen:fm&num:sg&src:denom
 ʔanpilaʔót	pos:n&gen:fm&num:pl&stat:unsp
-ʔanáxnu	root:ʔnx&ptn:CaCaC&pro:person&pers:1&num:pl
-ʔaní	pos:v&root:rbc&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg pos:v&root:npl&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg pos:n&gen:fm&num:sg&stat:free pos:v&root:rʔy&ptn:qal&tense:past&pers:1&gen:unsp&num:sg &pro:person&pers:1&num:sg pos:ntapúax+n&gen:ms&num:sg&stat:cstr &pre:le &pos:prep:pro&pers:2&gen:fm&num:sg pos:v&root:ʕwp&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:sg pos:v&root:byn&ptn:hifil&tense:past&pers:1&gen:unsp&num:sg pos:adj&root:crk&ptn:tbd&gen:fm&num:sg&src:deverb pre:le&pos:v&root:cyr&ptn:piel&form:inf pos:v&root:qny&ptn:qal&tense:fut&pers:3&gen:ms&num:sg
+ʔanáxnu	pos:pro_person&pers:1&num:pl
+ʔaní	pos:pro_person&pers:1&num:sg
 ʔaníʔagíd	pos:n&root:ʔgd&ptn:CaCiC&pre:le~pre:ha&gen:ms&num:sg&stat:unsp
 ʔanúax	pos:v&root:nwx&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔanʕíl	pos:v&root:nʕl&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg prep:pro&pers:2&gen:fm&num:sg
@@ -11453,16 +11453,16 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔat	pos:n&root:ʔyt&ptn:CaC&gen:ms&num:pl&stat:free pos:n&root:ʔyt&ptn:CaC&root:ʔyn&ptn:CeCeC&gen:fm&num:pl&num:duo&stat:free
 ʔataqén	pos:v&root:tqn&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔatxíl	pos:v&root:txl&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
-ʔatá	pre:le&pos:v&root:špḳ&ptn:qal&form:inf root:ʔyt&ptn:CaCa&pro:person&pers:2&gen:ms&num:sg pos:n&root:ʔyt&ptn:CaCa&gen:fm&num:sg&stat:free
-ʔatém	root:ʔty&ptn:CaCy&pro:person&pers:2&gen:ms&num:pl
-ʔatén	root:ʔty&ptn:CaCy&pro:person&pers:2&gen:fm&num:pl
+ʔatá	pre:le&pos:v&root:špḳ&ptn:qal&form:inf root:ʔyt&ptn:CaCa&pos:pro_person&pers:2&gen:ms&num:sg pos:n&root:ʔyt&ptn:CaCa&gen:fm&num:sg&stat:free
+ʔatém	root:ʔty&ptn:CaCy&pos:pro_person&pers:2&gen:ms&num:pl
+ʔatén	root:ʔty&ptn:CaCy&pos:pro_person&pers:2&gen:fm&num:pl
 ʔatʔím	pos:v&root:tʔm&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 ʔavaním	pos:n&root:ʔyb&ptn:CaCan&root:ʔbn&ptn:CeCeC&gen:fm&num:pl&pl:masc:mis&stat:free
 ʔavašél	pos:v&root:bšl&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔavaṭíax	pos:n&gen:ms&num:sg&stat:unsp
 ʔavelá	pos:adj&root:ʔbl&ptn:CaCeC&gen:fm&num:sg&src:deverb
 ʔavoqádo	pos:n&gen:ms&num:sg&stat:unsp
-ʔavál	root:ʔbl&ptn:CaCaC&neg:loʔ root:ʔbl&ptn:CaCaC&pro:person&pers:2&gen:fm&num:sg root:ʔbl&ptn:CaCaC&conj:ʔavál
+ʔavál	root:ʔbl&ptn:CaCaC&neg:loʔ root:ʔbl&ptn:CaCaC&pos:pro_person&pers:2&gen:fm&num:sg root:ʔbl&ptn:CaCaC&conj:ʔavál
 ʔavín	pos:v&root:byn&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 ʔavív	pos:n&root:ʔbb&ptn:CaCiC&gen:ms&num:sg&stat:unsp
 ʔavíʔ	pos:v&root:bwʔ&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
@@ -11501,7 +11501,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔaxzór	pos:v&root:xzr&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔaxád	pos:num&root:ʔxd&ptn:CaCaC&gen:ms&stat:cstr
 ʔaxár	root:ʔxr&ptn:CaCaC&pos:prep
-ʔaxér	pos:adj&root:ʔxr&ptn:CaCeC&gen:ms&num:sg root:ʔxr&ptn:CaCeC&pro:person&pers:1&num:sg
+ʔaxér	pos:adj&root:ʔxr&ptn:CaCeC&gen:ms&num:sg root:ʔxr&ptn:CaCeC&pos:pro_person&pers:1&num:sg
 ʔaxéret	root:ʔxr&ptn:CaCeC&pos:adv pos:+ pos:adj&root:ʔxr&ptn:CaCeC&gen:fm&num:sg pos:adv pos:adv
 ʔaxíḳ	pos:n&root:ʔyx&ptn:CaC&gen:ms&num:sg&poss:2femSG
 ʔaxóra	root:ʔxr&ptn:CaCoCa&pos:adv pos:adv&root:ʔxr&ptn:CaCoCa root:ʔxr&ptn:CaCoCa&pos:adv pos:num&root:ʔxr&ptn:CaCoCa&num:sg&stat:cstr
@@ -11534,7 +11534,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔaḳabé	pos:v&root:kby&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔaḳabéd	pos:v&root:kbd&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔaḳasé	pos:v&root:ksy&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
-ʔaḳilá	pos:n&root:ʔḳl&ptn:CaCiCa&gen:fm&num:sg&stat:free pos:adj&root:ʔkl&ptn:CaCiCgen:fm&num:sg
+ʔaḳilá	pos:n&root:ʔḳl&ptn:CaCiCa&gen:fm&num:sg&stat:free pos:adj&root:ʔkl&ptn:CaCiC&gen:fm&num:sg
 ʔaḳlá	pos:v&root:ʔkl&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 ʔaḳlú	pos:v&root:ʔkl&ptn:qal&tense:past&pers:3&gen:unsp&num:pl
 ʔaḳnís	pos:v&root:kns&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
@@ -11592,23 +11592,23 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔeh	root:ʔeh&ptn:ʔeh&pos:prep:pro&pers:1&gen:unsp&num:sg
 ʔeheyé	pos:cop&root:hyy&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔekanés	pos:v&root:kns&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
-ʔel	&pos:prep
+ʔel	pos:prep
 ʔelaméd	pos:v&root:lmd&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔelaʔamán	pos:n&root:ʔym&ptn:CaCan&pre:le~pre:ha&gen:ms&num:sg&stat:unsp
 ʔelbáš	pos:v&root:lbš&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:sg
 ʔelegánṭ	pos:adj&gen:unsp&num:unsp&src:foreign
-ʔeleyhém	&pos:prep:pro&pers:3&gen:ms&num:pl
-ʔeleyḳém	&pos:prep:pro&pers:2&gen:ms&num:pl
+ʔeleyhém	pos:prep:pro&pers:3&gen:ms&num:pl
+ʔeleyḳém	pos:prep:pro&pers:2&gen:ms&num:pl
 ʔelmád	pos:v&root:lmd&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:sg
 ʔelohím	pos:n&root:lyh&ptn:CoC&gen:ms&num:sg&mass:yes&stat:free
 ʔelxác	pos:v&root:lxc&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:sg
 ʔeláy	pos:adj&ptn:CaCoC&gen:ms&num:sg root:ʔel&ptn:ʔel&pos:prep:pro&pers:1&gen:unsp&num:sg
 ʔeláyiḳ	prep:pro&pers:2&gen:fm&num:sg
-ʔeláyw	&pos:prep:pro&pers:3&gen:ms&num:sg
+ʔeláyw	pos:prep:pro&pers:3&gen:ms&num:sg
 ʔelérgya	pos:n&gen:fm&num:sg&stat:unsp
-ʔeléyha	&pos:prep:pro&pers:3&gen:fm&num:sg
-ʔeléynu	&pos:prep:pro&pers:1&gen:unsp&num:pl
-ʔeléyḳa	&pos:prep:pro&pers:2&gen:ms&num:sg
+ʔeléyha	pos:prep:pro&pers:3&gen:fm&num:sg
+ʔeléynu	pos:prep:pro&pers:1&gen:unsp&num:pl
+ʔeléyḳa	pos:prep:pro&pers:2&gen:ms&num:sg
 ʔeléḳ	pos:v&root:hlk&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔem	pos:n&gen:fm&num:sg&stat:unsp pos:voc
 ʔemcáʔ	pos:v&root:mcʔ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:sg
@@ -11667,7 +11667,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔetʕarév	pos:v&root:ʕrb&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:sg
 ʔetʕoféf	pos:adv&root:ʕpp&ptn:CoCeC
 ʔetʕorér	pos:v&root:ʕwr&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:sg
-ʔetḳém	&pos:acc+pro&pers:2&gen:ms&num:pl
+ʔetḳém	pos:acc+pro&pers:2&gen:ms&num:pl
 ʔevaqéš	pos:v&root:bqš&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔevašél	pos:v&root:bšl&ptn:piel&tense:fut&pers:1&gen:unsp&num:sg
 ʔevdóq	pos:v&root:bdq&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
@@ -11683,14 +11683,14 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔexfóf	pos:v&root:xpp&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔextóḳ	pos:v&root:xtk&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔexzór	pos:v&root:xzr&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
-ʔexád	pos:num&root:ʔxd&ptn:CeCaC&gen:ms&num:sg&stat:unsp root:ʔxd&ptn:CeCaC&pro:person&pers:2&gen:fm&num:sg
+ʔexád	pos:num&root:ʔxd&ptn:CeCaC&gen:ms&num:sg&stat:unsp root:ʔxd&ptn:CeCaC&pos:pro_person&pers:2&gen:fm&num:sg
 ʔeyn	pos:n&root:crḳ&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&stat:unsp pos:exs
 ʔeynám	pos:exs&pers:3&gen:ms&num:pl
 ʔeynéna	pos:exs&pers:3&gen:fm&num:sg
 ʔeynéni	pos:exs&pers:1&gen:unsp&num:sg
 ʔeynéno	pos:exs&pers:3&gen:ms&num:sg
 ʔeynénu	pos:exs&pers:1&gen:unsp&num:pl
-ʔeyḳ	&que:ʔeyḳ
+ʔeyḳ	que:ʔeyḳ
 ʔezahér	pos:v&root:zhr&ptn:nifal&tense:fut&pers:1&gen:unsp&num:sg
 ʔezké	pos:v&root:zky&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
 ʔezróq	pos:v&root:zrq&ptn:qal&tense:fut&pers:1&gen:unsp&num:sg
@@ -11740,7 +11740,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔitáh	root:ʔyt&ptn:CiC&que:ma root:ʔyt&ptn:CiC&pos:prep:pro&pers:3&gen:fm&num:sg
 ʔitám	root:ʔtm&ptn:CiCaC&pos:prep:pro&pers:3&gen:ms&num:pl
 ʔitánu	root:ʔyt&ptn:CiCan&pos:prep:pro&pers:1&gen:unsp&num:pl
-ʔitáḳ	&pos:prep:pro&pers:2&gen:fm&num:sg
+ʔitáḳ	pos:prep:pro&pers:2&gen:fm&num:sg
 ʔití	root:ʔyt&ptn:CiC&pos:prep:pro&pers:1&gen:unsp&num:sg
 ʔitó	root:ʔyt&ptn:CiC&pos:prep:pro&pers:3&gen:ms&num:sg
 ʔitḳá	root:ʔyt&ptn:CiC&pos:prep:pro&pers:2&gen:ms&num:sg
@@ -11786,14 +11786,14 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔosíf	pos:v&root:ysp&ptn:hifil&tense:fut&pers:1&gen:unsp&num:sg
 ʔot	pos:n&root:ʔyt&ptn:CoC&gen:ms&num:sg&stat:unsp
 ʔotiyót	pos:n&root:ʔyt&ptn:CoC&gen:ms&num:pl&pl:fem:mis&stat:unsp
-ʔoto	&pos:acc+pro&pers:3&gen:ms&num:sg
+ʔoto	pos:acc+pro&pers:3&gen:ms&num:sg
 ʔotáh	root:ʔyt&ptn:CoC&pos:acc+pro&pers:3&gen:fm&num:sg
 ʔotám	root:ʔtm&ptn:CoCaC&pos:acc+pro&pers:3&gen:ms&num:pl
 ʔotán	root:ʔyt&ptn:CoCan&pos:acc+pro&pers:3&gen:fm&num:pl
 ʔotánu	root:ʔyt&ptn:CoCan&pos:acc+pro&pers:1&gen:unsp&num:pl
-ʔotáḳ	pre:ke&pre:we &pos:acc+pro&pers:2&gen:fm&num:sg
+ʔotáḳ	pre:ke&pre:we pos:acc+pro&pers:2&gen:fm&num:sg
 ʔotí	root:ʔyt&ptn:CoC&pos:acc+pro&pers:1&gen:unsp&num:sg
-ʔotó	&pre:le &pos:adv root:ʔyt&ptn:CoC&pos:acc+pro&pers:3&gen:ms&num:sg &pro:dist&gen:ms&num:sg
+ʔotó	pre:le pos:adv root:ʔyt&ptn:CoC&pos:acc+pro&pers:3&gen:ms&num:sg pro:dist&gen:ms&num:sg
 ʔotḳá	root:ʔyt&ptn:CoC&pos:acc+pro&pers:2&gen:ms&num:sg
 ʔotḳém	root:ʔyt&ptn:CoC&pos:acc+pro&pers:2&gen:ms&num:pl
 ʔoy	pos:co
@@ -11826,7 +11826,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔéfes	pos:n&root:ʔps&ptn:CeCeC&root:ʔps&ptn:CeCeC&gen:ms&num:sg&stat:unsp
 ʔélaʔ	root:ʔlʔ&ptn:CeCaC&conj:ʔélaʔ
 ʔélef	pos:n&root:ʔlp&ptn:CeCeC&root:ʔlp&ptn:CeCeC&gen:ms&num:sg&stat:unsp
-ʔélu	&pro:dem&pers:3&num:pl
+ʔélu	pro:dem&pers:3&num:pl
 ʔémcaʕ	pos:n&gen:ms&num:sg&stat:unsp
 ʔérec	pos:n&root:ʔrc&ptn:CeCeC&gen:fm&num:sg&stat:unsp
 ʔéven	pos:n&root:ʔbn&ptn:CeCeC&gen:fm&num:sg&stat:unsp
@@ -11836,8 +11836,8 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʔéyze	pos:n&gen:ms&num:pl&stat:free pos:adj&root:ʔrk&ptn:CaCoC&gen:fm&num:sg pos:adj&root:nʕm&ptn:CaCiC&gen:ms&num:sg pos:adj&root:ṭwb&gen:fm&num:sg  pos:que&gen:ms
 ʔéyzo	pos:que&gen:fm
 ʔéyzu	pos:que&gen:fm
-ʔílu	&pos:prep
-ʔímaʔ	pos:v&root:yrd&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg root:ʔmʔ&ptn:CiCaC&pro:person&pers:2&gen:fm&num:sg root:ʔmʔ&ptn:CiCaC&pos:prep:pro&pers:3&gen:fm&num:sg root:ʔmʔ&ptn:CiCaC&pos:prep pos:part&root:rcy&ptn:qal&gen:fm&num:sg pos:n&root:ʔmʔ&ptn:CiCaC&gen:fm&num:sg&stat:free pos:v&root:ntn&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
+ʔílu	pos:prep
+ʔímaʔ	pos:v&root:yrd&ptn:hifil&tense:fut&pers:23&gen:mf&num:sg root:ʔmʔ&ptn:CiCaC&pos:pro_person&pers:2&gen:fm&num:sg root:ʔmʔ&ptn:CiCaC&pos:prep:pro&pers:3&gen:fm&num:sg root:ʔmʔ&ptn:CiCaC&pos:prep pos:part&root:rcy&ptn:qal&gen:fm&num:sg pos:n&root:ʔmʔ&ptn:CiCaC&gen:fm&num:sg&stat:free pos:v&root:ntn&ptn:qal&tense:fut&pers:23&gen:mf&num:sg
 ʔíya	pos:on
 ʔíḳsa	pos:co&
 ʔódem	pos:n&root:ʔdm&ptn:CóCeeC&gen:ms&num:sg&stat:unsp
@@ -11898,8 +11898,8 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʕakaviším	pos:n&gen:ms&num:pl&pl:masc:bio&stat:free
 ʕakavíš	pos:n&gen:ms&num:sg&stat:unsp
 ʕal	pos:n&gen:ms&num:sg&stat:unsp pos:n&gen:ms&num:sg&poss:2femSG root:ʕyl&ptn:CaC&pos:prep:pro&pers:3&gen:fm&num:sg pos:n&root:spr&ptn:CeCeC&gen:ms&num:sg&stat:unsp root:ʕyl&ptn:CaC&pos:prep pos:part&root:hpk&ptn:hitpael&gen:fm&num:sg pos:v&root:ṣym&ptn:qal&tense:fut&pers:2&gen:fm&num:sg pos:n&root:šlṭ&ptn:CeCeC&gen:ms&num:sg&stat:unsp pos:v&root:yšb&ptn:qal&tense:fut&pers:23&gen:mf&num:sg pos:n&gen:fm&num:sg&stat:unsp
-ʕaleyhém	pos:n&gen:ms&num:pl&poss:3mascPL &pos:prep:pro&pers:3&gen:ms&num:pl
-ʕaleyhén	&pos:prep:pro&pers:3&gen:fm&num:pl
+ʕaleyhém	pos:n&gen:ms&num:pl&poss:3mascPL pos:prep:pro&pers:3&gen:ms&num:pl
+ʕaleyhén	pos:prep:pro&pers:3&gen:fm&num:pl
 ʕaleyḳém	pos:n&gen:ms&num:pl&poss:2mascPL
 ʕaliyá	pos:n&gen:fm&num:sg&stat:free
 ʕalizá	pos:adj&root:ʕlz&ptn:CaCiC&gen:fm&num:sg
@@ -11990,7 +11990,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ʕaḳbarím	pos:n&gen:ms&num:pl&pl:masc:bio&stat:free
 ʕaḳbarón	dim:yes&gen:ms&num:sg&stat:unsp
 ʕaḳbár	pos:n&gen:ms&num:sg&stat:unsp
-ʕaḳšáyw	pos:n&root:ʕkš&ptn:CaCC&gen:fm&num:sg&stat:free root:ʕaš&ptn:CaCC&pre:ha prep:pro&pers:1&gen:unsp&num:sg pos:acc&root:ʕkš&ptn:CaCC& root:ʕaš&ptn:CaCC&pos:adv root:ʕaš&ptn:CaCC&pro:person&pers:3&gen:ms&num:sg root:ʕaš&ptn:CaCC&pos:prep pos:n&root:ʕkš&ptn:CaCC&gen:fm&num:sg&stat:free
+ʕaḳšáyw	pos:n&root:ʕkš&ptn:CaCC&gen:fm&num:sg&stat:free root:ʕaš&ptn:CaCC&pre:ha prep:pro&pers:1&gen:unsp&num:sg pos:acc&root:ʕkš&ptn:CaCC& root:ʕaš&ptn:CaCC&pos:adv root:ʕaš&ptn:CaCC&pos:pro_person&pers:3&gen:ms&num:sg root:ʕaš&ptn:CaCC&pos:prep pos:n&root:ʕkš&ptn:CaCC&gen:fm&num:sg&stat:free
 ʕaṣará	pos:num&root:ʕṣr&ptn:CaCaCa&gen:ms
 ʕaṣtá	pos:v&root:ʕṣy&ptn:qal&tense:past&pers:3&gen:fm&num:sg
 ʕaṣuyá	pos:adj&root:ʕṣy&ptn:CaCuC&gen:fm&num:sg&src:deverb
@@ -12203,7 +12203,7 @@ zḳuḳít	pos:n&root:zkk&ptn:zCuCiC&gen:fm&num:sg&stat:unsp
 ṭaʕuyót	pos:n&gen:fm&num:pl&stat:unsp
 ṭaʕámta	pos:v&root:ṭʕm&ptn:qal&tense:past&pers:2&gen:ms&num:sg
 ṭaʕámti	pos:v&root:ṭʕm&ptn:qal&tense:past&pers:1&gen:unsp&num:sg
-ṭaʕím	pos:adj&root:ṭʕm&ptn:CaCiCgen:ms&num:sg
+ṭaʕím	pos:adj&root:ṭʕm&ptn:CaCiC&gen:ms&num:sg
 ṭaʕími	root:ṭyʕ&ptn:CaC&a:dim&gen:ms&num:sg
 ṭaʕínu	pos:v&root:ṭʕy&ptn:qal&tense:past&pers:1&gen:unsp&num:pl
 ṭaʕít	pos:v&root:ṭʕy&ptn:qal&tense:past&pers:2&gen:fm&num:sg

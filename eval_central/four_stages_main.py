@@ -1,6 +1,13 @@
-import sys, codecs, unicodedata, morfessor, regex as re
+import sys, codecs, unicodedata, morfessor, re
 import stage1_alt as stage1 
 import stage2 as stage2
+
+#import sys, codecs, re
+reload(sys)  
+sys.setdefaultencoding('utf8')
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+sys.stderr = UTF8Writer(sys.stderr)
 
 UTF8Writer = codecs.getwriter('utf8')
 sys.stdout = UTF8Writer(sys.stdout)
@@ -14,47 +21,138 @@ def get_chinese_char(i):
 ## 2: A file ending in ".mc.clusters" (see eval_stage2 directory)
 ## 3: Morfesser BS
 ## 4: Morfessor BS
+# 2_2_K6000_N12222_basic_180626_18-27_k-1000.C_vals 2_2_K6000_N12222_basic_180626_18-27_k-1000.clusters
+
 cluster_centroids_filename = sys.argv[1]
 cluster_membership_filename = sys.argv[2]
-# training_filename = sys.argv[3]
-# gldstd_filename = sys.argv[4]
+control_training_filename = sys.argv[3]
+control_gldstd_filename = sys.argv[4]
+basename = cluster_centroids_filename.split(".")[0]
+trn_basename = control_training_filename.split(".")[0]
+gld_basename = control_gldstd_filename.split(".")[0]
+encoded_training_filename = trn_basename + "_symbols.txt"
+encoded_gldstd_filename = gld_basename + "_symbols.txt"
+# fobj_train = codecs.open(control_training_filename, 'r', encoding='utf8')
+#control_training_filename = "morfessor_TR_training.txt"
+#fobj_train_enc = codecs.open(encoded_training_filename , 'w', encoding='utf8')
+eval_filename = basename + "_extrinsic_eval.txt"
+
+# trn_lines = fobj_train.readlines()
+# if trn_lines[0][0] == "#":
+# 	trn_lines.pop(0)
+# for line in trn_lines:
+# 	fobj_new_train.write(line)
+
 
 ####### STAGE 1 ####### 
 morph_dict = stage1.main(cluster_centroids_filename)
+# print "from 4 stages main, stage 1:"
+# for key,val in morph_dict.items():
+# 	print key, "-->", val[-1].get_pattern()
 ####### STAGE 2 ####### 
 word_segmentations_dict = stage2.main(morph_dict, cluster_membership_filename)
 
-print "from 4 stages main:"
-print word_segmentations_dict
-####### STAGE 3 ####### 
-# chinese_char_mapping = {}
-# encoded_segmentations = {}
+# print "from 4 stages main:, stage 2:"
+# for key,val in word_segmentations_dict.items():
+# 	print key, "-->", val
+# print word_segmentations_dict
+###### STAGE 3 ####### 
+chinese_char_mapping = {}
+encoded_segmentations = {}
+IDs = morph_dict.keys()
+#IDs.extend(letter_dict.keys())
+
+
 # for morphID in morph_dict.keys():
 # 	chinese_char_mapping[morphID] = get_chinese_char(int(morphID))
+for ID in IDs:
+	chinese_char_mapping[ID] = get_chinese_char(int(ID))
+	#print chinese_char_mapping[morphID]
+encoded_gldstd_filename = "morfessor_gldstd_symbols.txt"
+#dummy_id = 1001
+for word,morphID_sequences in word_segmentations_dict.items():
+	encoded_segmentations[word] = []
+	encoded_strings = []
+	encoded_word = ""
+	#encoded_words = []
+	#print chinese_char_mapping
+	try: morphID_sequence = morphID_sequences[0]
+	except IndexError: continue
+	sys.stderr.write(" ".join(morphID_sequence) + "\n")
+	#for morphID_sequence in morphID_sequences:
+		#sys.stderr.write(morphID_sequence + " ")
+		#temp = []
 
-# for key,morphID_sequence in word_segmentations_dict:
-# 	encoded_segmentations[key] = []
-# 	for morphID in morphID_sequence:
-# 		encoded_segmentations.append(chinese_char_mapping[morphID])
+	for morphID in morphID_sequence:
+		try: 
+			int_ID = int(morphID)
+			print "++++++++", type(morphID), "morphID:", morphID
+			encoded_word += chinese_char_mapping[int_ID]
+		except KeyError:
+			#sys.stderr.write()
+			sys.stderr.write("KEY_ERROR: MORPH_ID: " + str(morphID) + " !!!\n")
+				# choose an unused integer to serve as a 'dummy ID' for a 'None'-type morph-ID.
+			#encoded_word += get_chinese_char(dummy_id)
+		except ValueError: #continue
+			if type(u"a") == type(morphID) or type("a") == type(morphID):
+				encoded_word += morphID
+				#dummy_id += 1
+				#continue
+		#temp.append(encoded_word)
+	encoded_strings.append(encoded_word)
+		#encoded_words.append(encoded_word)
+	#encoded_line = ",".join(encoded_strings)
+	#encoded_segmentations[encoded_word] = encoded_line
+sys.stderr.write("\n")
+fobj_train_enc = codecs.open(encoded_training_filename, 'w', encoding='utf8')
+#fobj_gldstd_enc = codecs.open(encoded_gldstd_filename, 'w', encoding='utf8')
 
-# fobj_enc = codecs.open(encoded_training_filename, 'w', encoding='utf8')
-
-# for key,sequence in encoded_segmentations.items():
-# 	fobj_enc.write("".join(sequence) + "\n")
-
-
+for encoded_word in encoded_strings:
+	fobj_train_enc.write(encoded_word + "\n")
+fobj_train_enc.close()	
+# for encoded_word,line in encoded_segmentations.items():
+# 	#fobj_enc.write("".join(sequence) + "\n")
+# 	fobj_train_enc.write(encoded_word + "\n")
+# 	fobj_gldstd_enc.write(encoded_word + " " + line + "\n")
+# fobj_gldstd_enc.close()
+#fobj_train_ori = codecs.open(original_training_filename, 'w', encoding='utf8')
 ####### STAGE 4 #######
-# io = morfessor.MorfessorIO()
-# train_data = list(io.read_corpus_file(training_filename))
-# #model_types = morfessor.BaselineModel()
+io = morfessor.MorfessorIO()
+train_data = list(io.read_corpus_file(control_training_filename))
+#model_types = morfessor.BaselineModel()
+m1 = morfessor.BaselineModel()
+m1.load_data(train_data)
+m1.train_batch()
+print m1.get_segmentations()
+goldstd_data = io.read_annotations_file(control_gldstd_filename)
+ev = morfessor.MorfessorEvaluation(goldstd_data)
+results_control = ev.evaluate_model(m1)
 
-# model.load_data(train_data)
-# model.train_batch()
-# goldstd_data = io.read_annotations_file(gldstd_filename)
-# ev = morfessor.MorfessorEvaluation(goldstd_data)
-# results = ev.evaluate_model(model)
+
+# encoded_train_data = list(io.read_corpus_file(encoded_training_filename))
+# m2 = morfessor.BaselineModel()
+# m2.load_data(encoded_train_data)
+# m2.train_batch()
+# encoded_gldstd_data = io.read_annotations_file(encoded_gldstd_filename)
+# ev = morfessor.MorfessorEvaluation(encoded_gldstd_data)
+# results_symbols = ev.evaluate_model(m2)
+
+print "Control Results:"
+print results_control
+
+# print "\n"
+# print "Symbols Results:"
+# print results_symbols
+
+# print "results data type:", type(results_control)
 
 
+
+
+
+
+#fobj_eval = codecs.open(eval_filename, 'w', encoding='utf8')
+#for 
 # for model in models:
 #model.train_batch()
 
