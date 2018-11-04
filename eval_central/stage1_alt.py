@@ -227,10 +227,10 @@ def main(cvals_filename, outputWeights=False):
 					##print "updated letters:", " ".join(morph_suffix.get_letters())
 					continue	#continue in any case
 			else:
-				letters = []
+				#letters = []
 				##print "+++++++++ try: morph_suffix ++++++++++"
 				##print "new feature:", fwp.get_feature() #, "; existing front morph:", morph_suffix.get_morph(), ";"
-				letters = morph_suffix.get_letters()
+				#letters = morph_suffix.get_letters()
 				try: morph_suffix.update(fwp)
 				except AssertionError:
 					##print "ASSERTION ERROR"
@@ -314,8 +314,10 @@ def main(cvals_filename, outputWeights=False):
 					##print "ASSERTION ERROR"
 					pass
 				else:
-					##print "existing letters:", " ".join(letters)
-					##print "updated letters:", " ".join(morph_stem.get_letters())
+					sys.stdout.write("Existing letters: " + " ".join(letters) + "; ")
+					sys.stdout.write("updated letters: " + " ".join(morph_stem.get_letters()) + "; ")
+					morph_stem.compute_pattern()
+					sys.stdout.write("updated pattern: " + morph_stem.get_pattern() + "\n")
 					fw_objs_srtd_copy.pop(i)
 					continue
 			i += 1
@@ -335,12 +337,12 @@ def main(cvals_filename, outputWeights=False):
 					##print "updated letters:", " ".join(morph_prefix.get_letters())
 					continue
 			else:
-				letters = []
+				#letters = []
 				##print "+++++++++ try: morph_prefix ++++++++++"
 				##print "new feature:", fwp.get_feature(), "; existing front morph:", morph_prefix.get_morph(), ";"
 				#letters = []
 				try: 
-					letters = morph_prefix.get_letters()
+					#letters = morph_prefix.get_letters()
 					morph_prefix.update(fwp)
 				except AssertionError:
 					##print "ASSERTION ERROR"
@@ -370,7 +372,7 @@ def main(cvals_filename, outputWeights=False):
 					fw_objs_srtd_copy.pop(i)
 					continue	#continue in any case
 			else:
-				letters = []
+				#letters = []
 				##print "+++++++++ try: morph_prefix2 ++++++++++"
 				##print "new feature:", fwp.get_feature() #"; existing letters:", morph_suffix2.get_morph(), ";"
 				#try: letters = morph_prefix2.get_letters()
@@ -378,7 +380,7 @@ def main(cvals_filename, outputWeights=False):
 
 				try:
 					morph_prefix2.update(fwp)
-					letters = morph_prefix2.get_letters()
+					#letters = morph_prefix2.get_letters()
 				except AssertionError:
 					##print "ASSERTION ERROR *"
 					pass
@@ -512,12 +514,12 @@ def main(cvals_filename, outputWeights=False):
 			#max_pos = morph_prefix.get_max_pos()
 			##print "morph_prefix:", morph_prefix.get_letters()
 			##print "Index range:", morph_prefix.get_min_index(), morph_prefix.get_max_index()
-			weighted_morph_objects.append((morph_prefix.get_weight(), morph_prefix))
 			all_letters.extend(morph_prefix.get_letters())
 			morph_prefix.compute_pattern()
 			prefix_ptn += morph_prefix.get_pattern() + ".*"
 			patterns.append(morph_prefix.get_pattern())
 			min_front_index = morph_prefix.get_min_index()
+			weighted_morph_objects.append((morph_prefix.get_weight(), morph_prefix))
 		if morph_prefix2 != None:
 			##print morph_prefix2.get_letters()
 			#candidate_morphs.append((morph_prefix2.get_weight(), morph_prefix2))
@@ -538,14 +540,17 @@ def main(cvals_filename, outputWeights=False):
 		if morph_stem != None:
 			#prec_span = morph_prefix.get_prec_span()
 			#candidate_morphs.append((morph_stem.get_weight(), morph_stem))
-			pair = (morph_stem.get_weight()*1.000001, morph_stem)
-			weighted_morph_objects.append(pair)
+			
 			all_letters.extend(morph_stem.get_letters())
 			##print "morph_stem:", "*" + " ".join(morph_stem.get_letters()) + "*"
 			#stem_ptn += ".*".join(patterns)
 			morph_stem.compute_pattern()
 			#patterns.append(".*" + morph_stem.get_pattern())
 			patterns.append(morph_stem.get_pattern())
+			sys.stdout.write("MORPH_STEM: " + morph_stem.get_pattern() + "\n")
+			pair = (morph_stem.get_weight()*1.000001, morph_stem)
+			weighted_morph_objects.append(pair)
+
 			#morph_objects.append(morph_stem)
 		
 		if morph_suffix != None:
@@ -556,37 +561,37 @@ def main(cvals_filename, outputWeights=False):
 			max_back_index = morph_suffix.get_max_index()
 			##print "morph_suffix:", morph_suffix.get_letters()
 			##print "SUF_WT:", morph_suffix.get_weight()
-			if morph_stem != None:
-				morph_suffix.compute_pattern()
-				##print "STEM_WT:", morph_stem.get_weight(), "; SUF_WT:", morph_suffix.get_weight()
-				##print "SUF MAX INDEX:", morph_suffix.get_max_index()
-				if morph_suffix.get_max_index() < -1:
-					if morph_stem.get_weight() < morph_suffix.get_weight():
-					#stem_ptn = morph_stem.get_pattern()
-						stem_ptn = patterns.pop()
-						morph_suffix.compute_pattern()
-						patterns.append(morph_suffix.get_pattern())
-						all_letters.extend(morph_suffix.get_letters())
-						#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
-						#max_back_index = -2
-					#morph_length = morph_suffix.get_num_letters()	
-					else: pass
-						#patterns.append(morph_suffix.get_pattern())
-						#all_letters.extend(morph_suffix.get_letters())
-						#max_back_index = morph_suffix.get_max_index()
-				#patterns.append(ur"(?:(?:" + stem_ptn + ur")|(?:" + morph_suffix.get_pattern() + ur"))")
-				else:
-					morph_suffix.compute_pattern()
-					patterns.append(morph_suffix.get_pattern())
-					all_letters.extend(morph_suffix.get_letters())
-					#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
-					#max_back_index = morph_suffix.get_max_index()
-			else:
-				morph_suffix.compute_pattern()
-				patterns.append(morph_suffix.get_pattern())
-				all_letters.extend(morph_suffix.get_letters())
-				#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
-				#max_back_index = morph_suffix.get_max_index()
+			# if morph_stem != None:
+			# 	morph_suffix.compute_pattern()
+			# 	##print "STEM_WT:", morph_stem.get_weight(), "; SUF_WT:", morph_suffix.get_weight()
+			# 	##print "SUF MAX INDEX:", morph_suffix.get_max_index()
+			# 	if morph_suffix.get_max_index() < -1:
+			# 		if morph_stem.get_weight() < morph_suffix.get_weight():
+			# 		#stem_ptn = morph_stem.get_pattern()
+			# 			stem_ptn = patterns.pop()
+			# 			morph_suffix.compute_pattern()
+			# 			patterns.append(morph_suffix.get_pattern())
+			# 			all_letters.extend(morph_suffix.get_letters())
+			# 			#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
+			# 			#max_back_index = -2
+			# 		#morph_length = morph_suffix.get_num_letters()	
+			# 		else: pass
+			# 			#patterns.append(morph_suffix.get_pattern())
+			# 			#all_letters.extend(morph_suffix.get_letters())
+			# 			#max_back_index = morph_suffix.get_max_index()
+			# 	#patterns.append(ur"(?:(?:" + stem_ptn + ur")|(?:" + morph_suffix.get_pattern() + ur"))")
+			# 	else:
+			# 		morph_suffix.compute_pattern()
+			# 		patterns.append(morph_suffix.get_pattern())
+			# 		all_letters.extend(morph_suffix.get_letters())
+			# 		#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
+			# 		#max_back_index = morph_suffix.get_max_index()
+			# else:
+			# 	morph_suffix.compute_pattern()
+			# 	patterns.append(morph_suffix.get_pattern())
+			# 	all_letters.extend(morph_suffix.get_letters())
+			# 	#weighted_morph_objects.append((morph_suffix.get_weight(), morph_suffix))
+			# 	#max_back_index = morph_suffix.get_max_index()
 
 		if morph_suffix2 != None and len(morph_suffix2.get_pattern()) > 0:
 			#candidate_morphs.append((morph_suffix2.get_weight(), morph_suffix2))
@@ -617,9 +622,11 @@ def main(cvals_filename, outputWeights=False):
 		weighted_morph_objects.sort(reverse=True)
 		best_pair = weighted_morph_objects[0]
 		best_weight, best_morph_object = best_pair[0], best_pair[1]
+
 		#print cluster_ID, ";", best_weight, best_morph_object.get_pattern(), ",".join(best_morph_object.get_letters()), best_morph_object.get_morph_type()
 		#overall_ptn = ur".*".join(patterns)
 		overall_ptn = best_morph_object.get_pattern()
+		sys.stdout.write("BEST_MORPH_OBJECT: " + best_morph_object.get_pattern() + "\n")
 		overall_ptn = overall_ptn.replace(".*.*.*", ".*")
 		overall_ptn = overall_ptn.replace(".*.*", ".*")
 		best_morph_object.set_pattern(overall_ptn)
@@ -665,6 +672,7 @@ def main(cvals_filename, outputWeights=False):
 		# 	else:
 		# 		outputDict[cluster_ID] = candidate_morphs.pop(0)[1]
 		outputDict[cluster_ID] = (weight, best_morph_object)
+		sys.stdout.write("outputDict[" + str(cluster_ID) + "]: " + str(weight) + ", " + best_morph_object.get_pattern() + "\n")
 		#outputDict[cluster_ID] = (weight, overall_ptn)
 	#stoppingPoint = 10
 	#n = 0

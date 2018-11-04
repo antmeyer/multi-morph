@@ -1,6 +1,16 @@
 import sys, codecs, unicodedata, re
 import pathfinder
 from get_active import *
+import stage1_alt as stage1
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+sys.stderr = UTF8Writer(sys.stderr)
+
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
 # Goal: Assemble words_and_morphs dictionary
 # Required:
 	# clusterIDs_and_words file  -> clusterIDs_and_words dict
@@ -252,15 +262,15 @@ def process_clustering_file(cluster_file):
 	prev_line = ""
 	for line in lines:
 		string = line.replace("\n", "")
-		###print string
+		####print string
 		if string == "": continue
 		elif "##" in string:
 
 			WORDS = True
-			##print string
+			###print string
 			#clusterID = unicode(int(re_delimeter1.sub(u"", string)))
 			#clusterID = int(string.split()[-1])
-			###print clusterID, string
+			####print clusterID, string
 			#continue
 			items = string.split()
 			clusterID = int(items[-1])
@@ -269,13 +279,13 @@ def process_clustering_file(cluster_file):
 		#elif re_end_marker.match(string):
 		elif "%%" in string:
 			WORDS = False
-			###print string
+			####print string
 		if WORDS == True:		
 			WORDS = False
 			# Split first by the comma delimiter, then 
 			# Replace paranthses-enclosed values with empty string
 			#string = line.replace("\n", "")
-			###print string
+			####print string
 			#string = re_activity.sub(u"", string) # Removes activity. But what about the parentheses?
 			#words = string.split(u",")
 			items = string.split(",")
@@ -288,7 +298,7 @@ def process_clustering_file(cluster_file):
 			clusters[clusterID] = list(words)
 		#n += 1
 	# for key,val in clusters.items():
-	# 	print key, ":", ", ".join(val)
+	# 	#print key, ":", ", ".join(val)
 	return clusters
 
 class Stage2:
@@ -298,7 +308,7 @@ class Stage2:
 		# output_of_stage1 is a dict: Keys are clusterIDs. Values are morphs.
 		# In this dict, each clusterID should correspond to one and only one morph.
 		# We will set the attribute 'self.morph_dict' equal to output_of_stage1.
-		print "STAGE 2, CLUSTERS FILE:",clusters_file_name, "-->", clusters_file_name.split(".")
+		#print "STAGE 2, CLUSTERS FILE:",clusters_file_name, "-->", clusters_file_name.split(".")
 		self.morph_dict = output_of_stage1
 		#self.clusters = {}
 		basename,suffix = clusters_file_name.split(".")
@@ -338,11 +348,11 @@ class Stage2:
 		# 	if re_delimeter1.match(string): #if line[0] == u"#":
 		# 		WORDS = True
 		# 		clusterID = unicode(str(int(re_delimeter1.sub(u"", string))))
-		# 		###print clusterID, string
+		# 		####print clusterID, string
 		# 		continue
 		# 	if re_delimeter2.match(string):
 		# 		WORDS = False
-		# 		###print string
+		# 		####print string
 		# 	if WORDS == True:
 				#WORDS = False
 				# Split first by the comma delimiter, then 
@@ -358,21 +368,21 @@ class Stage2:
 		# morphIDs are equivalent to clusterIDs.
 		# How "active" are these clusters?
 		for clusterID, word_list in sorted(self.clusters.items()):
-			##print clusterID, ",".join(word_list[0:10])
+			###print clusterID, ",".join(word_list[0:10])
 			for word in word_list:
 				#sys.stderr.write(word + "\n")
-				#print word, word_list[0:2]
+				##print word, word_list[0:2]
 				# clusterID = morphID
 				#self.alignments[word] = {}
 				if self.words_and_morphIDs.has_key(word):
 					self.words_and_morphIDs[word].append(clusterID)
 					# if clusterID < 10:
-					# 	print "==========================================================", clusterID
+					# 	#print "==========================================================", clusterID
 				else:
 					self.words_and_morphIDs[word] = [clusterID]
 					# if clusterID < 10:
-					# 	print "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+", clusterID
-				##print 
+					# 	#print "+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+", clusterID
+				###print 
 	# def assign_words_to_morphs(self, clusterIDs_and_morphs):
 	# 	"""Returns a dictionary wherein each unique word is a key, the value of which
 	# 	is the list of morphs associated with the word in question."""
@@ -404,10 +414,10 @@ class Stage2:
 		# pat2 = ur"^zz&"
 		# re_suffixTag  = re.compile(pat2, re.UNICODE)
 		#self.alignments[word] = {}
-		##print "*********************************", "\n", word, 
+		###print "*********************************", "\n", word, 
 		#for item in self.words_and_morphIDs[word]:
-			##print str(item) + " "
-		##print "*********************************"
+			###print str(item) + " "
+		###print "*********************************"
 		mapping = {}
 		for i in range(len(word)):
 			#mapping[i] = self.letter_dict(word[i])
@@ -420,7 +430,7 @@ class Stage2:
 		#morphIDs = self.words_and_morphIDs[word]
 		#sys.stdout.write(word + "\t")
 		for morphID in self.words_and_morphIDs[word]:
-			#if morphID < 10: print "***********************************************", morphID
+			#if morphID < 10: #print "***********************************************", morphID
 			#sys.stdout.write(":" + str(morphID) + ",")
 			try: morph_weight_pair = self.morph_dict[morphID]
 			except KeyError:
@@ -433,7 +443,7 @@ class Stage2:
 		# for morphID in self.words_and_morphIDs[word]:
 		# 	sys.stdout.write(":" + str(morphID) + ",")
 		# sys.stdout.write("\n")
-		###print "morph_tuples:", morph_tuples
+		####print "morph_tuples:", morph_tuples
 		# The 'morph_types' are prefix, stem, and suffix.
 		## They are the three subgroups in 'morphs_by_type'.
 		## They have a certain order: 'n' below is the variable
@@ -461,7 +471,7 @@ class Stage2:
 			# 	morphs_by_type[2].append((re_suffixTag.sub(ur"", morph), morphID))
 			# else: # the morph is of the stem type.
 			# 	morphs_by_type[1].append((morph, morphID))
-		###print "morphs_by_type:", morphs_by_type
+		####print "morphs_by_type:", morphs_by_type
 		# klbi = (1) "my dog", (2) "as my heart"
 		# In (1), the 'k' is a prefix, and will be marked as such in the morphs dict,
 		# whereas in (2), the 'k' is part of the stem (in particular, the root).
@@ -470,37 +480,45 @@ class Stage2:
 		for morphID, morph_object in morph_tuples:
 			#if morphID < 10:
 
-			##print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word
-			#print word, morph_object.get_pattern(),
-			#if morphID < 10: print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ", morphID
+			print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word,
+			##print word, morph_object.get_pattern(),
+			#if morphID < 10: #print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ", morphID
 			re_morph = re.compile(morph_object.get_pattern(), re.UNICODE)
+			#print "MORPH PATTERN:", morph_object.get_pattern()
 			try: match_obj = re_morph.search(word)
-			except AttributeError: continue
+			except AttributeError: 
+				
+				continue
 			#num_letters = morph_object.get_num_letters()
 			#if match_obj.groups() != None:
+			if match_obj == None:
+				print ">>> NO MATCH!", "continue;"
+				continue
 			try: 
 				my_groups = match_obj.groups()
-				#print my_groups,
+				##print my_groups,
 				#my_span = match_obj.span()
 			except AttributeError:
-				#print ""
+				print ">> NO GROUPS!", "continue;",
+				##print ""
 				continue
 
-			else:
-				for i in range(len(my_groups)):
-					letter = my_groups[i]
-					#print letter,
-					# try: idx_in_word = word.index(letter)
-					# except IndexError:
-					# 	#print "!!! INDEX ERROR !!!" 
-					# 	continue
-					try: 
-						idx = match_obj.span(i+1)[0]
-						#print idx,
-					except AttributeError:
-						#print ""
+			# else:
+			#print "\t",
+			for i in range(len(my_groups)):
+				letter = my_groups[i]
+				#print letter,
+				# try: idx_in_word = word.index(letter)
+				# except IndexError:
+				# 	##print "!!! INDEX ERROR !!!" 
+				# 	continue
+				try: 
+					idx = match_obj.span(i+1)[0]
+					#print idx,
+				except AttributeError:
+					print "NO SPAN!", "continue;",
 
-						continue
+					continue
 					#start_idx = index_range[0]
 					#end_idx = index_range[1]
 					#if end_idx - start_idx < 2:
@@ -511,17 +529,19 @@ class Stage2:
 					# if mapping.has_key(idx):
 					# 	mapping[idx].append(morphID)
 					# mapping[idx] = [morphID]
-					else:
-						try: mapping[idx].append(morphID)
-						except AttributeError: 
-							mapping[idx] = [morphID]
+				#else:
+				try: mapping[idx].append(morphID)
+				except AttributeError:
+					#print "Can't append to", type(mapping[idx]), "!"
+					mapping[idx] = [morphID]
+			print ""
 						# else:
 						# 	avail_chars.remove()
 				# for i in range(len(match_obj.groups())):
 				# 	letter = my_groups([i])
 				# 	try: idx_in_word = word.index(letter)
 				# 	except IndexError:
-				# 		##print "!!! INDEX ERROR !!!" 
+				# 		###print "!!! INDEX ERROR !!!" 
 				# 		continue
 				# 	else:
 						#wordChar_index_pair = (idx_in_word, word[idx_in_word]) # This is a pair containing a letter and its index in the word,
@@ -535,7 +555,9 @@ class Stage2:
 					# if mapping.has_key(wordChar_index_pair):
 					# 	mapping[wordChar_index_pair].append(morphID)
 					# else:
-					# 	mapping[wordChar_index_pair] = [morphID]	
+					# 	mapping[wordChar_index_pair] = [morphID]
+				#print "  ",
+			#print ""	
 		# for n in range(len(morphs_by_type)):
 		# 	for morph_object, morphID in self.words_and_morphIDs[word]:
 		# 		# #re_morph = morph_object.get_regex()
@@ -573,11 +595,11 @@ class Stage2:
 			# 					mapping[wordChar_index_pair].append(morphID)
 			# 				else:
 			# 					mapping[wordChar_index_pair] = [morphID]
-		#print ""
-		# #print "MAPPING:"
+		##print ""
+		# ##print "MAPPING:"
 		# for pair,lst in mapping.items():
-		# 	##print pair, ": ", ", ".join(lst) 
-		# 	#print pair, lst
+		# 	###print pair, ": ", ", ".join(lst) 
+		# 	##print pair, lst
 		
 		return mapping
 
@@ -649,13 +671,13 @@ class Stage2:
 		# 	working_segmentations = []
 		# 	mapping = self.map_morphChars_to_wordChars(word)
 		# 	mapping_items = mapping.items()
-		# 	##print "Mapping Items:",mapping_items
-		# 	##print "new_morph_dict:", new_morph_dict
-		# 	###print "0", mapping_items
+		# 	###print "Mapping Items:",mapping_items
+		# 	###print "new_morph_dict:", new_morph_dict
+		# 	####print "0", mapping_items
 		# 	#for key, morphID_list in mapping.items():  # equivalent to "for char in word"
 		# 	morphID_list = mapping_items[0][1] # the 1st morph-ID list (probably associated with the word's 1st letter)
-		# 	##print "'mapping_items[0][1]':", morphID_list
-		# 	##print "'words_and_morphIDs[", word, "]':", self.words_and_morphIDs[word]
+		# 	###print "'mapping_items[0][1]':", morphID_list
+		# 	###print "'words_and_morphIDs[", word, "]':", self.words_and_morphIDs[word]
 		# 	char_index_pair = mapping_items[0][0]
 		# 	letter = char_index_pair[0]
 		# 	index = char_index_pair[1]
@@ -668,7 +690,7 @@ class Stage2:
 			
 		# 	# for m in range(len(morphID_list)):
 		# 	# 	word_chars_available[m] = list(word_chars)
-		# 	# ##print "WCA:", word_chars_available
+		# 	# ###print "WCA:", word_chars_available
 		# 	# morph_list = []
 		# 	# for morphID,morph in new_morph_dict:
 		# 	# 	new_morph = re_prefixTag.sub(ur"", morph)
@@ -679,12 +701,12 @@ class Stage2:
 		# 	prestars = "*"
 
 		# 	for m in range(len(morphID_list)):
-		# 		##print prestars, morphID_list[m]
+		# 		###print prestars, morphID_list[m]
 		# 		word_chars_available[m] = list(word_chars)
-		# 		##print prestars, "WCA:", word_chars_available
+		# 		###print prestars, "WCA:", word_chars_available
 		# 		morphID = morphID_list[m]
 		# 		morph = new_morph_dict[morphID]
-		# 		###print "00", morph, "m =", m
+		# 		####print "00", morph, "m =", m
 		# 		# morph = re_prefixTag.sub(ur"", morph)
 		# 		# morph = re_suffixTag.sub(ur"", morph)
 		# 		working_segmentations.append([morph])
@@ -694,56 +716,56 @@ class Stage2:
 		# 		# Each item in working segmentations is a distinct segmentation hypothesis. Each segmentation
 		# 		# hypothesis can grow as the analysis proceeds.
 		# 		word_chars_available[m] = list(remove_chars(word_chars_available[m], morph))
-		# 		##print prestars, "WORKING SEGS:", working_segmentations
+		# 		###print prestars, "WORKING SEGS:", working_segmentations
 		# 		prestars += "*"
-		# 		###print "00", morph, "***", m, word_chars_available[m], "& seg =", working_segmentations[m]
-		# 		###print "000", morphID, morph, "***", m, word_chars_available[m], "& seg =", working_segmentations[m]
-		# 	###print ""
-		# 		###print "WCA:", word_chars_available
+		# 		####print "00", morph, "***", m, word_chars_available[m], "& seg =", working_segmentations[m]
+		# 		####print "000", morphID, morph, "***", m, word_chars_available[m], "& seg =", working_segmentations[m]
+		# 	####print ""
+		# 		####print "WCA:", word_chars_available
 			
 		# 	for m in range(1, len(mapping_items)):
 		# 	#for word_char_and_index,morphID_list in mapping_items:
 		# 		morphID_list = mapping_items[m][1]
-		# 		##print "^", mapping_items[m], "morphID_list:", morphID_list
+		# 		###print "^", mapping_items[m], "morphID_list:", morphID_list
 		# 		word_char_and_index = mapping_items[m][0]
 		# 		letter = word_char_and_index[0]
 		# 		index = word_char_and_index[1]
 		# 		new_segmentations = []
 		# 		for morphID in morphID_list:
-		# 			##print ""
+		# 			###print ""
 		# 			morph = new_morph_dict[morphID]
-		# 			##print "MORPH:", morph 
+		# 			###print "MORPH:", morph 
 		# 			# morph = re_prefixTag.sub(ur"", morph)
 		# 			# morph = re_suffixTag.sub(ur"", morph)
 		# 			#new_segmentations = []
 		# 			prestars = "*"
 		# 			for n in range(len(working_segmentations)):
 		# 				#working_segmentations[n].append(morph)
-		# 				##print ""
-		# 				###print prestars, "Working Segmentation:", working_segmentations[n]
+		# 				###print ""
+		# 				####print prestars, "Working Segmentation:", working_segmentations[n]
 		# 				# chars_in_morph = list(morph)
-		# 				# ###print "work_segs =", working_segmentations
+		# 				# ####print "work_segs =", working_segmentations
 		# 				for n in range(len(working_segmentations)):
 		# 					if word_chars_available.has_key(n):
 		# 						pass
 		# 					else:
 		# 						word_chars_available[n] = word_chars
-		# 				##print prestars, morph, "; n:"+str(n), "; WCA_"+str(n)+":", word_chars_available[n], "; WSegs:", working_segmentations
-		# 				###print prestars, "word_chars_available:", word_chars_available[n] 
+		# 				###print prestars, morph, "; n:"+str(n), "; WCA_"+str(n)+":", word_chars_available[n], "; WSegs:", working_segmentations
+		# 				####print prestars, "word_chars_available:", word_chars_available[n] 
 		# 				#if morph_validity_test(word_chars, morph):
 		# 				if morph_validity_test(word_chars_available[n], morph):
-		# 					##print prestars, morph, "is a valid morph!!!"
+		# 					###print prestars, morph, "is a valid morph!!!"
 		# 					working_segmentations[n].append(morph)
 		# 					new_segmentations.append(working_segmentations[n])
-		# 					##print prestars, "WCA:", word_chars_available[n]
+		# 					###print prestars, "WCA:", word_chars_available[n]
 		# 					word_chars_available[n] = list(remove_chars(word_chars_available[n], morph))
-		# 					###print prestars, morphID, morph, "***", n, word_chars_available[n], "& seg =", working_segmentations[n]
-		# 					##print prestars, morph, "; n:"+str(n), "; WCA_"+str(n)+":", word_chars_available[n], "; WSegs_"+str(n)+":", working_segmentations[n], "; Nsegs_"+str(n)+":", new_segmentations[n]
+		# 					####print prestars, morphID, morph, "***", n, word_chars_available[n], "& seg =", working_segmentations[n]
+		# 					###print prestars, morph, "; n:"+str(n), "; WCA_"+str(n)+":", word_chars_available[n], "; WSegs_"+str(n)+":", working_segmentations[n], "; Nsegs_"+str(n)+":", new_segmentations[n]
 		# 			working_segmentations = list(new_segmentations)
 		# 			prestars += "*"
 
 		# 	self.segmentations[word] = working_segmentations
-		####print "final segmentations =", working_segmentations
+		#####print "final segmentations =", working_segmentations
 		#return working_segmentations
 
 
@@ -756,19 +778,19 @@ class Stage2:
 		
 		for word in self.words_and_morphIDs.keys():
 			#sys.stderr.write("In segment(); word: " + word + "\n")
-			##print "$$$$$$$$$$$$$$&$%^^^ words_and_morphID[", word, "]:", self.words_and_morphIDs[word]
+			###print "$$$$$$$$$$$$$$&$%^^^ words_and_morphID[", word, "]:", self.words_and_morphIDs[word]
 			# word_chars = list(word)
 			# sys.stderr.write("word = " + word + "\n\n")
 			# working_segmentations = []
 			# charToMorphAlignment = self.map_morphChars_to_wordChars(word).items()
 			# alignedPairs = charToMorphAlignment.items()
-			# ##print "Mapping Items:",mapping_items
-			# ##print "new_morph_dict:", new_morph_dict
-			# ###print "0", mapping_items
+			# ###print "Mapping Items:",mapping_items
+			# ###print "new_morph_dict:", new_morph_dict
+			# ####print "0", mapping_items
 			# #for key, morphID_list in mapping.items():  # equivalent to "for char in word"
 			# char_index_pair,initMorphIDList = charToMorphAlignment[0] # the 1st morph-ID list (probably associated with the word's 1st letter)
-			# ##print "'mapping_items[0][1]':", morphID_list
-			# ##print "'words_and_morphIDs[", word, "]':", self.words_and_morphIDs[word]
+			# ###print "'mapping_items[0][1]':", morphID_list
+			# ###print "'words_and_morphIDs[", word, "]':", self.words_and_morphIDs[word]
 			# #char_index_pair = charToMorphAlignment[0][0]
 			# #char_index_pair,initMorphList = charToMorphAlignment[0]
 			# letter = char_index_pair[0]
@@ -777,12 +799,12 @@ class Stage2:
 			# prestars = "*"
 
 		# for m in range(len(morphID_list)):
-		# 	##print prestars, morphID_list[m]
+		# 	###print prestars, morphID_list[m]
 		# 	word_chars_available[m] = list(word_chars)
-		# 	##print prestars, "WCA:", word_chars_available
+		# 	###print prestars, "WCA:", word_chars_available
 		# 	morphID = morphID_list[m]
 		# 	morph = new_morph_dict[morphID]
-		# 	###print "00", morph, "m =", m
+		# 	####print "00", morph, "m =", m
 		# 	# morph = re_prefixTag.sub(ur"", morph)
 		# 	# morph = re_suffixTag.sub(ur"", morph)
 		# 	working_segmentations.append([morph])
@@ -791,12 +813,12 @@ class Stage2:
 	# 	#working_segmentations = []
 			# charToMorphAlignment = self.map_morphChars_to_wordChars(word)
 			# alignedCharMorphPairs = sorted(charToMorphAlignment.items())
-		# 	##print "Sorted alignedCharMorphPairs:", alignedCharMorphPairs
+		# 	###print "Sorted alignedCharMorphPairs:", alignedCharMorphPairs
 			# char_index_pair,initMorphIDList = alignedCharMorphPairs[0]
 			# segmentations = [[morphID] for morphID in initMorphIDList]
 			# numSegmentations = len(segmentations)
 		# 	avail_chars = [list(word) for n in range(numSegmentations)]
-		# 	##print "avail_chars (source):", avail_chars
+		# 	###print "avail_chars (source):", avail_chars
 		# 	# for n in range(numSegmentations):
 		# 	# 	morph = segmentations[n][0] 
 		# 	# 	for morph_char in list(morph):
@@ -805,27 +827,31 @@ class Stage2:
 		# 		morphID = segmentations[n][0]
 		# 		#morph = new_morph_dict[morphID]
 		# 		morph_letters = morph_object.get_letters()
-		# 		##print "0:", morph
-		# 		##print "segs[n]:", segmentations[n]
+		# 		###print "0:", morph
+		# 		###print "segs[n]:", segmentations[n]
 		# 		#for morph_char in list(morph): 
 		# 		for morph_char in morph_letters:
 		# 			try: 
 		# 				avail_chars[n].remove(morph_char)
 		# 			#except ValueError: continue
-		# 				##print "avail_chars-- (n:" + str(n) + ") :",avail_chars
+		# 				###print "avail_chars-- (n:" + str(n) + ") :",avail_chars
 		# 			except ValueError: continue		
-		# 	##print "\n"
+		# 	###print "\n"
 			# We now expand each segmentation in parallel.
 			#numSegmentations = len(segmentations)
 			charToMorphAlignment = self.map_morphChars_to_wordChars(word)
-			#print "charToMorphAlignment:", charToMorphAlignment
+			##print "charToMorphAlignment:", charToMorphAlignment
 
 			if len(charToMorphAlignment) == 0:
 				if word not in self.exception_words.append(word):
 					continue
-			my_pathfinder = pathfinder.Pathfinder(charToMorphAlignment, self.morph_dict)
+			my_pathfinder = pathfinder.Pathfinder(charToMorphAlignment, self.morph_dict, word)
 			my_pathfinder.compute_paths()
 			self.seg_dict_morphIDs[word] = my_pathfinder.get_paths()
+			if self.seg_dict_morphIDs[word] == [[]]:
+				print "NOTHING HONEY!"
+			print "PATHS FROM PATHFINDER [", word,"]:", my_pathfinder.get_paths()
+			print "STG2: PATHS FROM PATHFINDER:", self.seg_dict_morphIDs[word]
 			output_lines.append(word + "\t" + my_pathfinder.get_morph_strings() + "\n")
 		
 		fobj_strings = codecs.open(self.aux_outputfile, 'w', encoding='utf8')
@@ -836,99 +862,99 @@ class Stage2:
 			#sys.stderr.write(output_line)
 			#fobj_strings.close()
 			#sys.stderr.write("I'm here!\n")
-			#print "SEG_DICT" + "[" + word + "]:", self.seg_dict_morphIDs[word]
+			##print "SEG_DICT" + "[" + word + "]:", self.seg_dict_morphIDs[word]
 			# alignedCharMorphPairs = sorted(charToMorphAlignment.items())
-			# ##print "ACMPs:",
+			# ###print "ACMPs:",
 			# # for pair in alignedCharMorphPairs.items():
-			# # 	##print pair[0], pair[1], ";"
-			# # ##print ""
+			# # 	###print pair[0], pair[1], ";"
+			# # ###print ""
 			# sys.stderr.write("***" + str(alignedCharMorphPairs) + "\n")
-			# ##print "+++===", alignedCharMorphPairs[0], len(alignedCharMorphPairs[0])
+			# ###print "+++===", alignedCharMorphPairs[0], len(alignedCharMorphPairs[0])
 			# schar_index_pair,initMorphIDList = alignedCharMorphPairs[0]
-			# ##print initMorphIDList
+			# ###print initMorphIDList
 			# segmentations = [[morph_ID] for morph_ID in initMorphIDList]
 			# numSegmentations = len(segmentations)
 			# avail_chars = [list(word) for n in range(numSegmentations)]
 			# #alignedCharMorphPairs.sort()
-			# ##print "length ACMPs:", len(alignedCharMorphPairs)
+			# ###print "length ACMPs:", len(alignedCharMorphPairs)
 			# for m in range(1,len(alignedCharMorphPairs)):
 			# 	#alignedCharMorphPairs.sort()
 			# 	#char_index_pair,morphIDList = alignedCharMorphPairs[m]
 			# 	char_index_pair,morph_ID_list = alignedCharMorphPairs[m]
-			# 	##print "********** aligned[1:]:", alignedCharMorphPairs[1:]
+			# 	###print "********** aligned[1:]:", alignedCharMorphPairs[1:]
 			# 	#morphIDList = alignedCharMorphPairs[m][1]
-			# 	##print "char_index_pair:", char_index_pair
-			# 	##print "morph_ID LIST:", alignedCharMorphPairs[m][1]
+			# 	###print "char_index_pair:", char_index_pair
+			# 	###print "morph_ID LIST:", alignedCharMorphPairs[m][1]
 			# 	morph_ID_list = alignedCharMorphPairs[m][1]
 			# 	for n in range(numSegmentations):
 			# 		#for morphID in morphIDList:
 			# 			#morph = new_morph_dict[morphID]
 			# 		for morph_ID in morph_ID_list:
 			# 			#morph_object = wt_morph_pair[1]
-			# 			##print "MORPH_DICT[ID]:", self.morph_dict[morph_ID]
+			# 			###print "MORPH_DICT[ID]:", self.morph_dict[morph_ID]
 			# 			morph_object = self.morph_dict[morph_ID][1]
-			# 			###print "morph_object features:", morph_object.get_fwp_list()
-			# 			##print "morph_object pattern:", morph_object.get_pattern()
-			# 			##print "self.morph_dict[morph_ID]:", self.morph_dict[morph_ID]
-			# 			##print "self.morph_dict[morph_ID][1]:", self.morph_dict[morph_ID][1]
+			# 			####print "morph_object features:", morph_object.get_fwp_list()
+			# 			###print "morph_object pattern:", morph_object.get_pattern()
+			# 			###print "self.morph_dict[morph_ID]:", self.morph_dict[morph_ID]
+			# 			###print "self.morph_dict[morph_ID][1]:", self.morph_dict[morph_ID][1]
 			# 			morph_object = self.morph_dict[morph_ID][1]
 			# 			#morph_object = self.morph_dict[morph_ID]
-			# 			##print "LETTERS:", morph_object.get_letters(),
+			# 			###print "LETTERS:", morph_object.get_letters(),
 			# 			pat = morph_object.get_pattern()
-			# 			##print "; PATTERN:", pat
+			# 			###print "; PATTERN:", pat
 			# 			re_morph = re.compile(pat, re.UNICODE)
 			# 			match_obj = re_morph.search(word)
-			# 			##print "avail_chars+ (n:" + str(n) + "):",avail_chars
+			# 			###print "avail_chars+ (n:" + str(n) + "):",avail_chars
 			# 			if morph_is_good(match_obj, avail_chars[n]):
-			# 				##print "segmentations[n]:",segmentations[n]
+			# 				###print "segmentations[n]:",segmentations[n]
 			# 				segmentations[n].append(morph_ID)
-			# 				##print "segmentations*[n]:",segmentations[n]
-			# 				##print "all segmentations:", segmentations, "; all avail_chars:", avail_chars
-			# 				##print "avail_chars[n]:", avail_chars[n]
+			# 				###print "segmentations*[n]:",segmentations[n]
+			# 				###print "all segmentations:", segmentations, "; all avail_chars:", avail_chars
+			# 				###print "avail_chars[n]:", avail_chars[n]
 			# 				avail_chars[n] = make_chars_unavailable(match_obj, avail_chars[n])
-			# 				##print "avail_chars*[n]:", avail_chars[n]
+			# 				###print "avail_chars*[n]:", avail_chars[n]
 			# 			else:
-			# 				##print "MORPH IS BAD!"
+			# 				###print "MORPH IS BAD!"
 			# 				continue
 
-						# ##print "avail_chars+ (n:" + str(n) + "):",avail_chars
+						# ###print "avail_chars+ (n:" + str(n) + "):",avail_chars
 						# if morph_is_good(morph, avail_chars[n]):
-						# 	##print "segmentations[n]:",segmentations[n]
+						# 	###print "segmentations[n]:",segmentations[n]
 						# 	segmentations[n].append(morphID)
-						# 	##print "segmentations*[n]:",segmentations[n]
-						# 	##print "avail_chars[n]:", avail_chars[n]
+						# 	###print "segmentations*[n]:",segmentations[n]
+						# 	###print "avail_chars[n]:", avail_chars[n]
 						# 	avail_chars[n] = make_chars_unavailable(morph, avail_chars[n])
-						# 	##print "avail_chars[n]:", avail_chars[n]
+						# 	###print "avail_chars[n]:", avail_chars[n]
 						# else: continue
 						# for morph_char in list(morph):
 						# 	if morph_char not in avail_chars[n]: 
 						# 		continue
 						# 	else:
-						# 		##print "potential morph:", morph
+						# 		###print "potential morph:", morph
 						# 		for morph_char in list(morph):
-						# 			##print "morph_char- :", morph_char
+						# 			###print "morph_char- :", morph_char
 						# 			try:
 						# 				avail_chars[n].remove(morph_char)
-						# 				##print "avail_chars-- :",avail_chars
+						# 				###print "avail_chars-- :",avail_chars
 						# 			except ValueError:
-						# 				##print "SKIP!"
+						# 				###print "SKIP!"
 						# 				continue
 						# 		segmentations[n].append(morphID)
 									# else:
-									# 	##print "avail_chars- :",avail_chars
+									# 	###print "avail_chars- :",avail_chars
 			# segs_with_morphs = [[] for n in range(len(segmentations))]
 			# for n in range(len(segmentations)):
 			# 	#segs_with_morphs.append([])
 			# 	for morphID in segmentations[n]:
 			# 		#segs_with_morphs[n].append(new_morph_dict[morphID])
 			# 		segs_with_morphs.append(morphID)
-			# 		###print "&&", new_morph_dict[morphID]
-			# 		##print "&&&", "segs_with_morphs[n]:", segs_with_morphs[n]
+			# 		####print "&&", new_morph_dict[morphID]
+			# 		###print "&&&", "segs_with_morphs[n]:", segs_with_morphs[n]
 			# self.seg_dict[word] = segs_with_morphs
 			# self.seg_dict_morphIDs[word] = segmentations
 			#segs_with_morphs = {}
 			# for seg in segmentations:
-			# 	##print seg
+			# 	###print seg
 		#return segmentations
 		#return self.seg_dict
 
@@ -944,26 +970,29 @@ def main(output_of_stage1, clustersAndWords_file):
 	#clusterIDs_and_words = get_clusterIDs_and_words(cluster_file)
 	#words_and_morphs = get_words_and_morphs(output_of_stage1, clusterIDs_and_words)
 	#return words_and_morphs
-	##print "IN_MAIN!"
+	###print "IN_MAIN!"
 	clustersAndWords_dict = process_clustering_file(clustersAndWords_file)
-	morph_IDs = output_of_stage1.keys() ###print clustersAndWords_dict
-	print "TYPE OF FIRST MORPH_ID:", type(morph_IDs[0])
+	morph_IDs = output_of_stage1.keys() ####print clustersAndWords_dict
+	#print "TYPE OF FIRST MORPH_ID:", type(morph_IDs[0])
 	my_stage2 = Stage2(output_of_stage1, clustersAndWords_dict, clustersAndWords_file)
 	my_stage2.segment()
 	word_segmentations = dict()
 	word_segmentations = my_stage2.get_segmentations()
-	###print "FINAL SEGMENTATIONS:"
-	###print word_segmentations
+	####print "FINAL SEGMENTATIONS:"
+	####print word_segmentations
 	# for word,segmentation_list in word_segmentations.items():
-	# 	##print word, ":", segmentation_list
+	# 	###print word, ":", segmentation_list
 	return word_segmentations
 
 if __name__=="__main__":
-	#cluster_file = sys.argv[1]
+	#morph_dict_
+	cvals_filename = sys.argv[1]
+	morph_dict = stage1.main(cvals_filename)
+	cluster_file = sys.argv[2]
 	#cluster_dict = process_clustering_file(cluster_file)
-	output_of_stage1 = morphs_ex
+	#output_of_stage1 = morphs_ex
 	#main(output_of_stage1, cluster_file)
-	main(output_of_stage1, cluster_dict)
-	# ##print "******************"
-	# ##print d
+	main(morph_dict, cluster_file)
+	# ###print "******************"
+	# ###print d
 
