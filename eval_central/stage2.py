@@ -320,6 +320,7 @@ class Stage2:
 		self.clusters_file_name = clusters_file_name
 		self.aux_outputfile = clusters_file_name.split(".")[0]
 		self.aux_outputfile += "_morphStrings.txt"
+		self.charToMorphAlignments = {}
 		alphabet = u"\u1E33\u1E6D\u1E63\u0161\u0294\u0295\u00E1\u00E2\u00E9\u00F3\u00FA\u00E7\u029D\u017E"
 		alphabet += u"abcdefghijklmnopqrstuvwxyz"
 		alpha_list = list(alphabet)
@@ -841,6 +842,7 @@ class Stage2:
 			#numSegmentations = len(segmentations)
 			charToMorphAlignment = self.map_morphChars_to_wordChars(word)
 			##print "charToMorphAlignment:", charToMorphAlignment
+			self.charToMorphAlignments[word] = charToMorphAlignment
 
 			if len(charToMorphAlignment) == 0:
 				if word not in self.exception_words.append(word):
@@ -963,6 +965,10 @@ class Stage2:
 		#return self.seg_dict
 		return self.seg_dict_morphIDs
 
+	def get_alignments(self):
+		self.segment()
+		return self.charToMorphAlignments
+
 
 def main(output_of_stage1, clustersAndWords_file):
 	"""returns a dictionary comprising words as keys and segmentations 
@@ -977,12 +983,14 @@ def main(output_of_stage1, clustersAndWords_file):
 	my_stage2 = Stage2(output_of_stage1, clustersAndWords_dict, clustersAndWords_file)
 	my_stage2.segment()
 	word_segmentations = dict()
-	word_segmentations = my_stage2.get_segmentations()
+	#word_segmentations = my_stage2.get_segmentations()
+	charToMorphAlignments = my_stage2.get_alignments()
 	####print "FINAL SEGMENTATIONS:"
 	####print word_segmentations
 	# for word,segmentation_list in word_segmentations.items():
 	# 	###print word, ":", segmentation_list
-	return word_segmentations
+	#return word_segmentations
+	return charToMorphAlignments
 
 if __name__=="__main__":
 	#morph_dict_

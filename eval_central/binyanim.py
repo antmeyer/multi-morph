@@ -14,6 +14,8 @@ sys.stderr = UTF8Writer(sys.stderr)
 filename = sys.argv[1]
 fobj = codecs.open(filename,'r',encoding='utf8')
 lines = fobj.readlines()
+pat = ur"(^.*&)([^\s&]*:tbd)(&|$)"
+re_tbd = re.compile(pat, re.UNICODE)
 pat=ur"(pos:v&.*&ptn:)(CiC[ae]C)(&tense:past)"
 re_piel1 = re.compile(pat, re.UNICODE)
 pat=ur"(pos:v&.*&ptn:)(CaCeC)(.*&(?:form:imp)|(?:tense:fut)|(?:form:inf))"
@@ -51,7 +53,8 @@ pat = ur"(&?root:.*&ptn:[Ca-z]+)((?:&.*$)|$)"
 re_rootptn = re.compile(pat, re.UNICODE)
 pat=ur"(pos:)([a-z:]+)((?:&.*$)|$)"
 re_getpos = re.compile(pat, re.UNICODE)
-
+pat=ur"(pos:)([a-z]+)(&[^\s]*&ptn:)(meCaCeC)(&|$)"
+re_pielnadj = re.compile(pat, re.UNICODE)
 pat = ur"(pos:v&.*&ptn:)(CaCa)((?:&.*$)|$)"
 re_CaCa = re.compile(pat, re.UNICODE)
 #pat = ur"(pos:v&.*&ptn:)(CCaC)((?:&.*$)|$)"
@@ -59,10 +62,17 @@ pat = ur"(pos:v&[^\s]*ptn:)(CCaC)(&tense:fut)"
 #pat = ur"([^h]i..[a\u00E1].*\t.*ptn:)(CCaC)(&tense:fut)"
 re_CCaC = re.compile(pat, re.UNICODE)
 #pat = ur"(ptn:Ce?C[aoe]C&root:[^&]+&)(ptn:qal&root:[^&]+&)"
+pat = ur"(gen:)([a-z]+)(&num:pl)(&pl:(?:(?:fem)|(?:masc)):bio)(&|$)"
+re_fbio = re.compile(pat, re.UNICODE)
+#pat = ur"(gen:)(fe?m?)(&num:pl)(&pl:(?:(?:fem)|(?:masc)):mis)(&|$)"
+pat = ur"(gen:)([a-z]+)(&num:pl)(&pl:)([a-z]+)(:mis)(&|$)"
+re_genmis = re.compile(pat, re.UNICODE)
 
 # pat = ur"(&root:[^&]+&ptn:[^&]+)([]*)(&root:[^&]+&ptn:(?:(?:qal)|(?:piel)|(?:hitpael)|(?:nifal)|(?:hufal)|(?:hifil)|(?:pual)))"
 # re_slice = re.compile(pat, re.UNICODE)
 for line in lines:
+	line = re_genmis.sub(ur"\1\5\3\7", line)
+	line = re_fbio.sub(ur"\1\2\3\5", line)
 	line = line.replace("\n","")
 	word,analyses_str = line.split("\t")
 	#print"****", word + "\t" + analyses_str
@@ -72,7 +82,7 @@ for line in lines:
 	temp_line = ""
 	for analysis in analyses:
 #for line in lines:
-		
+		temp_line = re_tbd.sub(ur"\1\3", temp_line)
 		temp_line = word + "\t" + analysis
 		new_analysis = analysis
 		pos = re_getpos.sub(ur"\2", new_analysis)
@@ -85,6 +95,7 @@ for line in lines:
 		temp_line = re_piel1.sub(ur"\1piel\3", temp_line)
 		temp_line = re_piel2.sub(ur"\1piel\3", temp_line)
 		temp_line = re_piel3.sub(ur"\1piel\3", temp_line)
+		temp_line = re_pielnadj.sub(ur"\1part\3piel\5", temp_line)
 			#print"&", temp_line
 		#temp_word,new_analysis = temp_line.split("\t")
 			#print"temp_word:\t", temp_word
@@ -129,7 +140,7 @@ for line in lines:
 		temp_line = re_CaCa.sub(ur"\1qal\3", temp_line)
 		temp_line = re_CCaC.sub(ur"\1qal\3", temp_line)
 		temp_line = re_qalinf.sub(ur"\1qal\3", temp_line)
-		if "pos:v" in temp_line:
+		if "pos:v" in temp_line or "pos:v" in temp_line:
 			temp_line = temp_line.replace("ptn:meCaCeC", "ptn:piel")
 		#if re_qalsh.search(temp_line):
 			#sys.stdout.write(line)
@@ -151,6 +162,27 @@ for line in lines:
 		new_analyses.append(new_analysis)
 		#print"new_analyses:", new_analyses
 	new_line = word + "\t" + " ".join(new_analyses) + "\n"	
+	new_line = new_line.replace("&ptn:&", "&")
+	pat = ur"(&root:[^&:\s]*)(f)([^&:\s]*&ptn:)"
+	re_rootf = re.compile(pat, re.UNICODE)
+	new_line = re_rootf.sub(ur"\1p\3", new_line)
+	pat = ur"(&root:[^&:\s]*)(\u1E33)([^&:\s]*&ptn:)"
+	re_rootk = re.compile(pat, re.UNICODE)
+	new_line = re_rootk.sub(ur"\1k\3", new_line)
+	pat = ur"(&root:[^&:\s]*)(v)([^&:\s]*&ptn:)"
+	re_rootb = re.compile(pat, re.UNICODE)
+	new_line = re_rootb.sub(ur"\1b\3", new_line)
+
+	pat = ur"(&root:[^&:\s]*&ptn:[Caoiue]+)(&[^\s]*pre:sh[^\s]*)(&root:[^&:\s]*&ptn:[Caoiue]+)(&|$)"
+	re_shptn = re.compile(pat, re.UNICODE)
+	new_line = re_shptn.sub(ur"\3\4", new_line)
+
+	pat = ur"(&root:[^&:\s]+)(&ptn:[^\s&]+)[\s]*(&root:[^&:\s]+)(&ptn:[^\s&]+)(&|$)"
+	re_dblptn = re.compile(pat, re.UNICODE)
+	new_line = re_dblptn.sub(ur"\3\4\5", new_line)
+	new_line = new_line.replace("&mass:yes&","&")
+	new_line = new_line.replace("&a:dim&","&pos:adj&dim&")
+	new_line = new_line.replace("dim:yes", "dim")
 	sys.stdout.write(new_line)
 
 	# line = re_piel1.sub(ur"\1piel\3", line)

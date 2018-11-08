@@ -7,13 +7,97 @@ from transliterate import heb2eng
 from bcubed_eval import bcubed_prec, bcubed_rec
 import numpy as np
 
-
 # bermanFile = sys.argv[1]
 # clustersFile = sys.argv[2]
 #inputFile = sys.argv[2]
 
 bermanAnalysesFile = sys.argv[1]
 clustersFile = sys.argv[2]
+clusterActivitiesFile = sys.argv[3]
+#outFilePath = sys.argv[3]
+outFilePath = sys.argv[4]
+table_row = ""
+
+def process_clustering_file(cluster_file, threshold=0.8):
+	cfobj = codecs.open(cluster_file, encoding='utf8')
+	# pat = ur"\s\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
+	# re_activity = re.compile(pat, re.UNICODE)
+	# pat = ur"##\s"
+	# re_ID_marker = re.compile(pat2, re.UNICODE)
+	# pat = ur"%%"
+	# re_end_marker = re.compile(pat, re.UNICODE)
+	WORDS = False
+	clusters = []
+	lines = cfobj.readlines()[1:]
+	n = 0
+	prev_line = ""
+	for line in lines:
+		string = line.replace("\n", "")
+		####print string
+		if string == "": continue
+		elif "##" in string:
+
+			WORDS = True
+			###print string
+			#clusterID = unicode(int(re_delimeter1.sub(u"", string)))
+			#clusterID = int(string.split()[-1])
+			####print clusterID, string
+			#continue
+			items = string.split()
+			clusterID = int(items[-1])
+			#clusterID = n
+			continue
+		#elif re_end_marker.match(string):
+		elif "%%" in string:
+			WORDS = False
+			####print string
+		if WORDS == True:		
+			WORDS = False
+			# Split first by the comma delimiter, then 
+			# Replace paranthses-enclosed values with empty string
+			#string = line.replace("\n", "")
+			####print string
+			#string = re_activity.sub(u"", string) # Removes activity. But what about the parentheses?
+			#words = string.split(u",")
+			items = string.split(",")
+			words = []
+			for item in items:
+				word,activity_str = item.split()
+				activity_str = activity_str.replace("(","")
+				activity_str = activity_str.replace(")","")
+				activity = float(activity_str)
+				#words.append(item.split()[0])
+				if activity >= threshold:
+					words.append(word)
+			# if self.clusters.has_key(clusterID):
+			# 	self.clusters[clusterID].append(words)
+			# else: self.clusters[clusterID] = words
+			#if len(words) > 0:
+			clusters.append(words)
+		#n += 1
+	# for key,val in clusters.items():
+	# 	#print key, ":", ", ".join(val)
+	return clusters
+# def process_clusters_and_activities(clusters_file, threshold=0.5):
+# 	fobj = codecs.open(clusters_file, 'r', encoding='utf8')
+# 	lines = fobj.readlines()
+# 	fobj.close()
+# 	cluster_words = []
+# 	clusters = []
+# 	if lines[0][0] == "#": lines.pop(0)
+# 	for line in lines:
+# 		clusterLine = line.replace("\n","")
+# 		items = clusterLine.split(", ")
+# 		sys.stderr.write("** ITEMS: " + str(items) + "\n")
+# 		for item in items:
+# 			word,activity_str=item.split()
+# 			activity_str = activity_str.replace("(", "")
+# 			activity_str = activity_str.replace(")", "")
+# 			activity = float(activity)
+# 			if activity >= threshold:
+# 				cluster_words.append(word)
+# 		clusters.append(cluster_words)
+# 	return clusters
 
 def entropy(freqs, total_item_count):
 	#cdef double H, a, b, N
@@ -106,6 +190,7 @@ mainFileName = name_chunks[0]
 # Ktag = name_chunks[1]
 name_pieces = mainFileName.split("_")
 #standard = name_chunks[2]
+#N = int(name_pieces[3][1:])
 Ktag = name_pieces[-1]
 sys.stderr.write("%%% Ktag = " + str(Ktag) + "\n")
 #Kstr = Ktag.split("@")[-1]
@@ -120,10 +205,16 @@ sys.stderr.write("%%% Knum = " + str(Knum) + "\n")
 affixlen = name_pieces[0]
 delta = name_pieces[1]
 #bigK = nameComponents[3].split("-")[-1]
-Ntag = name_pieces[4]
+Ntag = name_pieces[3]
 if "N" in Ntag:
 	Ntag = Ntag[1:]
-
+int_N = int(Ntag)
+if int_N > 12270:
+	data_rep = "TS"
+elif int_N > 11667 and int_N < 12270:
+	data_rep = "TR"
+elif int_N < 11667:
+	data_rep = "O"
 #sys.stderr.write("mainFileName: " + mainFileName + "\n")
 #eta = nameComponents[5].split("-")[-1]
 # mainFile = analysesFile.split(".")[2]
@@ -143,7 +234,8 @@ if "N" in Ntag:
 
 affixlen = affixlen.replace("na","n/a")
 delta = delta.replace("na","n/a")
-delta = delta.replace("star", "*")
+delta = delta.replace("0","n/a")
+#delta = delta.replace("star", "*")
 
 # if re.search("precedence", mainFileName):
 # 	deltaSpec = nameComponents[4]
@@ -158,12 +250,12 @@ delta = delta.replace("star", "*")
 # 	delta = deltaSpec.split("-")[1]
 # delta = delta.replace("star", "*")
 	
-fileobj = open(clustersFile, 'r')
-clusters = []
-clusterLines = []
-lines = fileobj.readlines()
-fileName = lines.pop(0)
-sys.stderr.write("\n\n")
+# fileobj = open(clustersFile, 'r')
+# clusters = []
+# clusterLines = []
+# lines = fileobj.readlines()
+# fileName = lines.pop(0)
+# sys.stderr.write("\n\n")
 
 # the UNIX 'ls' command puts the clusters in ascending order by file name.
 # the file names include cluster ID.
@@ -190,7 +282,9 @@ for line in clusterLines:
 	cluster = line.split()
 	clusters.append(cluster)
 
-fileobj.close()
+fobj.close()
+
+clusters = process_clustering_file(clusterActivitiesFile)
 
 
 wordsAndClassFreqs = dict() # Dict of dicts. The inner keys are classes,
@@ -272,8 +366,10 @@ for word in wordsAndClassFreqs:
 			classFreqs[clss] = 1
 			allClasses.append(clss)
 
-N = len(words)
-sys.stderr.write("Length of WordsAndClasses = " + str(N) + "\n")
+#N = len(words)
+words = wordsAndClassFreqs.keys()
+coverage = len(words)
+sys.stderr.write("Length of WordsAndClasses = " + str(coverage) + "\n")
 
 words_sorted = sorted(words)
 clusters_sorted = sorted(cluster_IDs)
@@ -366,12 +462,14 @@ avg_prec, avg_recall = 0.0, 0.0
 # print ""
 # print "**************************"
 # print ""
-if N > 0:
+if coverage > 0:
 	avg_prec = bcubed_prec(clusters_sparse, clusters_lengths, classes_sparse, classes_lengths, int(numClusters), int(numClasses))
 	avg_recall = bcubed_rec(clusters_sparse, clusters_lengths, classes_sparse, classes_lengths, int(numClusters), int(numClasses))
 else:
 	avg_prec = 0.0
 	avg_recall = 0.0
+
+
 # calculate mutual information
 # Info = 0.0
 # if N > 0:
@@ -384,9 +482,9 @@ else:
 # 				coef = clustersAndClasses[cluster][clss] * invN
 # 				Info += coef * math.log(log_arg, 2)
 
-Info = mutualInfo(clusterFreqs, classFreqs, clustersAndClasses, N)		
+Info = mutualInfo(clusterFreqs, classFreqs, clustersAndClasses, coverage)		
 # calculate the entropy of the clusters
-H_clusters = entropy(clusterFreqs, N)
+H_clusters = entropy(clusterFreqs, coverage)
 # for k in range(len(clusters)):
 # 	str_k = "{0:04d}".format(k)
 # 	#sys.stderr.write(str(clusterFreqs[str_k]) + "\n")
@@ -399,8 +497,8 @@ H_clusters = entropy(clusterFreqs, N)
 # 	H_clusters = H_clusters - a*b
 #sys.stderr.write("\n\nH_clusters = " + str(H_clusters))
 # calculate the entropy of the classes
-H_classes = entropy(classFreqs, N)
-joint_H = jointEntropy(clusterFreqs, classFreqs, clustersAndClasses, N)	
+H_classes = entropy(classFreqs, coverage)
+joint_H = jointEntropy(clusterFreqs, classFreqs, clustersAndClasses, coverage)	
 #sys.stderr.write("\n\nH_classes = " + str(H_classes) + "\n\n") 	
 # calculate normalized mutual information (NMI)
 #NMI = 0.0
@@ -449,14 +547,28 @@ if  BP_out == "0.000":
 	BP_out = "0"
 if  BR_out == "0.000":
 	BR_out = "0"
-cov_out = str(N)
-
+#cov_out = str(N)
+formatted_rep = r""
+if data_rep == "TS":
+	formatted_rep = r"$\text{T}_{\text{S}}$"
+elif data_rep == "TR":
+	formatted_rep = r"$\text{T}_{\text{R}}$"
+elif data_rep == "O":
+	formatted_rep = r"$\text{O}$"
+#table_row =  r"\multirow{3}{*}{" + str(affixlen) + "} " + " & " + r"\multirow{3}{*}{" + str(delta) + "}" + " & " + str(Kval) + " & " + formatted_rep + " & "
+#table_row += r"multirow{3}{*}{" + str(affix_len) + "} " + "& multirow{3}{*}{" + str(delta) + "}"str(affixlen) + " & " + str(delta)" + " & " + formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
+#table_row += formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
+table_row = str(Kval) + " & " + data_rep + " & " + str(affixlen) + " & " + str(delta) + " & "
+table_row += purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
+# write results to stdout
+#table_row += str(affixlen) + " & " + str(delta)" + " & " + formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
 # write results to stdout
 #output = "#" + mainFileName + "." + Ktag + "." + standard + "\n"
 output = "#" + mainFileName + "\n" #+ "." + Ktag + "\n"
 #output += "# $K$ & $\eta$ & $s$ & $\delta$ & purity & BP & BR & cov. \\\\\n"
 #output += "#" + str(Kval) + " & " + eta + " & " + affixlen + " & " + delta + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + cov_out + " & " + str(totalClusters) \\\\"
-output += "#" + str(Kval) + " & " + affixlen + " & " + delta + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + cov_out + " & " + str(totalClusters) + " \\\\"
+output += "#" + str(Kval) + " & " + affixlen + " & " + delta + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + ur"\\"
+
 output += "\n\nMCMM Clustering Evaluation\n\n\n"
 output += "Definitions\n\n"
 output += "U\t= the set of clusters induced by the MCMM\n"
@@ -473,7 +585,7 @@ output += "Active Cluster Count = " + str(totalClusters) + "\n"
 output += "Class Count = " + str(numClasses) + "\n\n"
 
 output += "RESULTS\n\n"
-output += "Word count = " + str(N) + "\n\n"
+output += "Word count = " + str(coverage) + "\n\n"
 output += "Purity(U,V) = " + "%.5f" % Purity + "\n"
 output += "H clusters = " + "%.5f" % H_clusters + "\n"
 output += "H classes = " + "%.5f" % H_classes + "\n"
@@ -576,5 +688,9 @@ for clss in allClasses:
 # 	for i in range(numRows):
 # 		output += "   [" + str(i) + "," + str(j) + "] " + classesTable[i][j]
 # 	output += "\n"
+sys.stdout.write(table_row)
+fobj_out = codecs.open(outFilePath, 'w', encoding='utf8')
+fobj_out.write(output)
+fobj_out.close()
 
-sys.stdout.write(output)	
+#sys.stdout.write(output)	

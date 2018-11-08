@@ -127,7 +127,7 @@ class Pathfinder:
 			#print '/2.' + str(i) + '/ STACK:', self.stack
 		init_avail_chars = list(word)
 		avail_chars_copy = list(init_avail_chars)
-		self.stack.append([(0, input_morph_ID_list, avail_chars_copy, used_chars_copy)])
+		self.stack.append([])
 		self.abbr_stack.append(input_morph_ID_list)
 		#self.stack.append([(init_index, input_morph_ID_list, used_chars_copy)])
 		cur_index = init_index
@@ -541,6 +541,7 @@ def main():
 	##print alignments
 	##print "SECOND:",alignments[1]
 	alignments = {0:[200], 1:[], 2:[100,200], 3:[100,117,200]}
+	0:200 1: 2:100,200 3:100,117,200
 	my_pathfinder = Pathfinder(alignments)
 	#print "boom"
 	paths = my_pathfinder.get_paths()

@@ -3,7 +3,7 @@
 import sys, codecs, unicodedata, morfessor, re, pprint
 import stage1_alt as stage1 
 import stage2 as stage2
-
+from best_path import *
 #import sys, codecs, re
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -41,6 +41,7 @@ def writeChineseToMorphIDDict(chinese_dict):
 # 2_2_K6000_N12222_basic_180626_18-27_k-1000.C_vals 2_2_K6000_N12222_basic_180626_18-27_k-1000.clusters
 
 cluster_centroids_filename = sys.argv[1]
+basename = cluster_centroids_filename.split(".")[0]
 cluster_membership_filename = sys.argv[2]
 control_training_filename = sys.argv[3]
 control_gldstd_filename = sys.argv[4]
@@ -49,17 +50,13 @@ trn_basename = control_training_filename.split(".")[0]
 gld_basename = control_gldstd_filename.split(".")[0]
 encoded_training_filename = trn_basename + "_symbols.txt"
 encoded_gldstd_filename = gld_basename + "_symbols.txt"
-# fobj_train = codecs.open(control_training_filename, 'r', encoding='utf8')
+fobj_train = codecs.open(control_training_filename, 'r', encoding='utf8')
 #control_training_filename = "morfessor_TR_training.txt"
 #fobj_train_enc = codecs.open(encoded_training_filename , 'w', encoding='utf8')
 eval_filename = basename + "_extrinsic_eval.txt"
 
-# trn_lines = fobj_train.readlines()
-# if trn_lines[0][0] == "#":
-# 	trn_lines.pop(0)
-# for line in trn_lines:
 # 	fobj_new_train.write(line)
-
+chinese_segm_filename = basename + ".chinese_segm"
 
 ####### STAGE 1 ####### 
 morph_dict = stage1.main(cluster_centroids_filename)
@@ -67,8 +64,14 @@ morph_dict = stage1.main(cluster_centroids_filename)
 # for key,val in morph_dict.items():
 # 	print key, "-->", val[-1].get_pattern()
 ####### STAGE 2 ####### 
-word_segmentations_dict = stage2.main(morph_dict, cluster_membership_filename)
-
+#word_segmentations_dict = stage2.main(morph_dict, cluster_membership_filename)
+charToMorphAlignments = stage2.main(morph_dict, cluster_membership_filename)
+trn_lines = fobj_train.readlines()
+if trn_lines[0][0] == "#":
+	trn_lines.pop(0)
+for line in trn_lines:
+	word = line.replace("\n", "")
+	paths_obj = CompressedPaths(morph_dict, charToMorphAlignments, word)
 # print "from 4 stages main:, stage 2:"
 # for key,val in word_segmentations_dict.items():
 # 	print key, "-->", val
@@ -172,23 +175,30 @@ writeChineseToMorphIDDict(map_chinese_to_id)
 #fobj_train_ori = codecs.open(original_training_filename, 'w', encoding='utf8')
 ####### STAGE 4 #######
 
-# io = morfessor.MorfessorIO()
-# train_data = list(io.read_corpus_file(control_training_filename))
-# #model_types = morfessor.BaselineModel()
-# m1 = morfessor.BaselineModel()
-# m1.load_data(train_data)
-# m1.train_batch()
-# print m1.get_segmentations()
-# goldstd_data = io.read_annotations_file(control_gldstd_filename)
-# ev = morfessor.MorfessorEvaluation(goldstd_data)
-# results_control = ev.evaluate_model(m1)
 
-# encoded_train_data = list(io.read_corpus_file(encoded_training_filename))
-# m2 = morfessor.BaselineModel()
-# m2.load_data(encoded_train_data)
-# m2.train_batch()
-# encoded_gldstd_data = io.read_annotations_file(encoded_gldstd_filename)
-# ev = morfessor.MorfessorEvaluation(encoded_gldstd_data)
+io = morfessor.MorfessorIO()
+train_data = list(io.read_corpus_file(control_training_filename))
+#model_types = morfessor.BaselineModel()
+m1 = morfessor.BaselineModel()
+m1.load_data(train_data)
+m1.train_batch()
+segmentations = m1.get_segmentations()
+io.write_segmentation_file(segmentations, control_segm_filename)
+
+goldstd_data = io.read_annotations_file(control_gldstd_filename)
+ev = morfessor.MorfessorEvaluation(goldstd_data)
+results_control = ev.evaluate_model(m1)
+
+
+encoded_train_data = list(io.read_corpus_file(encoded_training_filename))
+m2 = morfessor.BaselineModel()
+m2.load_data(encoded_train_data)
+m2.train_batch()
+segmentations = m2.get_segmentations()
+io.write_segmentation_file(segmentations, chinese_segm_filename)
+
+encoded_gldstd_data = io.read_annotations_file(encoded_gldstd_filename)
+#ev = morfessor.MorfessorEvaluation(encoded_gldstd_data)
 # results_symbols = ev.evaluate_model(m2)
 
 # print "Control Results:"
