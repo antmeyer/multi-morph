@@ -2164,7 +2164,7 @@ hanigúv	pre:ha&pos:n&root:ngb&ptn:CiCuC&gen:ms&num:sg&stat:u
 hanituxím	pre:ha&pos:n&root:ntx&ptn:CiCuC&gen:ms&num:pl&stat:u
 haniyarót	pos:n&pre:ha&gen:ms&num:pl&pl:fem:mis&stat:u
 haniyár	pre:ha&pos:n&root:nyr&ptn:CiCaC&gen:ms&num:sg&stat:u
-hanišbár	pre:ha&pos:adjniqtal&gen:ms&num:sg
+hanišbár	pre:ha&pos:adj&niqtal&gen:ms&num:sg
 hanocót	pre:ha&pos:n&root:nyc&ptn:CoCa&gen:fm&num:pl&stat:u
 hanoráʔ	pre:ha&pos:adj&root:nrʔ&ptn:CoCaC&root:yrʔ&gen:ms&num:sg&src:denom
 hanoséfet	pre:ha&pos:adj&root:nsp&ptn:niCCaC&gen:fm&num:sg
@@ -6527,13 +6527,13 @@ neʔebád	pos:part&root:ʔbd&ptn:nifal&gen:ms&num:sg pos:v&root:ʔbd&ptn:nifal&t
 neʔesóf	pos:v&root:ʔsp&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 neʕalév	pos:v&root:ʕlb&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
 neʕarbév	pos:v&root:ʕrbb&ptn:piel&tense:fut&pers:1&gen:unsp&num:pl
-neʕelavím	pos:adjniqtal&gen:ms&num:pl
+neʕelavím	pos:adj&niqtal&gen:ms&num:pl
 neʕelmá	pos:v&root:ʕlm&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 neʕelmú	pos:v&root:ʕlm&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
 neʕelvá	pos:v&root:ʕlb&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 neʕelám	pos:part&root:ʕlm&ptn:nifal&gen:ms&num:sg pos:v&root:ʕlm&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
 neʕelámt	pos:v&root:ʕlm&ptn:nifal&tense:past&pers:2&gen:fm&num:sg
-neʕeláv	pos:adjniqtal&gen:ms&num:sg pos:v&root:ʕlb&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
+neʕeláv	pos:adj&niqtal&gen:ms&num:sg pos:v&root:ʕlb&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
 neʕelávta	pos:v&root:ʕlb&ptn:nifal&tense:past&pers:2&gen:ms&num:sg
 neʕelávti	pos:v&root:ʕlb&ptn:nifal&tense:past&pers:1&gen:unsp&num:sg
 neʕelévet	pos:part&root:ʕlb&ptn:nifal&gen:fm&num:sg
@@ -6632,7 +6632,7 @@ niqáx	pos:v&root:lqx&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 niqíta	pos:v&root:nqy&ptn:piel&tense:past&pers:2&gen:ms&num:sg
 niqíti	pos:v&root:nqy&ptn:piel&tense:past&pers:1&gen:unsp&num:sg
 nirdemú	pos:v&root:rdm&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
-nirdám	pos:adjniqtal&gen:ms&num:sg pos:v&root:rdm&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
+nirdám	pos:adj&niqtal&gen:ms&num:sg pos:v&root:rdm&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
 nirdámta	pos:v&root:rdm&ptn:nifal&tense:past&pers:2&gen:ms&num:sg
 nirqód	pos:v&root:rqd&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 nirxác	pos:v&root:rxc&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl pos:n&gen:fm&num:pl&num:duo&stat:u
@@ -6652,8 +6652,8 @@ nisbál	pos:adj&root:sbl&ptn:niCCaC&gen:ms&num:sg&src:deverb
 nisgarót	pos:adj&root:sgr&ptn:niCCaC&gen:fm&num:pl
 nisgerá	pos:v&root:sgr&ptn:nifal&tense:past&pers:3&gen:fm
 nisgerú	pos:v&root:sgr&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
-nisgár	pos:adjniqtal&gen:ms pos:v&root:sgr&ptn:nifal&tense:past&pers:3&gen:ms prep:pro&pers:2&gen:ms&num:sg
-nisgéret	pos:adjniqtal&gen:fm
+nisgár	pos:adj&niqtal&gen:ms pos:v&root:sgr&ptn:nifal&tense:past&pers:3&gen:ms prep:pro&pers:2&gen:ms&num:sg
+nisgéret	pos:adj&niqtal&gen:fm
 nisgór	pos:v&root:sgr&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 nispór	pos:v&root:spr&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 nistakél	pos:v&root:skl&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
@@ -6704,7 +6704,7 @@ nizreqú	pos:v&root:zrq&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
 nizróq	pos:v&root:zrq&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 nišberá	pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 nišberú	pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
-nišbár	pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:ms&num:sg pos:adjniqtal&gen:ms&num:sg pos:part&root:šbr&ptn:nifal&gen:ms&num:sg
+nišbár	pos:v&root:šbr&ptn:nifal&tense:past&pers:3&gen:ms&num:sg pos:adj&niqtal&gen:ms&num:sg pos:part&root:šbr&ptn:nifal&gen:ms&num:sg
 nišbór	pos:v&root:šbr&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 nišhé	pos:v&root:šhy&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 niškavím	pos:part&root:škb&ptn:CCaC&gen:ms&num:pl
@@ -6746,7 +6746,7 @@ niḳnást	pos:v&root:kns&ptn:nifal&tense:past&pers:2&gen:fm&num:sg
 niḳnásta	pos:v&root:kns&ptn:nifal&tense:past&pers:2&gen:ms&num:sg
 niḳnásti	pos:v&root:kns&ptn:nifal&tense:past&pers:1&gen:unsp&num:sg
 niḳnéset	pos:part&root:kns&ptn:nifal&gen:fm&num:sg
-niḳʔáv	pos:adjniqtal&gen:ms&num:sg pos:v&root:kʔv&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
+niḳʔáv	pos:adj&niqtal&gen:ms&num:sg pos:v&root:kʔv&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 niṣxé	pos:v&root:ṣxy&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 niṭreqá	pos:v&root:ṭrq&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
 niṭráq	pos:v&root:ṭrq&ptn:nifal&tense:past&pers:3&gen:ms&num:sg
@@ -8895,7 +8895,7 @@ wenipól	pre:we&pos:v&root:npl&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 weniqné	pre:we&pos:v&root:qny&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 weniqráʔ	pre:we&pos:v&root:qrʔ&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 weniqáx	pre:we&pos:v&root:lqx&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
-wenirdám	pre:we&pos:adjniqtal&gen:ms&num:sg
+wenirdám	pre:we&pos:adj&niqtal&gen:ms&num:sg
 wenirxác	pre:we&pos:v&root:rxc&ptn:CCaC&tense:fut&pers:1&gen:unsp&num:pl
 wenirʔé	pre:we&pos:v&root:rʔy&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl
 wenisgór	pre:we&pos:v&root:sgr&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl pre:we&pos:v&root:sgr&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl pre:we&pos:v&root:skl&ptn:hitpael&tense:fut&pers:1&gen:unsp&num:pl
@@ -10749,7 +10749,7 @@ zḳuḳít	pos:n&root:zkk&ptn:CuCiC&gen:fm&num:sg&stat:u
 šenivráʔ	pre:sh&pos:part&pre:sh&root:brʔ&ptn:nifal&gen:ms&num:sg
 šeniyarót	pos:n&pre:sh&gen:ms&num:pl&pl:fem:mis&stat:u
 šenišberá	pre:sh&pos:v&pre:sh&root:šbr&ptn:nifal&tense:past&pers:3&gen:fm&num:sg
-šenišbár	pre:sh&pos:adjniqtal&pre:sh&gen:ms&num:sg
+šenišbár	pre:sh&pos:adj&niqtal&pre:sh&gen:ms&num:sg
 šenišmáʕ	pre:sh&pos:v&root:šmʕ&ptn:CCaC&pre:sh&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl pre:sh&pos:part&pre:sh&root:šmʕ&ptn:nifal&gen:ms&num:sg
 šenišpeḳú	pre:sh&pos:v&pre:sh&root:špḳ&ptn:nifal&tense:past&pers:3&gen:unsp&num:pl
 šenišʔál	pre:sh&pos:v&root:šʔl&ptn:CCaC&pre:sh&ptn:qal&tense:fut&pers:1&gen:unsp&num:pl

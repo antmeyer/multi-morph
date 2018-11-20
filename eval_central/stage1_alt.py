@@ -314,10 +314,10 @@ def main(cvals_filename, outputWeights=False):
 					##print "ASSERTION ERROR"
 					pass
 				else:
-					sys.stdout.write("Existing letters: " + " ".join(letters) + "; ")
-					sys.stdout.write("updated letters: " + " ".join(morph_stem.get_letters()) + "; ")
+					#sys.stdout.write("Existing letters: " + " ".join(letters) + "; ")
+					#sys.stdout.write("updated letters: " + " ".join(morph_stem.get_letters()) + "; ")
 					morph_stem.compute_pattern()
-					sys.stdout.write("updated pattern: " + morph_stem.get_pattern() + "\n")
+					#sys.stdout.write("updated pattern: " + morph_stem.get_pattern() + "\n")
 					fw_objs_srtd_copy.pop(i)
 					continue
 			i += 1
@@ -547,7 +547,7 @@ def main(cvals_filename, outputWeights=False):
 			morph_stem.compute_pattern()
 			#patterns.append(".*" + morph_stem.get_pattern())
 			patterns.append(morph_stem.get_pattern())
-			sys.stdout.write("MORPH_STEM: " + morph_stem.get_pattern() + "\n")
+			#sys.stdout.write("MORPH_STEM: " + morph_stem.get_pattern() + "\n")
 			pair = (morph_stem.get_weight()*1.000001, morph_stem)
 			weighted_morph_objects.append(pair)
 
@@ -626,7 +626,7 @@ def main(cvals_filename, outputWeights=False):
 		#print cluster_ID, ";", best_weight, best_morph_object.get_pattern(), ",".join(best_morph_object.get_letters()), best_morph_object.get_morph_type()
 		#overall_ptn = ur".*".join(patterns)
 		overall_ptn = best_morph_object.get_pattern()
-		sys.stdout.write("BEST_MORPH_OBJECT: " + best_morph_object.get_pattern() + "\n")
+		#sys.stdout.write("BEST_MORPH_OBJECT: " + best_morph_object.get_pattern() + "\n")
 		overall_ptn = overall_ptn.replace(".*.*.*", ".*")
 		overall_ptn = overall_ptn.replace(".*.*", ".*")
 		best_morph_object.set_pattern(overall_ptn)
@@ -672,7 +672,7 @@ def main(cvals_filename, outputWeights=False):
 		# 	else:
 		# 		outputDict[cluster_ID] = candidate_morphs.pop(0)[1]
 		outputDict[cluster_ID] = (weight, best_morph_object)
-		sys.stdout.write("outputDict[" + str(cluster_ID) + "]: " + str(weight) + ", " + best_morph_object.get_pattern() + "\n")
+		#sys.stdout.write("outputDict[" + str(cluster_ID) + "]: " + str(weight) + ", " + best_morph_object.get_pattern() + "\n")
 		#outputDict[cluster_ID] = (weight, overall_ptn)
 	#stoppingPoint = 10
 	#n = 0

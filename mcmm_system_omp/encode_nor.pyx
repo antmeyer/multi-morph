@@ -44,12 +44,14 @@ cdef class FeatureEncoder:
 		if affixlen != "0":
 			self.positional = True
 			self.affixlen = int(affixlen)
-		if prec_span != "0":
-			self.precedence = True
+		# if prec_span != "0":
+		# 	self.precedence = True
 		if prec_span == "star":
 			self.prec_span = 1000
-		else:
-			self.prec_span = int(prec_span)
+		elif prec_span == "0" or prec_span == 0 or prec_span == None:
+			self.precedence = False
+			self.prec_span = int(0)
+		else: self.prec_span = True
 		# if bigrams == "1":
 		# 	self.bigrams = True	
 		#if vv_cc == "1"

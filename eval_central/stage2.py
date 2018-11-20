@@ -1,16 +1,14 @@
 import sys, codecs, unicodedata, re
-import pathfinder
+#import pathfinder
 from get_active import *
 import stage1_alt as stage1
-
+from best_path import *
 reload(sys)  
 sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf8')
 sys.stdout = UTF8Writer(sys.stdout)
 sys.stderr = UTF8Writer(sys.stderr)
 
-UTF8Writer = codecs.getwriter('utf8')
-sys.stdout = UTF8Writer(sys.stdout)
 # Goal: Assemble words_and_morphs dictionary
 # Required:
 	# clusterIDs_and_words file  -> clusterIDs_and_words dict
@@ -304,6 +302,7 @@ def process_clustering_file(cluster_file):
 class Stage2:
 
 	#def __init__(self, output_of_stage1, cluster_file):
+	#def __init__(self, output_of_stage1, clusters_and_words_dict, clusters_file_name, word_list):
 	def __init__(self, output_of_stage1, clusters_and_words_dict, clusters_file_name):
 		# output_of_stage1 is a dict: Keys are clusterIDs. Values are morphs.
 		# In this dict, each clusterID should correspond to one and only one morph.
@@ -318,12 +317,16 @@ class Stage2:
 		self.seg_dict_morphIDs = {}
 		#self.alignments = dict()
 		self.clusters_file_name = clusters_file_name
-		self.aux_outputfile = clusters_file_name.split(".")[0]
-		self.aux_outputfile += "_morphStrings.txt"
+		#self.aux_outputfile = clusters_file_name.split(".")[0]
+		#self.aux_outputfile += "_morphStrings.txt"
 		self.charToMorphAlignments = {}
 		alphabet = u"\u1E33\u1E6D\u1E63\u0161\u0294\u0295\u00E1\u00E2\u00E9\u00F3\u00FA\u00E7\u029D\u017E"
 		alphabet += u"abcdefghijklmnopqrstuvwxyz"
 		alpha_list = list(alphabet)
+		#self.words_to_morphIDs_to_charIndices_dict = {}
+		self.morphToCharAlignments_allWords = {}
+		#self.wordlist = word_list
+		self.covered_words = []
 		# 'self.clusters' will be a dict; keys = cluster_IDs,
 		# and values = lists of words. It will thus say, for each cluster, which
 		# words are members of that cluster.
@@ -334,6 +337,8 @@ class Stage2:
 		self.words_and_morphIDs = {}
 		#self.segmentations = {}
 		self.exception_words = []
+		self.compressed_morph_seqs = {}
+		self.index_bundles = {}
 		# cfobj = codecs.open(cluster_file, encoding='utf-8')
 		# pat = ur"\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
 		# re_activity = re.compile(pat, re.UNICODE)
@@ -481,7 +486,7 @@ class Stage2:
 		for morphID, morph_object in morph_tuples:
 			#if morphID < 10:
 
-			print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word,
+			#print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word,
 			##print word, morph_object.get_pattern(),
 			#if morphID < 10: #print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ", morphID
 			re_morph = re.compile(morph_object.get_pattern(), re.UNICODE)
@@ -493,14 +498,14 @@ class Stage2:
 			#num_letters = morph_object.get_num_letters()
 			#if match_obj.groups() != None:
 			if match_obj == None:
-				print ">>> NO MATCH!", "continue;"
+				#print ">>> NO MATCH!", "continue;"
 				continue
 			try: 
 				my_groups = match_obj.groups()
 				##print my_groups,
 				#my_span = match_obj.span()
 			except AttributeError:
-				print ">> NO GROUPS!", "continue;",
+				#print ">> NO GROUPS!", "continue;",
 				##print ""
 				continue
 
@@ -517,7 +522,7 @@ class Stage2:
 					idx = match_obj.span(i+1)[0]
 					#print idx,
 				except AttributeError:
-					print "NO SPAN!", "continue;",
+					#print "NO SPAN!", "continue;",
 
 					continue
 					#start_idx = index_range[0]
@@ -535,7 +540,7 @@ class Stage2:
 				except AttributeError:
 					#print "Can't append to", type(mapping[idx]), "!"
 					mapping[idx] = [morphID]
-			print ""
+			#print ""
 						# else:
 						# 	avail_chars.remove()
 				# for i in range(len(match_obj.groups())):
@@ -597,11 +602,10 @@ class Stage2:
 			# 				else:
 			# 					mapping[wordChar_index_pair] = [morphID]
 		##print ""
-		# ##print "MAPPING:"
+		# print "stage2: MAPPING:"
 		# for pair,lst in mapping.items():
-		# 	###print pair, ": ", ", ".join(lst) 
-		# 	##print pair, lst
-		
+		# # 	###print pair, ": ", ", ".join(lst) 
+		# 	print "stg2; pair,list =", pair, lst
 		return mapping
 
 	
@@ -776,8 +780,9 @@ class Stage2:
 		# present them as though they were strictly concatenative. The Chinese chars are each going to be (for
 		# our purposes) monotholithic.
 		output_lines = []
-		
+		n = 0
 		for word in self.words_and_morphIDs.keys():
+			self.covered_words.append(word)
 			#sys.stderr.write("In segment(); word: " + word + "\n")
 			###print "$$$$$$$$$$$$$$&$%^^^ words_and_morphID[", word, "]:", self.words_and_morphIDs[word]
 			# word_chars = list(word)
@@ -840,26 +845,37 @@ class Stage2:
 		# 	###print "\n"
 			# We now expand each segmentation in parallel.
 			#numSegmentations = len(segmentations)
-			charToMorphAlignment = self.map_morphChars_to_wordChars(word)
+			#charToMorphAlignment = self.map_morphChars_to_wordChars(word)
 			##print "charToMorphAlignment:", charToMorphAlignment
-			self.charToMorphAlignments[word] = charToMorphAlignment
-
-			if len(charToMorphAlignment) == 0:
+			#self.charToMorphAlignments[word] = charToMorphAlignment
+ 			self.charToMorphAlignments[word] = self.map_morphChars_to_wordChars(word)
+			if len(self.charToMorphAlignments[word]) == 0:
 				if word not in self.exception_words.append(word):
 					continue
-			my_pathfinder = pathfinder.Pathfinder(charToMorphAlignment, self.morph_dict, word)
-			my_pathfinder.compute_paths()
-			self.seg_dict_morphIDs[word] = my_pathfinder.get_paths()
-			if self.seg_dict_morphIDs[word] == [[]]:
-				print "NOTHING HONEY!"
-			print "PATHS FROM PATHFINDER [", word,"]:", my_pathfinder.get_paths()
-			print "STG2: PATHS FROM PATHFINDER:", self.seg_dict_morphIDs[word]
-			output_lines.append(word + "\t" + my_pathfinder.get_morph_strings() + "\n")
+			#self.morphIDs = self.get_compressed_path()
+			#print "\n\n\n word:", word, n, "\n\n\n"
+			n += 1
+			compression = Compression(self.morph_dict, self.charToMorphAlignments[word], word)
+			self.compressed_morph_seqs[word] = compression.get_compressed_path()
+			
+			
+			#self.words_to_morphIDs_to_charIndices_dict[word] = compression.get_morphIDs_to_charIndices_map()
+			self.morphToCharAlignments_allWords[word] = compression.get_morphIDs_to_charIndices_map()
+			# self.index_bundles[word] = compression.compute_index_bundles()
+
+			# my_pathfinder = pathfinder.Pathfinder(charToMorphAlignment, self.morph_dict, word)
+			# my_pathfinder.compute_paths()
+			# self.seg_dict_morphIDs[word] = my_pathfinder.get_paths()
+			# if self.seg_dict_morphIDs[word] == [[]]:
+			# 	print "NOTHING HONEY!"
+			# print "PATHS FROM PATHFINDER [", word,"]:", my_pathfinder.get_paths()
+			# print "STG2: PATHS FROM PATHFINDER:", self.seg_dict_morphIDs[word]
+			# output_lines.append(word + "\t" + my_pathfinder.get_morph_strings() + "\n")
 		
-		fobj_strings = codecs.open(self.aux_outputfile, 'w', encoding='utf8')
-		for line in output_lines:
-			fobj_strings.write(line)
-		fobj_strings.close()	
+		# fobj_strings = codecs.open(self.aux_outputfile, 'w', encoding='utf8')
+		# for line in output_lines:
+		# 	fobj_strings.write(line)
+		# fobj_strings.close()	
 			#fobj_strings.write(output_line)
 			#sys.stderr.write(output_line)
 			#fobj_strings.close()
@@ -959,16 +975,80 @@ class Stage2:
 			# 	###print seg
 		#return segmentations
 		#return self.seg_dict
+	# def compute(self):
+	# 	self.segment()
 
-	def get_segmentations(self):
-		self.segment()
-		#return self.seg_dict
-		return self.seg_dict_morphIDs
-
+	# def get_segmentations(self):
+	# 	#self.segment()
+	# 	#return self.seg_dict
+	# 	return self.seg_dict_morphIDs
+		
 	def get_alignments(self):
-		self.segment()
+		#self.segment()
 		return self.charToMorphAlignments
 
+	def print_compressed_paths(self):
+		fobj = codecs.open("compressed_paths.txt", 'w', encoding='utf8')
+		for word,path in self.compressed_morph_seqs.items():
+			path_str = ""
+			for morphID in path:
+				path_str += str(morphID) + " "
+			path_str = path_str.rstrip()
+			outstring = word + "\t" + path_str + "\n"
+			fobj.write(outstring + "\n")
+		fobj.close()
+
+	# def print_index_bundles(self):
+	# 	fobj = codecs.open("index_bundles.txt", 'w', encoding='utf8')
+	# 	for word,index_bundles in self.index_bundles.items():
+	# 		str_index_bundles = []
+	# 		for index_bundle in index_bundles:
+	# 			bundle_of_strings = [str(x) for x in index_set]
+	# 			str_index_bundle = ",".join(index_str_set)
+	# 			str_index_bundles.append(str_index_bundle)
+	# 		outstring = word "\t" + " ".join(str_index_bundles)
+	# 		fobj.write(outstring + "\n")
+	# 	fobj.close()
+	def get_compressed_morph_seqs(self):
+		return self.compressed_morph_seqs
+
+	def print_morphID_toCharIdx_maps(self, filename):
+		fobj = codecs.open(filename, 'w', encoding='utf8')
+		for word, M2C_dict in self.morphToCharAlignments_allWords.items():
+			items = []
+			for morphID, index_list in M2C_dict.items():
+				str_indices = [str(idx) for idx in index_list]
+				idx_str = ",".join(str_indices)
+				M2C_str = str(morphID) + ":" + idx_str
+				items.append(M2C_str)
+			fobj.write(word + "\t" + " ".join(items) + "\n")
+			#self.words.append(word)
+		fobj.close()
+
+	def print_covered_words(self, filename):
+		fobj = codecs.open(filename, 'w', encoding='utf8')
+		for word in self.covered_words:
+			fobj.write(word + "\n")
+		fobj.close()
+
+	def get_covered_words(self):
+		return self.covered_words
+	# def print_morph_char_maps(self):
+	# 	fobj = codecs.open("index_maps.txt", 'w', encoding='utf8')
+	# 	for word, morph_to_indices_dict in self.index_bundles.items():
+	# 		morphs_and_indices = []
+	# 		for morphID, index_list in morph_to_indices_dict.items():
+	# 			indices_str = ",".join([str(x) for x in index_list])
+	# 			morphs_and_indices.append(str(morphID) + ":" + indices_str)
+	# 			" ".join(morph_and_indices)
+	# 		str_index_bundles = []
+	# 		for index_bundle in index_bundles:
+	# 			bundle_of_strings = [str(x) for x in index_set]
+	# 			str_index_bundle = ",".join(index_str_set)
+	# 			str_index_bundles.append(str_index_bundle)
+	# 		outstring = word + "\t" + " ".join(str_index_bundles)
+	# 		fobj.write(outstring + "\n")
+	# 	fobj.close()
 
 def main(output_of_stage1, clustersAndWords_file):
 	"""returns a dictionary comprising words as keys and segmentations 
@@ -982,25 +1062,31 @@ def main(output_of_stage1, clustersAndWords_file):
 	#print "TYPE OF FIRST MORPH_ID:", type(morph_IDs[0])
 	my_stage2 = Stage2(output_of_stage1, clustersAndWords_dict, clustersAndWords_file)
 	my_stage2.segment()
-	word_segmentations = dict()
+	#word_segmentations = dict()
 	#word_segmentations = my_stage2.get_segmentations()
-	charToMorphAlignments = my_stage2.get_alignments()
+	#charToMorphAlignments = my_stage2.get_alignments()
+	basename = clustersAndWords_file.split(".")[0]
+	#my_stage_2.print_morphID_toCharIdx_maps(basename + "." + )
+	#return 
+	my_stage2.print_compressed_paths()
+	#compressed_paths = my_stage_2.get_compressed_morph_seqs()
 	####print "FINAL SEGMENTATIONS:"
 	####print word_segmentations
 	# for word,segmentation_list in word_segmentations.items():
 	# 	###print word, ":", segmentation_list
 	#return word_segmentations
-	return charToMorphAlignments
+	#return charToMorphAlignments
 
 if __name__=="__main__":
 	#morph_dict_
 	cvals_filename = sys.argv[1]
 	morph_dict = stage1.main(cvals_filename)
-	cluster_file = sys.argv[2]
+	clusters_filename = sys.argv[2]
+	#morphID_toCharIdx_file = sys.argv[3]
 	#cluster_dict = process_clustering_file(cluster_file)
 	#output_of_stage1 = morphs_ex
 	#main(output_of_stage1, cluster_file)
-	main(morph_dict, cluster_file)
+	main(morph_dict, clusters_filename)
 	# ###print "******************"
 	# ###print d
 
