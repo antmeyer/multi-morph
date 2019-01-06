@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 import sys, re, codecs
+reload(sys)  
+sys.setdefaultencoding('utf8')
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+sys.stderr = UTF8Writer(sys.stderr)
 
 def list_of_morph_objs(morphIDs, morph_dict):
 	morph_objs = []
@@ -118,8 +123,10 @@ class Compression:
 			#sys.stderr.write("\n\n****** wt = " + str(wt) + "\n\n")
 			self.paths.append((wt, [morphID]))
 		#print "self.paths =", self.paths
-		#for init_morph in init_morph_objs: 
+		#for init_morph in init_morph_objs:
+		print "*** num_options:", len(steps[1:]) 
 		for index,options in steps[1:]:
+			print "****** index,options =", index,options
 			#print "index,morphID_list:", index,morphID_list
 			#for morphID in options:
 				#try: int_ID = int(morphID)
@@ -344,16 +351,24 @@ class Compression:
 		new_paths = []
 		m = 0
 		#print "&&&&&& num_paths =", len(paths)
-		for wtd_path in sorted(paths, reverse=True):
+		limit = min(10,len(paths))
+		paths.sort(reverse=True)
+		print paths
+		print "truncated:", paths[:limit]
+		#for wtd_path in sorted(paths[0:limit], reverse=True):
+		for wtd_path in paths[:limit]:
 			old_seq_wt = wtd_path[0]
 			sequence = wtd_path[-1]
 			m += 1
 			#morph_objs = list_of_morph_objs(morphID_list)
 			n = 0
 			for new_morphID in new_morphIDs:
+				#print "^^", new_morphID, "^^!"
 				#morph_obj = morph_dict(new_morphID)
 				new_seq = list(sequence)
 				new_seq_wt = self.update_wt((old_seq_wt, sequence), new_morphID)
+				# if new_seq_wt > old_seq_wt:
+				# 	print "^^", new_morphID, new_seq_wt, old_seq_wt, "^^!"
 				new_seq.append(new_morphID)
 				new_paths.append((new_seq_wt, new_seq))
 				n += 1

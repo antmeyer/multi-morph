@@ -262,9 +262,9 @@ def categoryFilter(analysis):
 				if "gen:" in analysis:
 					persGenNum = gen
 				if "num:" in analysis:
-					persNumGen += "%" + num
+					persGenNum += "%" + num
 			else:
-				persNumGen = "-"
+				persGenNum = "-"
 		isVerb = True
 		isNominal = False
 		#genNum = ""
@@ -423,7 +423,7 @@ def categoryFilter(analysis):
 		re_plpl = re.compile(pat, re.UNICODE)
 		analysis = re_plpl.sub(ur"\1\2\4\5", analysis)
 
-		pat = ur"(pos:)(n)([^\s]*)(&gen:)([fmu])(&num:)([a-z:]+)(&stat:)(cstr)"
+		pat = ur"(pos:)(n)([^\s]*)(&gen:)([a-z])(&num:)([a-z:]+)(&stat:)(cstr)"
 		re_cstr = re.compile(pat, re.UNICODE)
 		# #if (gen = "m" and num = "sg") or (gen = "f" and num = "pl")
 		pl_supl_info = ""
@@ -440,7 +440,7 @@ def categoryFilter(analysis):
 		#print "analysis nominal", 1, ": ", analysis
 
 		#pat = ur"(pos:)(adj)([^\s]*)(&gen:)([fmu])(&num:)([spglundo]+)(&stat:)(cstr)"
-		pat = ur"(pos:)(adj)([^\s]*)(&gen:)([fmu])(&num:)([a-z:]+)(&stat:)(cstr)"
+		pat = ur"(pos:)(adj)([^\s]*)(&gen:)([a-z+])(&num:)([a-z:]+)(&stat:)(cstr)"
 		re_cstr = re.compile(pat, re.UNICODE)
 		# #if (gen = "m" and num = "sg") or (gen = "f" and num = "pl")
 		# pl_supl_info = ""
@@ -459,7 +459,7 @@ def categoryFilter(analysis):
 		# ## absolute (or non-construct) forms
 		#pat = ur"(pos:)(n|(?:adj))([^\s]*)(&gen:)([fmunsp]+)(&num:)([spglundo]+)(&stat:)((?:free)|u)"
 		#pre:be~pre:ha&pos:adj&root:kxl&ptn:CaCoC&gen:m&num:sg
-		pat = ur"(pos:)(n)([^\s]*)(&gen:)([fmunsp]+)(&num:)([a-z:]+)(&stat:u)?"
+		pat = ur"(pos:)(n)([^\s]*)(&gen:)([a-z]+)(&num:)([a-z:]+)(&stat:u)?"
 		# 1: (pos:)
 		# 2: (n|(?:adj))
 		# 3: ([^\s]*)
@@ -481,6 +481,7 @@ def categoryFilter(analysis):
 		# 7: ([spglundo]+)
 		# 8: (&stat:u)
 		re_abs = re.compile(pat, re.UNICODE)
+		#analysis=re_abs.sub(ur"\2&\5%\7\3", analysis)
 		analysis=re_abs.sub(ur"\2&\5%\7\3", analysis)
 		#print "analysis nominal", 2, ": ", analysis
 		### get rid of the masc.sg feature, since masc.sg forms are (usually) unmarked
@@ -537,27 +538,34 @@ def categoryFilter(analysis):
 	# pat = ur"(&num:)([spglundo]+)(&)(pl:[a-z]+:[a-z]+)(&|$)"
 	# re_plpl = re.compile(pat, re.UNICODE)
 	#analysis = re_plpl.sub(ur"\1%\4\5", analysis)
-	pat = ur"(gen:)([fmu])(&num:)([a-z:]+)(&|$)" #(&pl:[a-z]+:[a-z]+)(&|$)"
+	pat = ur"(gen:)([a-z]+)(&num:)([a-z:]+)(&|$)" #(&pl:[a-z]+:[a-z]+)(&|$)"
 	re_gennum = re.compile(pat, re.UNICODE)
-	analysis = re_gennum.sub(ur"&\2%\4\5", analysis)
-	pat = ur"(gen:)([fmu])(&num:)([a-z:]+)(&|$)"
-	re_gennum = re.compile(pat, re.UNICODE)
+	pat=ur"^([^\s]*)(m%pl)([^\s]*)(m%pl)([^\s]*&|$)"
+	re_dubmp = re.compile(pat, re.UNICODE)
+	analysis = re_dubmp.sub(ur"\1\2\3\5", analysis)
+	# analysis = re_gennum.sub(ur"&\2%\4\5", analysis)
+	# pat = ur"(gen:)([fmu])(&num:)([a-z:]+)(&|$)"
+	#re_gennum = re.compile(pat, re.UNICODE)
 	analysis = re_gennum.sub(ur"&\2%\4\5", analysis)
 	analysis = analysis.replace("&u%u&", "&")
-	analysis = analysis.replace("&m%sg&", "&")
-	analysis = analysis.replace("&m%pl", "&M%Pl")
-	analysis = analysis.replace("&f%pl", "&F%Pl")
-	analysis = analysis.replace("&f%sg", "&F%Sg")
-	analysis = analysis.replace("%m%sg", "%M%Sg")
-	analysis = analysis.replace("%m%pl", "%M%Pl")
-	analysis = analysis.replace("%f%pl", "%F%Pl")
-	analysis = analysis.replace("%f%sg", "%F%Sg")
+	analysis = analysis.replace("&m%sg&", "&" + pos + "%m%sg&")
+	#analysis = analysis.replace("&m%pl", "&M%Pl")
+	#analysis = analysis.replace("&f%pl", "&F%Pl")
+	#analysis = analysis.replace("&f%sg", "&F%Sg")
+	#analysis = analysis.replace("%m%sg", "%M%Sg")
+	#analysis = analysis.replace("%m%pl", "%M%Pl")
+	#analysis = analysis.replace("%f%pl", "%F%Pl")
+	#analysis = analysis.replace("%f%sg", "%F%Sg")
 	analysis = analysis.replace("%u&", "&")
 	analysis = analysis.replace("%u%", "%")
 	analysis = analysis.replace("&u%", "&")
 	analysis = analysis.replace("&u&", "&")
 	analysis = analysis.replace("&&&", "&")
 	analysis = analysis.replace("&&", "&")
+	analysis = analysis.replace("%%", "%")
+	analysis = analysis.replace(" ", "")
+	if analysis == "" or analysis == "&": 
+		analysis = pos
 	#analysis = analysis.replace("&u%pl&", "&pl&")
 	return analysis
 
@@ -577,7 +585,7 @@ class BL_Analyzer:
 			line = line.replace("gen:fm", "gen:f")
 			line = line.replace("gen:fem", "gen:f")
 			line = line.replace("unsp", "u")
-			line = line.replace("mf","u")
+			line = line.replace("gen:mf","gen:u")
 			# line = line.replace("fm","u")
 			word,analyses_str = line.split("\t")
 			####print "WORD:",word
@@ -607,12 +615,18 @@ class BL_Analyzer:
 				# else:
 				# 	self.analysisDict[word] = [cats]
 				cats = new_analysis.split("&")
-				if "pos:v" in cats:
-					cats.remove("pos:v")
-				if "stat:u" in cats:
-					cats.remove("stat:u")
-				###print cats
+				clean_cats = []
 				for cat in cats:
+					newcat = cat.rstrip()
+					newcat = newcat.lstrip()
+					if len(newcat) > 0 and newcat != "pos:v":
+						clean_cats.append(newcat)
+				if "pos:v" in clean_cats:
+					cats.remove("pos:v")
+				if "stat:u" in clean_cats:
+					clean_cats.remove("stat:u")
+				###print cats
+				for cat in clean_cats:
 					self.analysisDict[word][cat] = 1
 
 			#self.clustersAndWords[clusterID].append(word)

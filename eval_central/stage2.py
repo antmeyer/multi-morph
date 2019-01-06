@@ -3,6 +3,7 @@ import sys, codecs, unicodedata, re
 from get_active import *
 import stage1_alt as stage1
 from best_path import *
+from format_for_latex import *
 reload(sys)  
 sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf8')
@@ -487,10 +488,10 @@ class Stage2:
 			#if morphID < 10:
 
 			#print "MORPH_ID:", morphID, "; MORPH_OBJ PAT =", morph_object.get_pattern(), "; WORD =", word,
-			##print word, morph_object.get_pattern(),
+			print "@@Stage2@@", format_string(word), "; morphID:", morphID, "; morph_ptn:", morph_object.get_pattern()
 			#if morphID < 10: #print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ", morphID
 			re_morph = re.compile(morph_object.get_pattern(), re.UNICODE)
-			#print "MORPH PATTERN:", morph_object.get_pattern()
+			print "stg 2; MORPH PATTERN:", morph_object.get_pattern()
 			try: match_obj = re_morph.search(word)
 			except AttributeError: 
 				
@@ -510,7 +511,7 @@ class Stage2:
 				continue
 
 			# else:
-			#print "\t",
+			print "\t",
 			for i in range(len(my_groups)):
 				letter = my_groups[i]
 				#print letter,
@@ -520,9 +521,9 @@ class Stage2:
 				# 	continue
 				try: 
 					idx = match_obj.span(i+1)[0]
-					#print idx,
+					print idx,
 				except AttributeError:
-					#print "NO SPAN!", "continue;",
+					print "NO SPAN!", "continue;",
 
 					continue
 					#start_idx = index_range[0]
@@ -538,9 +539,9 @@ class Stage2:
 				#else:
 				try: mapping[idx].append(morphID)
 				except AttributeError:
-					#print "Can't append to", type(mapping[idx]), "!"
+					print "Can't append to", type(mapping[idx]), "!"
 					mapping[idx] = [morphID]
-			#print ""
+			print ""
 						# else:
 						# 	avail_chars.remove()
 				# for i in range(len(match_obj.groups())):
@@ -602,7 +603,7 @@ class Stage2:
 			# 				else:
 			# 					mapping[wordChar_index_pair] = [morphID]
 		##print ""
-		# print "stage2: MAPPING:"
+		print "stage2: About to return MAPPING"
 		# for pair,lst in mapping.items():
 		# # 	###print pair, ": ", ", ".join(lst) 
 		# 	print "stg2; pair,list =", pair, lst
@@ -783,7 +784,7 @@ class Stage2:
 		n = 0
 		for word in self.words_and_morphIDs.keys():
 			self.covered_words.append(word)
-			#sys.stderr.write("In segment(); word: " + word + "\n")
+			sys.stderr.write("stg2; In segment(); word: " + word + "\n")
 			###print "$$$$$$$$$$$$$$&$%^^^ words_and_morphID[", word, "]:", self.words_and_morphIDs[word]
 			# word_chars = list(word)
 			# sys.stderr.write("word = " + word + "\n\n")
@@ -852,15 +853,19 @@ class Stage2:
 			if len(self.charToMorphAlignments[word]) == 0:
 				if word not in self.exception_words.append(word):
 					continue
+			print u"@@Stage2@@", format_C2M(self.charToMorphAlignments[word], word) #format_string(word)  + ur" \quad ", self.charToMorphAlignments[word]
 			#self.morphIDs = self.get_compressed_path()
-			#print "\n\n\n word:", word, n, "\n\n\n"
+			print "\n\n\n word:", word, n, "\n\n\n"
 			n += 1
 			compression = Compression(self.morph_dict, self.charToMorphAlignments[word], word)
+			print "stg2 400"
+			sys.stdout.flush()
 			self.compressed_morph_seqs[word] = compression.get_compressed_path()
-			
+			print u"@@Stage2/3@@", format_string(word) + ur" \quad " + format_list(self.compressed_morph_seqs[word])
 			
 			#self.words_to_morphIDs_to_charIndices_dict[word] = compression.get_morphIDs_to_charIndices_map()
 			self.morphToCharAlignments_allWords[word] = compression.get_morphIDs_to_charIndices_map()
+			print u"@@Stage3@@", format_M2C(self.morphToCharAlignments_allWords[word], word)
 			# self.index_bundles[word] = compression.compute_index_bundles()
 
 			# my_pathfinder = pathfinder.Pathfinder(charToMorphAlignment, self.morph_dict, word)
@@ -879,7 +884,7 @@ class Stage2:
 			#fobj_strings.write(output_line)
 			#sys.stderr.write(output_line)
 			#fobj_strings.close()
-			#sys.stderr.write("I'm here!\n")
+			sys.stderr.write("stg2; I'm here!\n")
 			##print "SEG_DICT" + "[" + word + "]:", self.seg_dict_morphIDs[word]
 			# alignedCharMorphPairs = sorted(charToMorphAlignment.items())
 			# ###print "ACMPs:",
@@ -1012,6 +1017,12 @@ class Stage2:
 	def get_compressed_morph_seqs(self):
 		return self.compressed_morph_seqs
 
+	def get_morphID_toCharIdx_maps(self):
+		return self.morphToCharAlignments_allWords
+	
+	def get_morphID_toCharIdx_maps_word(self, word):
+		return self.morphToCharAlignments_allWords[word]
+
 	def print_morphID_toCharIdx_maps(self, filename):
 		fobj = codecs.open(filename, 'w', encoding='utf8')
 		for word, M2C_dict in self.morphToCharAlignments_allWords.items():
@@ -1021,6 +1032,19 @@ class Stage2:
 				idx_str = ",".join(str_indices)
 				M2C_str = str(morphID) + ":" + idx_str
 				items.append(M2C_str)
+			fobj.write(word + "\t" + " ".join(items) + "\n")
+			#self.words.append(word)
+		fobj.close()
+
+	def print_charIdx_toMorphID_maps(self, filename):
+		fobj = codecs.open(filename, 'w', encoding='utf8')
+		for word, C2M_dict in self.morphToCharAlignments_allWords.items():
+			items = []
+			for index, morphID_list in C2M_dict.items():
+				str_morphIDs = [str(morphID) for morphID in morphID_list]
+				mID_str = ",".join(str_morphIDs)
+				C2M_str = str(index) + ":" + mID_str
+				items.append(C2M_str)
 			fobj.write(word + "\t" + " ".join(items) + "\n")
 			#self.words.append(word)
 		fobj.close()

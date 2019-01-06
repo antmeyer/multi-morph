@@ -18,7 +18,7 @@ clusterActivitiesFile = sys.argv[3]
 outFilePath = sys.argv[4]
 table_row = ""
 
-def process_clustering_file(cluster_file, threshold=0.8):
+def process_clustering_file(cluster_file, threshold=0.5):
 	cfobj = codecs.open(cluster_file, encoding='utf8')
 	# pat = ur"\s\([0-9]\.[0-9]{4}\)"  # This is the pattern for activity values.
 	# re_activity = re.compile(pat, re.UNICODE)
@@ -34,6 +34,7 @@ def process_clustering_file(cluster_file, threshold=0.8):
 	for line in lines:
 		string = line.replace("\n", "")
 		####print string
+		#sys.stderr.write(line)
 		if string == "": continue
 		elif "##" in string:
 
@@ -65,7 +66,8 @@ def process_clustering_file(cluster_file, threshold=0.8):
 				word,activity_str = item.split()
 				activity_str = activity_str.replace("(","")
 				activity_str = activity_str.replace(")","")
-				activity = float(activity_str)
+				try: activity = float(activity_str)
+				except ValueError: print activity_str
 				#words.append(item.split()[0])
 				if activity >= threshold:
 					words.append(word)
@@ -465,9 +467,11 @@ avg_prec, avg_recall = 0.0, 0.0
 if coverage > 0:
 	avg_prec = bcubed_prec(clusters_sparse, clusters_lengths, classes_sparse, classes_lengths, int(numClusters), int(numClasses))
 	avg_recall = bcubed_rec(clusters_sparse, clusters_lengths, classes_sparse, classes_lengths, int(numClusters), int(numClasses))
+	f1_score = 2.0*((avg_prec*avg_recall)/float(avg_prec+avg_recall))
 else:
 	avg_prec = 0.0
 	avg_recall = 0.0
+	f1_score = 0.0
 
 
 # calculate mutual information
@@ -514,6 +518,9 @@ maxClasses = dict()
 orderedClasses = dict()
 clusterPurities = dict()
 for cluster in clusterFreqs:
+	sys.stderr.write("Cluster: " + str(cluster) + ", freq: " + str(clusterFreqs[cluster]) + "\n")
+	if clusterFreqs[cluster] < 5:
+		continue
 # classes in clustersAndClasses are distributed like word types.
 	update = 0
 	orderedClasses[cluster] = list()
@@ -538,9 +545,11 @@ except ZeroDivisionError: Purity = 0.0
 
 # The following four figures are to be placed at the top of the report for 
 # the purposes of easy automatic data extraction.
+
 purity_out = "%.3f" % Purity
 BP_out = "%.3f" % avg_prec
 BR_out = "%.3f" % avg_recall
+F_out = "%.3f" % f1_score
 if  purity_out == "0.000":
 	purity_out = "0"
 if  BP_out == "0.000":
@@ -558,8 +567,12 @@ elif data_rep == "O":
 #table_row =  r"\multirow{3}{*}{" + str(affixlen) + "} " + " & " + r"\multirow{3}{*}{" + str(delta) + "}" + " & " + str(Kval) + " & " + formatted_rep + " & "
 #table_row += r"multirow{3}{*}{" + str(affix_len) + "} " + "& multirow{3}{*}{" + str(delta) + "}"str(affixlen) + " & " + str(delta)" + " & " + formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
 #table_row += formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
-table_row = str(Kval) + " & " + data_rep + " & " + str(affixlen) + " & " + str(delta) + " & "
-table_row += purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
+table_row =  str(affixlen) + "\t" + str(delta) + "\t"
+table_row += purity_out + "\t" + BP_out + "\t" + BR_out + "\t" + F_out + "\t" + str(coverage) + "\t" + str(totalClusters) + "\t" + r"\\" + r"%" + str(Kval) + r" %" + data_rep + r" %" + mainFileName + "\n"
+# table_row = str(Kval) + " & " + data_rep + " & " + str(affixlen) + " & " + str(delta) + " & "
+# table_row += purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + data_rep + " %" + mainFileName + "\n"
+#table_row = str(Kval) + " & " + data_rep + " & " + str(affixlen) + " & " + str(delta) + " & "
+#table_row += purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
 # write results to stdout
 #table_row += str(affixlen) + " & " + str(delta)" + " & " + formatted_rep + " & " + str(affixlen) + " & " + str(delta) + " & " + purity_out + " & " + BP_out + " & " + BR_out + " & " + str(coverage) + " & " + str(totalClusters) + r"\\" + r"%" + mainFileName + "\n"
 # write results to stdout

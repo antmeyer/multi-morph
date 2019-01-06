@@ -38,8 +38,8 @@ fi
 # 	mkdir ${EVAL_RESULTS_PATH} 
 # fi
 
-declare -a TYPES=(TS)
-declare -a NUMBERS=(1000)
+declare -a TYPES=( TS )
+declare -a NUMBERS=( 1000 )
 
 for NUM in ${NUMBERS[@]}; do
 	echo "${NUM}"
@@ -107,7 +107,7 @@ for NUM in ${NUMBERS[@]}; do
 		for FILE in $MCMM_PATH/*; do
 		#for FILE in `ls $MCMM_OUTPUT_PATH`; do
 			echo $FILE
-			echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			#echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 			CVALS_FILE=
 			CLUSTERS_FILE=
 			BASENAME=
@@ -116,14 +116,15 @@ for NUM in ${NUMBERS[@]}; do
 			# #echo "mcmm bash 27; main = $MAIN"
 			LOCNAME=`echo "$FILE" | rev | cut -d'/' -f1 | rev`
 			BASENAME=`echo "$LOCNAME" | cut -d'.' -f1`
-			if [ "${BASENAME}" != 6_3_K1000_N12272_basic_181104_07-21_k-1000 ] && [ "${BASENAME}" != 6_0_K1000_N12272_basic_181104_07-21_k-1000 ]; then
+			echo "${BASENAME}"
+			if [ "${BASENAME}" != "6_3_K1000_N12272_basic_181104_07-21_k-1000" ]; then #&& [ "${BASENAME}" != 6_0_K1000_N12272_basic_181104_07-21_k-1000 ]; then
 				continue
 			fi 
-			#echo "mcmm bash 28; basename = $BASENAME"
+			echo "mcmm bash 28; basename = $BASENAME"
 			MAIN_NAME=`echo "$FILE" | cut -d'.' -f1`
 			SUFFIX=`echo "$FILE" | cut -d'.' -f2`
-			echo "AAAAAAAAA Suffix: ${SUFFIX}"
-			echo "XXXXXXXXX BASENAME: ${BASENAME}"
+			#echo "AAAAAAAAA Suffix: ${SUFFIX}"
+			#echo "XXXXXXXXX BASENAME: ${BASENAME}"
 
 			if [ "${SUFFIX}" == "C_vals" ]; then
 				if [ ! -f "${SYMBOLS_DIR}${BASENAME}.chinese" ]; then
@@ -146,7 +147,7 @@ for NUM in ${NUMBERS[@]}; do
 				if [ ! -f "${CH_TO_MID_DIR}${BASENAME}.CH_to_morphID" ]; then
 					touch "${CH_TO_MID_DIR}${BASENAME}.CH_to_morphID"
 				fi
-				echo "BBBBBBBBB Suffix: ${SUFFIX}"
+				#echo "BBBBBBBBB Suffix: ${SUFFIX}"
 				CVALS_FILE=$FILE
 				CLUSTERS_FILE=${MAIN_NAME}.clusters
 				echo "&&^ CVALS_FILE: ${CVALS_FILE}"
@@ -244,125 +245,4 @@ for NUM in ${NUMBERS[@]}; do
 			fi
 		done
 	done
-done	
-
-
-
-
-		# SEGM_DIR=temp_segm
-		# SEGM_TRANS_DIR=temp_segm_trans
-		#for FILE in `ls $TEMP_DIR`; do
-# 		CVALS_FILE=
-# 		CLUSTERS_FILE=
-# 		BASENAME=
-# 		SUFFIX=
-
-# 		for FILE in `ls $MCMM_PATH`; do
-# 			LOCNAME=
-# 			BASENAME=
-# 			SUFFIX=
-# 			# MAIN=`echo "$FILE" | cut -d '/' -f2`
-# 			# #echo "mcmm bash 27; main = $MAIN"
-# 			GLOBNAME=`echo "$FILE" | cut -d '.' -f1`
-# 			LOCNAME=`echo "$FILE" | rev | cut -d '/' -f1 | rev`
-# 			BASENAME=`echo "$LOCNAME" | cut -d '.' -f1`
-# 			echo "consolidate bash 28; GLOBNAME: ${GLOBNAME}"
-# 			echo "consolidate bash 28; LOCNAME: ${LOCNAME}"
-# 			echo "consolidate bash 28; BASENAME = $BASENAME"
-# 			SUFFIX=`echo "$LOCNAME" | cut -d '.' -f2`
-# 			# if [ $SUFFIX == ""]; then
-# 			# 	touch 
-# 			# fi
-# 			echo "XXXXXX 222: BASENAME: ${BASENAME}"
-
-# 			# if [ ! -f "${ORI_DIR}${BASENAME}.original_order" ]; then
-# 			# 	touch "${ORI_DIR}${BASENAME}.original_order"
-# 			# else
-# 			# 	rm "${ORI_DIR}${BASENAME}.original_order"
-# 			# 	touch "${ORI_DIR}${BASENAME}.original_order"
-# 			# fi
-
-# 			# if [ ! -f "${SEGM_DIR}${BASENAME}.chinese_segm" ]; then
-# 			# 	touch "${SEGM_DIR}${BASENAME}.chinese_segm"
-# 			# else
-# 			# 	rm "${SEGM_DIR}${BASENAME}.chinese_segm"
-# 			# 	touch "${SEGM_DIR}${BASENAME}.chinese_segm"
-# 			# fi
-
-# 			#GLDSTD_FILE="morfessor_${TYPE}_gldstd.txt"
-# 			#GLDSTD_PATH="${MCMM_EVAL_PREFIX}${GLDSTD_FILE}"
-			
-# 			# TRAIN_FILE="encoded_${TYPE}_training.txt"
-
-
-# 			#TRAIN_PATH="${MCMM_EVAL_PREFIX}${TRAIN_FILE}"
-
-# 			#echo "***"
-# 			#cat "${SYMBOLS_DIR}${BASENAME}".chinese
-# 			morfessor -t "${SYMBOLS_DIR}${BASENAME}.chinese" -S "${SEGM_DIR}${BASENAME}.chinese_segm" 
-# 			# morfessor-train --encoding utf8 --traindata-list -S "${SEGM_DIR}${BASENAME}.chinese_segm" --logfile log.log "${SYMBOLS_DIR}${BASENAME}.chinese"
-# 			# morfessor-segment -L model_B.segm test1.txt
-# 			#echo "**** ${SEGM_DIR}${BASENAME}.chinese_segm ****"
-# 			#cat "${SEGM_DIR}${BASENAME}.chinese_segm"
-# 			#echo "**** COVERED ****"
-# 			#cat "${COVERED_DIR}${BASENAME}.words" 
-# 			#echo "**** CONTROL SEGM ****"
-# 			#cat "${CONTROL_SEGM_DIR}${BASENAME}.control_segm" 
-# 			morfessor -t "${COVERED_DIR}${BASENAME}.words" -S "${CONTROL_SEGM_DIR}${BASENAME}.control_segm" 
-# 			# if [ ! -f "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans" ]; then
-# 			# 	touch "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans"
-# 			# else:
-# 			# 	rm "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans"
-# 			# 	touch "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans"
-# 			# fi
-# 			#echo "*&*"
-# 			#cat "${SEGM_DIR}${BASENAME}.chinese_segm"
-# 			#echo "*&* ${ORI_DIR}$BASENAME.original_order"
-# 			#cat "${ORI_DIR}$BASENAME.original_order"
-# 			#SEGM_TRANS_DIR="${EVAL_RESULTS_PATH}${DIR}_temp_segm_trans/"
-# 			if [ ! -f "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans" ]; then
-# 				touch "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans"
-# 			# else
-# 			# 	rm "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans"
-# 			# 	touch "${SEGM_DIR_TRANS}${BASENAME}.chinese_segm_trans"
-# 			fi
-
-# 			echo "READ THIS 1: ${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans"
-# 			echo "READ THIS 1.5: ${ORI_DIR}$BASENAME.original_order"
-# 			echo "READ THIS 1.7: ${CH_TO_MID_DIR}${BASENAME}.CH_to_morphID"
-# 			#python reconvert_morphs.py "${SEGM_DIR}${BASENAME}.chinese_segm" "${MCMM_EVAL_PREFIX}temp/${BASENAME}.M2C_map" "${WORDLIST_FILE}" "${GLDSTD_FILE}" "${ORI_DIR}$BASENAME.original_order" "${CH_TO_MID_DIR}${BASENAME}.CH_to_morphID" "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans"
-# 			python reconvert_morphs.py "${SEGM_DIR}${BASENAME}.chinese_segm" "${MCMM_EVAL_PREFIX}temp/${BASENAME}.M2C_map" "${GLDSTD_FILE}" "${ORI_DIR}$BASENAME.original_order" "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans" "${CH_TO_MID_DIR}${BASENAME}.CH_to_morphID"
-# 			echo "READ THIS 2: ${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans"
-# 			echo "READ THIS 2.5: ${ORI_DIR}$BASENAME.original_order"
-# 			echo "READ THIS 2.7: ${EVAL_RESULTS_PATH}${TYPE}_${NUM}_control_results.txt"
-# 			touch "${EVAL_RESULTS_PATH}${TYPE}_${NUM}_multistage_results.txt"
-# 			#morfessor-evaluate "${GLDSTD_FILE}" "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans"
-# 			echo "${GLDSTD_FILE}"
-# 			GSTD_SIZE=`cat "${GLDSTD_FILE}" | wc -l` 
-# 			echo "${GSTD_SIZE}"
-# 			#--format-template latex
-# 			morfessor-evaluate --num-samples 10 --sample-size 100 "${GLDSTD_FILE}" "${SEGM_TRANS_DIR}${BASENAME}.chinese_segm_trans" >> "${EVAL_RESULTS_PATH}${TYPE}_${NUM}_multistage_results.txt"
-# 			morfessor-evaluate --num-samples 10 --sample-size 100 "${GLDSTD_FILE}" "${CONTROL_SEGM_DIR}${BASENAME}.control_segm" >> "${EVAL_RESULTS_PATH}${TYPE}_${NUM}_control_results.txt"
-# 		done
-# 	done
-# done	
-
-# for NUM in ${NUMBERS[@]}; do
-# 	echo "${NUM}"
-# 	for TYPE in ${TYPES[@]}; do
-# 		"${CONTROL_SEGM_DIR}${BASENAME}.control_segm" 
-# 	done
-# done
-# 		# 	if [ ! -f ${SEGM_DIR}/${BASENAME}.chinese_segm ]; then
-		# 		touch ${SEGM_DIR}/${BASENAME}.chinese_segm
-		# 	fi
-			
-		# 	morfessor -t ${TEMP_DIR}/${BASENAME}.chinese -S ${SEGM_DIR}/${BASENAME}.chinese_segm
-			
-		# 	if [ ! -f ${SEGM_DIR_TRANS}/${BASENAME}.chinese_segm_trans ]; then
-		# 		touch ${SEGM_DIR_TRANS}/${BASENAME}.chinese_segm_trans
-		# 	fi
-		# 	python reconvert_morphs.py ${SEGM_DIR}/${BASENAME}.chinese_segm > ${SEGM_DIR_TRANS}/${BASENAME}.chinese_segm_trans
-
-		# 	morfessor-evaluate "${MCMM_EVAL_PREFIX}morfessor_${TYPE}_gldstd.txt" ${SEGM_DIR_TRANS}/${BASENAME}.chinese_segm_trans
-		# done
+done

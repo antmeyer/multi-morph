@@ -30,9 +30,12 @@ re_hifil = re.compile(pat, re.UNICODE)
 filename = sys.argv[1]
 fobj = codecs.open(filename,'r',encoding='utf8')
 lines = fobj.readlines()
+pat = ur"(pos:)(v|(?:part))([^\s]*)(ptn:)(CaC)(&|$)"
+re_CaC = re.compile(pat, re.UNICODE)
 
 new_lines = []
 for line in lines:
+	line = re_CaC.sub(ur"\1\2\3\4qal\6", line)
 	if "pos:part" in line and "ptn:&" in line:
 		if re_partqal.search(line) != None:
 			line = line.replace("ptn:&", "ptn:qal&")

@@ -25,12 +25,12 @@ pat_seq = ur"[<+]"
 re_seq = re.compile(pat_seq, re.UNICODE)
 
 #def main(cvals_filename, max_pos, prec_span, outputWeights=False):
-def main(cvals_filename, outputWeights=False):
+def main(cvals_filename, max_pos, prec_span, outputWeights=False):
 	name_components = cvals_filename.split("_")
 	# max_pos = int(name_components[0])
 	# prec_span = int(name_components[1])
-	max_pos = 2
-	prec_span = 2
+	# max_pos = 2
+	# prec_span = 2
 	##print "MAX_POS:", max_pos, "; PREC_SPAN:", prec_span
 	outputDict = {}
 	threshold = 0.9

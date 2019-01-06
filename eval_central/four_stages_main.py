@@ -5,6 +5,7 @@ import stage1_alt as stage1
 #import stage2 as stage2
 from stage2 import *
 from best_path import *
+from format_for_latex import *
 #from reconvert_morphs import read_gldstd_words, original_test_words
 	
 #import sys, codecs, re
@@ -44,7 +45,7 @@ def writeChineseToMorphIDDict(chinese_dict, filename):
 def four_stages(cluster_centroids_filename, cluster_membership_filename, originals_dir, covered_dir, output_dir):
 	word_idx_dict = {}
 	idx_word_dict = {}
-	print "4_stages 0; covered_dir:", covered_dir
+	#print "4_stages 0; covered_dir:", covered_dir
 	#original_words_dict = read_gldstd_words(originals_filename)
 	#gldstd_list = gldstd_word_dict.keys()
 	#cluster_centroids_filename = sys.argv[1]
@@ -83,6 +84,9 @@ def four_stages(cluster_centroids_filename, cluster_membership_filename, origina
 	#ori_words = original_test_words(originals_filename)
 	main_name = cluster_centroids_filename.split("/")[-1]
 	basename = main_name.split(".")[0]
+	components = basename.split("_")
+	s = components[0]
+	delta = components[1]
 	#print "4_stages 3; main_name =", main_name
 	#print "4_stages 4; basename =", basename
 	#sys.stderr.write("BASE BASE BASE: "+ basename + "\n")
@@ -99,7 +103,7 @@ def four_stages(cluster_centroids_filename, cluster_membership_filename, origina
 	#chinese_segm_filename = basename + ".chinese_segm"
 
 	####### STAGE 1 ####### 
-	morph_dict = stage1.main(cluster_centroids_filename)
+	morph_dict = stage1.main(cluster_centroids_filename, int(s), int(delta))
 	# print "from 4 stages main, stage 1:"
 	# for key,val in morph_dict.items():
 	# 	print key, "-->", val[-1].get_pattern()
@@ -107,17 +111,25 @@ def four_stages(cluster_centroids_filename, cluster_membership_filename, origina
 	#word_segmentations_dict = stage2.main(morph_dict, cluster_membership_filename)
 	#charToMorphAlignments = stage2.main(morph_dict, cluster_membership_filename)
 	#compressed_morph_seqs = stage2.main(morph_dict, cluster_membership_filename)
-
+	print "4s 1"
 	clustersAndWords_dict = process_clustering_file(cluster_membership_filename)
+	print "4s 2"
 	morphIDs = morph_dict.keys() ####print clustersAndWords_dict
-	print "4_stages 10; TYPE OF FIRST MORPH_ID:", type(morphIDs[0])
+	print "4s 3"
+	#print "4_stages 10; TYPE OF FIRST MORPH_ID:", type(morphIDs[0])
+	print "4s 4"
 	my_stage2 = Stage2(morph_dict, clustersAndWords_dict, cluster_membership_filename)
 	#my_stage2 = Stage2(morph_dict, clustersAndWords_dict, cluster_membership_filename, wordlist_filename)
+	print "4s 5"
 	my_stage2.segment()
+	print "4s 5.5"
 	compressed_morph_seqs = my_stage2.get_compressed_morph_seqs()
+	print "4s 6"
 	#word_segmentations = dict()
 	#word_segmentations = my_stage2.get_segmentations()
 	#charToMorphAlignments = my_stage2.get_alignments()
+	charIdx_toMorphID_maps = my_stage2.get_alignments()
+	morphID_toCharIdx_maps = my_stage2.get_morphID_toCharIdx_maps()
 	my_stage2.print_morphID_toCharIdx_maps("temp/" + basename + ".M2C_map")
 	covered_words = my_stage2.get_covered_words()
 	for n in range(len(covered_words)):
@@ -134,7 +146,7 @@ def four_stages(cluster_centroids_filename, cluster_membership_filename, origina
 	# 	word = line.replace("\n", "")
 	# 	paths_obj = Compression(morph_dict, charToMorphAlignments, word)
 
-	# print "from 4 stages main:, stage 2:"
+	print "from 4 stages main:, stage 2:"
 	# for key,val in word_segmentations_dict.items():
 	# 	print key, "-->", val
 	# print word_segmentations_dict
@@ -149,9 +161,10 @@ def four_stages(cluster_centroids_filename, cluster_membership_filename, origina
 
 	for word,word_idx in word_idx_dict.items():
 	#for word in covered_words:
-		#print "^^^^^^******** WORD:", word
+		print "^^^^^^******** WORD:", word
 		try: morphID_seq = compressed_morph_seqs[word]
 		except KeyError: continue
+		
 		#for wordO,morphID_seq in compressed_morph_seqs.items():
 		symbols = []
 		for morphID in morphID_seq:

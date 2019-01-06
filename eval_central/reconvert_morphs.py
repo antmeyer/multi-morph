@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys,codecs
 from best_path import *
-
+from format_for_latex import *
 reload(sys)  
 sys.setdefaultencoding('utf8')
 UTF8Writer = codecs.getwriter('utf8')
@@ -68,7 +68,7 @@ def get_chinese_char(i):
 def original_test_words(filename):
 	#all_words_dict = read_words(trn_filename)
 	#word_to_idx_dict = {}
-	print "^&*$    555     $%     $#%   ", "original_test_words"
+	#print "^&*$    555     $%     $#%   ", "original_test_words"
 	fobj = codecs.open(filename, 'r', encoding='utf8')
 	lines = fobj.readlines()
 	#print "LINES 555:", "num LINES:", len(lines)
@@ -91,7 +91,7 @@ def original_test_words(filename):
 def encoded_ordered_originals(filename):
 	#all_words_dict = read_words(trn_filename)
 	#word_to_idx_dict = {}
-	print "^&*$    888     $%     $#%   ", "encoded_ordered_originals"
+	#print "^&*$    888     $%     $#%   ", "encoded_ordered_originals"
 	fobj = codecs.open(filename, 'r', encoding='utf8')
 	lines = fobj.readlines()
 	#print "LINES 888:", "num LINES:", len(lines)
@@ -303,7 +303,7 @@ for n in range(len(ch_segmentations)):
 	#ori_word = original_words_dict[encoded_word]
 	#print "rec 3.4; encoded/original:", encoded_word, " ~ ", ori_word
 	#morfessor_segments = ch_segmentations[n]
-	print "\nrec 3.5; ori_word =", ori_word, "; encoded_seg_str:", encoded_seg_str, "; encoded_word =", encoded_word
+	print "\nrec 3.5; ori_word =", format_string(ori_word), "; encoded_seg_str:", encoded_seg_str, "; encoded_word =", encoded_word
 	print "rec 3.6; morfessor segments:", morfessor_segments
 	temp_segments = []
 	print "rec 4; word_morphID_charIdx_dict[", ori_word, "] =", word_morphID_charIdx_dict[ori_word]
@@ -319,31 +319,31 @@ for n in range(len(ch_segmentations)):
 			try: 
 				int_ID = int(segment_element)
 				segment_element = int_ID
-				print "\trec 5.0*", "segment_element:", segment_element
+				#print "\trec 5.0*", "segment_element:", segment_element
 			except TypeError:
-				print "\t5.1",
+				#print "\t5.1",
 				indices = word_morphID_charIdx_dict[ori_word][segment_element]
 				index_bundle.extend(indices)
-				print "indices:", indices,
-				print "\t5.1.1", index_bundle
+				#print "indices:", indices,
+				#print "\t5.1.1", index_bundle
 			except ValueError:
 				print "\t5.2",
 				indices = word_morphID_charIdx_dict[ori_word][segment_element]
 				index_bundle.extend(indices)
-				print "indices:", indices,
-				print "\t5.2.1", index_bundle
+				#print "indices:", indices,
+				#print "\t5.2.1", index_bundle
 			else:
 				#print ">>> rec 5.5; morphID =", morphID
 				#try:
-				print "\t5.3",
+				#print "\t5.3",
 				#morphIDs = [pair[1] for pair in word_morphID_charIdx_dict[ori_word].items()]
 				#print "\tmorphIDs:", morphIDs
 				indices = word_morphID_charIdx_dict[ori_word][segment_element]
 				#except KeyError: indices = word_morphID_charIdx_dict[ori_word][unicode(morphID)]
-				print "indices:", indices,
+				#print "indices:", indices,
 			index_bundle.extend(indices)
-			print ""
-			print "\t5.3.1 index_bundle", index_bundle
+			#print ""
+			#print "\t5.3.1 index_bundle", index_bundle
 		index_set = set(index_bundle)
 		index_bundle = list(index_set)
 		print "\tWORKING IDX BUNDLE:", index_bundle,
@@ -352,7 +352,7 @@ for n in range(len(ch_segmentations)):
 		#for morphID in morphIDs:
 		#index_bundles[ori_word] = process_index_bundles(morphIDs, 
 		#index_bundles[ori_word] = word_morphID_charIdx_dict[ori_word], ori_word)
-		print "rec 6; index bundles in", ori_word, ":", super_bundles
+		print "rec 6; index bundles in", format_string(ori_word), ":", super_bundles
 		#for index_bundle in index_bundles[ori_word]:
 	for index_bundle in super_bundles:
 		print "rec 7 ... Assembling segment ... ",
@@ -373,9 +373,10 @@ for n in range(len(ch_segmentations)):
 				segment += letter
 			print segment,
 		print ""
-		print "\n\n", ">><<>><<  ori_word:", ori_word, " ; encoded_word:", encoded_word, "\n\n"
+		print "\n >><<>><<  ori_word:", format_string(ori_word), " ; encoded_word:", encoded_word, "\n"
 		temp_segments.append(segment)
 	segments_str = " + ".join(temp_segments)
+	print format_string(segments_str), "\n\n"
 	decoded_segmentations[ori_word]	= segments_str
 
 fobj = codecs.open(outFileName, 'w', encoding='utf8')

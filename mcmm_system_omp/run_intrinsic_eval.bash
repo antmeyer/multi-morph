@@ -9,8 +9,8 @@ BERMAN_PREFIX=/Users/anthonymeyer/Development/multimorph/eval_central/
 EVAL_RESULTS_PREFIX=/Users/anthonymeyer/Development/multimorph/eval_central/
 #BERMAN_PREFIX="../eval_central/"
 #declare -a TYPES=("${NUMBERS[@]}")
-declare -a TYPES=(O)
-declare -a NUMBERS=(1000)
+declare -a TYPES=(TS TR O)
+declare -a NUMBERS=(1000 500)
 
 #declare -a NUMBERS=(${2}${users[@]}")
 TIME=`eval date +"%y%m%d_%H-%M"`
@@ -42,9 +42,9 @@ for NUM in ${NUMBERS[@]}; do
 			ROOTNAME=`echo "$FILE" | cut -d '.' -f1`
 			BASENAME=`echo "$WHOLENAME" | cut -d '.' -f1`
 			SUFFIX=`echo "$WHOLENAME" | cut -d '.' -f2`
-			if [ "${BASENAME}" != "1_3_K1000_N11166_basic_181104_15-26_k-1000" ]; then
-				continue
-			fi
+			# if [ "${BASENAME}" != "1_3_K1000_N11166_basic_181104_15-26_k-1000" ]; then
+			# 	continue
+			# fi
 			if [ "${SUFFIX}" == clusters_justWords ]; then
 				echo ""
 				echo ""
@@ -64,12 +64,14 @@ for NUM in ${NUMBERS[@]}; do
 				if [ ! -d "${EVAL_DIR}" ]; then
 					mkdir "${EVAL_DIR}"
 				fi
-				echo "to clustering"
+				#echo "to clustering"
 				# bermanAnalysesFile = sys.argv[1]
 				# clustersFile = sys.argv[2]
 				# clusterActivitiesFile = sys.argv[3]
 				# #outFilePath = sys.argv[3]
 				# outFilePath = sys.argv[4]
+				echo "FILE: $FILE"
+				echo "CLUSTERS FILE: ${ROOTNAME}.clusters"
 				python clustering_eval.py "${BERMAN_PREFIX}${BERMAN_FILE}" "${FILE}" "${ROOTNAME}.clusters" "${EVAL_DIR}${BASENAME}.intr_eval" >> "${TABLE_PATH}"
 			fi
 		done
